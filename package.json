@@ -2,14 +2,13 @@
   "name": "war-support-sprijin-de-urgenta-client",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export",
-    "gc": "node ./generate_component"
+    "gc": "node ./generate_component/index.js"
   },
   "dependencies": {
     "next": "12.1.0",
