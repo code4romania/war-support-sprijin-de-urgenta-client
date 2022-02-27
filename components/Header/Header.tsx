@@ -35,7 +35,13 @@ const Header = ({}: IHeaderProps) => {
           </a>
         </div>
       </div>
-      <div className={`${flexItemsCenter} justify-between h-14 py-[3px] mt-3`}>
+      <div
+        className={`${flexItemsCenter} ${clsx(
+          'justify-between',
+          'py-4',
+          'border-b border-gray-300'
+        )}`}
+      >
         <div className={`${flexItemsCenter}`}>
           <div
             className={clsx('rounded-full w-[50px] h-[50px] bg-[#004aad]')}
