@@ -1,13 +1,9 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 
-export interface IHeaderProps {
-  defaultProp: string
-}
-
 const flexItemsCenter: string = clsx('flex items-center')
 
-const Header = ({}: IHeaderProps) => {
+const Header = () => {
   return (
     <div className={clsx('container', 'bg-gray-100 ', 'px-2 py-3 mx-auto')}>
       <div className={`${flexItemsCenter} ml-2`}>
