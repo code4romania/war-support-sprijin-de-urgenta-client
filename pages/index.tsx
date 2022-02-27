@@ -1,5 +1,5 @@
-import type { NextPage } from 'next'
-import clsx from 'clsx'
+import type { NextPage } from 'next';
+import clsx from 'clsx';
 
 const Home: NextPage = () => {
   return (
