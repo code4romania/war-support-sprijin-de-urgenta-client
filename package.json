@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export",
+    "gc": "node ./generate_component/index.js"
   },
   "dependencies": {
     "next": "12.1.0",
