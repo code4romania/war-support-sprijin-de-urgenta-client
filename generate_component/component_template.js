@@ -1,5 +1,5 @@
 // component.js
-exports.component = name => `
+export const component = name => `
 export default function ${name}() {
   return (
     <div>
@@ -10,6 +10,6 @@ export default function ${name}() {
 `;
 
 // index.js
-exports.barrel = name => `import ${name} from './${name}';
+export const barrel = name => `import ${name} from './${name}';
 export default ${name};
-`;s
+`;
