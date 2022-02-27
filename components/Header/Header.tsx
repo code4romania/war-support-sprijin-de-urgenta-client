@@ -4,7 +4,7 @@ export default function Header() {
       <div className="bg-gray-100">
         <div className="container flex items-center py-3">
           <svg
-            className="fill-current h-6"
+            className="h-6 fill-current"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 400 121.9"
           >
