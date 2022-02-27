@@ -1,7 +1,7 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   return (
     <div>
       <div className="bg-gray-100">

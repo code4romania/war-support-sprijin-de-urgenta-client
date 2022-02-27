@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import type { NextPage } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Home: NextPage = () => {
   return (
@@ -16,12 +15,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
-
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-      // Will be passed to the page component as props
-    },
-  };
-}
