@@ -1,10 +1,8 @@
+import Layout from '@/components/Layout'
+import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
 import { FC } from 'react'
-
-import Layout from '@/components/Layout'
-
 import { withStore } from '../store'
-
 import '../styles/globals.css'
 
 const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => (
@@ -12,4 +10,4 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => (
     <Component {...pageProps} />
   </Layout>
 )
-export default withStore(WrappedApp)
+export default withStore(appWithTranslation(WrappedApp));
