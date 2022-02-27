@@ -1,7 +1,7 @@
-import {Action} from "redux";
+import {Action, AnyAction} from "redux";
 
 const initialState = {}
 
-export const user = (state = initialState, action: Action) => {
-    return state
+export const user = (state = initialState, action: AnyAction) => {
+  return state
 }

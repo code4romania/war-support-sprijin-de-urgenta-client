@@ -1,15 +1,9 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { initStore } from '../store'
-import { Provider } from 'react-redux'
+import { FC } from 'react'
+import { appWithTranslation } from 'next-i18next'
+import { withStore } from '../store'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Provider store={initStore()}>
-        <Component {...pageProps} />
-      </Provider>
-    </>
-  )
-}
-export default MyApp
+const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => (
+  <Component {...pageProps} />
+)
+export default withStore(appWithTranslation(WrappedApp))

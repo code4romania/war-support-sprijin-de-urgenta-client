@@ -1,5 +1,5 @@
-.idea/
-.vscode/
+.idea
+.vscode
 # dependencies
 /node_modules
 /.pnp
