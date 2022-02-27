@@ -18,9 +18,9 @@ function writeFileErrorHandler(err) {
 }
 
 // component.tsx
-writeFile(`${dir}/${name}.js`, component(name), writeFileErrorHandler);
+writeFile(`${dir}/${name}.tsx`, component(name), writeFileErrorHandler);
 // index.tsx
-writeFile(`${dir}/index.js`, barrel(name), writeFileErrorHandler);
+writeFile(`${dir}/index.tsx`, barrel(name), writeFileErrorHandler);
 
 ////////////////
 /// Optional ///
