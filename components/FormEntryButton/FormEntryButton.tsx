@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Link from "next/link";
 
 export interface IFormEntryButtonProps {
@@ -7,9 +8,11 @@ export interface IFormEntryButtonProps {
 
 const FormEntryButton = ({ text, route }: IFormEntryButtonProps) => {
   return (
-    <Link href={route}>
-      <div className='cursor-pointer bg-sky-500 rounded md px-12 py-7 flex justify-center'>
-        <span className='text-2xl font-semibold text-white'>
+    <Link href={route} passHref>
+      <div className={clsx('cursor-pointer rounded md px-12 py-7 flex justify-center',
+        'bg-blue-900 text-white',
+        'hover:bg-blue-100 hover:text-black')}>
+        <span className='text-2xl font-semibold'>
           {text}
         </span>
       </div>
