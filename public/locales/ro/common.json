@@ -1,5 +1,12 @@
 {
   "en": "English",
   "ro": "Romanian",
-  "ua": "Ukraine"
+  "ua": "Ukraine",
+  "homepage.title": "Centralizare oferte asistență umanitară",
+  "homepage.subtitle": "Prin completarea acestui formular vei contribui la o coordonare eficientă a tuturor resurselor oferite.",
+  "wanna.help": "Vreau să ajut cu:",
+  "housing": "Cazare",
+  "products": "Produse",
+  "services": "Servicii",
+  "others": "Altele"
 }
