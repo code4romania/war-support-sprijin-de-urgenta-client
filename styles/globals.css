@@ -12,6 +12,7 @@
 input[type="checkbox"], input[type="radio"] {
   appearance: none;
   height: 13px;
+  margin-right: 0.5em;
 }
 
 input[type="checkbox"]:before, input[type="radio"]:before {
@@ -22,7 +23,6 @@ input[type="checkbox"]:before, input[type="radio"]:before {
   border: 1px solid #D1D5DB;
   border-radius: 4px;
   transition: 0.1s ease background-color;
-  margin-right: 0.5em;
 }
 
 input[type="checkbox"]:checked:before {
