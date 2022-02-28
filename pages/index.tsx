@@ -2,9 +2,6 @@ import Button from '@/components/Button'
 import clsx from 'clsx'
 import type { NextPage } from 'next'
 import { useTranslation } from 'react-i18next'
-import Date from "@/components/Form/Date";
-import Number from "@/components/Form/Number";
-import SignupVolunteering from "@/components/SignupVolunteering";
 
 const HomePage: NextPage = () => {
   const { t } = useTranslation()

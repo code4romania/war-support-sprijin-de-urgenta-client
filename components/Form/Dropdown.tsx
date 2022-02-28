@@ -1,6 +1,7 @@
 import { forwardRef, InputHTMLAttributes } from "react";
 import { ErrorOption } from "react-hook-form";
 import clsx from "clsx";
+import {ElementWrapper, Label} from "@/components/Form/common";
 
 interface IProps extends InputHTMLAttributes<HTMLSelectElement>{
   name: string;
@@ -29,14 +30,11 @@ const Dropdown = forwardRef<HTMLSelectElement, IProps>(({
   ...rest
 }, ref) => {
   return (
-    <div className={clsx("mb4", {'pb-5': !errors })}>
+    <ElementWrapper hasError={!!errors}>
       {label && (
-        <label
-          className={clsx('block text-base font-semibold text-gray-700')}
-          htmlFor={name}
-        >
+        <Label name={name} hasError={!!errors}>
           {label}
-        </label>
+        </Label>
       )}
 
       <div className="flex relative">
@@ -46,14 +44,17 @@ const Dropdown = forwardRef<HTMLSelectElement, IProps>(({
           className={clsx(
             'block w-full h-10 mt-1',
             'border border-gray-100 rounded-md',
-            'px-2 py-1.5'
+            'px-2 py-1.5',
+            {'border-red-50 border-2': errors }
           )}
           {...rest}
         >
           {children}
         </select>
       </div>
-    </div>
+
+      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
+    </ElementWrapper>
   )
 });
 
