@@ -18,6 +18,11 @@
   "login.forgotPass": "Ai uitat parola?",
   "partenership.with": "Un proiect in parteneriat cu ",
   "validation.required": "Campul este obligatoriu",
+  "steps.userType": "Tip utilizator",
+  "steps.userData": "Date utilizator",
+  "steps.resources": "Resurse oferite",
+  "steps.forward": "Pasul urmator",
+  "steps.backward": "Pasul anterior"
   "created.by": "Realizat de"
   "validation.required": "Câmpul este obligatoriu",
   "signup.volunteering.header": "Voluntariat",
