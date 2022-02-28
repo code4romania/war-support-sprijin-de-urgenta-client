@@ -17,5 +17,15 @@
   "login.passwordLabel": "Parola",
   "login.forgotPass": "Ai uitat parola?",
   "partenership.with": "Un proiect in parteneriat cu ",
-  "validation.required": "Campul este obligatoriu"
+  "validation.required": "Câmpul este obligatoriu",
+  "signup.volunteering.header": "Voluntariat",
+  "signup.volunteering.psychologist": "Psiholog",
+  "signup.volunteering.medic": "Medic",
+  "signup.volunteering.nurse": "Asistent Medical",
+  "signup.volunteering.lawyer": "Avocat",
+  "signup.volunteering.cook": "Bucătar",
+  "signup.volunteering.manager": "Organizare",
+  "signup.volunteering.translator": "Translator",
+  "signup.volunteering.other": "Altele:",
+  "signup.volunteering.description": "Vă rog să descrieți, pe scurt, experiența în domeniu:"
 }
