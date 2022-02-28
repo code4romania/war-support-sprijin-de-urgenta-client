@@ -16,6 +16,19 @@ const PARTNERSHIPS = [
   },
 ]
 
+const PARTNERSHIPS = [
+  {
+    id: 1,
+    src: '/gov_ro.svg',
+    alt: 'Romanian GOV Logo',
+  },
+  {
+    id: 2,
+    src: '/DSU_logo.png',
+    alt: 'DSU Logo',
+  },
+]
+
 const flexItemsCenter: string = clsx('flex items-center')
 const smallBoldTextWithGrayAndMarginAside: string = clsx(
   'text-sm font-bold text-gray-300  mx-4'
@@ -27,9 +40,11 @@ const Header = () => {
     <div className={clsx('w-full px-2 mx-auto')}>
       <div className=" bg-gray-50">
         <div
-          className={`${flexItemsCenter} py-3 max-w-[1350px] w-[90%] mx-auto`}
+          className={`${flexItemsCenter} 
+          ${clsx('py-1 md:py-3')} 
+          ${clsx('max-w-[1350px] w-[90%] mx-auto')}`}
         >
-          <div className="relative max-w-[90px]">
+          <div className="max-w-[90px]">
             <Image src={'/code_logo.svg'} alt="Code 4 Romania logo" />
           </div>
           <div className="ml-6 text-sm font-medium text-gray-700">
