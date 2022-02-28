@@ -2,5 +2,15 @@
   "en": "English",
   "ro": "Romanian",
   "ua": "Ukrainian",
-  "validation.required": "Field is required"
+  "validation.required": "Field is required",
+  "signup.volunteering.header": "Volunteering",
+  "signup.volunteering.psychologist": "Psychologist",
+  "signup.volunteering.medic": "Medic",
+  "signup.volunteering.nurse": "Nurse",
+  "signup.volunteering.lawyer": "Lawyer",
+  "signup.volunteering.cook": "Cook",
+  "signup.volunteering.manager": "Management",
+  "signup.volunteering.translator": "Translator",
+  "signup.volunteering.other": "Others:",
+  "signup.volunteering.description": "Please provide a short description of your experience in the field:"
 }

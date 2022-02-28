@@ -32,5 +32,6 @@ const initStore = (initialState?: PreloadedState<State>) =>
 const { withRedux: withStore } = createWrapper<Store<State>>(
   () => initStore({ locale: 'ro' }),
   { debug: true }
-)
+);
+
 export { withStore }
