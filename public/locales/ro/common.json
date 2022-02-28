@@ -17,6 +17,8 @@
   "login.passwordLabel": "Parola",
   "login.forgotPass": "Ai uitat parola?",
   "partenership.with": "Un proiect in parteneriat cu ",
+  "validation.required": "Campul este obligatoriu",
+  "created.by": "Realizat de"
   "validation.required": "Câmpul este obligatoriu",
   "signup.volunteering.header": "Voluntariat",
   "signup.volunteering.psychologist": "Psiholog",

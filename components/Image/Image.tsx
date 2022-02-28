@@ -2,11 +2,12 @@
 export interface IImageProps {
   src: string
   alt?: string
+  className?: string
 }
 
-const Image = ({ src, alt }: IImageProps) => {
+const Image = ({ src, alt, className }: IImageProps) => {
   return (
-    <div className="leading-none">
+    <div className={`${className} leading-none`}>
       <img className="object-contain" src={src} alt={alt} />
     </div>
   )
