@@ -1,9 +1,11 @@
 import clsx from 'clsx'
 import Link from 'next/link'
+import {ButtonHTMLAttributes} from "react";
 
 export interface IButtonProps {
   text: string
   route?: string
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   variant?: 'primary' | 'secondary'
   size?: 'medium' | 'large'
 }
@@ -46,7 +48,7 @@ const ButtonInner = ({
   )
 }
 
-const Button = ({ text, route, variant, size, ...rest }: IButtonProps) => {
+const Button = ({ text, route, variant, size, type = 'button', ...rest }: IButtonProps) => {
   if (route) {
     return (
       <Link href={route} passHref>
@@ -56,7 +58,11 @@ const Button = ({ text, route, variant, size, ...rest }: IButtonProps) => {
       </Link>
     )
   }
-  return <ButtonInner text={text} variant={variant} size={size} {...rest} />
+  return (
+    <button type={type} className="w-full">
+      <ButtonInner text={text} variant={variant} size={size} {...rest} />
+    </button>
+  )
 }
 
 export default Button
