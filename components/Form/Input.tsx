@@ -12,22 +12,19 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
   label,
   value,
   name,
-  type= 'text',
+  type = 'text',
   errors,
   ...rest
 }, ref) => {
 
   return (
     <div className={clsx("mb4", {'pb-5': !errors })}>
-      {label && (
-        <label
-          className={clsx('block text-base font-semibold text-gray-700')}
-          htmlFor={name}
-        >
-          {label}
-        </label>
-
-      )}
+      <label
+        className={clsx('block text-base font-semibold text-gray-700')}
+        htmlFor={name}
+      >
+        {label}
+      </label>
 
       <input
         type={type}
