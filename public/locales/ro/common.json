@@ -16,5 +16,6 @@
   "login.userLabel": "Nume utilizator",
   "login.passwordLabel": "Parola",
   "login.forgotPass": "Ai uitat parola?",
+  "partenership.with": "Un proiect in parteneriat cu ",
   "validation.required": "Campul este obligatoriu"
 }
