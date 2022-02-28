@@ -7,6 +7,7 @@ import Textarea from "@/components/Form/Textarea";
 
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation();
+
   return (
     <div className={clsx('bg-blue-100 bg-opacity-50 rounded-md p-4')}>
       <h2 className="mb-8">{t('signup.volunteering.header')}</h2>
