@@ -11,9 +11,6 @@ export default {
 const Template: ComponentStory<typeof Textarea> = (args) => <Textarea {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  children: 'Textarea props'
-}
 
 export const WithLabel = Template.bind({});
 WithLabel.args = {
