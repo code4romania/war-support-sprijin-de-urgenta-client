@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { forwardRef, TextareaHTMLAttributes } from "react";
 import { ErrorOption } from "react-hook-form";
+import {ElementWrapper, Label} from "@/components/Form/common";
 
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
@@ -15,14 +16,11 @@ const Element = forwardRef<HTMLTextAreaElement, IProps>(({
   rows = 3,
 }, ref) => {
     return (
-      <div className={clsx('mb4')}>
+      <ElementWrapper hasError={!!errors}>
         {label && (
-          <label
-            className={clsx('block text-base font-semibold text-gray-700')}
-            htmlFor={name}
-          >
+          <Label name={name} hasError={!!errors}>
             {label}
-          </label>
+          </Label>
         )}
         <textarea
           name={name}
@@ -38,7 +36,7 @@ const Element = forwardRef<HTMLTextAreaElement, IProps>(({
         />
 
         {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
-      </div>
+      </ElementWrapper>
     )
   }
 );
