@@ -36,4 +36,6 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   );
 }
 
+Element.displayName = 'Checkbox';
+
 export default Element;

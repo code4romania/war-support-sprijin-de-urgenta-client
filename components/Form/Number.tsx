@@ -1,6 +1,6 @@
-import { forwardRef, InputHTMLAttributes } from "react";
+import {forwardRef, InputHTMLAttributes} from "react";
+import {ErrorOption} from "react-hook-form";
 import clsx from "clsx";
-import { ErrorOption } from "react-hook-form";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement>{
   name: string;
@@ -9,14 +9,12 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement>{
 }
 
 const Element = forwardRef<HTMLInputElement, IProps>(({
-  label,
-  value,
   name,
-  type = 'text',
+  label,
   errors,
+  value,
   ...rest
 }, ref) => {
-
   return (
     <div
       className={clsx("mb4", {'pb-5': !errors })}
@@ -31,7 +29,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
       )}
 
       <input
-        type={type}
+        type="number"
         name={name}
         id={name}
         value={value}
@@ -45,11 +43,10 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
         )}
         {...rest}
       />
-      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
     </div>
   );
 });
 
-Element.displayName = 'Input';
+Element.displayName = 'Number';
 
 export default Element;

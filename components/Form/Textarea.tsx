@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import {forwardRef, TextareaHTMLAttributes} from "react";
-import {ErrorOption} from "react-hook-form";
+import { forwardRef, TextareaHTMLAttributes } from "react";
+import { ErrorOption } from "react-hook-form";
 
 interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
@@ -8,8 +8,7 @@ interface IProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   errors?: ErrorOption;
 }
 
-// eslint-disable-next-line react/display-name
-const Textarea = forwardRef<HTMLTextAreaElement, IProps>(({
+const Element = forwardRef<HTMLTextAreaElement, IProps>(({
   name,
   label,
   errors,
@@ -44,4 +43,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, IProps>(({
   }
 );
 
-export default Textarea;
+Element.displayName = 'Textarea';
+
+export default Element;
