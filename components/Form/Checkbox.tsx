@@ -5,6 +5,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   name,
   children,
   value,
+  ...rest
 }) => {
   return (
     <div
@@ -16,13 +17,14 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
         id={`${name}_${value}`}
         value={value}
         className={clsx(
-          'appearance-none mr-2',
+          'appearance-none mr-2 bg-white',
           'before:content-[" "] before:block',
           'w-4 h-4',
           'border-gray-100 border-2 rounded-sm',
           'checked:border-blue-600 checked:bg-blue-600',
           'checked:bg-checkbox-selected bg-center bg-no-repeat',
         )}
+        {...rest}
       />
       <label
         htmlFor={`${name}_${value}`}
@@ -35,5 +37,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
     </div>
   );
 }
+
+Element.displayName = 'Checkbox';
 
 export default Element;

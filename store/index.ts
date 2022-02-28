@@ -34,5 +34,6 @@ const initStore = (initialState?: PreloadedState<State>) =>
 const { withRedux: withStore } = createWrapper<Store<State>>(
   () => initStore({ locale: 'ro', steps: defaultStepsState }),
   { debug: true }
-)
+);
+
 export { withStore }

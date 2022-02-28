@@ -1,10 +1,11 @@
-import {FC, InputHTMLAttributes} from "react";
+import { FC, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
 const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   name,
   children,
   value,
+  ...rest
 }) => {
   return (
     <div
@@ -23,6 +24,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
           'checked:border-blue-600 checked:bg-blue-600',
           'checked:bg-radio-selected bg-center bg-no-repeat',
         )}
+        {...rest}
       />
       <label
         htmlFor={`${name}_${value}`}
@@ -35,5 +37,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
     </div>
   );
 }
+
+Element.displayName = 'Radio';
 
 export default Element;
