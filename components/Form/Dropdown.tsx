@@ -26,6 +26,7 @@ const Dropdown = forwardRef<HTMLSelectElement, IProps>(({
   errors,
   label,
   children,
+  ...rest
 }, ref) => {
   return (
     <div className={clsx("mb4", {'pb-5': !errors })}>
@@ -47,6 +48,7 @@ const Dropdown = forwardRef<HTMLSelectElement, IProps>(({
             'border border-gray-100 rounded-md',
             'px-2 py-1.5'
           )}
+          {...rest}
         >
           {children}
         </select>
