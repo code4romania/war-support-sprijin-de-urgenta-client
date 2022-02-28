@@ -16,19 +16,6 @@ const PARTNERSHIPS = [
   },
 ]
 
-const PARTNERSHIPS = [
-  {
-    id: 1,
-    src: '/gov_ro.svg',
-    alt: 'Romanian GOV Logo',
-  },
-  {
-    id: 2,
-    src: '/DSU_logo.png',
-    alt: 'DSU Logo',
-  },
-]
-
 const flexItemsCenter: string = clsx('flex items-center')
 const smallBoldTextWithGrayAndMarginAside: string = clsx(
   'text-sm font-bold text-gray-300  mx-4'
