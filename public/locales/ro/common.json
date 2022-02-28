@@ -11,5 +11,10 @@
     "others": "Altele",
     "findout.more": "Află mai multe",
     "solution.by": "O soluție Code for Romania.",
+    "login.submit": "Login",
+    "login.signUp": "Creeaza cont",
+    "login.userLabel": "Nume utilizator",
+    "login.passwordLabel": "Parola",
+    "login.forgotPass": "Ai uitat parola?",
     "partenership.with": "Un proiect in parteneriat cu "
 }
