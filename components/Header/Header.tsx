@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
 
 const flexItemsCenter: string = clsx('flex items-center')
 
 const Header = () => {
+  const { t } = useTranslation('common')
   return (
-    <div className={clsx('container', 'bg-gray-100 ', 'px-2 py-3 mx-auto')}>
+    <div className={clsx('container', 'bg-gray-50 ', 'px-2 py-3 mx-auto')}>
       <div className={`${flexItemsCenter} ml-2`}>
         <div className="relative min-w-[90px]">
           <Image
@@ -18,14 +20,14 @@ const Header = () => {
           />
         </div>
         <div className="ml-6 text-sm font-medium text-gray-700">
-          <span>O soluție Code for Romania.</span>
+          <span>{t('solution.by')}</span>
           <a
             href="https://www.code4.ro/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline whitespace-nowrap"
           >
-            {' Află mai multe. '}
+            {` ${t('findout.more')}`}
           </a>
         </div>
       </div>
@@ -54,8 +56,8 @@ const Header = () => {
         </select>
       </div>
       <div className={`${flexItemsCenter} justify-end py-[3px] mt-3`}>
-        <span className="text-gray-300 font-bold text-sm">
-          Un proiect in parteneriat cu{' '}
+        <span className="text-sm font-bold text-gray-300">
+          {t('partenership.with')}
         </span>
         <div className="relative min-w-[180px] ml-3">
           <Image
