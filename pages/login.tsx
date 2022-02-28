@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Button from '@/components/Button'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
-import Input from '../components/Form/Input';
+import Input from '@/components/Form/Input';
 import { useForm } from "react-hook-form";
 import { useMemo } from "react";
 

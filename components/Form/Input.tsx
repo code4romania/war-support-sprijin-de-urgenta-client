@@ -1,10 +1,11 @@
 import { forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
-import {ErrorOption} from "react-hook-form";
+import { ErrorOption } from "react-hook-form";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement>{
+  name: string;
   label: string;
-  errors: ErrorOption,
+  errors: ErrorOption;
 }
 
 // eslint-disable-next-line react/display-name
