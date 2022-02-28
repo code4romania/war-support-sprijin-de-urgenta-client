@@ -63,7 +63,7 @@ const Header = () => {
       </div>
       <div className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3`}>
         <span className="text-sm font-bold text-gray-300">
-          Un proiect in parteneriat cu{' '}
+          {t('partenership.with')}
         </span>
         <div className="relative w-full max-w-[120px] md:max-w-[180px] ml-3">
           <Image
