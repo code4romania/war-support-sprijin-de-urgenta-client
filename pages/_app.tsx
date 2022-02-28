@@ -14,6 +14,7 @@ i18n
   .init({
     interpolation: { escapeValue: false },
     lng: 'ro',
+    defaultNS: 'common',
     resources: {
       en: { common: common_en },
       ro: { common: common_ro },
