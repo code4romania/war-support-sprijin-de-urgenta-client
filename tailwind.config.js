@@ -25,6 +25,15 @@ module.exports = {
       },
       white: '#FFFFFF',
       black: '#000000',
+      red: {
+        50: '#BB0000',
+      },
+      green: {
+        50: '#00A542',
+      },
+      yellow: {
+        50: '#FFBA0A'
+      }
     },
     extend: {
       fontFamily: {

@@ -40,10 +40,11 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
           'px-3 py-2',
           'border border-gray-100 rounded-md',
           'focus:ring-blue-600 focus:border-blue-600 focus:border-2 focus:outline-none',
+          {'border-red-50 border-2': errors }
         )}
         {...rest}
       />
-      {errors && <p className="text-sm pl-1 pr-1">{errors.message}</p>}
+      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
     </div>
   );
 })
