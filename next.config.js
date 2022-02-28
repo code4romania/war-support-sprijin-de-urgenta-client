@@ -26,3 +26,6 @@ const config = withPlugins(
 );
 
 module.exports = config;
+module.exports = {
+  trailingSlash: true
+}
