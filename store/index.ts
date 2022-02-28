@@ -28,7 +28,7 @@ const reducers = combineReducers({
   steps,
 })
 
-const initStore = (initialState?: PreloadedState<State>) =>
+export const initStore = (initialState?: PreloadedState<State>) =>
   createStore(reducers, initialState, withMiddlewares([thunkMiddleware]))
 
 const { withRedux: withStore } = createWrapper<Store<State>>(
