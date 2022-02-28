@@ -39,6 +39,10 @@ module.exports = {
       fontFamily: {
         sans: ['Titillium Web', ...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: {
+        'checkbox-selected': 'url("/icons/checkbox_selected.svg")',
+        'radio-selected': 'url("/icons/radio_selected.svg")',
+      }
     },
     plugins: [require('@tailwindcss/forms')],
   },
