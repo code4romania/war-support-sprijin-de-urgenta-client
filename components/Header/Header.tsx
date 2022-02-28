@@ -4,7 +4,7 @@ export default function Header() {
   const { t } = useTranslation('common');
   return (
     <div>
-      <div className="bg-gray-100">
+      <div className="bg-gray-50">
         <div className="container flex items-center py-3">
           <svg
             className="h-6 fill-current"
@@ -26,7 +26,7 @@ export default function Header() {
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline whitespace-nowrap"
             >
-              {`${t('findout.more')}' '`}
+              {` ${t('findout.more')}`}
             </a>
           </div>
         </div>

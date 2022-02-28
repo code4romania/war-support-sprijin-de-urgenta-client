@@ -1,4 +1,4 @@
-import FormEntryButton from '@/components/FormEntryButton'
+import Button from '@/components/Button'
 import clsx from 'clsx'
 import type { NextPage } from 'next'
 import { useTranslation } from 'react-i18next'
@@ -16,10 +16,10 @@ const HomePage: NextPage = () => {
       <div>
         <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
         <div className={clsx('grid grid-cols-2 gap-8')}>
-          <FormEntryButton text={t('housing')} route="/cazare" />
-          <FormEntryButton text={t('products')} route="/produse" />
-          <FormEntryButton text={t('services')} route="/servicii" />
-          <FormEntryButton text={t('others')} route="/altele" />
+          <Button text={t('housing')} route="/cazare" />
+          <Button text={t('products')} route="/produse" />
+          <Button text={t('services')} route="/servicii" />
+          <Button text={t('others')} route="/altele" />
         </div>
       </div>
     </main>
