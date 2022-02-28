@@ -4,6 +4,7 @@ import type { NextPage } from 'next'
 import { useTranslation } from 'react-i18next'
 import Date from "@/components/Form/Date";
 import Number from "@/components/Form/Number";
+import SignupVolunteering from "@/components/SignupVolunteering";
 
 const HomePage: NextPage = () => {
   const { t } = useTranslation()
@@ -15,8 +16,6 @@ const HomePage: NextPage = () => {
         </h1>
         <h2 className={clsx('max-w-lg text-xl')}>{t('homepage.subtitle')}</h2>
       </section>
-      <Date label="test" name="test" placeholder={"Date"}/>
-      <Number label="numar" name="qty" />
       <div>
         <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
         <div className={clsx('grid grid-cols-2 gap-8')}>

@@ -17,7 +17,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
         id={`${name}_${value}`}
         value={value}
         className={clsx(
-          'appearance-none mr-2',
+          'appearance-none mr-2 bg-white',
           'before:content-[" "] before:block',
           'w-4 h-4',
           'border-gray-100 border-2 rounded-sm',
