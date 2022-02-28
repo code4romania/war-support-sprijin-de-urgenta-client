@@ -81,7 +81,7 @@ const Header = () => {
             <Image key={id} src={src} alt={alt} className="h-[42px]" />
           ))}
         </div>
-        <span className={smallBoldTextWithGrayAndMarginAside}>
+        <span className={`${smallBoldTextWithGrayAndMarginAside} lowercase`}>
           {t('created.by')}
         </span>
         <Image
