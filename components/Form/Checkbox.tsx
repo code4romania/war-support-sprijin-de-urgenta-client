@@ -8,12 +8,12 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
 }) => {
   return (
     <div
-      className="flex items-center"
+      className="flex items-center mb-4"
     >
       <input
         type="checkbox"
         name={name}
-        id={name}
+        id={`${name}_${value}`}
         value={value}
         className={clsx(
           'appearance-none mr-2',
@@ -25,7 +25,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
         )}
       />
       <label
-        htmlFor={name}
+        htmlFor={`${name}_${value}`}
         className={clsx(
           'text-sm'
         )}

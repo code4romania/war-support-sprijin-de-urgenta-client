@@ -8,7 +8,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
 }) => {
   return (
     <div
-      className="flex items-center"
+      className="flex items-center mb-4"
     >
       <input
         type="radio"
