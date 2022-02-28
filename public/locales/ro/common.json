@@ -15,5 +15,6 @@
   "login.signUp": "Creeaza cont",
   "login.userLabel": "Nume utilizator",
   "login.passwordLabel": "Parola",
-  "login.forgotPass": "Ai uitat parola?"
+  "login.forgotPass": "Ai uitat parola?",
+  "validation.required": "Campul este obligatoriu"
 }

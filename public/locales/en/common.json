@@ -1,5 +1,6 @@
 {
   "en": "English",
   "ro": "Romanian",
-  "ua": "Ukrainian"
+  "ua": "Ukrainian",
+  "validation.required": "Field is required"
 }
