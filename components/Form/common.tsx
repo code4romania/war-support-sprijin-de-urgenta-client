@@ -9,7 +9,7 @@ interface IElementWrapperProps {
 export const ElementWrapper: FC<IElementWrapperProps> = ({
   hasError,
   children,
-  className= '',
+  className
 }) => {
   return (
     <div
