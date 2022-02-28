@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 const HomePage: NextPage = () => {
   const { t } = useTranslation()
   return (
-    <main className={clsx('layout', 'bg-gray-50', 'h-full')}>
+    <main className={clsx('layout h-full')}>
       <section className="mb-24">
         <h1 className={clsx('text-2xl font-bold mb-6')}>
           {t('homepage.title')}
