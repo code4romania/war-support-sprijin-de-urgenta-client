@@ -8,3 +8,44 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+input[type="checkbox"], input[type="radio"] {
+  appearance: none;
+  height: 13px;
+}
+
+input[type="checkbox"]:before, input[type="radio"]:before {
+  content: ' ';
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  transition: 0.1s ease background-color;
+  margin-right: 0.5em;
+}
+
+input[type="checkbox"]:checked:before {
+  background-color: #006AF5;
+  background-image: url('/icons/checkmark.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #006AF5;
+}
+
+input[type="radio"]:before {
+  border-radius: 16px;
+}
+
+input[type="radio"]:checked:before {
+  background-image: url('/icons/radio_selected.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #006AF5;
+  border: 1px solid #006AF5;
+}
+
+label {
+  font-size: 14px;
+  line-height: 1;
+}
