@@ -24,6 +24,7 @@ const Element = forwardRef<HTMLTextAreaElement, IProps>(({
         )}
         <textarea
           name={name}
+          id={name}
           rows={rows}
           className={clsx(
             'block w-full mt-1',
