@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
+import Image from '@/components/Image'
 
 const flexItemsCenter: string = clsx('flex items-center')
 
@@ -12,15 +12,8 @@ const Header = () => {
         <div
           className={`${flexItemsCenter} py-3 max-w-[1350px] w-[90%] mx-auto`}
         >
-          <div className="relative min-w-[90px]">
-            <Image
-              alt="Code 4 Romania logo"
-              src={'/code_logo.svg'}
-              layout="responsive"
-              width={306}
-              height={130}
-              objectFit="contain"
-            />
+          <div className="relative max-w-[90px]">
+            <Image src={'/code_logo.svg'} alt="Code 4 Romania logo" />
           </div>
           <div className="ml-6 text-sm font-medium text-gray-700">
             <span>{`${t('solution.by')} `}</span>
@@ -61,19 +54,14 @@ const Header = () => {
           </select>
         </div>
       </div>
-      <div className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3`}>
+      <div
+        className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3`}
+      >
         <span className="text-sm font-bold text-gray-300">
           {t('partenership.with')}
         </span>
-        <div className="relative w-full max-w-[120px] md:max-w-[180px] ml-3">
-          <Image
-            alt="DSU Logo"
-            src={'/DSU_logo.png'}
-            layout="responsive"
-            width={306}
-            height={130}
-            objectFit="contain"
-          />
+        <div className="w-full max-w-[120px] md:max-w-[180px]">
+          <Image src={'/DSU_logo.png'} alt="DSU Logo" />
         </div>
       </div>
     </div>
