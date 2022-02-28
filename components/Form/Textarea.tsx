@@ -14,6 +14,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, IProps>(({
   label,
   errors,
   rows = 3,
+  ...rest
 }, ref) => {
     return (
       <div className={clsx('mb4')}>
@@ -36,6 +37,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, IProps>(({
             {'border-red-50 border-2': errors }
           )}
           ref={ref}
+          {...rest}
         />
 
         {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}

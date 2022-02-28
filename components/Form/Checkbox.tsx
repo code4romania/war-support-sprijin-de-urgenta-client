@@ -5,6 +5,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   name,
   children,
   value,
+  ...rest
 }) => {
   return (
     <div
@@ -23,6 +24,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
           'checked:border-blue-600 checked:bg-blue-600',
           'checked:bg-checkbox-selected bg-center bg-no-repeat',
         )}
+        {...rest}
       />
       <label
         htmlFor={`${name}_${value}`}
