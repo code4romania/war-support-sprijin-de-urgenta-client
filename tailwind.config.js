@@ -16,17 +16,21 @@ module.exports = {
         900: '#004AAD',
       },
       gray: {
-        100: '##D1D5DB',
+        50: '#F3F4F6',
+        100: '#D1D5DB',
         300: '#B3B3B3',
         500: '#6B7280',
         700: '#374151',
         900: '#1F1F1F',
       },
+      white: '#FFFFFF',
+      black: '#000000',
     },
     extend: {
       fontFamily: {
         sans: ['Titillium Web', ...defaultTheme.fontFamily.sans],
       },
     },
+    plugins: [require('@tailwindcss/forms')],
   },
 }
