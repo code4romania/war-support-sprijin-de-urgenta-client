@@ -2,7 +2,23 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
 
+const PARTNERSHIPS = [
+  {
+    id: 1,
+    src: '/gov_ro.svg',
+    alt: 'Romanian GOV Logo',
+  },
+  {
+    id: 2,
+    src: '/DSU_logo.png',
+    alt: 'DSU Logo',
+  },
+]
+
 const flexItemsCenter: string = clsx('flex items-center')
+const smallBoldTextWithGrayAndMarginAside: string = clsx(
+  'text-sm font-bold text-gray-300  mx-4'
+)
 
 const Header = () => {
   const { t } = useTranslation('common')
@@ -57,12 +73,22 @@ const Header = () => {
       <div
         className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3`}
       >
-        <span className="text-sm font-bold text-gray-300">
+        <span className={smallBoldTextWithGrayAndMarginAside}>
           {t('partenership.with')}
         </span>
-        <div className="w-full max-w-[120px] md:max-w-[180px]">
-          <Image src={'/DSU_logo.png'} alt="DSU Logo" />
+        <div className="flex items-center">
+          {PARTNERSHIPS.map(({ id, src, alt }) => (
+            <Image key={id} src={src} alt={alt} className="h-[42px]" />
+          ))}
         </div>
+        <span className={smallBoldTextWithGrayAndMarginAside}>
+          {t('created.by')}
+        </span>
+        <Image
+          src={'/code_logo.svg'}
+          alt="Code 4 Romania logo"
+          className="h-[42px]"
+        />
       </div>
     </div>
   )

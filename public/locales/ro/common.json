@@ -17,5 +17,6 @@
   "login.passwordLabel": "Parola",
   "login.forgotPass": "Ai uitat parola?",
   "partenership.with": "Un proiect in parteneriat cu ",
-  "validation.required": "Campul este obligatoriu"
+  "validation.required": "Campul este obligatoriu",
+  "created.by": "Realizat de"
 }
