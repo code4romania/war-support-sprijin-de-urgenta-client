@@ -11,7 +11,6 @@ import { createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
 import { user } from './reducers/user'
 import { locale } from './reducers/locale'
-import { i18n } from '../next-i18next.config'
 
 const withMiddlewares = (middleware: Middleware[]) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -31,7 +30,7 @@ const initStore = (initialState?: PreloadedState<State>) =>
   createStore(reducers, initialState, withMiddlewares([thunkMiddleware]))
 
 const { withRedux: withStore } = createWrapper<Store<State>>(
-  () => initStore({ locale: i18n.defaultLocale }),
+  () => initStore({ locale: 'ro' }),
   { debug: true }
 )
 export { withStore }
