@@ -31,24 +31,22 @@ const Steps: NextPage = () => {
       <div className="mt-8 justify-start flex-wrap w-full flex justify-between md:justify-start">
         <div
           onClick={handleStepBackward}
-          className="flex items-center md:mr-10 md:w-44"
+          className="flex items-center md:mr-6 md:w-44"
         >
-          {activeStep !== 0 && (
-            //StepperButton has prop disabled
-            <StepperButton direction="backward">
-              {t('steps.backward')}
-            </StepperButton>
-          )}
+          <StepperButton disabled={activeStep === 0} direction="backward">
+            {t('steps.backward')}
+          </StepperButton>
         </div>
         <div
           onClick={handleStepForward}
-          className="flex items-center justify-end md:ml-10 md:w-44"
+          className="flex items-center justify-end md:ml-6 md:w-44"
         >
-          {activeStep !== steps.length - 1 && (
-            <StepperButton direction="forward">
-              {t('steps.forward')}
-            </StepperButton>
-          )}
+          <StepperButton
+            disabled={activeStep === steps.length - 1}
+            direction="forward"
+          >
+            {t('steps.forward')}
+          </StepperButton>
         </div>
       </div>
     </div>
