@@ -1,21 +1,29 @@
-import { FC, InputHTMLAttributes } from "react";
+import { FC, forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
+import { ErrorOption } from "react-hook-form";
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  label?: string;
+  errors?: ErrorOption;
+}
 
-const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+const Element = forwardRef<HTMLInputElement, IProps>(({
   name,
   children,
   value,
+  className,
   ...rest
-}) => {
+}, ref) => {
   return (
     <div
-      className="flex items-center mb-4"
+      className={clsx("flex items-center mb-4", className)}
     >
       <input
         type="checkbox"
         name={name}
         id={`${name}_${value}`}
         value={value}
+        ref={ref}
         className={clsx(
           'appearance-none mr-2',
           'before:content-[" "] before:block',
@@ -36,7 +44,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
       </label>
     </div>
   );
-}
+});
 
 Element.displayName = 'Checkbox';
 

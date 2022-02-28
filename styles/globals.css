@@ -1,10 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 .layout {
-  max-width: 72rem;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+    max-width: 72rem;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.horizontal-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.horizontal-label>* {
+    flex: 1;
 }

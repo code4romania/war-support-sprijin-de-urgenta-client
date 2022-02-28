@@ -3,15 +3,17 @@ import {FC} from "react";
 
 interface IElementWrapperProps {
   hasError?: boolean;
+  className?: string;
 }
 
 export const ElementWrapper: FC<IElementWrapperProps> = ({
   hasError,
-  children
+  children,
+  className
 }) => {
   return (
     <div
-      className={clsx("mb4", {'pb-5': !hasError })}
+      className={clsx("mb4", {'pb-5': !hasError }, className)}
     >
       {children}
     </div>

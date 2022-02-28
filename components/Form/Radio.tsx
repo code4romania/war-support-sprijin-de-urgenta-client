@@ -1,21 +1,30 @@
-import { FC, InputHTMLAttributes } from "react";
 import clsx from "clsx";
+import { forwardRef, InputHTMLAttributes } from "react";
+import { ErrorOption } from "react-hook-form";
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  label?: string;
+  errors?: ErrorOption;
+}
 
-const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+const Element = forwardRef<HTMLInputElement, IProps>(({
   name,
   children,
   value,
+  className,
+  errors,
   ...rest
-}) => {
+}, ref) => {
   return (
     <div
-      className="flex items-center mb-4"
+      className={clsx("flex items-center mb-4", className)}
     >
       <input
         type="radio"
         name={name}
         id={`${name}_${value}`}
         value={value}
+        ref={ref}
         className={clsx(
           'appearance-none mr-2',
           'w-4 h-4',
@@ -34,9 +43,10 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
       >
         {children}
       </label>
+      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
     </div>
   );
-}
+});
 
 Element.displayName = 'Radio';
 

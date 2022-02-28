@@ -10,6 +10,7 @@
     "gc": "node ./generate_component/index.js"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@types/yup": "^0.29.13",
     "clsx": "^1.1.1",
     "extracted-loader": "^1.0.7",
