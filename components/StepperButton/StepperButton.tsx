@@ -8,17 +8,17 @@ export interface Props {
   children: ReactNode
 }
 
-const StepsArrow = ({
-  direction,
-  disabled = false,
-  className,
-  children,
-}: Props) => {
+const StepsArrow = ({ direction, disabled = false, children }: Props) => {
   const svgOpacity = disabled ? '0.3' : '1'
 
   if (direction === 'backward')
     return (
-      <div className="justify-items-start flex items-center md:mr-10 cursor-pointer">
+      <div
+        className={clsx(
+          'justify-items-start flex items-center md:mr-10 cursor-pointer',
+          disabled && 'cursor-default'
+        )}
+      >
         <svg
           width="20"
           height="11"
