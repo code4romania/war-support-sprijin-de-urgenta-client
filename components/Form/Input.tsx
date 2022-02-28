@@ -4,8 +4,8 @@ import { ErrorOption } from "react-hook-form";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement>{
   name: string;
-  label: string;
-  errors: ErrorOption;
+  label?: string;
+  errors?: ErrorOption;
 }
 
 // eslint-disable-next-line react/display-name
@@ -20,12 +20,14 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
 
   return (
     <div className={clsx("mb4", {'pb-5': !errors })}>
-      <label
-        className={clsx('block text-base font-semibold text-gray-700')}
-        htmlFor={name}
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          className={clsx('block text-base font-semibold text-gray-700')}
+          htmlFor={name}
+        >
+          {label}
+        </label>
+      )}
 
       <input
         type={type}
