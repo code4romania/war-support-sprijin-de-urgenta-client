@@ -1,4 +1,4 @@
-import {FC, InputHTMLAttributes} from "react";
+import { FC, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
 const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
@@ -37,5 +37,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
     </div>
   );
 }
+
+Element.displayName = 'Radio';
 
 export default Element;
