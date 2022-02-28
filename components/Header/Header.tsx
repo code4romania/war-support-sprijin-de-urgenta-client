@@ -1,6 +1,20 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
+import LanguageSelector from "@/components/Header/LanguageSelector";
+
+const PARTNERSHIPS = [
+  {
+    id: 1,
+    src: '/gov_ro.svg',
+    alt: 'Romanian GOV Logo',
+  },
+  {
+    id: 2,
+    src: '/DSU_logo.png',
+    alt: 'DSU Logo',
+  },
+]
 
 const PARTNERSHIPS = [
   {
@@ -63,13 +77,7 @@ const Header = () => {
               <span className="underline">DE URGENTA</span>
             </div>
           </div>
-          {/* 
-          //TODO Add select form component from styleguide  
-          */}
-          <select name="locale" id="locale">
-            <option value="ro">RO</option>
-            <option value="en">EN</option>
-          </select>
+          <LanguageSelector />
         </div>
       </div>
       <div
