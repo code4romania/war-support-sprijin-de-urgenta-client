@@ -4,8 +4,8 @@ import { ErrorOption } from "react-hook-form";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement>{
   name: string;
-  label: string;
-  errors: ErrorOption;
+  label?: string;
+  errors?: ErrorOption;
 }
 
 // eslint-disable-next-line react/display-name
