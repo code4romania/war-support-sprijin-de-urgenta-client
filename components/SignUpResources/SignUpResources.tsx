@@ -1,9 +1,11 @@
+import { State } from '@/store/types/state.type'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 import Checkbox from '../Form/Checkbox'
-import Radio from '../Form/Radio'
+import SignUpServicesForm from '../SignUpServicesForm'
 
 interface ICategory {
   name: string
@@ -38,7 +40,7 @@ const CATEGORIES: ICategory[] = [
 // TODO - Add here component accordingly with the selection
 const resourceTypeBuilder = (id: number) => {
   const dictionary = {
-    1: () => <div>{'Services component'}</div>,
+    1: () => <SignUpServicesForm />,
     2: () => <div>{'Products component'}</div>,
     3: () => <div>{'Volunteer component'}</div>,
     4: () => <div>{'Others component'}</div>,
@@ -48,8 +50,10 @@ const resourceTypeBuilder = (id: number) => {
 }
 
 const SignUpResources = () => {
-  const [selectedResourceIds, setSelectedResourceIds] = useState([1])
   const { t } = useTranslation()
+  const defaultOffer = useSelector((state: State) => state.defaultOffer)
+
+  const [selectedResourceIds, setSelectedResourceIds] = useState([defaultOffer])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
@@ -65,25 +69,29 @@ const SignUpResources = () => {
     <div className="flex flex-col">
       <h3 className="mb-2">{t('signup.resources.offer')} *</h3>
       {CATEGORIES.map(({ id, translationKey }) => (
-        <Checkbox
-          onChange={(event) => handleChange(event)}
-          key={id}
-          name="resource"
-          value={id}
-          checked={selectedResourceIds.includes(id)}
-        >
-          {t(translationKey)}
-        </Checkbox>
-      ))}
-      {selectedResourceIds.map((id) => (
-        <div key={id} className={clsx('w-full')}>
-          {resourceTypeBuilder(id)}
+        <div key={id}>
+          <Checkbox
+            onChange={(event) => handleChange(event)}
+            name="resource"
+            value={id}
+            checked={selectedResourceIds.includes(id)}
+          >
+            {t(translationKey)}
+          </Checkbox>
         </div>
       ))}
+      {selectedResourceIds.length > 0 &&
+        selectedResourceIds
+          .sort((a, b) => a - b)
+          .map((id) => (
+            <div key={id} className={clsx('w-full')}>
+              {resourceTypeBuilder(id)}
+            </div>
+          ))}
 
       <div className={clsx('w-full lg:w-2/5', 'text-xs')}>
         <p className="py-3">{t('signup.resources.gdpr')}*</p>
-        <Checkbox>Da</Checkbox>
+        <Checkbox name="da">Da</Checkbox>
       </div>
     </div>
   )

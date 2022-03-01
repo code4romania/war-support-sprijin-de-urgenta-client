@@ -11,6 +11,7 @@ import { createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
 import { user } from './reducers/user'
 import { locale } from './reducers/locale'
+import { defaultOffer } from './reducers/signup'
 import { steps, defaultStepsState } from './reducers/steps'
 
 const withMiddlewares = (middleware: Middleware[]) => {
@@ -26,14 +27,15 @@ const reducers = combineReducers({
   locale,
   user,
   steps,
+  defaultOffer,
 })
 
 export const initStore = (initialState?: PreloadedState<State>) =>
   createStore(reducers, initialState, withMiddlewares([thunkMiddleware]))
 
 const { withRedux: withStore } = createWrapper<Store<State>>(
-  () => initStore({ locale: 'ro', steps: defaultStepsState }),
+  () => initStore({ defaultOffer: 1, locale: 'ro', steps: defaultStepsState }),
   { debug: true }
-);
+)
 
 export { withStore }
