@@ -1,8 +1,25 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
+import LanguageSelector from "@/components/Header/LanguageSelector";
+
+const PARTNERSHIPS = [
+  {
+    id: 1,
+    src: '/gov_ro.svg',
+    alt: 'Romanian GOV Logo',
+  },
+  {
+    id: 2,
+    src: '/DSU_logo.png',
+    alt: 'DSU Logo',
+  },
+]
 
 const flexItemsCenter: string = clsx('flex items-center')
+const smallBoldTextWithGrayAndMarginAside: string = clsx(
+  'text-sm font-bold text-gray-300  mx-4'
+)
 
 const Header = () => {
   const { t } = useTranslation('common')
@@ -10,9 +27,11 @@ const Header = () => {
     <div className={clsx('w-full px-2 mx-auto')}>
       <div className=" bg-gray-50">
         <div
-          className={`${flexItemsCenter} py-3 max-w-[1350px] w-[90%] mx-auto`}
+          className={`${flexItemsCenter} 
+          ${clsx('py-1 md:py-3')} 
+          ${clsx('max-w-[1350px] w-[90%] mx-auto')}`}
         >
-          <div className="relative max-w-[90px]">
+          <div className="max-w-[90px]">
             <Image src={'/code_logo.svg'} alt="Code 4 Romania logo" />
           </div>
           <div className="ml-6 text-sm font-medium text-gray-700">
@@ -45,24 +64,28 @@ const Header = () => {
               <span className="underline">DE URGENTA</span>
             </div>
           </div>
-          {/* 
-          //TODO Add select form component from styleguide  
-          */}
-          <select name="locale" id="locale">
-            <option value="ro">RO</option>
-            <option value="en">EN</option>
-          </select>
+          <LanguageSelector />
         </div>
       </div>
       <div
         className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3`}
       >
-        <span className="text-sm font-bold text-gray-300">
+        <span className={smallBoldTextWithGrayAndMarginAside}>
           {t('partenership.with')}
         </span>
-        <div className="w-full max-w-[120px] md:max-w-[180px]">
-          <Image src={'/DSU_logo.png'} alt="DSU Logo" />
+        <div className="flex items-center">
+          {PARTNERSHIPS.map(({ id, src, alt }) => (
+            <Image key={id} src={src} alt={alt} className="h-[42px]" />
+          ))}
         </div>
+        <span className={`${smallBoldTextWithGrayAndMarginAside} lowercase`}>
+          {t('created.by')}
+        </span>
+        <Image
+          src={'/code_logo.svg'}
+          alt="Code 4 Romania logo"
+          className="h-[42px]"
+        />
       </div>
     </div>
   )

@@ -25,7 +25,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
         value={value}
         ref={ref}
         className={clsx(
-          'appearance-none mr-2',
+          'appearance-none mr-2 bg-white',
           'before:content-[" "] before:block',
           'w-4 h-4',
           'border-gray-100 border-2 rounded-sm',
