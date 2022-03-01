@@ -1,5 +1,3 @@
-import { ReactNode } from 'react'
-
 export enum UserComponentType {
   userType = 'User Type',
   userData = 'User Data',

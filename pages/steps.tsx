@@ -2,11 +2,11 @@ import type { NextPage } from 'next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import StepperButton from '@/components/StepperButton'
-import { State } from 'store/types/state.type'
-import { ActionType } from 'store/reducers/steps'
+import { State } from '@/store/types/state.type'
+import { ActionType } from '@/store/reducers/steps'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
-import { UserComponentType } from 'store/reducers/steps/types'
+import { UserComponentType } from '@/store/reducers/steps/types'
 
 const Steps: NextPage = () => {
   const { t } = useTranslation()
@@ -28,7 +28,7 @@ const Steps: NextPage = () => {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
       break;
-  
+
     default:
       currentComponent = <div></div>
       break;
