@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
-import LanguageSelector from "@/components/Header/LanguageSelector";
+import LanguageSelector from '@/components/Header/LanguageSelector'
 
 const PARTNERSHIPS = [
   {
@@ -11,7 +11,7 @@ const PARTNERSHIPS = [
   },
   {
     id: 2,
-    src: '/DSU_logo.png',
+    src: '/dsu_logo.svg',
     alt: 'DSU Logo',
   },
 ]
@@ -47,12 +47,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto border-b px-2 border-gray-300">
+      <div className="container px-2 mx-auto border-b border-gray-300">
         <div
-          className={`${flexItemsCenter} ${clsx(
-            'justify-between',
-            'py-4'
-          )}`}
+          className={`${flexItemsCenter} ${clsx('justify-between', 'py-4')}`}
         >
           <div className={`${flexItemsCenter}`}>
             <div
@@ -72,18 +69,18 @@ const Header = () => {
         <span className={smallBoldTextWithGrayAndMarginAside}>
           {t('partenership.with')}
         </span>
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
           {PARTNERSHIPS.map(({ id, src, alt }) => (
-            <Image key={id} src={src} alt={alt} className="h-[42px]" />
+            <Image key={id} src={src} alt={alt} className="h-[38px]" />
           ))}
         </div>
         <span className={`${smallBoldTextWithGrayAndMarginAside} lowercase`}>
           {t('created.by')}
         </span>
         <Image
-          src={'/code_logo.svg'}
+          src={'/code4romania.svg'}
           alt="Code 4 Romania logo"
-          className="h-[42px]"
+          className="h-[34px]"
         />
       </div>
     </div>
