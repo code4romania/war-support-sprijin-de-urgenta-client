@@ -67,8 +67,11 @@
   "signup.products.generalHygiene": "Produse de igiena generala",
   "signup.products.feminineHygiene": "Produse de igiena feminina",
 
-  "signup.products.food.name": "Produs:",
-  "signup.products.food.qty": "Cantitate:",
-  "signup.products.food.packaging": "Ambalaj:",
-  "signup.products.food.expire_date": "Data de expirare:"
+  "signup.products.product": "Produs:",
+  "signup.products.qty": "Cantitate:",
+  "signup.products.packaging": "Ambalaj:",
+  "signup.products.expireDate": "Data de expirare:",
+  "signup.products.location": "Locatie resursa:",
+  "signup.products.county": "Judet",
+  "signup.products.city": "Localitate"
 }

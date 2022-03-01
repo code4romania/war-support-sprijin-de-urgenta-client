@@ -21,7 +21,7 @@ export const ElementWrapper: FC<IElementWrapperProps> = ({
 }
 
 interface ILabelWrapperProps {
-  name: string;
+  name?: string;
   hasError?: boolean;
   className?: string;
 }

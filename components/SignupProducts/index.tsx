@@ -18,7 +18,7 @@ const SignupProducts: FC = () => {
         <Checkbox name="products_food">
           {t('signup.products.food')}
         </Checkbox>
-        <GenericProduct />
+        <GenericProduct type="food" />
 
         <Separator />
 

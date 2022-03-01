@@ -1,6 +1,6 @@
 const Separator = () => {
   return (
-    <hr />
+    <hr className="border-gray-100"/>
   );
 }
 

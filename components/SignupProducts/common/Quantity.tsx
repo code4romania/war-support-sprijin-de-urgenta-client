@@ -1,21 +1,30 @@
 import Input from "@/components/Form/Input";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { ResourceType } from "@/components/SignupProducts/types";
 
-const Quantity: FC = () => {
+
+interface IProps {
+  resourceType: ResourceType;
+}
+
+const Quantity: FC<IProps> = ({
+  resourceType,
+}) => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex">
+    <div className="flex justify-between">
       <Input
-        name="products_food_qty"
+        name={`products_${resourceType}_qty`}
         type="number"
-        label={t('signup.products.food.qty')}
+        label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
+
       <Input
-        name="products_food_packaging"
-        label={t('signup.products.food.packaging')}
+        name={`products_${resourceType}_packaging`}
+        label={t('signup.products.packaging')}
         labelPosition="horizontal"
       />
     </div>

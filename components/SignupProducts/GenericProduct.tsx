@@ -4,21 +4,24 @@ import { useTranslation } from "react-i18next";
 import Location from "@/components/SignupProducts/common/Location";
 import Quantity from "@/components/SignupProducts/common/Quantity";
 import Product from "@/components/SignupProducts/common/Product";
+import { FC } from "react";
+import { ResourceType } from "@/components/SignupProducts/types";
+import ExpireDate from "@/components/SignupProducts/common/ExpireDate";
 
-const GenericProduct = () => {
-  const { t } = useTranslation();
+interface IProps {
+  resourceType: ResourceType;
+}
+const GenericProduct: FC<IProps> = ({
+  resourceType,
+}) => {
 
   return (
     <div>
-      <Product />
+      <Product resourceType={resourceType} />
 
-      <Quantity />
+      <Quantity resourceType={resourceType} />
 
-      <Input
-        type="date"
-        name="product_food_expire_date"
-        label={t('signup.products.food.expire_date')}
-      />
+      <ExpireDate resourceType={resourceType} />
 
       <Location />
     </div>

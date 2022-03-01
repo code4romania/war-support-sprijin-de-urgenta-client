@@ -21,11 +21,12 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
   errors,
   label,
   children,
+  hideLabel = false,
   ...rest
 }, ref) => {
   return (
     <ElementWrapper hasError={!!errors}>
-      {label && (
+      {label && !hideLabel && (
         <Label name={name} hasError={!!errors}>
           {label}
         </Label>
@@ -43,11 +44,11 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
           )}
           {...rest}
         >
-          <option 
-            hidden 
-            disabled 
+          <option
+            hidden
+            disabled
             selected
-          > 
+          >
           {label}
           </option>
           {children}
