@@ -48,25 +48,39 @@ const resourceTypeBuilder = (id: number) => {
 }
 
 const SignUpResources = () => {
+  const [selectedResourceIds, setSelectedResourceIds] = useState([1])
   const { t } = useTranslation()
-  const [selectedResourceId, setSelectedResourceId] = useState(1)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked
+    const value = parseInt(event.target.value, 10)
+
+    if (isChecked && !selectedResourceIds.includes(value))
+      setSelectedResourceIds([...selectedResourceIds, value])
+    else if (!isChecked && selectedResourceIds.includes(value))
+      setSelectedResourceIds(selectedResourceIds.filter((id) => id !== value))
+  }
+
   return (
     <div className="flex flex-col">
       <h3 className="mb-2">{t('signup.resources.offer')} *</h3>
       {CATEGORIES.map(({ id, translationKey }) => (
-        <Radio
-          onChange={() => setSelectedResourceId(id)}
+        <Checkbox
+          onChange={(event) => handleChange(event)}
           key={id}
           name="resource"
           value={id}
-          checked={id === selectedResourceId}
+          checked={selectedResourceIds.includes(id)}
         >
           {t(translationKey)}
-        </Radio>
+        </Checkbox>
       ))}
-      <div className={clsx('w-full')}>
-        {resourceTypeBuilder(selectedResourceId)}
-      </div>
+      {selectedResourceIds.map((id) => (
+        <div key={id} className={clsx('w-full')}>
+          {resourceTypeBuilder(id)}
+        </div>
+      ))}
+
       <div className={clsx('w-full lg:w-2/5', 'text-xs')}>
         <p className="py-3">{t('signup.resources.gdpr')}*</p>
         <Checkbox>Da</Checkbox>
