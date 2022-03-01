@@ -1,14 +1,8 @@
-import {FC, InputHTMLAttributes} from "react";
-import {ElementWrapper} from "@/components/Form/common";
-import {ErrorOption} from "react-hook-form";
+import { FC } from "react";
+import { ElementWrapper } from "@/components/Form/common";
+import { InputElementProps } from "@/components/Form/types";
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  label?: string;
-  errors?: ErrorOption;
-}
-
-const CheckboxGroup: FC<IProps> = ({
+const CheckboxGroup: FC<InputElementProps> = ({
   children,
   errors
 }) => {
