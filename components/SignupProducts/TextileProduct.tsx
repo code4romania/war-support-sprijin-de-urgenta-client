@@ -3,8 +3,9 @@ import Checkbox from "@/components/Form/Checkbox";
 import { useTranslation } from "react-i18next";
 import Input from "@/components/Form/Input";
 import Textarea from "@/components/Form/Textarea";
-import Dropdown from "@/components/Form/Dropdown";
 import Location from "@/components/SignupProducts/common/Location";
+import clsx from "clsx";
+import Quantity from "@/components/SignupProducts/common/Quantity";
 
 const TextileProduct: FC = () => {
   const { t } = useTranslation();
@@ -12,48 +13,43 @@ const TextileProduct: FC = () => {
   return (
     <div>
       <Checkbox>
-        Haine:
+        {t('signup.products.clothing')}
       </Checkbox>
-      <div>
+      <div className={clsx('ml-5 grid grid-cols-2')}>
         <Checkbox>
-          Femei
+          {t('signup.products.female')}
         </Checkbox>
         <Checkbox>
-          Barbati
+          {t('signup.products.male')}
         </Checkbox>
         <Checkbox>
-          Copii
+          {t('signup.products.children')}
         </Checkbox>
-        <Input label="varsta:" />
+        <Input label={t('signup.products.children.age')} labelPosition="horizontal"/>
       </div>
 
       <Checkbox>
-        Paturi
+        {t('signup.products.blankets')}
       </Checkbox>
 
       <Checkbox>
-        Cuverturi
+        {t('signup.products.sheets')}
       </Checkbox>
 
       <Checkbox>
-        Saci de dormit
+        {t('signup.products.sleepingBags')}
       </Checkbox>
 
       <div>
         <Checkbox>
-          Altele:
+          {t('signup.products.others')}
         </Checkbox>
-        <Textarea />
+        <div className="ml-5">
+          <Textarea/>
+        </div>
       </div>
 
-      <div>
-        <Input
-          label="Cantitate:"
-          type="number"
-          labelPosition="horizontal"
-        />
-        <Input label="ambalaj" labelPosition="horizontal" />
-      </div>
+      <Quantity resourceType="textile" />
 
       <Location />
     </div>

@@ -73,5 +73,14 @@
   "signup.products.expireDate": "Data de expirare:",
   "signup.products.location": "Locatie resursa:",
   "signup.products.county": "Judet",
-  "signup.products.city": "Localitate"
+  "signup.products.city": "Localitate",
+  "signup.products.clothing": "Haine:",
+  "signup.products.female": "Femei",
+  "signup.products.male": "Barbati",
+  "signup.products.children": "Copii",
+  "signup.products.children.age": "Varsta:",
+  "signup.products.blankets": "Paturi",
+  "signup.products.sheets": "Cuverturi",
+  "signup.products.sleepingBags": "Saci de dormit",
+  "signup.products.others": "Altele:"
 }

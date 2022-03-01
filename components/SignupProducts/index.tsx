@@ -15,26 +15,26 @@ const SignupProducts: FC = () => {
       <h2>{t('signup.products.header')}</h2>
 
       <div>
-        <Checkbox name="products_food">
-          {t('signup.products.food')}
-        </Checkbox>
-        <GenericProduct type="food" />
+        {/*<Checkbox name="products_food">*/}
+        {/*  {t('signup.products.food')}*/}
+        {/*</Checkbox>*/}
+        {/*<GenericProduct resourceType="food" />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Checkbox name="products_food">
-          {t('signup.products.generalHygiene')}
-        </Checkbox>
-        <GenericProduct />
+        {/*<Checkbox name="products_food">*/}
+        {/*  {t('signup.products.generalHygiene')}*/}
+        {/*</Checkbox>*/}
+        {/*<GenericProduct />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Checkbox name="products_food">
-          {t('signup.products.feminineHygiene')}
-        </Checkbox>
-        <GenericProduct />
+        {/*<Checkbox name="products_food">*/}
+        {/*  {t('signup.products.feminineHygiene')}*/}
+        {/*</Checkbox>*/}
+        {/*<GenericProduct />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
         <Checkbox>
           Imbracaminte si alte textile
