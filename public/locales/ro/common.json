@@ -62,5 +62,6 @@
   "services.car-plate": "Număr mașină:",
   "yes": "Da",
   "no": "Nu",
-  "services.transport-type.national": "National"
+  "services.transport-type.national": "National",
+  "describeTheResource": "Descrieți resursa"
 }

@@ -15,7 +15,7 @@ const SignUp: NextPage = () => {
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
   const steps = useSelector((state: State) => state.steps.steps)
-
+  
   const handleStepForward = () => {
     dispatch({ type: ActionType.INCREASE })
   }
@@ -29,10 +29,11 @@ const SignUp: NextPage = () => {
   switch (steps[activeStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
-      break
+      break;
+    
     case UserComponentType.userResources:
       currentComponent = <SignUpResources />
-      break
+      break;
 
     default:
       currentComponent = <div></div>
