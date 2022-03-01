@@ -22,7 +22,7 @@ const Footer = () => {
         </a>
       </div>
     </div>
-    <footer className="text-white [background-color:#00478F]">
+    <footer className="text-white bg-blue-950">
       <div className="layout grid py-12 gap-y-10 gap-x-6 lg:py-24 lg:grid-cols-2">
         <nav className="flex flex-wrap">
           <ul className="w-full md:w-1/2 md:px-3 md:py-0">
