@@ -4,19 +4,20 @@ import i18n from 'i18next'
 const ns = ['common']
 const supportedLngs = ['en', 'ro', 'ua']
 
-i18n
-  .use(initReactI18next)
-  .init({
-    //debug: true,
-    lng: 'ro',
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-    defaultNS: 'common',
-    ns,
-    supportedLngs,
-  })
+i18n.use(initReactI18next).init({
+  //debug: true,
+  lng: 'ro',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+  defaultNS: 'common',
+  ns,
+  supportedLngs,
+  react: {
+    useSuspense: false,
+  },
+})
 
 supportedLngs.forEach((lang) => {
   ns.forEach((n) => {
