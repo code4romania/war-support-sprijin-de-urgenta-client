@@ -66,6 +66,9 @@
   "signup.products.food": "Alimente",
   "signup.products.generalHygiene": "Produse de igiena generala",
   "signup.products.feminineHygiene": "Produse de igiena feminina",
+  "signup.products.textile": "Imbracaminte si alte textile",
+  "signup.products.buildingMaterials": "Materiale de constructii",
+  "signup.products.tents": "Corturi",
 
   "signup.products.product": "Produs:",
   "signup.products.qty": "Cantitate:",
@@ -82,5 +85,7 @@
   "signup.products.blankets": "Paturi",
   "signup.products.sheets": "Cuverturi",
   "signup.products.sleepingBags": "Saci de dormit",
-  "signup.products.others": "Altele:"
+  "signup.products.others": "Altele:",
+  "signup.products.capacity": "Capacitate:",
+  "signup.products.persons": "persoane"
 }

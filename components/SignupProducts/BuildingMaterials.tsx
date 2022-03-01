@@ -1,17 +1,24 @@
-import Input from "@/components/Form/Input";
-import Dropdown from "@/components/Form/Dropdown";
 import Location from "@/components/SignupProducts/common/Location";
 import { FC } from "react";
 import Quantity from "@/components/SignupProducts/common/Quantity";
 import Product from "@/components/SignupProducts/common/Product";
+import { ResourceType } from "@/components/SignupProducts/types";
 
-const BuildingMaterials: FC = () => {
+
+interface IProps {
+  resourceType: ResourceType;
+}
+
+const BuildingMaterials: FC<IProps> = ({
+  resourceType
+}) => {
   return (
     <div>
-      <Product />
-      <Quantity />
+      <Product resourceType={resourceType}/>
 
-      <Location />
+      <Quantity resourceType={resourceType}/>
+
+      <Location resourceType={resourceType}/>
     </div>
   )
 }

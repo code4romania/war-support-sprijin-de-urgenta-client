@@ -27,14 +27,14 @@ const Location: FC<IProps> = ({
         label={t('signup.products.county')}
         hideLabel
       >
-        {counties.map(county => <option>{county}</option>)}
+        {counties.map(county => <option key={county}>{county}</option>)}
       </Dropdown>
 
       <Dropdown
         label={t('signup.products.city')}
         hideLabel
       >
-        {cities.map(city => <option>{city}</option>)}
+        {cities.map(city => <option key={city}>{city}</option>)}
       </Dropdown>
     </div>
   )

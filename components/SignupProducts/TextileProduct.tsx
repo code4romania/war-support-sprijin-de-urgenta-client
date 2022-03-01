@@ -6,8 +6,13 @@ import Textarea from "@/components/Form/Textarea";
 import Location from "@/components/SignupProducts/common/Location";
 import clsx from "clsx";
 import Quantity from "@/components/SignupProducts/common/Quantity";
+import { ResourceType } from "@/components/SignupProducts/types";
 
-const TextileProduct: FC = () => {
+interface IProps {
+  resourceType: ResourceType;
+}
+
+const TextileProduct: FC<IProps> = () => {
   const { t } = useTranslation();
 
   return (

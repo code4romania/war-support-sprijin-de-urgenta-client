@@ -6,6 +6,8 @@ import GenericProduct from "@/components/SignupProducts/GenericProduct";
 import TextileProduct from "@/components/SignupProducts/TextileProduct";
 import BuildingMaterials from "@/components/SignupProducts/BuildingMaterials";
 import Separator from "@/components/SignupProducts/common/Separator";
+import Tents from "@/components/SignupProducts/Tents";
+import Others from "@/components/SignupProducts/Others";
 
 const SignupProducts: FC = () => {
   const { t } = useTranslation();
@@ -15,45 +17,49 @@ const SignupProducts: FC = () => {
       <h2>{t('signup.products.header')}</h2>
 
       <div>
-        {/*<Checkbox name="products_food">*/}
-        {/*  {t('signup.products.food')}*/}
-        {/*</Checkbox>*/}
-        {/*<GenericProduct resourceType="food" />*/}
-
-        {/*<Separator />*/}
-
-        {/*<Checkbox name="products_food">*/}
-        {/*  {t('signup.products.generalHygiene')}*/}
-        {/*</Checkbox>*/}
-        {/*<GenericProduct />*/}
-
-        {/*<Separator />*/}
-
-        {/*<Checkbox name="products_food">*/}
-        {/*  {t('signup.products.feminineHygiene')}*/}
-        {/*</Checkbox>*/}
-        {/*<GenericProduct />*/}
-
-        {/*<Separator />*/}
-
-        <Checkbox>
-          Imbracaminte si alte textile
+        <Checkbox name="products_food">
+          {t('signup.products.food')}
         </Checkbox>
-        <TextileProduct />
+        <GenericProduct resourceType="food" />
+
+        <Separator />
+
+        <Checkbox name="products_food">
+          {t('signup.products.generalHygiene')}
+        </Checkbox>
+        <GenericProduct resourceType="generalHygiene" />
+
+        <Separator />
+
+        <Checkbox name="products_food">
+          {t('signup.products.feminineHygiene')}
+        </Checkbox>
+        <GenericProduct resourceType="feminineHygiene" />
 
         <Separator />
 
         <Checkbox>
-          Materiale de constructii
+          {t('signup.products.textile')}
         </Checkbox>
-        <BuildingMaterials />
+        <TextileProduct resourceType="textile" />
 
         <Separator />
 
         <Checkbox>
-          Corturi
+          {t('signup.products.buildingMaterials')}
         </Checkbox>
-        <BuildingMaterials />
+        <BuildingMaterials resourceType="buildingMaterials" />
+
+        <Separator />
+
+        <Checkbox>
+          {t('signup.products.tents')}
+        </Checkbox>
+        <Tents resourceType="tents" />
+
+        <Separator />
+
+        <Others />
       </div>
     </div>
   )

@@ -23,7 +23,7 @@ const GenericProduct: FC<IProps> = ({
 
       <ExpireDate resourceType={resourceType} />
 
-      <Location />
+      <Location resourceType={resourceType} counties={[]} cities={[]} />
     </div>
   )
 }
