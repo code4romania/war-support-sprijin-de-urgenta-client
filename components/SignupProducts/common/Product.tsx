@@ -14,7 +14,7 @@ const Product: FC<IProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={clsx('flex')}>
+    <div className={clsx('flex items-center')}>
       <Input
         name={`products_${resourceType}_name`}
         label={t('signup.products.product')}
@@ -23,7 +23,7 @@ const Product: FC<IProps> = ({
       <button
         className={clsx(
           'bg-white',
-          'w-8 h-8 ml-4',
+          'w-8 h-8 ml-4 mb-5',
           'border-2 rounded-2xl border-dashed border-gray-300'
         )}
       >

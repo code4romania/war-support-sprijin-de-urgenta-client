@@ -17,49 +17,51 @@ const SignupProducts: FC = () => {
       <h2>{t('signup.products.header')}</h2>
 
       <div>
-        <Checkbox name="products_food">
-          {t('signup.products.food')}
-        </Checkbox>
-        <GenericProduct resourceType="food" />
+        {/*<Checkbox*/}
+        {/*  name="products_food"*/}
+        {/*>*/}
+        {/*  {t('signup.products.food')}*/}
+        {/*</Checkbox>*/}
+        {/*<GenericProduct resourceType="food" />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Checkbox name="products_food">
-          {t('signup.products.generalHygiene')}
-        </Checkbox>
-        <GenericProduct resourceType="generalHygiene" />
+        {/*<Checkbox name="products_food">*/}
+        {/*  {t('signup.products.generalHygiene')}*/}
+        {/*</Checkbox>*/}
+        {/*<GenericProduct resourceType="generalHygiene" />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Checkbox name="products_food">
-          {t('signup.products.feminineHygiene')}
-        </Checkbox>
-        <GenericProduct resourceType="feminineHygiene" />
+        {/*<Checkbox name="products_food">*/}
+        {/*  {t('signup.products.feminineHygiene')}*/}
+        {/*</Checkbox>*/}
+        {/*<GenericProduct resourceType="feminineHygiene" />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
         <Checkbox>
           {t('signup.products.textile')}
         </Checkbox>
         <TextileProduct resourceType="textile" />
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Checkbox>
-          {t('signup.products.buildingMaterials')}
-        </Checkbox>
-        <BuildingMaterials resourceType="buildingMaterials" />
+        {/*<Checkbox>*/}
+        {/*  {t('signup.products.buildingMaterials')}*/}
+        {/*</Checkbox>*/}
+        {/*<BuildingMaterials resourceType="buildingMaterials" />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Checkbox>
-          {t('signup.products.tents')}
-        </Checkbox>
-        <Tents resourceType="tents" />
+        {/*<Checkbox>*/}
+        {/*  {t('signup.products.tents')}*/}
+        {/*</Checkbox>*/}
+        {/*<Tents resourceType="tents" />*/}
 
-        <Separator />
+        {/*<Separator />*/}
 
-        <Others />
+        {/*<Others />*/}
       </div>
     </div>
   )

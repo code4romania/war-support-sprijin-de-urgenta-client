@@ -7,6 +7,7 @@ import Product from "@/components/SignupProducts/common/Product";
 import { FC } from "react";
 import { ResourceType } from "@/components/SignupProducts/types";
 import ExpireDate from "@/components/SignupProducts/common/ExpireDate";
+import ProductTypeWrapper from "@/components/SignupProducts/common/ProductTypeWrapper";
 
 interface IProps {
   resourceType: ResourceType;
@@ -16,7 +17,7 @@ const GenericProduct: FC<IProps> = ({
 }) => {
 
   return (
-    <div>
+    <ProductTypeWrapper>
       <Product resourceType={resourceType} />
 
       <Quantity resourceType={resourceType} />
@@ -24,7 +25,7 @@ const GenericProduct: FC<IProps> = ({
       <ExpireDate resourceType={resourceType} />
 
       <Location resourceType={resourceType} counties={[]} cities={[]} />
-    </div>
+    </ProductTypeWrapper>
   )
 }
 

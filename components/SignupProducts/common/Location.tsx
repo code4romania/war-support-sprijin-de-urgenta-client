@@ -19,12 +19,13 @@ const Location: FC<IProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className={clsx('flex justify-between')}>
-      <Label>
+    <div className={clsx('flex justify-start')}>
+      <Label className={"mr-5 pt-3"}>
         {t('signup.products.location')}
       </Label>
       <Dropdown
         label={t('signup.products.county')}
+        className={"mr-5"}
         hideLabel
       >
         {counties.map(county => <option key={county}>{county}</option>)}

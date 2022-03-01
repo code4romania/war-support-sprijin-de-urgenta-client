@@ -14,12 +14,13 @@ const Quantity: FC<IProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-start">
       <Input
         name={`products_${resourceType}_qty`}
         type="number"
         label={t('signup.products.qty')}
         labelPosition="horizontal"
+        className={"mr-5"}
       />
 
       <Input
