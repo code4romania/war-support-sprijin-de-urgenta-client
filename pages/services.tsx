@@ -31,7 +31,7 @@ const ServicesPage: NextPage = () => {
       is: true,
       then: yup.number().required(),
     }),
-    needCooling: yup.boolean().nullable().when('transportGoods', {
+    needsCooling: yup.boolean().nullable().when('transportGoods', {
       is: true,
       then: yup.boolean().nullable().required(),
     }),
