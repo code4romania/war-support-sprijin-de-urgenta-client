@@ -28,7 +28,7 @@ const LoginPage: NextPage = () => {
   }
 
   return (
-    <main className={clsx('grid place-items-center', 'h-screen')}>
+    <main className={clsx('grid place-items-center', 'py-28')}>
       <section className="space-y-16 w-96">
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input

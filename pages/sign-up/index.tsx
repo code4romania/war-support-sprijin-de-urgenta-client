@@ -33,6 +33,7 @@ const SignUp: NextPage = () => {
     case UserComponentType.userResources:
       currentComponent = <SignUpResources />
       break
+
     default:
       currentComponent = <div></div>
       break
@@ -45,7 +46,7 @@ const SignUp: NextPage = () => {
         steps={steps.map((step) => step.label)}
       />
       <div className={'mt-12 px-3'}>{currentComponent}</div>
-      <div className="mt-8 justify-start flex-wrap w-full flex md:justify-start">
+      <div className="flex flex-wrap justify-start w-full mt-8 md:justify-start">
         <div
           onClick={handleStepBackward}
           className="flex items-center md:mr-6 md:w-44"
