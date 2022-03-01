@@ -1,23 +1,17 @@
 import Input from "@/components/Form/Input";
 import Dropdown from "@/components/Form/Dropdown";
+import Location from "@/components/SignupProducts/common/Location";
+import { FC } from "react";
+import Quantity from "@/components/SignupProducts/common/Quantity";
+import Product from "@/components/SignupProducts/common/Product";
 
 const BuildingMaterials: FC = () => {
   return (
     <div>
-      <Input label="Produs"/>
-      <div>
-        <Input type="number" label="Cantitate" />
-        <Input label="Ambalaj" />
-      </div>
-      <div>
-        <Dropdown label={"Locatie resursa:"}>
-          <option>Cluj</option>
-        </Dropdown>
+      <Product />
+      <Quantity />
 
-        <Dropdown label="Localitate">
-          <option>Cluj napoca</option>
-        </Dropdown>
-      </div>
+      <Location />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import Checkbox from "@/components/Form/Checkbox";
 import GenericProduct from "@/components/SignupProducts/GenericProduct";
 import TextileProduct from "@/components/SignupProducts/TextileProduct";
 import BuildingMaterials from "@/components/SignupProducts/BuildingMaterials";
-import Separator from "@/components/SignupProducts/Separator";
+import Separator from "@/components/SignupProducts/common/Separator";
 
 const SignupProducts: FC = () => {
   const { t } = useTranslation();

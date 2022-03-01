@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Input from "@/components/Form/Input";
 import Textarea from "@/components/Form/Textarea";
 import Dropdown from "@/components/Form/Dropdown";
+import Location from "@/components/SignupProducts/common/Location";
 
 const TextileProduct: FC = () => {
   const { t } = useTranslation();
@@ -54,15 +55,7 @@ const TextileProduct: FC = () => {
         <Input label="ambalaj" labelPosition="horizontal" />
       </div>
 
-      <div>
-        <Dropdown label={"Locatie resursa:"}>
-          <option>Cluj</option>
-        </Dropdown>
-
-        <Dropdown label="Localitate">
-          <option>Cluj napoca</option>
-        </Dropdown>
-      </div>
+      <Location />
     </div>
   )
 }
