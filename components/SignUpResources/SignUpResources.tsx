@@ -88,6 +88,11 @@ const SignUpResources = () => {
           {resourceTypeBuilder(id)}
         </div>
       ))}
+
+      <div className={clsx('w-full lg:w-2/5', 'text-xs')}>
+        <p className="py-3">{t('signup.resources.gdpr')}*</p>
+        <Checkbox name="da">Da</Checkbox>
+      </div>
     </div>
   )
 }
