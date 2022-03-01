@@ -12,5 +12,12 @@
   "signup.volunteering.manager": "Management",
   "signup.volunteering.translator": "Translator",
   "signup.volunteering.other": "Others:",
-  "signup.volunteering.description": "Please provide a short description of your experience in the field:"
+  "signup.volunteering.description": "Please provide a short description of your experience in the field:",
+  "signup.userType.type": "User Type",
+  "signup.userType.options": [
+    "Individual",
+    "Legal Person",
+    "Public Authority",
+    "NGO"
+  ]
 }

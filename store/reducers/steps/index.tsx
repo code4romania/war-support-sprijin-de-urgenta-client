@@ -1,5 +1,5 @@
 import { StepsStore } from './types'
-import { useTranslation } from 'react-i18next'
+import UserTypeForm from '@/components/UserTypeForm/UserTypeForm'
 
 export enum ActionType {
   INCREASE = 'increase',
@@ -12,7 +12,7 @@ export const defaultStepsState: StepsStore = {
   steps: [
     {
       label: 'steps.userType',
-      component: 'TipUtilizator',
+      component: <UserTypeForm />
     },
     {
       label: 'steps.userData',

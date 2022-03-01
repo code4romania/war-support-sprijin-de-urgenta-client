@@ -49,6 +49,13 @@ const Dropdown = forwardRef<HTMLSelectElement, IProps>(({
           )}
           {...rest}
         >
+          <option 
+            hidden 
+            disabled 
+            selected
+          > 
+          {label}
+          </option>
           {children}
         </select>
       </div>
