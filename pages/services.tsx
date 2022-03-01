@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from "yup";
 import { SchemaOf } from "yup";
+import CheckboxGroup from "@/components/Form/CheckboxGroup";
+import RadioGroup from "@/components/Form/RadioGroup";
 
 type ServicesForm = {
   transportGoods: boolean;
@@ -22,7 +24,7 @@ type ServicesForm = {
 };
 
 const ServicesPage: NextPage = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const schema: SchemaOf<ServicesForm> = yup.object().shape({
     transportGoods: yup.boolean().required(),
@@ -56,7 +58,7 @@ const ServicesPage: NextPage = () => {
     }),
   })
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ServicesForm>({
+  const {register, handleSubmit, formState: {errors}} = useForm<ServicesForm>({
     defaultValues: {
       transportGoods: false,
       capacity: 0,
@@ -69,9 +71,10 @@ const ServicesPage: NextPage = () => {
 
   const onSubmit = (data: ServicesForm) => console.log(data)
 
+  console.log('errors', errors)
   return (
     <main className={clsx('grid place-items-start', 'bg-blue-50 rounded', 'mx-28 px-8 py-7')}>
-      <section className="space-y-16 w-96"></section>
+      <section className="space-y-16 w-96" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Checkbox
           value={"true"}
@@ -83,7 +86,7 @@ const ServicesPage: NextPage = () => {
         <section className={clsx('ml-6')}>
           <div className={clsx('flex flex-row items-center gap-x-2')}>
             <Input
-              type="text"
+              type="number"
               labelPosition='horizontal'
               label={t('services.capacity')}
               {...register('capacity')}
@@ -92,21 +95,45 @@ const ServicesPage: NextPage = () => {
             <span className={clsx('pb-5')}>{t('unit.tons')}</span>
           </div>
 
-          <h3>{t('services.cooling')}</h3>
           <div className={clsx('flex flex-row gap-6')}>
-            <Radio value="true" {...register('needCooling')} errors={errors.needCooling}>{t('yes')}</Radio>
-            <Radio value="false" {...register('needCooling')} errors={errors.needCooling}>{t('no')}</Radio>
+            <RadioGroup
+              errors={errors.needCooling}
+              label={t('services.cooling')}
+            >
+              <Radio
+                value="true"
+                {...register('needCooling')}
+              >
+                {t('yes')}
+              </Radio>
+              <Radio
+                value="false"
+                {...register('needCooling')}
+              >
+                {t('no')}
+              </Radio>
+            </RadioGroup>
           </div>
 
-          <h3>{t('services.transport')}</h3>
-          <Radio value="national" {...register('transportType')} errors={errors.transportType}>{t('services.transport-type.national')}</Radio>
-          <Radio value="county" {...register('transportType')} errors={errors.transportType}>
-            <Dropdown {...register('transportCounty')}>
-              <option value=""></option>
-              <option value="typeA">Type A</option>
-              <option value="typeB">Type B</option>
-            </Dropdown>
-          </Radio>
+          <RadioGroup
+            errors={errors.transportType}
+            label={t('services.transport')}
+          >
+            <Radio
+              value="national"
+              {...register('transportType')}
+            >
+              {t('services.transport-type.national')}
+            </Radio>
+            <Radio value="county" {...register('transportType')}>
+              <Dropdown {...register('transportCounty')}>
+                <option value=""></option>
+                <option value="typeA">Type A</option>
+                <option value="typeB">Type B</option>
+              </Dropdown>
+            </Radio>
+          </RadioGroup>
+
 
           <Input
             labelPosition='horizontal'
@@ -133,7 +160,7 @@ const ServicesPage: NextPage = () => {
 
         {console.log(errors)}
         {/** this submit is just for quick tests*/}
-        <Input type='submit' name={'submit'} />
+        <Input type='submit' name={'submit'}/>
       </form>
     </main>
   )
