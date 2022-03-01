@@ -26,6 +26,7 @@ const Location: FC<IProps> = ({
       <Dropdown
         label={t('signup.products.county')}
         className={"mr-5"}
+        name={`products_${resourceType}_county`}
         hideLabel
       >
         {counties.map(county => <option key={county}>{county}</option>)}
@@ -33,6 +34,7 @@ const Location: FC<IProps> = ({
 
       <Dropdown
         label={t('signup.products.city')}
+        name={`products_${resourceType}_city`}
         hideLabel
       >
         {cities.map(city => <option key={city}>{city}</option>)}

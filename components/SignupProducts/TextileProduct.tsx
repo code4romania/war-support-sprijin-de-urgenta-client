@@ -12,51 +12,73 @@ interface IProps {
   resourceType: ResourceType;
 }
 
-const TextileProduct: FC<IProps> = () => {
+const TextileProduct: FC<IProps> = ({
+  resourceType
+}) => {
   const { t } = useTranslation();
 
   return (
     <div>
-      <Checkbox>
+      <Checkbox
+        name={`products_${resourceType}_clothing`}
+      >
         {t('signup.products.clothing')}
       </Checkbox>
       <div className={clsx('ml-5 grid grid-cols-2')}>
-        <Checkbox>
+        <Checkbox
+          name={`products_${resourceType}_female`}
+        >
           {t('signup.products.female')}
         </Checkbox>
-        <Checkbox>
+        <Checkbox
+          name={`products_${resourceType}_male`}
+        >
           {t('signup.products.male')}
         </Checkbox>
-        <Checkbox>
+        <Checkbox
+          name={`products_${resourceType}_children`}
+        >
           {t('signup.products.children')}
         </Checkbox>
-        <Input label={t('signup.products.children.age')} labelPosition="horizontal"/>
+        <Input
+          name={`products_${resourceType}_children_age`}
+          label={t('signup.products.children.age')}
+          labelPosition="horizontal"
+        />
       </div>
 
-      <Checkbox>
+      <Checkbox
+        name={`products_${resourceType}_blankets`}
+      >
         {t('signup.products.blankets')}
       </Checkbox>
 
-      <Checkbox>
+      <Checkbox
+        name={`products_${resourceType}_sheets`}
+      >
         {t('signup.products.sheets')}
       </Checkbox>
 
-      <Checkbox>
+      <Checkbox
+        name={`products_${resourceType}_sleepingBags`}
+      >
         {t('signup.products.sleepingBags')}
       </Checkbox>
 
       <div>
-        <Checkbox>
+        <Checkbox
+          name={`products_${resourceType}_others`}
+        >
           {t('signup.products.others')}
         </Checkbox>
         <div className="ml-5">
-          <Textarea/>
+          <Textarea name={`products_${resourceType}_others_content`}/>
         </div>
       </div>
 
       <Quantity resourceType="textile" />
 
-      <Location />
+      <Location resourceType="textile" counties={[]} cities={[]} />
     </div>
   )
 }

@@ -30,7 +30,7 @@ const SignupProducts: FC = () => {
         <Separator />
 
         <CategoryWrapper>
-          <Checkbox name="products_food">
+          <Checkbox name="products_generalHygiene">
             {t('signup.products.generalHygiene')}
           </Checkbox>
         </CategoryWrapper>
@@ -39,7 +39,7 @@ const SignupProducts: FC = () => {
         <Separator />
 
         <CategoryWrapper>
-          <Checkbox name="products_food">
+          <Checkbox name="products_feminineHygiene">
             {t('signup.products.feminineHygiene')}
           </Checkbox>
         </CategoryWrapper>
@@ -48,7 +48,7 @@ const SignupProducts: FC = () => {
         <Separator />
 
         <CategoryWrapper>
-          <Checkbox>
+          <Checkbox name="products_textile">
             {t('signup.products.textile')}
           </Checkbox>
         </CategoryWrapper>
@@ -57,7 +57,7 @@ const SignupProducts: FC = () => {
         <Separator />
 
         <CategoryWrapper>
-          <Checkbox>
+          <Checkbox name="products_buildingMaterials">
             {t('signup.products.buildingMaterials')}
           </Checkbox>
         </CategoryWrapper>
@@ -66,7 +66,7 @@ const SignupProducts: FC = () => {
         <Separator />
 
         <CategoryWrapper>
-          <Checkbox>
+          <Checkbox name="products_tents">
             {t('signup.products.tents')}
           </Checkbox>
         </CategoryWrapper>

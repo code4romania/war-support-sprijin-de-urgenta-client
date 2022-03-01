@@ -17,6 +17,7 @@ const Tents: FC<IProps> = ({
     <div>
       <Input
         type="number"
+        name={`products_${resourceType}_qty`}
         label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
@@ -24,13 +25,14 @@ const Tents: FC<IProps> = ({
         <Input
           type="number"
           label={t('signup.products.capacity')}
+          name={`products_${resourceType}_capacity`}
           labelPosition="horizontal"
         />
         <Label className={"ml-3 mt-3"}>
           {t('signup.products.persons')}
         </Label>
       </div>
-      <Location resourceType="tents"/>
+      <Location resourceType="tents" counties={[]} cities={[]}/>
     </div>
   )
 }

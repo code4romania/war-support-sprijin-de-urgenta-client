@@ -18,7 +18,7 @@ const BuildingMaterials: FC<IProps> = ({
 
       <Quantity resourceType={resourceType}/>
 
-      <Location resourceType={resourceType}/>
+      <Location resourceType={resourceType} counties={[]} cities={[]}/>
     </div>
   )
 }
