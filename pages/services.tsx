@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import CheckboxGroup from "@/components/Form/CheckboxGroup";
 import RadioGroup from "@/components/Form/RadioGroup";
 
 type ServicesForm = {
@@ -71,10 +70,8 @@ const ServicesPage: NextPage = () => {
 
   const onSubmit = (data: ServicesForm) => console.log(data)
 
-  console.log('errors', errors)
   return (
-    <main className={clsx('grid place-items-start', 'bg-blue-50 rounded', 'mx-28 px-8 py-7')}>
-      <section className="space-y-16 w-96" />
+    <main className={clsx('container grid place-items-start', 'bg-blue-50 rounded', 'mx-auto px-8 py-7')}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Checkbox
           value={"true"}
@@ -158,8 +155,6 @@ const ServicesPage: NextPage = () => {
           />
         </section>
 
-        {console.log(errors)}
-        {/** this submit is just for quick tests*/}
         <Input type='submit' name={'submit'}/>
       </form>
     </main>
