@@ -5,13 +5,14 @@ import StepperButton from '@/components/StepperButton'
 import { State } from 'store/types/state.type'
 import { ActionType } from 'store/reducers/steps'
 import Stepper from '@/components/Stepper'
+import UserTypeForm from '@/components/UserTypeForm'
+import { UserComponentType } from 'store/reducers/steps/types'
 
 const Steps: NextPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
   const steps = useSelector((state: State) => state.steps.steps)
-  const currentComponent = steps[activeStep].component
 
   const handleStepForward = () => {
     dispatch({ type: ActionType.INCREASE })
@@ -19,6 +20,18 @@ const Steps: NextPage = () => {
 
   const handleStepBackward = () => {
     dispatch({ type: ActionType.DECREASE })
+  }
+
+  let currentComponent = null;
+
+  switch (steps[activeStep].component) {
+    case UserComponentType.userType:
+      currentComponent = <UserTypeForm />
+      break;
+  
+    default:
+      currentComponent = <div></div>
+      break;
   }
 
   return (
