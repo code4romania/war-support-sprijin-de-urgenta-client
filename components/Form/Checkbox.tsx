@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { InputElementProps } from '@/components/Form/types'
 
 const Element = forwardRef<HTMLInputElement, InputElementProps>(
-  ({ name, children, value, checked, className, ...rest }, ref) => {
+  ({ name, children, value, checked, className, errors, ...rest }, ref) => {
     return (
       <div className={clsx('flex items-center mb-4', className)}>
         <input
@@ -26,6 +26,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
         <label htmlFor={`${name}_${value}`} className="text-sm">
           {children}
         </label>
+        {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
       </div>
     )
   }

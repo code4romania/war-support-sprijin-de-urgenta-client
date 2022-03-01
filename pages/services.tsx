@@ -25,13 +25,13 @@ type ServicesForm = {
 const ServicesPage: NextPage = () => {
   const { t } = useTranslation()
 
-  const schema: SchemaOf<ServicesForm> = yup.object().shape({
-    transportGoods: yup.boolean().required(),
+  const transportGoodsSchema = yup.object().shape({
+    transportGoods: yup.boolean().notRequired(),
     capacity: yup.number().when('transportGoods', {
       is: true,
       then: yup.number().required(),
     }),
-    needCooling: yup.boolean().when('transportGoods', {
+    needCooling: yup.boolean().nullable().when('transportGoods', {
       is: true,
       then: yup.boolean().nullable().required(),
     }),
@@ -43,19 +43,18 @@ const ServicesPage: NextPage = () => {
       is: 'county',
       then: yup.string().required('Selectați un județ'),
     }),
-    driverName: yup.string().when('transportGoods', {
+    tgDriverName: yup.string().when('transportGoods', {
       is: true,
       then: yup.string().required(),
     }),
-    driverCI: yup.string().when('transportGoods', {
+    tgDriverCI: yup.string().when('transportGoods', {
       is: true,
       then: yup.string().required(),
     }),
-    carPlate: yup.string().when('transportGoods', {
+    tgCarPlate: yup.string().when('transportGoods', {
       is: true,
       then: yup.string().required(),
     }),
-  })
 
   const {
     register,
@@ -66,14 +65,17 @@ const ServicesPage: NextPage = () => {
       transportGoods: false,
       capacity: 0,
       transportType: '',
+      transportPersons: false,
+      transportPersonsType: '',
+      personsNo: 0
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(fullSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
   })
 
   const onSubmit = (data: ServicesForm) => console.log(data)
-
+  console.log(errors);
   return (
     <main
       className={clsx(
@@ -113,8 +115,8 @@ const ServicesPage: NextPage = () => {
               <Radio value="false" {...register('needCooling')}>
                 {t('no')}
               </Radio>
-            </RadioGroup>
-          </div>
+            </div>
+          </RadioGroup>
 
           <RadioGroup
             errors={errors.transportType}
@@ -135,23 +137,23 @@ const ServicesPage: NextPage = () => {
           <Input
             labelPosition="horizontal"
             type="text"
-            errors={errors.driverName}
+            errors={errors.tgDriverName}
             label={t('services.driver-name')}
-            {...register('driverName')}
+            {...register('tgDriverName')}
           />
           <Input
             labelPosition="horizontal"
             type="text"
-            errors={errors.driverCI}
+            errors={errors.tgDriverCI}
             label={t('services.driver-ci')}
-            {...register('driverCI')}
+            {...register('tgDriverCI')}
           />
           <Input
             labelPosition="horizontal"
             type="text"
-            errors={errors.carPlate}
+            errors={errors.tgCarPlate}
             label={t('services.car-plate')}
-            {...register('carPlate')}
+            {...register('tgCarPlate')}
           />
         </section>
 
@@ -162,3 +164,4 @@ const ServicesPage: NextPage = () => {
 }
 
 export default ServicesPage
+
