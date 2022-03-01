@@ -1,4 +1,4 @@
-import { StepsStore } from 'store/reducers/steps/types'
+import { StepsStore } from '@/store/reducers/steps/types'
 
 export type State = {
   locale: string

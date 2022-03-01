@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
-import { ActionType } from "store/reducers/steps";
+import { ActionType } from "@/store/reducers/steps";
 import Dropdown from "../Form/Dropdown";
-import { setUserType, UserType, userTypeOptions } from 'store/reducers/signup';
+import { setUserType, UserType, userTypeOptions } from '@/store/reducers/signup';
 
 const UserTypeForm = () => {
   const { t } = useTranslation();
@@ -18,19 +18,19 @@ const UserTypeForm = () => {
     <div
       className={`bg-blue-50 h-${userTypeOptions.length * 50 + 5} px-4 py-4 rounded-md`}
     >
-      <Dropdown 
+      <Dropdown
         name="userType"
         label={t("signup.userType.type")}
         onChange={handleChange}
       >
         {
           userTypeOptions.map((
-            option: UserType, 
+            option: UserType,
             idx: number
           ) => {
             return(
-              <option 
-                key={`user-type-option-${idx}`} 
+              <option
+                key={`user-type-option-${idx}`}
                 value={option}
               >
                 {t(`signup.userType.options.${idx}`)}
