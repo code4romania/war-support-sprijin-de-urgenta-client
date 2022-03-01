@@ -38,10 +38,6 @@ const HomePage: NextPage = () => {
       <div>
         <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
         <div className={clsx('grid grid-cols-2 gap-8')}>
-          <Button text={t('housing')} />
-          <Button text={t('products')} onClick={() => handleClick(2)} />
-          <Button text={t('services')} onClick={() => handleClick(1)} />
-          <Button text={t('others')} onClick={() => handleClick(4)} />
           {data?.map((item: ICategory) => (
             <Button
               key={item.pk}
