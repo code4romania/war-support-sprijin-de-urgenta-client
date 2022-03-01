@@ -9,6 +9,7 @@
   "products": "Produse",
   "services": "Servicii",
   "others": "Altele",
+  "volunteer": "Voluntar",
   "findout.more": "Află mai multe",
   "solution.by": "O soluție Code for Romania.",
   "login.submit": "Login",
@@ -40,5 +41,25 @@
   "confidentiality.policy": "Politică de confidențialitate",
   "terms.and.conditions": "Termeni și condiții",
   "useful.links": "Linkuri utile",
-  "legal.info": "Informații legale"
+  "legal.info": "Informații legale",
+  "signup.resources.offer": "Resursa oferita:",
+  "signup.resources.gdpr": "Prin completarea formularului accept ca datele mele să fie procesate de Guvernul României. Cunosc faptul că Guvernul României prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.",
+  "signup.userType.type": "Tip Utilizator",
+  "signup.userType.options": [
+    "Persoană fizică",
+    "Persoană juridică",
+    "Autoritate publică",
+    "ONG"
+  ],
+  "unit.tons": "tone",
+  "services.transport-goods": "Transport marfă",
+  "services.capacity": "Capacitate:",
+  "services.cooling": "Refrigerare",
+  "services.transport": "Transport",
+  "services.driver-name": "Nume șofer:",
+  "services.driver-ci": "Serie și nr. buletin:",
+  "services.car-plate": "Număr mașină:",
+  "yes": "Da",
+  "no": "Nu",
+  "services.transport-type.national": "National"
 }

@@ -29,7 +29,7 @@ const Header = () => {
         <div
           className={`${flexItemsCenter} 
           ${clsx('py-1 md:py-3')} 
-          ${clsx('max-w-[1350px] w-[90%] mx-auto')}`}
+          ${clsx('container mx-auto')}`}
         >
           <div className="max-w-[90px]">
             <Image src={'/code_logo.svg'} alt="Code 4 Romania logo" />
@@ -47,10 +47,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="border-b border-gray-300">
+      <div className="container mx-auto border-b px-2 border-gray-300">
         <div
           className={`${flexItemsCenter} ${clsx(
-            'max-w-[1350px] w-[90%] mx-auto',
             'justify-between',
             'py-4'
           )}`}

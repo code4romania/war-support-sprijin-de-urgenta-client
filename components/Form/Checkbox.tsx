@@ -1,21 +1,24 @@
-import { FC, InputHTMLAttributes } from "react";
+import { forwardRef } from "react";
 import clsx from "clsx";
+import { InputElementProps } from "@/components/Form/types";
 
-const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   name,
   children,
   value,
+  className,
   ...rest
-}) => {
+}, ref) => {
   return (
     <div
-      className="flex items-center mb-4"
+      className={clsx("flex items-center mb-4", className)}
     >
       <input
         type="checkbox"
         name={name}
         id={`${name}_${value}`}
         value={value}
+        ref={ref}
         className={clsx(
           'appearance-none mr-2 bg-white',
           'before:content-[" "] before:block',
@@ -36,7 +39,7 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
       </label>
     </div>
   );
-}
+});
 
 Element.displayName = 'Checkbox';
 
