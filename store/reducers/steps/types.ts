@@ -1,7 +1,13 @@
 import { ReactNode } from 'react'
 
+export enum UserComponentType {
+  userType = 'User Type',
+  userData = 'User Data',
+  userResources = 'User Resources'
+}
+
 export interface Step {
-  component: ReactNode
+  component: UserComponentType
   label: string
 }
 
