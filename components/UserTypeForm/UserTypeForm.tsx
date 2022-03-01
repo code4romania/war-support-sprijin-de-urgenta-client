@@ -13,10 +13,12 @@ const UserTypeForm = () => {
     dispatch(setUserType(e.target.value as UserType))
     dispatch({ type: ActionType.INCREASE })
   };
+  
 
   return(
     <div
-      className={`bg-blue-50 h-${userTypeOptions.length * 50 + 5} px-4 py-4 rounded-md`}
+      className={`bg-blue-50 px-4 py-4 rounded-md`}
+      style={{height: `${userTypeOptions.length * 50 + 5}px`}}
     >
       <Dropdown
         name="userType"
