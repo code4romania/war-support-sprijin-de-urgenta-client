@@ -1,14 +1,8 @@
-import { FC, forwardRef, InputHTMLAttributes } from "react";
+import { forwardRef } from "react";
 import clsx from "clsx";
-import { ErrorOption } from "react-hook-form";
+import { InputElementProps } from "@/components/Form/types";
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  label?: string;
-  errors?: ErrorOption;
-}
-
-const Element = forwardRef<HTMLInputElement, IProps>(({
+const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   name,
   children,
   value,

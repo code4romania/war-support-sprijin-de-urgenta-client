@@ -1,15 +1,10 @@
-import {forwardRef, InputHTMLAttributes} from "react";
-import {ErrorOption} from "react-hook-form";
+import { forwardRef, InputHTMLAttributes } from "react";
+import { ErrorOption } from "react-hook-form";
 import clsx from "clsx";
-import {ElementWrapper, Label} from "@/components/Form/common";
+import { ElementWrapper, Label } from "@/components/Form/common";
+import { InputElementProps } from "@/components/Form/types";
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement>{
-  name: string;
-  label?: string;
-  errors?: ErrorOption;
-}
-
-const Element = forwardRef<HTMLInputElement, IProps>(({
+const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   name,
   label,
   errors,
@@ -35,7 +30,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
           'px-3 py-2',
           'border border-gray-100 rounded-md',
           'focus:ring-blue-600 focus:border-blue-600 focus:border-2 focus:outline-none',
-          {'border-red-50 border-2': errors }
+          {'border-red-50 border-2': errors}
         )}
         {...rest}
       />
