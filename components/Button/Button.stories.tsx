@@ -14,5 +14,11 @@ export const Default = Template.bind({});
 Default.args = {
   text: 'Button text'
 }
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/OlNwOwDItLPKBcy5OEROVj/Sprijin-de-urgenta?node-id=57%3A1604',
+  },
+}
 
 
