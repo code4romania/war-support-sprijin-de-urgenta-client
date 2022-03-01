@@ -10,70 +10,134 @@ import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
+import { useMemo } from 'react'
 
 type ServicesForm = {
-  transportGoods: boolean
-  capacity?: number
-  needCooling?: boolean
-  transportType?: string
-  transportCounty?: string
-  driverName?: string
-  driverCI?: string
-  carPlate?: string
-}
+  transportGoods?: boolean;
+  capacity?: number;
+  needsCooling?: boolean | null;
+  transportType?: string;
+  transportCounty?: string;
+  tgDriverName?: string;
+  tgDriverCI?: string;
+  tgCarPlate?: string;
+  transportPersons?: boolean;
+  personsNo?: number;
+  withDisabilities?: boolean | null;
+  withPets?: boolean | null;
+  transportPersonsType?: string;
+  transportPersonsCounty?: string;
+  tpDriverName?: string;
+  tpDriverCI?: string;
+  tpCarPlate?: string;
+};
 
 const SignUpServicesForm = () => {
   const { t } = useTranslation()
   const { data } = useServicesForm()
 
-  const schema: SchemaOf<ServicesForm> = yup.object().shape({
-    transportGoods: yup.boolean().required(),
+  const transportGoodsSchema = yup.object().shape({
+    transportGoods: yup.boolean().notRequired(),
     capacity: yup.number().when('transportGoods', {
       is: true,
-      then: yup.number().required(),
+      then: yup.number().required()
     }),
-    needCooling: yup.boolean().when('transportGoods', {
+    needsCooling: yup.boolean().nullable().when('transportGoods', {
       is: true,
-      then: yup.boolean().nullable().required(),
+      then: yup.boolean().nullable().required()
     }),
     transportType: yup.string().when('transportGoods', {
       is: true,
-      then: yup.string().required(),
+      then: yup.string().required()
     }),
     transportCounty: yup.string().when('transportType', {
       is: 'county',
-      then: yup.string().required('Selectați un județ'),
+      then: yup.string().required('Selectați un județ')
     }),
-    driverName: yup.string().when('transportGoods', {
+    tgDriverName: yup.string().when('transportGoods', {
       is: true,
-      then: yup.string().required(),
+      then: yup.string().required()
     }),
-    driverCI: yup.string().when('transportGoods', {
+    tgDriverCI: yup.string().when('transportGoods', {
       is: true,
-      then: yup.string().required(),
+      then: yup.string().required()
     }),
-    carPlate: yup.string().when('transportGoods', {
+    tgCarPlate: yup.string().when('transportGoods', {
       is: true,
-      then: yup.string().required(),
+      then: yup.string().required()
     }),
-  })
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ServicesForm>({
+  const transportPersonsSchema = yup.object().shape({
+    transportPersons: yup.boolean().notRequired(),
+    personsNo: yup.number().when('transportPersons', {
+      is: true,
+      then: yup.number().required()
+    }),
+    withDisabilities: yup.boolean().nullable().when('transportPersons', {
+      is: true,
+      then: yup.boolean().nullable().required()
+    }),
+    withPets: yup.boolean().nullable().when('transportPersons', {
+      is: true,
+      then: yup.boolean().nullable().required()
+    }),
+    transportPersonsType: yup.string().when('transportPersons', {
+      is: true,
+      then: yup.string().required()
+    }),
+    transportPersonsCounty: yup.string().when('transportPersonsType', {
+      is: 'county',
+      then: yup.string().required()
+    }),
+    tpDriverName: yup.string().when('transportPersons', {
+      is: true,
+      then: yup.string().required()
+    }),
+    tpDriverCI: yup.string().when('transportPersons', {
+      is: true,
+      then: yup.string().required()
+    }),
+    tpCarPlate: yup.string().when('transportPersons', {
+      is: true,
+      then: yup.string().required()
+    })
+  });
+
+  const fullSchema: SchemaOf<ServicesForm> = transportGoodsSchema.concat(transportPersonsSchema);
+
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<ServicesForm>({
     defaultValues: {
       transportGoods: false,
       capacity: 0,
       transportType: '',
+      transportPersons: false,
+      transportPersonsType: '',
+      personsNo: 0
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(fullSchema),
     reValidateMode: 'onSubmit',
-    mode: 'all',
+    mode: 'all'
   })
 
-  const onSubmit = (data: ServicesForm) => console.log(data)
+  const watchTransportType = watch("transportType");
+  const watchTransportPersonsType = watch("transportPersonsType");
+
+  const watchTransportGoods = watch('transportGoods', false);
+  const watchTransportPersons = watch('transportPersons', false);
+
+  const countiesOptions = useMemo(() => {
+    return data?.actions?.POST?.county_coverage?.choices.map((c: any, idx: number) => <option key={idx} value={c.value}>{c.display_name}</option>)
+  }, [data]);
+
+  const onSubmit = (data: ServicesForm) => {
+    //Preparing object for mutation. The api seems incomplete
+    const goodsTransportRequest: GoodsTransportServicesRequest = {
+      usable_weight: data.capacity,
+      has_refrigeration: !!data.needsCooling,
+      county_coverage: data.transportCounty,
+    }
+  }
 
   return (
     <main
@@ -158,7 +222,7 @@ const SignUpServicesForm = () => {
 
         <Input type="submit" name="submit" />
       </form>
-    </main>
+    </main >
   )
 }
 
