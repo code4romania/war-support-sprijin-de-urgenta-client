@@ -22,13 +22,24 @@ const Steps: NextPage = () => {
   }
 
   return (
-    <div className="px-2 md:px-12 container md:mx-auto">
+    <div className="container px-2 md:px-12 md:mx-auto">
       <Stepper
         activeStep={activeStep}
         steps={steps.map((step) => step.label)}
       />
-      <div className={'mt-12'}>{currentComponent}</div>
-      <div className="mt-8 justify-start flex-wrap w-full flex justify-between md:justify-start">
+      <div className={'mt-12'}>
+        {(() => {
+          switch (currentComponent) {
+            case 'UserType':
+              return <div>User Type Component</div>
+            case 'UserData':
+              return <div>User Data Component</div>
+            case 'Resources':
+              return <div>Resources Component</div>
+          }
+        })()}
+      </div>
+      <div className="flex flex-wrap justify-between w-full mt-8 md:justify-start">
         <div
           onClick={handleStepBackward}
           className="flex items-center md:mr-6 md:w-44"

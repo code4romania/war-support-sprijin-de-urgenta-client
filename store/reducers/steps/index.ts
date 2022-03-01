@@ -1,5 +1,4 @@
 import { StepsStore } from './types'
-import { useTranslation } from 'react-i18next'
 
 export enum ActionType {
   INCREASE = 'increase',
@@ -12,15 +11,15 @@ export const defaultStepsState: StepsStore = {
   steps: [
     {
       label: 'steps.userType',
-      component: 'TipUtilizator',
+      component: 'UserType',
     },
     {
       label: 'steps.userData',
-      component: 'DateUtilizator',
+      component: 'UserData',
     },
     {
       label: 'steps.resources',
-      component: 'ResurseOferite',
+      component: 'Resources',
     },
   ],
   activeStep: 0,
