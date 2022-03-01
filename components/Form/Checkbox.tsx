@@ -1,6 +1,7 @@
 import { FC, forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 import { ErrorOption } from "react-hook-form";
+
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   label?: string;
