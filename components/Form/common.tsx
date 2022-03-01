@@ -23,7 +23,7 @@ export const ElementWrapper: FC<IElementWrapperProps> = ({
 interface ILabelWrapperProps {
   name: string;
   hasError?: boolean;
-  className: string;
+  className?: string;
 }
 
 export const Label: FC<ILabelWrapperProps> = ({
