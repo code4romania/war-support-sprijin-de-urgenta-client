@@ -7,8 +7,10 @@ import { ActionType } from '@/store/reducers/steps'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import { UserComponentType } from '@/store/reducers/steps/types'
+import SignUpResources from '@/components/SignUpResources'
+import clsx from 'clsx'
 
-const Register: NextPage = () => {
+const SignUp: NextPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
@@ -22,26 +24,28 @@ const Register: NextPage = () => {
     dispatch({ type: ActionType.DECREASE })
   }
 
-  let currentComponent = null;
+  let currentComponent = null
 
   switch (steps[activeStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
-      break;
-
+      break
+    case UserComponentType.userResources:
+      currentComponent = <SignUpResources />
+      break
     default:
       currentComponent = <div></div>
-      break;
+      break
   }
 
   return (
-    <div className="px-2 md:px-12 container md:mx-auto">
+    <div className={clsx('container', 'md:mx-auto', 'py-4')}>
       <Stepper
         activeStep={activeStep}
         steps={steps.map((step) => step.label)}
       />
-      <div className={'mt-12'}>{currentComponent}</div>
-      <div className="mt-8 justify-start flex-wrap w-full flex justify-between md:justify-start">
+      <div className={'mt-12 px-3'}>{currentComponent}</div>
+      <div className="mt-8 justify-start flex-wrap w-full flex md:justify-start">
         <div
           onClick={handleStepBackward}
           className="flex items-center md:mr-6 md:w-44"
@@ -66,4 +70,4 @@ const Register: NextPage = () => {
   )
 }
 
-export default Register
+export default SignUp
