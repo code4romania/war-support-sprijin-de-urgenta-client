@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
+    "@reach/dialog": "^0.16.2",
     "@types/yup": "^0.29.13",
     "clsx": "^1.1.1",
     "extracted-loader": "^1.0.7",
