@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Checkbox from '../Form/Checkbox'
-import Radio from '../Form/Radio'
+import SignUpProducts from '../SignUpProducts'
+import SignupVolunteering from '../SignupVolunteering'
 
 interface ICategory {
   name: string
@@ -39,8 +40,8 @@ const CATEGORIES: ICategory[] = [
 const resourceTypeBuilder = (id: number) => {
   const dictionary = {
     1: () => <div>{'Services component'}</div>,
-    2: () => <div>{'Products component'}</div>,
-    3: () => <div>{'Volunteer component'}</div>,
+    2: () => <SignUpProducts />,
+    3: () => <SignupVolunteering />,
     4: () => <div>{'Others component'}</div>,
     default: () => <div>{'Others component'}</div>,
   }
@@ -48,7 +49,7 @@ const resourceTypeBuilder = (id: number) => {
 }
 
 const SignUpResources = () => {
-  const [selectedResourceIds, setSelectedResourceIds] = useState([1])
+  const [selectedResourceIds, setSelectedResourceIds] = useState<number[]>([])
   const { t } = useTranslation()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,29 +63,31 @@ const SignUpResources = () => {
   }
 
   return (
-    <div className="flex flex-col">
-      <h3 className="mb-2">{t('signup.resources.offer')} *</h3>
-      {CATEGORIES.map(({ id, translationKey }) => (
-        <Checkbox
-          onChange={(event) => handleChange(event)}
-          key={id}
-          name="resource"
-          value={id}
-          checked={selectedResourceIds.includes(id)}
-        >
-          {t(translationKey)}
-        </Checkbox>
-      ))}
+    <div className="space-y-4">
+      <div className="flex flex-col px-8 rounded-md py-7 bg-blue-50">
+        <h3 className="mb-4 text-lg font-semibold">
+          {t('signup.resources.offer')} *
+        </h3>
+        {CATEGORIES.map(({ id, translationKey }) => (
+          <Checkbox
+            onChange={(event) => handleChange(event)}
+            key={id}
+            name="resource"
+            value={id}
+            checked={selectedResourceIds.includes(id)}
+          >
+            {t(translationKey)}
+          </Checkbox>
+        ))}
+        <p className="mt-8 text-sm font-semibold text-gray-500">
+          {t('signup.resources.fillInDetails')}
+        </p>
+      </div>
       {selectedResourceIds.map((id) => (
         <div key={id} className={clsx('w-full')}>
           {resourceTypeBuilder(id)}
         </div>
       ))}
-
-      <div className={clsx('w-full lg:w-2/5', 'text-xs')}>
-        <p className="py-3">{t('signup.resources.gdpr')}*</p>
-        <Checkbox>Da</Checkbox>
-      </div>
     </div>
   )
 }

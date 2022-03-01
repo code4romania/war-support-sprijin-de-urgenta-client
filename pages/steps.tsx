@@ -7,6 +7,7 @@ import { ActionType } from '@/store/reducers/steps'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import { UserComponentType } from '@/store/reducers/steps/types'
+import SignUpResources from '@/components/SignUpResources'
 
 const Steps: NextPage = () => {
   const { t } = useTranslation()
@@ -22,26 +23,29 @@ const Steps: NextPage = () => {
     dispatch({ type: ActionType.DECREASE })
   }
 
-  let currentComponent = null;
+  let currentComponent = null
 
   switch (steps[activeStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
-      break;
+      break
+    case UserComponentType.userResources:
+      currentComponent = <SignUpResources />
+      break
 
     default:
       currentComponent = <div></div>
-      break;
+      break
   }
 
   return (
-    <div className="px-2 md:px-12 container md:mx-auto">
+    <div className="container px-2 md:px-12 md:mx-auto">
       <Stepper
         activeStep={activeStep}
         steps={steps.map((step) => step.label)}
       />
       <div className={'mt-12'}>{currentComponent}</div>
-      <div className="mt-8 justify-start flex-wrap w-full flex justify-between md:justify-start">
+      <div className="flex flex-wrap justify-start justify-between w-full mt-8 md:justify-start">
         <div
           onClick={handleStepBackward}
           className="flex items-center md:mr-6 md:w-44"

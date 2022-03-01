@@ -17,9 +17,9 @@ const HomePage: NextPage = () => {
         <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
         <div className={clsx('grid grid-cols-2 gap-8')}>
           <Button text={t('housing')} route="/cazare" />
-          <Button text={t('products')} route="/produse" />
-          <Button text={t('services')} route="/servicii" />
-          <Button text={t('others')} route="/altele" />
+          <Button text={t('products')} route="/steps" />
+          <Button text={t('services')} route="/services" />
+          <Button text={t('others')} route="/steps" />
         </div>
       </div>
     </main>
