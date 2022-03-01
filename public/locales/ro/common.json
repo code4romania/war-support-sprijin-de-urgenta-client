@@ -9,6 +9,7 @@
   "products": "Produse",
   "services": "Servicii",
   "others": "Altele",
+  "volunteer": "Voluntar",
   "findout.more": "Află mai multe",
   "solution.by": "O soluție Code for Romania.",
   "login.submit": "Login",
@@ -33,5 +34,7 @@
   "signup.volunteering.manager": "Organizare",
   "signup.volunteering.translator": "Translator",
   "signup.volunteering.other": "Altele:",
-  "signup.volunteering.description": "Vă rog să descrieți, pe scurt, experiența în domeniu:"
+  "signup.volunteering.description": "Vă rog să descrieți, pe scurt, experiența în domeniu:",
+  "signup.resources.offer": "Resursa oferita:",
+  "signup.resources.gdpr": "Prin completarea formularului accept ca datele mele să fie procesate de Guvernul României. Cunosc faptul că Guvernul României prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679."
 }
