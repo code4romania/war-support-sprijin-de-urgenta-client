@@ -2,6 +2,12 @@ import clsx from 'clsx'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
+import { useData } from '../hooks/useData'
+
+interface ICategory {
+  pk: number
+  name: string
+}
 
 import { setDefaultOffer } from '@/store/reducers/signup'
 
@@ -20,6 +26,7 @@ const HomePage: NextPage = () => {
     }
   }
 
+  const { data } = useData('/categories_by_name')
   return (
     <main className={clsx('layout h-full')}>
       <section className="mb-24">
@@ -31,13 +38,17 @@ const HomePage: NextPage = () => {
       <div>
         <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
         <div className={clsx('grid grid-cols-2 gap-8')}>
-          {/* 
-          //TODO Remove hardcoded, when backend is ready
-          */}
-          <Button text={t('housing')} onClick={() => handleClick(3)} />
+          <Button text={t('housing')} />
           <Button text={t('products')} onClick={() => handleClick(2)} />
           <Button text={t('services')} onClick={() => handleClick(1)} />
           <Button text={t('others')} onClick={() => handleClick(4)} />
+          {data?.map((item: ICategory) => (
+            <Button
+              key={item.pk}
+              text={item.name}
+              onClick={() => handleClick(item.pk)}
+            />
+          ))}
         </div>
       </div>
     </main>

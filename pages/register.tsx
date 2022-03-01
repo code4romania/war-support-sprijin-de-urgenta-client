@@ -8,7 +8,7 @@ import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import { UserComponentType } from '@/store/reducers/steps/types'
 
-const Steps: NextPage = () => {
+const Register: NextPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
@@ -66,4 +66,4 @@ const Steps: NextPage = () => {
   )
 }
 
-export default Steps
+export default Register
