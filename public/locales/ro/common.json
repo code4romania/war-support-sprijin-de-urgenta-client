@@ -33,5 +33,12 @@
   "signup.volunteering.manager": "Organizare",
   "signup.volunteering.translator": "Translator",
   "signup.volunteering.other": "Altele:",
-  "signup.volunteering.description": "Vă rog să descrieți, pe scurt, experiența în domeniu:"
+  "signup.volunteering.description": "Vă rog să descrieți, pe scurt, experiența în domeniu:",
+  "incubated.by": "proiect dezvoltat în programul",
+  "about.project": "Despre proiect",
+  "code4ro.description": "Organizație neguvernamentală independentă, neafiliată politic și apolitică.",
+  "confidentiality.policy": "Politică de confidențialitate",
+  "terms.and.conditions": "Termeni și condiții",
+  "useful.links": "Linkuri utile",
+  "legal.info": "Informații legale"
 }

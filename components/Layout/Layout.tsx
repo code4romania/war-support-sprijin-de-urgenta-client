@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { ReactNode } from 'react'
+import Footer from '../Footer'
 
 import Header from '../Header'
 
@@ -12,6 +13,7 @@ const Layout = ({ children }: ILayoutProps) => {
     <div className={clsx('flex flex-col')}>
       <Header />
       {children}
+      <Footer/>
     </div>
   )
 }

@@ -24,7 +24,7 @@ const smallBoldTextWithGrayAndMarginAside: string = clsx(
 const Header = () => {
   const { t } = useTranslation('common')
   return (
-    <div className={clsx('w-full px-2 mx-auto')}>
+    <div className={clsx('w-full mx-auto')}>
       <div className=" bg-gray-50">
         <div
           className={`${flexItemsCenter} 
