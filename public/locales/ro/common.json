@@ -43,5 +43,16 @@
     "Persoană juridică",
     "Autoritate publică",
     "ONG"
-  ]
+  ],
+  "unit.tons": "tone",
+  "services.transport-goods": "Transport marfă",
+  "services.capacity": "Capacitate:",
+  "services.cooling": "Refrigerare",
+  "services.transport": "Transport",
+  "services.driver-name": "Nume șofer:",
+  "services.driver-ci": "Serie și nr. buletin:",
+  "services.car-plate": "Număr mașină:",
+  "yes": "Da",
+  "no": "Nu",
+  "services.transport-type.national": "National"
 }

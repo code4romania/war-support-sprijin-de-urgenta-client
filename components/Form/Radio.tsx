@@ -1,21 +1,26 @@
-import { FC, InputHTMLAttributes } from 'react'
-import clsx from 'clsx'
+import clsx from "clsx";
+import { forwardRef } from "react";
+import { InputElementProps } from "@/components/Form/types";
 
-const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+
+const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   name,
   children,
   value,
-  checked,
+  className,
+  errors,
   ...rest
-}) => {
+}, ref) => {
   return (
-    <div className="flex items-center mb-4">
+    <div
+      className={clsx("flex items-center mb-4", className)}
+    >
       <input
         type="radio"
         name={name}
         id={`${name}_${value}`}
         value={value}
-        checked={checked}
+        ref={ref}
         className={clsx(
           'appearance-none mr-2',
           'w-4 h-4',
@@ -29,9 +34,10 @@ const Element: FC<InputHTMLAttributes<HTMLInputElement>> = ({
       <label htmlFor={`${name}_${value}`} className={clsx('text-sm')}>
         {children}
       </label>
+      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
     </div>
-  )
-}
+  );
+});
 
 Element.displayName = 'Radio'
 
