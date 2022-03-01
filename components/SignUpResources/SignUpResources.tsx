@@ -46,7 +46,7 @@ const resourceTypeBuilder = (id: number) => {
     4: () => <div>{'Others component'}</div>,
     default: () => <div>{'Others component'}</div>,
   }
-  return id ? dictionary[id as keyof typeof dictionary]() : dictionary.default()
+  return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
 }
 
 const SignUpResources = () => {
