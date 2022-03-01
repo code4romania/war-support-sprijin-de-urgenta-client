@@ -18,13 +18,15 @@ const Tents: FC<IProps> = ({
       <Input
         type="number"
         label={t('signup.products.qty')}
+        labelPosition="horizontal"
       />
       <div className="flex">
         <Input
           type="number"
           label={t('signup.products.capacity')}
+          labelPosition="horizontal"
         />
-        <Label>
+        <Label className={"ml-3 mt-3"}>
           {t('signup.products.persons')}
         </Label>
       </div>

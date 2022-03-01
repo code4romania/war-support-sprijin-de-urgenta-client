@@ -8,6 +8,7 @@ import BuildingMaterials from "@/components/SignupProducts/BuildingMaterials";
 import Separator from "@/components/SignupProducts/common/Separator";
 import Tents from "@/components/SignupProducts/Tents";
 import Others from "@/components/SignupProducts/Others";
+import CategoryWrapper from "@/components/SignupProducts/common/CategoryWrapper";
 
 const SignupProducts: FC = () => {
   const { t } = useTranslation();
@@ -17,51 +18,65 @@ const SignupProducts: FC = () => {
       <h2>{t('signup.products.header')}</h2>
 
       <div>
-        {/*<Checkbox*/}
-        {/*  name="products_food"*/}
-        {/*>*/}
-        {/*  {t('signup.products.food')}*/}
-        {/*</Checkbox>*/}
-        {/*<GenericProduct resourceType="food" />*/}
+        <CategoryWrapper>
+          <Checkbox
+            name="products_food"
+          >
+            {t('signup.products.food')}
+          </Checkbox>
+        </CategoryWrapper>
+        <GenericProduct resourceType="food" />
 
-        {/*<Separator />*/}
+        <Separator />
 
-        {/*<Checkbox name="products_food">*/}
-        {/*  {t('signup.products.generalHygiene')}*/}
-        {/*</Checkbox>*/}
-        {/*<GenericProduct resourceType="generalHygiene" />*/}
+        <CategoryWrapper>
+          <Checkbox name="products_food">
+            {t('signup.products.generalHygiene')}
+          </Checkbox>
+        </CategoryWrapper>
+        <GenericProduct resourceType="generalHygiene" />
 
-        {/*<Separator />*/}
+        <Separator />
 
-        {/*<Checkbox name="products_food">*/}
-        {/*  {t('signup.products.feminineHygiene')}*/}
-        {/*</Checkbox>*/}
-        {/*<GenericProduct resourceType="feminineHygiene" />*/}
+        <CategoryWrapper>
+          <Checkbox name="products_food">
+            {t('signup.products.feminineHygiene')}
+          </Checkbox>
+        </CategoryWrapper>
+        <GenericProduct resourceType="feminineHygiene" />
 
-        {/*<Separator />*/}
+        <Separator />
 
-        <Checkbox>
-          {t('signup.products.textile')}
-        </Checkbox>
+        <CategoryWrapper>
+          <Checkbox>
+            {t('signup.products.textile')}
+          </Checkbox>
+        </CategoryWrapper>
         <TextileProduct resourceType="textile" />
 
-        {/*<Separator />*/}
+        <Separator />
 
-        {/*<Checkbox>*/}
-        {/*  {t('signup.products.buildingMaterials')}*/}
-        {/*</Checkbox>*/}
-        {/*<BuildingMaterials resourceType="buildingMaterials" />*/}
+        <CategoryWrapper>
+          <Checkbox>
+            {t('signup.products.buildingMaterials')}
+          </Checkbox>
+        </CategoryWrapper>
+        <BuildingMaterials resourceType="buildingMaterials" />
 
-        {/*<Separator />*/}
+        <Separator />
 
-        {/*<Checkbox>*/}
-        {/*  {t('signup.products.tents')}*/}
-        {/*</Checkbox>*/}
-        {/*<Tents resourceType="tents" />*/}
+        <CategoryWrapper>
+          <Checkbox>
+            {t('signup.products.tents')}
+          </Checkbox>
+        </CategoryWrapper>
+        <Tents resourceType="tents" />
 
-        {/*<Separator />*/}
+        <Separator />
 
-        {/*<Others />*/}
+        <CategoryWrapper>
+          <Others />
+        </CategoryWrapper>
       </div>
     </div>
   )

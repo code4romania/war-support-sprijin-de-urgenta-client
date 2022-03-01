@@ -8,7 +8,7 @@ const Others: FC = () => {
 
   return (
     <div className="flex">
-      <Checkbox>
+      <Checkbox className={"mr-5 self-start"}>
         {t('signup.products.others')}
       </Checkbox>
       <Textarea />
