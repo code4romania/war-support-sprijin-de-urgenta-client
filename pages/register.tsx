@@ -7,13 +7,14 @@ import { ActionType } from '@/store/reducers/steps'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import { UserComponentType } from '@/store/reducers/steps/types'
+import SignUpResources from '@/components/SignUpResources'
 
 const Register: NextPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
   const steps = useSelector((state: State) => state.steps.steps)
-
+  
   const handleStepForward = () => {
     dispatch({ type: ActionType.INCREASE })
   }
@@ -27,6 +28,10 @@ const Register: NextPage = () => {
   switch (steps[activeStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
+      break;
+    
+    case UserComponentType.userResources:
+      currentComponent = <SignUpResources />
       break;
 
     default:

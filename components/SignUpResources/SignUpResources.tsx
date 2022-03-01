@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import Checkbox from '../Form/Checkbox'
 import Radio from '../Form/Radio'
+import OtherResourcesForm from '../OtherResourcesForm'
 
 interface ICategory {
   name: string
@@ -41,8 +42,8 @@ const resourceTypeBuilder = (id: number) => {
     1: () => <div>{'Services component'}</div>,
     2: () => <div>{'Products component'}</div>,
     3: () => <div>{'Volunteer component'}</div>,
-    4: () => <div>{'Others component'}</div>,
-    default: () => <div>{'Others component'}</div>,
+    4: () => <OtherResourcesForm />,
+    default: () => <OtherResourcesForm />,
   }
   return id ? dictionary[id as keyof typeof dictionary]() : dictionary.default()
 }
