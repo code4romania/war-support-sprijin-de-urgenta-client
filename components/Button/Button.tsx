@@ -1,13 +1,14 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import {ButtonHTMLAttributes} from "react";
+import { ButtonHTMLAttributes, MouseEventHandler } from 'react'
 
 export interface IButtonProps {
   text: string
   route?: string
-  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
   variant?: 'primary' | 'secondary'
   size?: 'medium' | 'large'
+  onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
 const ButtonInner = ({
@@ -48,7 +49,15 @@ const ButtonInner = ({
   )
 }
 
-const Button = ({ text, route, variant, size, type = 'button', ...rest }: IButtonProps) => {
+const Button = ({
+  text,
+  route,
+  variant,
+  size,
+  onClick,
+  type = 'button',
+  ...rest
+}: IButtonProps) => {
   if (route) {
     return (
       <Link href={route} passHref>
@@ -59,7 +68,7 @@ const Button = ({ text, route, variant, size, type = 'button', ...rest }: IButto
     )
   }
   return (
-    <button type={type} className="w-full">
+    <button onClick={onClick} type={type} className="w-full">
       <ButtonInner text={text} variant={variant} size={size} {...rest} />
     </button>
   )

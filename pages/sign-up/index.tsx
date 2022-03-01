@@ -8,8 +8,9 @@ import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import { UserComponentType } from '@/store/reducers/steps/types'
 import SignUpResources from '@/components/SignUpResources'
+import clsx from 'clsx'
 
-const Register: NextPage = () => {
+const SignUp: NextPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
@@ -39,13 +40,13 @@ const Register: NextPage = () => {
   }
 
   return (
-    <div className="container px-2 md:px-12 md:mx-auto">
+    <div className={clsx('container', 'md:mx-auto', 'py-4')}>
       <Stepper
         activeStep={activeStep}
         steps={steps.map((step) => step.label)}
       />
-      <div className={'mt-12'}>{currentComponent}</div>
-      <div className="flex flex-wrap justify-start justify-between w-full mt-8 md:justify-start">
+      <div className={'mt-12 px-3'}>{currentComponent}</div>
+      <div className="flex flex-wrap justify-start w-full mt-8 md:justify-start">
         <div
           onClick={handleStepBackward}
           className="flex items-center md:mr-6 md:w-44"
@@ -70,4 +71,4 @@ const Register: NextPage = () => {
   )
 }
 
-export default Register
+export default SignUp
