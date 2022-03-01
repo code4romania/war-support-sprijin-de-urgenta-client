@@ -1,18 +1,19 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button from '.';
+import NavigationButton from './NavigationButton';
 
 export default {
-  title: 'Button',
-  component: Button
-} as ComponentMeta<typeof Button>;
+  title: 'NavigationButton',
+  component: NavigationButton
+} as ComponentMeta<typeof NavigationButton>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Template: ComponentStory<typeof NavigationButton> = (args) => <NavigationButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  text: 'Button text'
+  text: 'Button text',
+  route: '/services'
 }
 Default.parameters = {
   design: {

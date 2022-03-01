@@ -1,19 +1,16 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button from '.';
+import IconButton from './IconButton';
 
 export default {
-  title: 'Button',
-  component: Button
-} as ComponentMeta<typeof Button>;
+  title: 'IconButton',
+  component: IconButton
+} as ComponentMeta<typeof IconButton>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Template: ComponentStory<typeof IconButton> = (args) => <IconButton {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  text: 'Button text'
-}
 Default.parameters = {
   design: {
     type: 'figma',
