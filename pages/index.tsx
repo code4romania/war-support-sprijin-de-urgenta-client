@@ -2,22 +2,16 @@ import Button from '@/components/Button'
 import clsx from 'clsx'
 import type { NextPage } from 'next'
 import { useTranslation } from 'react-i18next'
-import useSWR, { Fetcher } from 'swr'
+import { useData } from '../hooks/useData'
 
 interface ICategory {
   pk: number
   name: string
 }
 
-const fetcher: Fetcher<ICategory[]> = (args: any) =>
-  fetch(args).then((res) => res.json())
-
 const HomePage: NextPage = () => {
   const { t } = useTranslation()
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_PUBLIC_API}/categories_by_name`,
-    fetcher
-  )
+  const { data } = useData('/categories_by_name')
   return (
     <main className={clsx('layout h-full')}>
       <section className="mb-24">
