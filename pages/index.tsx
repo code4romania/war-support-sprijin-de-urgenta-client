@@ -19,9 +19,9 @@ const HomePage: NextPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  const handleClick = (id: number) => {
-    if (id) {
-      dispatch(setDefaultOffer(id))
+  const handleClick = (pk: number) => {
+    if (pk) {
+      dispatch(setDefaultOffer(pk))
       router.push('/sign-up')
     }
   }
