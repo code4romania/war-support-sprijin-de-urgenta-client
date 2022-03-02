@@ -17,7 +17,7 @@ import { DropdownElementProps } from '@/components/Form/types'
 
 // eslint-disable-next-line react/display-name
 const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(
-  ({ name, errors, label, noValidations, children, ...rest }, ref) => {
+  ({ name, errors, label, noValidations, children, placeholder, ...rest }, ref) => {
     return (
       <ElementWrapper hasError={!!errors} noValidations={noValidations}>
         {label && (
@@ -40,7 +40,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(
             {...rest}
           >
             <option hidden disabled>
-              {label}
+              {placeholder}
             </option>
             {children}
           </select>

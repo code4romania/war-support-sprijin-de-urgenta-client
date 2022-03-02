@@ -1,7 +1,8 @@
 import Button from '@/components/Button'
-import { GoodsTransportServicesRequest } from 'api/types'
+import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
 import { TransportGoodsForm } from 'forms'
+import { TransportPersonsForm } from 'forms/TransportPersonsForm'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
@@ -11,9 +12,14 @@ const SignUpServicesFormWithModal = () => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
+  const [showForm, setShowForm] = useState<'transportGoods' | 'transportPersons'>();
 
-  const onTransportGoodsSubmit = (data: GoodsTransportServicesRequest) => {
+  const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
     console.log(data);
+  }
+
+  const onTransporPersonsSubmit = () => {
+    console.log();
   }
 
   return (
@@ -30,7 +36,10 @@ const SignUpServicesFormWithModal = () => {
           text={t('add')}
           size="small"
           variant="tertiary"
-          onClick={() => setShowDialog(true)}
+          onClick={() => {
+            setShowForm('transportGoods');
+            setShowDialog(true)
+          }}
         />
       </div>
       <div className="flex items-center gap-4 mb-8">
@@ -39,13 +48,24 @@ const SignUpServicesFormWithModal = () => {
           text={t('add')}
           size="small"
           variant="tertiary"
-          onClick={() => setShowDialog(true)}
+          onClick={() => {
+            setShowForm('transportPersons');
+            setShowDialog(true)
+          }}
         />
       </div>
 
       {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
-      <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)}>
-        <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
+      <Dialog isOpen={showDialog} onDismiss={() => {
+        setShowDialog(false)
+        setShowForm(undefined);
+      }}>
+        {showForm === 'transportGoods' &&
+          <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
+        }
+        {showForm === 'transportPersons' &&
+          <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
+        }
       </Dialog>
     </main>
   )

@@ -1,1 +1,2 @@
-export * from './transportGoodsForm'
+export * from './TransportGoodsForm'
+export * from './TransportPersonsForm'

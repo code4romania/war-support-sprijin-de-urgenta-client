@@ -1,4 +1,4 @@
-export type GoodsTransportServicesRequest = {
+export type TransportServicesRequest = {
     weight_capacity?: number;
     weight_unit?: string;
     has_refrigeration?: boolean;

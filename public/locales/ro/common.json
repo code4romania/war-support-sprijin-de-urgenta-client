@@ -94,5 +94,14 @@
   "no": "Nu",
   "add": "Adaugă",
   "services.transport-type.national": "National",
-  "describeTheResource": "Descrieți resursa"
+  "describeTheResource": "Descrieți resursa",
+  "error.capacity.required": "Introduceți capacitatea",
+  "error.refrigeration.required": "Selectați dacă aveți posibilitatea de refrigerare",
+  "error.transportType.required": "Selectați tipul de transport",
+  "error.county.required": "Selectați un județ",
+  "error.driverName.required": "Introduceți numele șoferului",
+  "error.driverCI.required": "Introduceți seria si numarul de buletin",
+  "error.driverCarPlate.required": "Introduceți numărul de înmatriculare al mașinii",
+  "services.transport.county": "Județ",
+  "services.availability": "Cât timp puteți aloca pentru aceste activități?"
 }
