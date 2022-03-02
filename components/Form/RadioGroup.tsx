@@ -11,8 +11,8 @@ const RadioGroup: FC<GroupElementProps> = ({ children, errors, label }) => {
         </h3>
       )}
       {children}
-      {errors && (
-        <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>
+      {!Array.isArray(errors) && (
+        <p className="text-sm pl-1 pr-1 text-red-50">{errors?.message}</p>
       )}
     </ElementWrapper>
   )
