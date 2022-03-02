@@ -34,7 +34,7 @@ interface ITransportGoodsFormProps {
 export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   const { t } = useTranslation();
   const { data } = useServicesForm();
-  console.log(data);
+
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     capacity: yup.number().required(t('error.capacity.required')),
     hasRefrigeration: yup.boolean().nullable().required(t('error.refrigeration.required')),
@@ -142,7 +142,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               <Dropdown {...register('transportCounty')}
                 disabled={watchTransportType !== 'county'}
                 errors={errors.transportCounty}
-                placeholder={t('services.transport.county')}
+                placeholder={t('services.county.placeholder')}
               >
                 {countiesOptions}
               </Dropdown>
@@ -179,7 +179,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             {availabilityOptions}
           </CheckboxGroup>
         </section>
-        <Button type="submit" text={t('add')} variant="tertiary" size="small" className={clsx('mt-2')} />
+        <Button type="submit" text={t('add')} variant="tertiary" size="small" />
       </form>
     </div>
   )

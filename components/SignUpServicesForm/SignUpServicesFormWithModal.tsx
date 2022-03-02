@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
 
 
-const SignUpServicesFormWithModal = () => {
+export const SignUpServicesFormWithModal = () => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
@@ -16,10 +16,14 @@ const SignUpServicesFormWithModal = () => {
 
   const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
     console.log(data);
+    setShowDialog(false);
+    setShowForm(undefined);
   }
 
-  const onTransporPersonsSubmit = () => {
-    console.log();
+  const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
+    console.log(data);
+    setShowDialog(false);
+    setShowForm(undefined);
   }
 
   return (
@@ -70,5 +74,3 @@ const SignUpServicesFormWithModal = () => {
     </main>
   )
 }
-
-export default SignUpServicesFormWithModal

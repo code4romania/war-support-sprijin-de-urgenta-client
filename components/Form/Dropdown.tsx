@@ -39,7 +39,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(
             defaultValue={label}
             {...rest}
           >
-            <option hidden disabled>
+            <option hidden disabled selected>
               {placeholder}
             </option>
             {children}

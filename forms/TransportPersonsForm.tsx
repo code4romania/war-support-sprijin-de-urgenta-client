@@ -88,7 +88,6 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       driver_id: data.driverCI,
       car_registration_number: data.carPlate,
     }
-    console.log(data);
 
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
     //TODO: if the API will receive an array then it makes sense to send data upwards
@@ -160,7 +159,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
             {t('services.transport-type.national')}
           </Radio>
           <Radio value="county" {...register('transportType')}>
-            <Dropdown {...register('transportCounty')} disabled={watchtransportType !== 'county'}>
+            <Dropdown placeholder={t('services.county.placeholder')} {...register('transportCounty')} disabled={watchtransportType !== 'county'}>
               {countiesOptions}
             </Dropdown>
           </Radio>
