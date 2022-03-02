@@ -12,7 +12,7 @@ export interface UserType {
   display_name: string,
 }
 
-export const userTypeForms = {
+export const userTypeForms: { [key: number]: any } = {
   [1]: {
     inputs: [
       { name: 'last_name', label: 'signup.userType.last_name' },
