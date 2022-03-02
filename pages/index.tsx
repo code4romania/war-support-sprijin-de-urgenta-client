@@ -8,6 +8,8 @@ import { ICategory } from '@/store/reducers/categories/types'
 import { setDefaultOffer } from '@/store/reducers/signup'
 import Button from '@/components/Button'
 import SubHeader from '@/components/SubHeader'
+import WelcomeBanner from '@/components/WelcomeBanner'
+import Spacer from '@/components/Spacer'
 
 const HomePage: NextPage = () => {
   const router = useRouter()
@@ -25,12 +27,12 @@ const HomePage: NextPage = () => {
   return (
     <>
       <SubHeader />
+      <Spacer size="3.75rem" />
+
       <main className="h-full layout">
-        <section className="mb-24">
-          <h1 className="mb-6 text-2xl font-bold">{t('homepage.title')}</h1>
-          <h2 className="max-w-lg text-xl">{t('homepage.subtitle')}</h2>
-        </section>
-        <div>
+        <WelcomeBanner />
+        <Spacer size="3.5rem"/>
+        <section>
           <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
           <div className="grid grid-cols-2 gap-8">
             {categories.map((item: ICategory) => (
@@ -41,8 +43,9 @@ const HomePage: NextPage = () => {
               />
             ))}
           </div>
-        </div>
+        </section>
       </main>
+      <Spacer size="5.5rem" />
     </>
   )
 }
