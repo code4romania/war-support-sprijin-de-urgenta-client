@@ -21,7 +21,6 @@ export interface IInputProps {
 const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  // @ts-ignore
   const form = userTypeForms[type] || []
 
   const {
