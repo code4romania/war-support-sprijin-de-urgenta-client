@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 
 import Checkbox from '../Form/Checkbox'
 import SignUpProducts from '../SignUpProducts'
+import { SignUpServicesFormWithModal } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
-import SignUpServicesForm from '../SignUpServicesForm'
 
 interface ICategory {
   name: string
@@ -42,7 +42,7 @@ const CATEGORIES: ICategory[] = [
 // TODO - Add here component accordingly with the selection
 const resourceTypeBuilder = (id: number) => {
   const dictionary = {
-    1: () => <SignUpServicesForm />,
+    1: () => <SignUpServicesFormWithModal />,
     2: () => <SignUpProducts />,
     3: () => <SignupVolunteering />,
     4: () => <div>{'Others component'}</div>,

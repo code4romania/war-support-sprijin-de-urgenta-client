@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,18 +9,17 @@
   align-items: center;
 }
 
-.backdrop{
+.backdrop {
   position: absolute;
   height: 100%;
   width: 100%;
   background: hsl(220deg 5% 30% / 0.6);
 }
 
-.content{
+.content {
   background-color: rgb(235 244 255);
   min-height: 300px;
-  width: max(1350px, 70vw);
-  max-width: 90%;
+  width: min(768px, 90vw);
   padding: 32px;
   border-radius: 8px;
   display: flex;
@@ -29,7 +28,7 @@
   transform: translateX(0px);
 }
 
-.closeButton{
+.closeButton {
   position: absolute;
   right: 12px;
   top: 12px;

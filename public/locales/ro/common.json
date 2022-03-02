@@ -54,6 +54,7 @@
   ],
   "unit.tons": "tone",
   "services.transport-goods": "Transport marfă",
+  "services.transport-people": "Transport persoane",
   "services.capacity": "Capacitate:",
   "services.cooling": "Refrigerare",
   "services.transport": "Transport",
@@ -62,5 +63,6 @@
   "services.car-plate": "Număr mașină:",
   "yes": "Da",
   "no": "Nu",
+  "add": "Adaugă",
   "services.transport-type.national": "National"
 }
