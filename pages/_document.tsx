@@ -67,7 +67,7 @@ class MyDocument extends Document {
           <meta property="og:title" content="TBD" />
           <meta
             property="og:description"
-            content="Sprijin de urgență"
+            content="TBD"
           />
         </Head>
         <body>
