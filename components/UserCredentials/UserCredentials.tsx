@@ -10,6 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { State } from '@/store/types/state.type'
 import endpoints from 'endpoints.json'
 import { useState } from 'react'
+import { reauthenticate } from '@/store/reducers/auth'
+import { setCookie } from '@/utils/cookies'
 
 interface ICredentials {
   email: string
@@ -50,7 +52,13 @@ const schema: SchemaOf<ICredentials> = yup.object().shape({
 })
 
 const UserCredentials = () => {
-  const [serverErrors, setServerErrors] = useState([])
+  const [serverErrors, setServerErrors] = useState({
+    email: ['user with this email address already exists.'],
+    password: [
+      'This password is too short. It must contain at least 8 characters.',
+      'This password is too common.',
+    ],
+  })
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const userData = useSelector((state: State) => state.signup.userData)
@@ -87,9 +95,18 @@ const UserCredentials = () => {
           body: JSON.stringify(data),
         }
       )
-      console.log('register', res.json())
+      const response = await res.json()
+      if (response.access_token) {
+        setCookie('token', response.access_token)
+        dispatch(reauthenticate(response.access_token))
+        dispatch({ type: ActionType.INCREASE })
+      } else {
+        setServerErrors(response)
+      }
     } catch (e) {
-      setServerErrors(['Failed to create a new account. Try later'])
+      setServerErrors({
+        general: ['Failed to create a new account. Try later'],
+      })
     }
   }
 
@@ -100,14 +117,18 @@ const UserCredentials = () => {
           <Input
             key={input.name}
             label={`${t(input.label)}: *`}
-            errors={errors[input.name]}
+            errors={
+              serverErrors[input.name]
+                ? { message: serverErrors[input.name].join('\n') }
+                : errors[input.name]
+            }
             type={input.type}
             {...register(input.name)}
           />
         ))}
-        {serverErrors.map((error) => (
-          <div>{error}</div>
-        ))}
+        {/*{serverErrors.map((error) => (*/}
+        {/*  <div>{error}</div>*/}
+        {/*))}*/}
       </div>
       <StepperButtonGroup
         steps={[
