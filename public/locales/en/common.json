@@ -20,6 +20,7 @@
     "Public Authority",
     "NGO"
   ],
+  "describeTheResource": "Describe the resource",
   "signup.products.header": "Products",
   "signup.products.food": "Food",
   "signup.products.generalHygiene": "General hygiene products",

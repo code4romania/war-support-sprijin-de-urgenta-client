@@ -15,7 +15,7 @@ const SignUp: NextPage = () => {
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
   const steps = useSelector((state: State) => state.steps.steps)
-
+  
   const handleStepForward = () => {
     dispatch({ type: ActionType.INCREASE })
   }
@@ -29,10 +29,12 @@ const SignUp: NextPage = () => {
   switch (steps[activeStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
-      break
+      break;
+    
     case UserComponentType.userResources:
       currentComponent = <SignUpResources />
-      break
+      break;
+
     default:
       currentComponent = <div></div>
       break
@@ -45,7 +47,7 @@ const SignUp: NextPage = () => {
         steps={steps.map((step) => step.label)}
       />
       <div className={'mt-12 px-3'}>{currentComponent}</div>
-      <div className="mt-8 justify-start flex-wrap w-full flex md:justify-start">
+      <div className="flex flex-wrap justify-start w-full mt-8 md:justify-start">
         <div
           onClick={handleStepBackward}
           className="flex items-center md:mr-6 md:w-44"

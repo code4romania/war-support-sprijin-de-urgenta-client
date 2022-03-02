@@ -43,6 +43,7 @@
   "useful.links": "Linkuri utile",
   "legal.info": "Informații legale",
   "signup.resources.offer": "Resursa oferita:",
+  "signup.resources.fillInDetails": "Completeaza detalii mai jos pentru fiecare resursa selectata:",
   "signup.resources.gdpr": "Prin completarea formularului accept ca datele mele să fie procesate de Guvernul României. Cunosc faptul că Guvernul României prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.",
   "signup.userType.type": "Tip Utilizator",
   "signup.userType.options": [
@@ -62,6 +63,7 @@
   "yes": "Da",
   "no": "Nu",
   "services.transport-type.national": "National",
+  "describeTheResource": "Descrieți resursa",
   "signup.products.header": "Produse",
   "signup.products.food": "Alimente",
   "signup.products.generalHygiene": "Produse de igiena generala",
