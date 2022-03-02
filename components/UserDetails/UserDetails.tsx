@@ -16,7 +16,7 @@ const UserDetails = ({ type }: IUserDetailsProps) => {
   return (
     <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
       {inputs.map((item: IInputProps) => (
-        <Input name={item.name} label={`${t(item.label)}: *`} />
+        <Input key={item.name} name={item.name} label={`${t(item.label)}: *`} />
       ))}
     </div>
   )
