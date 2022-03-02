@@ -16,7 +16,6 @@ const SignUp: NextPage = () => {
 
   let currentComponent = null
 
-  // @ts-ignore
   switch (steps[currentStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
