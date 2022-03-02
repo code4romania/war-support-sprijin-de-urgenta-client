@@ -8,6 +8,11 @@ import { ICategory } from '@/store/reducers/categories/types'
 import { setDefaultOffer } from '@/store/reducers/signup'
 import Button from '@/components/Button'
 
+import { setDefaultOffer } from '@/store/reducers/signup'
+
+import Button from '@/components/Button'
+import { useDispatch } from 'react-redux'
+
 const HomePage: NextPage = () => {
   const router = useRouter()
   const { t } = useTranslation()

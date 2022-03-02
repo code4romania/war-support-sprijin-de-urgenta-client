@@ -23,7 +23,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
           )}
           {...rest}
         />
-        <label htmlFor={`${name}_${value}`} className="text-sm">
+        <label htmlFor={`${name}_${value}`} className={clsx('text-sm')}>
           {children}
         </label>
       </div>

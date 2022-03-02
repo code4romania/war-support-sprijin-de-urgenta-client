@@ -17,6 +17,7 @@ export interface DropdownElementProps extends InputHTMLAttributes<HTMLSelectElem
   name: string;
   label?: string;
   errors?: ErrorOption;
+  hideLabel?: boolean;
 }
 
 export interface GroupElementProps {
