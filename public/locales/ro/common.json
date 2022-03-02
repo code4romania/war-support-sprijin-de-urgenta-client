@@ -64,5 +64,6 @@
   "yes": "Da",
   "no": "Nu",
   "add": "Adaugă",
-  "services.transport-type.national": "National"
+  "services.transport-type.national": "National",
+  "describeTheResource": "Descrieți resursa"
 }

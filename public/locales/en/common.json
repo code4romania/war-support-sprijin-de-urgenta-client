@@ -19,5 +19,6 @@
     "Legal Person",
     "Public Authority",
     "NGO"
-  ]
+  ],
+  "describeTheResource": "Describe the resource"
 }

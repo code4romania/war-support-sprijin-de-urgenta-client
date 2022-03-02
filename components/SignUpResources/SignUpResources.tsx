@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-
 import Checkbox from '../Form/Checkbox'
+import OtherResourcesForm from '../OtherResourcesForm'
 import SignUpProducts from '../SignUpProducts'
 import { SignUpServicesFormWithModal } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
@@ -45,8 +45,8 @@ const resourceTypeBuilder = (id: number) => {
     1: () => <SignUpServicesFormWithModal />,
     2: () => <SignUpProducts />,
     3: () => <SignupVolunteering />,
-    4: () => <div>{'Others component'}</div>,
-    default: () => <div>{'Others component'}</div>,
+    4: () => <OtherResourcesForm />,
+    default: () => <OtherResourcesForm />,
   }
   return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
 }
