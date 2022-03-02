@@ -57,7 +57,7 @@ const Header = () => {
             ></div>
             <div className={'flex flex-col ml-3 font-semibold text-lg'}>
               <span>SPRIJIN</span>
-              <span className="underline">DE URGENTA</span>
+              <span className="underline">DE URGENȚĂ</span>
             </div>
           </div>
           <LanguageSelector />
