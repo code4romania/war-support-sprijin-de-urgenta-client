@@ -4,13 +4,16 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Input from '@/components/Form/Input'
 import { useForm } from 'react-hook-form'
-import { useMemo } from 'react'
-import { useDispatch } from 'react-redux'
+import { useMemo, useState } from 'react'
 import { authenticate } from '@/store/reducers/auth'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
 
 const LoginPage: NextPage = () => {
+  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
+    {}
+  )
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const {
     handleSubmit,
     register,
@@ -29,10 +32,19 @@ const LoginPage: NextPage = () => {
     }
   }, [t])
 
-  const onSubmit = (values: any) => {
-    dispatch(authenticate(values))
+  const onSubmit = async (values: any) => {
+    const res = await dispatch(authenticate(values))
+
+    if (res?.errors) {
+      setServerErrors(res.errors)
+    }
   }
 
+  const handleChange = () => {
+    setServerErrors({})
+  }
+
+  console.log('serverErrors', serverErrors)
   return (
     <main className={clsx('grid place-items-center', 'py-28')}>
       <section className="space-y-16 w-96">
@@ -41,16 +53,21 @@ const LoginPage: NextPage = () => {
             label={t('login.userLabel')}
             errors={errors['username']}
             {...register('username', constraints['username'])}
+            onChange={handleChange}
           />
           <Input
             type="password"
             label={t('login.passwordLabel')}
             errors={errors['password']}
             {...register('password', constraints['password'])}
+            onChange={handleChange}
           />
           <a href="#" className="self-end text-gray-300 mt-[-16px]">
             {t('login.forgotPass')}
           </a>
+          {serverErrors['non_field_errors']?.map((error: string) => (
+            <div>{error}</div>
+          ))}
           <div className="space-y-4">
             <Button
               type="submit"
