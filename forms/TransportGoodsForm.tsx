@@ -36,7 +36,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   const { data } = useServicesForm();
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    capacity: yup.number().required(t('error.capacity.required')),
+    capacity: yup.number().typeError(t('error.must.be.number')).required(t('error.capacity.required')),
     hasRefrigeration: yup.boolean().nullable().required(t('error.refrigeration.required')),
     transportType: yup.string().nullable().required(t('error.transportType.required')),
     transportCounty: yup.string().when('transportType', {
@@ -105,7 +105,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               {...register('capacity')}
               errors={errors.capacity}
             />
-            <span className={clsx('pb-5')}>{t('unit.tons')}</span>
+            <span className={clsx('px-1 pb-5')}>{t('unit.tons')}</span>
           </div>
 
           <RadioGroup

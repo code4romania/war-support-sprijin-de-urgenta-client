@@ -105,7 +105,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
             {...register('personsNo')}
             errors={errors.personsNo}
           />
-          <span className={clsx('pb-5')}>{t('unit.persons')}</span>
+          <span className={clsx('px-1 pb-5')}>{t('unit.persons')}</span>
         </div>
 
         <RadioGroup
