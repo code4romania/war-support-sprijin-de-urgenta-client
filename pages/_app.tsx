@@ -9,7 +9,7 @@ import common_ua from '../public/locales/ua/common.json'
 
 import '../styles/globals.css'
 import { withStore } from '../store'
-import { reauthenticate, deauthenticate } from '@/store/reducers/auth'
+import { reauthenticate } from '@/store/reducers/auth'
 import { useDataWithToken } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
 import { useDispatch, useSelector } from 'react-redux'

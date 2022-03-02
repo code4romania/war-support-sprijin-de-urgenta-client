@@ -104,12 +104,12 @@ const SignUpServicesFormWithModal = () => {
           onClick={() => setShowDialog(true)}
         />
       </div>
-      
+
       {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
-      <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)}>  
+      <Dialog isOpen={showDialog} onDismiss={() => setShowDialog(false)}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <section >
-            <div className={clsx('flex flex-row items-center gap-x-2')}>
+          <section>
+            <div className="flex flex-row items-center gap-x-2">
               <Input
                 type="number"
                 labelPosition="horizontal"
@@ -117,10 +117,10 @@ const SignUpServicesFormWithModal = () => {
                 {...register('capacity')}
                 errors={errors.capacity}
               />
-              <span className={clsx('pb-5')}>{t('unit.tons')}</span>
+              <span className="pb-5">{t('unit.tons')}</span>
             </div>
 
-            <div className={clsx('flex flex-row gap-6')}>
+            <div className="flex flex-row gap-6">
               <RadioGroup
                 errors={errors.needCooling}
                 label={t('services.cooling')}
@@ -173,7 +173,12 @@ const SignUpServicesFormWithModal = () => {
             />
           </section>
 
-          <Button type="submit" text={t('add')} variant="tertiary" size="small"/>
+          <Button
+            type="submit"
+            text={t('add')}
+            variant="tertiary"
+            size="small"
+          />
         </form>
       </Dialog>
     </main>
