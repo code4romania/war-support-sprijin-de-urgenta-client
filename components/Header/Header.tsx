@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 import Image from '@/components/Image'
 import LanguageSelector from '@/components/Header/LanguageSelector'
+import Link from 'next/link'
 
 const PARTNERSHIPS = [
   {
@@ -53,13 +54,11 @@ const Header = () => {
           className={`${flexItemsCenter} ${clsx('justify-between', 'py-4')}`}
         >
           <div className={`${flexItemsCenter}`}>
-            <div
-              className={clsx('rounded-full w-[50px] h-[50px] bg-[#004aad]')}
-            ></div>
-            <div className={'flex flex-col ml-3 font-semibold text-lg'}>
-              <span>SPRIJIN</span>
-              <span className="underline">DE URGENȚĂ</span>
-            </div>
+            <Link href="/" passHref>
+              <a>
+                <Image src={'/logo.svg'} alt="Sprijin de urgență" className="h-[42px]" />
+              </a>
+            </Link>
           </div>
           <div className={'text-right'}>
             <Link href="/login">Login</Link>
