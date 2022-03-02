@@ -29,7 +29,6 @@ i18n.use(initReactI18next).init({
 const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const dispatch = useDispatch()
   const token = useSelector((state: State) => state.auth.token)
-  // @ts-ignore
   const { data } = useDataWithToken(endpoints['auth/user'], token)
   if (data) {
     dispatch(reauthenticate(token))

@@ -51,7 +51,7 @@ const schema: SchemaOf<ICredentials> = yup.object().shape({
     .required('Va rugam confirmati parola'),
 })
 
-const UserCredentials = () => {
+const UserCredentials = ({}) => {
   const [serverErrors, setServerErrors] = useState({})
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -112,16 +112,15 @@ const UserCredentials = () => {
             key={input.name}
             label={`${t(input.label)}: *`}
             errors={
+              // @ts-ignore
               serverErrors[input.name]
-                ? { message: serverErrors[input.name].join('\n') }
+                ? // @ts-ignore
+                  { message: serverErrors[input.name].join('\n') }
                 : errors[input.name]
             }
             type={input.type}
             {...register(input.name)}
           />
-        ))}
-        {serverErrors['general'].map((error: string) => (
-          <div>{error}</div>
         ))}
       </div>
       <StepperButtonGroup

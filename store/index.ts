@@ -9,7 +9,7 @@ import {
 import { State } from './types/state.type'
 import { createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
-import { auth } from './reducers/auth'
+import { auth, initialState as defaultAuthState } from './reducers/auth'
 import { user } from './reducers/user'
 import { locale } from './reducers/locale'
 import { signup } from './reducers/signup'
@@ -43,11 +43,12 @@ export const initStore = (initialState?: PreloadedState<State>) =>
 const { withRedux: withStore } = createWrapper<Store<State>>(
   () =>
     initStore({
+      auth: defaultAuthState,
       defaultOffer: '',
       locale: 'ro',
       steps: defaultStepsState,
       categories: defaultCategoriesState,
-      signup: null
+      signup: null,
     }),
   { debug: true }
 )

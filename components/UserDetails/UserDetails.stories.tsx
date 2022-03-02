@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof UserDetails> = (args) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  type: 'UserDetails default props',
+  type: 1,
 }
 Default.parameters = {
   design: {
