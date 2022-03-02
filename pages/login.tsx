@@ -2,29 +2,35 @@ import type { NextPage } from 'next'
 import Button from '@/components/Button'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
-import Input from '@/components/Form/Input';
-import { useForm } from "react-hook-form";
-import { useMemo } from "react";
+import Input from '@/components/Form/Input'
+import { useForm } from 'react-hook-form'
+import { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
+import { authenticate } from '@/store/reducers/auth'
 
 const LoginPage: NextPage = () => {
-  const { t } = useTranslation();
-
-  const { handleSubmit, register, formState: { errors } } = useForm();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm()
 
   // TODO: The actual validation logic will probably be handled by YUP
   const constraints = useMemo(() => {
-    return ({
-      userName: {
+    return {
+      username: {
         required: t('validation.required'),
       },
       password: {
         required: t('validation.required'),
-      }
-    });
-  }, [t]);
+      },
+    }
+  }, [t])
 
-  const onSubmit = (values: unknown) => {
-    console.log('values', values)
+  const onSubmit = (values: any) => {
+    dispatch(authenticate(values))
   }
 
   return (
@@ -33,8 +39,8 @@ const LoginPage: NextPage = () => {
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
             label={t('login.userLabel')}
-            errors={errors['userName']}
-            {...register('userName', constraints['userName'])}
+            errors={errors['username']}
+            {...register('username', constraints['username'])}
           />
           <Input
             type="password"

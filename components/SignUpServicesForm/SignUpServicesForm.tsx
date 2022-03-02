@@ -4,12 +4,12 @@ import { SchemaOf } from 'yup'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-
 import Checkbox from '@/components/Form/Checkbox'
 import Dropdown from '@/components/Form/Dropdown'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
+import { useServicesForm } from '@/hooks/useData'
 
 type ServicesForm = {
   transportGoods: boolean
@@ -24,6 +24,7 @@ type ServicesForm = {
 
 const SignUpServicesForm = () => {
   const { t } = useTranslation()
+  const { data } = useServicesForm();
 
   const schema: SchemaOf<ServicesForm> = yup.object().shape({
     transportGoods: yup.boolean().required(),

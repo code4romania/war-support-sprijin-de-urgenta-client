@@ -7,4 +7,6 @@ export type State = {
   steps: StepsStore
   defaultOffer?: string
   categories: ICategory[]
+  signup: any
+  auth: any
 }

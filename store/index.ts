@@ -9,11 +9,15 @@ import {
 import { State } from './types/state.type'
 import { createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
+import { auth } from './reducers/auth'
 import { user } from './reducers/user'
 import { locale } from './reducers/locale'
-import { defaultOffer } from './reducers/signup'
+import { signup } from './reducers/signup'
 import { steps, defaultStepsState } from './reducers/steps'
-import { categories, initialState as defaultCategoriesState } from './reducers/categories'
+import {
+  categories,
+  initialState as defaultCategoriesState,
+} from './reducers/categories'
 
 const withMiddlewares = (middleware: Middleware[]) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -25,11 +29,12 @@ const withMiddlewares = (middleware: Middleware[]) => {
 }
 
 const reducers = combineReducers({
+  auth,
   locale,
   user,
   steps,
   categories,
-  defaultOffer,
+  signup,
 })
 
 export const initStore = (initialState?: PreloadedState<State>) =>
@@ -42,6 +47,7 @@ const { withRedux: withStore } = createWrapper<Store<State>>(
       locale: 'ro',
       steps: defaultStepsState,
       categories: defaultCategoriesState,
+      signup: null
     }),
   { debug: true }
 )
