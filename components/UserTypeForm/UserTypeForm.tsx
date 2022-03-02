@@ -16,44 +16,48 @@ const UserTypeForm = () => {
     setUserType(e.target.value)
   }
 
-  const handleBack = ()=>{
-    setUserType('');
+  const handleBack = () => {
+    setUserType('')
   }
 
-  const handleSubmit = ()=>{
+  const handleSubmit = () => {
     dispatch({ type: ActionType.INCREASE })
   }
 
-  return (
+  return !userType ? (
     <>
-      <div
-        className={`bg-blue-50 px-4 py-4 rounded-md`}
-      >
-        {!userType ? (
-          <Dropdown
-            name="userType"
-            label={t('signup.userType.type')}
-            onChange={handleChange}
-          >
-            {userTypeOptions.map((option: UserType, idx: number) => {
-              return (
-                <option key={`user-type-option-${idx}`} value={option}>
-                  {t(`signup.userType.options.${idx}`)}
-                </option>
-              )
-            })}
-          </Dropdown>
-        ) : (
-          <UserDetails type={userType} />
-        )}
+      <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
+        <Dropdown
+          name="userType"
+          label={t('signup.userType.type')}
+          onChange={handleChange}
+        >
+          {userTypeOptions.map((option: UserType, idx: number) => {
+            return (
+              <option key={`user-type-option-${idx}`} value={option}>
+                {t(`signup.userType.options.${idx}`)}
+              </option>
+            )
+          })}
+        </Dropdown>
       </div>
       <StepperButtonGroup
         steps={[
-          { disabled: !userType, direction: 'backward', onClick: handleBack},
-          { disabled: !userType, direction: 'forward', onClick: handleSubmit },
+          {
+            disabled: !userType,
+            direction: 'backward',
+            onClick: handleBack,
+          },
+          {
+            disabled: !userType,
+            direction: 'forward',
+            onClick: handleSubmit,
+          },
         ]}
       />
     </>
+  ) : (
+    <UserDetails type={userType} onClickBack={handleBack} />
   )
 }
 

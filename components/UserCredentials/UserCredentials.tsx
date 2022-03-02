@@ -42,7 +42,8 @@ const schema: SchemaOf<ICredentials> = yup.object().shape({
   password: yup.string().required('Va rugam introduceti o parola'),
   re_password: yup
     .string()
-    .oneOf([yup.ref('password'), null], 'Parola nu coincide'),
+    .oneOf([yup.ref('password'), null], 'Parola nu coincide')
+    .required('Va rugam confirmati parola'),
 })
 
 const UserCredentials = () => {

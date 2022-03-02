@@ -1,7 +1,9 @@
 import { AnyAction } from 'redux'
+import * as yup from 'yup'
 
 export enum ActionType {
   SET_USER_TYPE = 'SET_USER_TYPE',
+  SET_SIGNUP_DATA = 'SET_SIGNUP_DATA',
   SET_DEFAULT_OFFER = 'SET_DEFAULT_OFFER',
 }
 
@@ -21,21 +23,44 @@ export const userTypeOptions = [
 ]
 
 export const userTypeForms = {
-  [UserType.individual]: [
-    { name: 'last_name', label: 'signup.userType.last_name' },
-    { name: 'first_name', label: 'signup.userType.first_name' },
-    { name: 'phone_number', label: 'signup.userType.phone_number' },
-  ],
-  [UserType.legalPerson]: [
-    { name: 'business_name', label: 'signup.userType.business_name' },
-    { name: 'identification_no', label: 'signup.userType.identification_no' },
-  ],
-  [UserType.publicAuthority]: [
-    { name: 'business_name', label: 'signup.userType.business_name' },
-  ],
-  [UserType.ngo]: [
-    { name: 'business_name', label: 'signup.userType.business_name' },
-  ],
+  [UserType.individual]: {
+    inputs: [
+      { name: 'last_name', label: 'signup.userType.last_name' },
+      { name: 'first_name', label: 'signup.userType.first_name' },
+      { name: 'phone_number', label: 'signup.userType.phone_number' },
+    ],
+    schema: yup.object().shape({
+      last_name: yup.string().required('Va rugam introduceti numele'),
+      first_name: yup.string().required('Va rugam introduceti prenumele'),
+      phone_number: yup
+        .string()
+        .required('Va rugam introduceti numarul de telefon'),
+    }),
+  },
+  [UserType.legalPerson]: {
+    inputs: [
+      { name: 'business_name', label: 'signup.userType.business_name' },
+      { name: 'identification_no', label: 'signup.userType.identification_no' },
+    ],
+    schema: yup.object().shape({
+      business_name: yup
+        .string()
+        .required('Va rugam introduceti numele companiei'),
+      identification_no: yup.string().required('Va rugam introduceti CUI/CIF'),
+    }),
+  },
+  [UserType.publicAuthority]: {
+    inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+    schema: yup.object().shape({
+      business_name: yup.string().required('Va rugam introduceti numele companiei'),
+    }),
+  },
+  [UserType.ngo]: {
+    inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+    schema: yup.object().shape({
+      business_name: yup.string().required('Va rugam introduceti numele companiei'),
+    }),
+  },
 }
 
 export const userType = (state = UserType.none, action: AnyAction) => {
@@ -56,11 +81,22 @@ export const setUserType = (userType: UserType) => {
   }
 }
 
+export const setSignupData = (userData: any) => {
+  return {
+    type: ActionType.SET_SIGNUP_DATA,
+    payload: {
+      userData,
+    },
+  }
+}
+
 // Reducer
-export const defaultOffer = (state = '', action: AnyAction) => {
+export const signup = (state = '', action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_DEFAULT_OFFER:
       return action.payload.id
+    case ActionType.SET_SIGNUP_DATA:
+      return action.payload
     default:
       return state
   }
