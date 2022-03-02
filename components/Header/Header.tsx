@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 import Image from '@/components/Image'
 import LanguageSelector from '@/components/Header/LanguageSelector'
-import Link from 'next/link'
 
 const PARTNERSHIPS = [
   {
@@ -56,7 +55,11 @@ const Header = () => {
           <div className={`${flexItemsCenter}`}>
             <Link href="/" passHref>
               <a>
-                <Image src={'/logo.svg'} alt="Sprijin de urgență" className="h-[42px]" />
+                <Image
+                  src={'/logo.svg'}
+                  alt="Sprijin de urgență"
+                  className="h-[42px]"
+                />
               </a>
             </Link>
           </div>
