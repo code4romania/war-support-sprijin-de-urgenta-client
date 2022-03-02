@@ -2,7 +2,12 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import Textarea from "../Form/Textarea";
 
-const OtherResourcesForm = ({}) => {
+export interface IOtherResourcesFormProps {
+  currentValue: string,
+  handleChange: (value: string) => void,
+}
+
+const OtherResourcesForm = ({ currentValue, handleChange }: IOtherResourcesFormProps) => {
   const { t } = useTranslation();
 
   return( 
@@ -16,6 +21,10 @@ const OtherResourcesForm = ({}) => {
     <h3 className="text-sm">{`${t('describeTheResource')}:`}</h3>
     <Textarea 
     name="Other resources"
+    value={currentValue}
+    onChange={(e) => {
+      handleChange(e.target.value);
+    }}
     className={clsx(
       'w-full'
     )}

@@ -1,3 +1,4 @@
+import { CategoryNames } from '@/store/reducers/categories/types'
 import { State } from '@/store/types/state.type'
 import clsx from 'clsx'
 import { useState } from 'react'
@@ -9,25 +10,30 @@ import SignUpProducts from '../SignUpProducts'
 import { SignUpServicesFormWithModal } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
 
-const resourceTypeBuilder = (id: string) => {
-  const dictionary = {
-    services: () => <SignUpServicesFormWithModal />,
-    products: () => <SignUpProducts />,
-    volunteer: () => <SignupVolunteering />,
-    others: () => <OtherResourcesForm />,
-    default: () => <OtherResourcesForm />,
-  }
-  return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
-}
-
 const SignUpResources = () => {
   const { t } = useTranslation()
   const defaultOffer = useSelector((state: State) => state.defaultOffer)
   const { categories } = useSelector((state: State) => state)
+  
+  // we will store the resources the user has inputted in this object, identifying them by their category name
+  const [currentResources, setCurrentResources] = useState<{
+    [key in CategoryNames]?: any
+  }>({});
 
   const [selectedResourceIds, setSelectedResourceIds] = useState(
     defaultOffer ? [defaultOffer] : []
   )
+
+  const resourceTypeBuilder = (id: string) => {
+    const dictionary = {
+      services: () => <SignUpServicesFormWithModal />,
+      products: () => <SignUpProducts />,
+      volunteer: () => <SignupVolunteering />,
+      others: () => <OtherResourcesForm currentValue={currentResources?.others} handleChange={getChangeHandlerForResourceCategory(CategoryNames.OTHERS)}/>,
+      default: () => <OtherResourcesForm currentValue={currentResources?.others} handleChange={getChangeHandlerForResourceCategory(CategoryNames.OTHERS)}/>,
+    }
+    return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
@@ -37,6 +43,16 @@ const SignUpResources = () => {
       setSelectedResourceIds([...selectedResourceIds, value])
     else if (!isChecked && selectedResourceIds.includes(value))
       setSelectedResourceIds(selectedResourceIds.filter((id) => id !== value))
+  }
+  
+  // given a resource name it will return a change handler that updates the given resource in the state
+  const getChangeHandlerForResourceCategory = (resourceName: string) => {
+    return (newValue: any) => {
+      setCurrentResources({
+        ...currentResources,
+        [resourceName]: newValue,
+      })
+    }
   }
 
   return (
