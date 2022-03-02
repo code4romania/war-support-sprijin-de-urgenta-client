@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body, #__next{
+  height: 100%;
+}
+
 .layout {
     max-width: 72rem;
     width: 90%;

@@ -1,0 +1,36 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backdrop {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: hsl(220deg 5% 30% / 0.6);
+}
+
+.content {
+  background-color: rgb(235 244 255);
+  min-height: 300px;
+  width: min(768px, 90vw);
+  padding: 32px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateX(0px);
+}
+
+.closeButton {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  padding: 12px;
+}

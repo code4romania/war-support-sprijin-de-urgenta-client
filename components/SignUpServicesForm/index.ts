@@ -1,2 +1,4 @@
 import SignUpServicesForm from './SignUpServicesForm'
-export default SignUpServicesForm
+import SignUpServicesFormWithModal from './SignUpServicesFormWithModal'
+
+export { SignUpServicesForm, SignUpServicesFormWithModal }

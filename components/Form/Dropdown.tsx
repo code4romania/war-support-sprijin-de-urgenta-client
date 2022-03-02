@@ -31,7 +31,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
         </Label>
       )}
 
-      <div className="flex relative">
+      <div className="relative flex">
         <select
           name={name}
           ref={ref}
@@ -54,7 +54,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
         </select>
       </div>
 
-      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
+      {errors && <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>}
     </ElementWrapper>
   )
 });
