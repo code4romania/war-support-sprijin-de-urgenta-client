@@ -120,9 +120,9 @@ const UserCredentials = () => {
             {...register(input.name)}
           />
         ))}
-        {/*{serverErrors.map((error) => (*/}
-        {/*  <div>{error}</div>*/}
-        {/*))}*/}
+        {serverErrors['general'].map((error: string) => (
+          <div>{error}</div>
+        ))}
       </div>
       <StepperButtonGroup
         steps={[
