@@ -39,7 +39,7 @@ const LoginPage: NextPage = () => {
 
     if (res?.errors) {
       setServerErrors(res.errors)
-    } else {
+    } else if (res?.access_token) {
       router.push('/sign-up')
     }
   }
