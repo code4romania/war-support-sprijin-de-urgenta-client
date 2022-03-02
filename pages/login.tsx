@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Button from '@/components/Button'
-import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Input from '@/components/Form/Input'
 import { useForm } from 'react-hook-form'
@@ -45,7 +44,7 @@ const LoginPage: NextPage = () => {
   }
 
   return (
-    <main className={clsx('grid place-items-center', 'py-28')}>
+    <main className="grid place-items-center py-28">
       <section className="space-y-16 w-96">
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
