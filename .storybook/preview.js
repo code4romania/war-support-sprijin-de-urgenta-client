@@ -33,5 +33,6 @@ export const parameters = {
     ro: { title: 'RO', left: '🇷🇴' },
     en: { title: 'EN', left: '🇬🇧' },
     ua: { title: 'UA', left: '🇺🇦' },
+    ru: { title: 'RU', left: 'RU' },
   },
 }

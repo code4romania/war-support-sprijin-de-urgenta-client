@@ -54,7 +54,7 @@ const SignupVolunteering: FC = () => {
         </Checkbox>
         <Textarea
           name="volunteering_resource_other_description"
-          className={clsx('ml-5')}
+          className="ml-5"
         />
       </div>
     </div>

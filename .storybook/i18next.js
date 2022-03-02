@@ -2,7 +2,7 @@ import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
 
 const ns = ['common']
-const supportedLngs = ['en', 'ro', 'ua']
+const supportedLngs = ['en', 'ro', 'ua', 'ru']
 
 i18n.use(initReactI18next).init({
   //debug: true,

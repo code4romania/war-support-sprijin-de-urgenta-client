@@ -31,6 +31,9 @@ export const authenticate =
               type: ActionType.AUTHENTICATE,
               payload: data.access_token,
             })
+            return data;
+          } else {
+            return { errors: data }
           }
         })
       )

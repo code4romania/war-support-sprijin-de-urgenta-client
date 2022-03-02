@@ -1,6 +1,5 @@
 import { CategoryNames } from '@/store/reducers/categories/types'
 import { State } from '@/store/types/state.type'
-import clsx from 'clsx'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -79,7 +78,7 @@ const SignUpResources = () => {
       </div>
       {selectedResourceIds.length > 0 &&
         selectedResourceIds.map((id) => (
-          <div key={id} className={clsx('w-full')}>
+          <div key={id} className="w-full">
             {resourceTypeBuilder(id)}
           </div>
         ))}
