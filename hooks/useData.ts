@@ -36,9 +36,7 @@ export const useDataWithToken = (path: string, token: string) => {
   if (!path) {
     throw new Error('Path is required')
   }
-  const { data, error } = token
-    ? useSwr([`${baseUrl}${path}`, token], authFetcher)
-    : { data: {}, error: 'No token provided' }
+  const { data, error } = useSwr([`${baseUrl}${path}`, token], authFetcher)
 
   return { data, error }
 }
