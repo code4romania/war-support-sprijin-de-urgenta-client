@@ -87,7 +87,7 @@ const UserCredentials = () => {
           body: JSON.stringify(data),
         }
       )
-      console.log('register', res)
+      console.log('register', res.json())
     } catch (e) {
       setServerErrors(['Failed to create a new account. Try later'])
     }
