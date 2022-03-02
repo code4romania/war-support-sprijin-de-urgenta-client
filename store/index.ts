@@ -13,6 +13,7 @@ import { user } from './reducers/user'
 import { locale } from './reducers/locale'
 import { defaultOffer } from './reducers/signup'
 import { steps, defaultStepsState } from './reducers/steps'
+import { categories, initialState as defaultCategoriesState } from './reducers/categories'
 
 const withMiddlewares = (middleware: Middleware[]) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   locale,
   user,
   steps,
+  categories,
   defaultOffer,
 })
 
@@ -34,7 +36,13 @@ export const initStore = (initialState?: PreloadedState<State>) =>
   createStore(reducers, initialState, withMiddlewares([thunkMiddleware]))
 
 const { withRedux: withStore } = createWrapper<Store<State>>(
-  () => initStore({ defaultOffer: 1, locale: 'ro', steps: defaultStepsState }),
+  () =>
+    initStore({
+      defaultOffer: '',
+      locale: 'ro',
+      steps: defaultStepsState,
+      categories: defaultCategoriesState,
+    }),
   { debug: true }
 )
 

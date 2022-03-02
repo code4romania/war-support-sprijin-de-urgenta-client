@@ -1,4 +1,3 @@
-import { State } from '@/store/types/state.type'
 import { AnyAction } from 'redux'
 
 export enum ActionType {
@@ -40,7 +39,7 @@ export const setUserType = (userType: UserType) => {
 }
 
 // Reducer
-export const defaultOffer = (state = 1, action: AnyAction) => {
+export const defaultOffer = (state = '', action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_DEFAULT_OFFER:
       return action.payload.id
@@ -50,7 +49,7 @@ export const defaultOffer = (state = 1, action: AnyAction) => {
 }
 
 // Action creators
-export const setDefaultOffer = (id: number) => {
+export const setDefaultOffer = (id: string) => {
   return {
     type: ActionType.SET_DEFAULT_OFFER,
     payload: {
