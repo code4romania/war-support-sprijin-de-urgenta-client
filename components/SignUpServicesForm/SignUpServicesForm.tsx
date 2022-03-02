@@ -4,12 +4,12 @@ import { SchemaOf } from 'yup'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-
 import Checkbox from '@/components/Form/Checkbox'
 import Dropdown from '@/components/Form/Dropdown'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
+import { useServicesForm } from '@/hooks/useData'
 
 type ServicesForm = {
   transportGoods: boolean
@@ -24,6 +24,7 @@ type ServicesForm = {
 
 const SignUpServicesForm = () => {
   const { t } = useTranslation()
+  const { data } = useServicesForm()
 
   const schema: SchemaOf<ServicesForm> = yup.object().shape({
     transportGoods: yup.boolean().required(),
@@ -90,8 +91,8 @@ const SignUpServicesForm = () => {
         >
           {t('services.transport-goods')}
         </Checkbox>
-        <section className={clsx('ml-6')}>
-          <div className={clsx('flex flex-row items-center gap-x-2')}>
+        <section className="ml-6">
+          <div className="flex flex-row items-center gap-x-2">
             <Input
               type="number"
               labelPosition="horizontal"
@@ -99,10 +100,10 @@ const SignUpServicesForm = () => {
               {...register('capacity')}
               errors={errors.capacity}
             />
-            <span className={clsx('pb-5')}>{t('unit.tons')}</span>
+            <span className="pb-5">{t('unit.tons')}</span>
           </div>
 
-          <div className={clsx('flex flex-row gap-6')}>
+          <div className="flex flex-row gap-6">
             <RadioGroup
               errors={errors.needCooling}
               label={t('services.cooling')}
@@ -155,7 +156,7 @@ const SignUpServicesForm = () => {
           />
         </section>
 
-        <Input type="submit" name={'submit'} />
+        <Input type="submit" name="submit" />
       </form>
     </main>
   )

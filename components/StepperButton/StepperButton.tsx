@@ -23,7 +23,7 @@ const StepsArrow = ({ direction, disabled = false, children }: Props) => {
           width="20"
           height="11"
           viewBox="0 0 20 11"
-          className={'mr-2'}
+          className="mr-2"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >

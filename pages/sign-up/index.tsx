@@ -1,73 +1,34 @@
 import type { NextPage } from 'next'
-import { useSelector, useDispatch } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import StepperButton from '@/components/StepperButton'
+import { useSelector } from 'react-redux'
+
 import { State } from '@/store/types/state.type'
-import { ActionType } from '@/store/reducers/steps'
+import { UserComponentType } from '@/store/reducers/steps/types'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
-import { UserComponentType } from '@/store/reducers/steps/types'
+import UserCredentials from '@/components/UserCredentials'
 import SignUpResources from '@/components/SignUpResources'
-import clsx from 'clsx'
+
+const componentMap = {
+  [UserComponentType.userType]: <UserTypeForm />,
+  [UserComponentType.userData]: <UserCredentials />,
+  [UserComponentType.userResources]: <SignUpResources />,
+}
 
 const SignUp: NextPage = () => {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const activeStep = useSelector((state: State) => state.steps.activeStep)
   const steps = useSelector((state: State) => state.steps.steps)
-  
-  const handleStepForward = () => {
-    dispatch({ type: ActionType.INCREASE })
-  }
+  const activeStep = useSelector((state: State) => state.steps.activeStep)
+  const auth = useSelector((state: State) => !!state.auth.token)
 
-  const handleStepBackward = () => {
-    dispatch({ type: ActionType.DECREASE })
-  }
-
-  let currentComponent = null
-
-  switch (steps[activeStep].component) {
-    case UserComponentType.userType:
-      currentComponent = <UserTypeForm />
-      break;
-    
-    case UserComponentType.userResources:
-      currentComponent = <SignUpResources />
-      break;
-
-    default:
-      currentComponent = <div></div>
-      break
-  }
+  const currentStep = auth ? 2 : activeStep
+  const currentComponent = componentMap[steps[currentStep].component] || <div />
 
   return (
-    <div className={clsx('container', 'md:mx-auto', 'py-4')}>
+    <div className="container md:mx-auto py-4">
       <Stepper
         activeStep={activeStep}
         steps={steps.map((step) => step.label)}
       />
-      <div className={'mt-12 px-3'}>{currentComponent}</div>
-      <div className="flex flex-wrap justify-start w-full mt-8 md:justify-start">
-        <div
-          onClick={handleStepBackward}
-          className="flex items-center md:mr-6 md:w-44"
-        >
-          <StepperButton disabled={activeStep === 0} direction="backward">
-            {t('steps.backward')}
-          </StepperButton>
-        </div>
-        <div
-          onClick={handleStepForward}
-          className="flex items-center justify-end md:ml-6 md:w-44"
-        >
-          <StepperButton
-            disabled={activeStep === steps.length - 1}
-            direction="forward"
-          >
-            {t('steps.forward')}
-          </StepperButton>
-        </div>
-      </div>
+      <div className="mt-12 px-3">{currentComponent}</div>
     </div>
   )
 }

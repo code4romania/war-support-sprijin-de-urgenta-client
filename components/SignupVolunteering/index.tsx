@@ -4,9 +4,11 @@ import { useTranslation } from 'react-i18next'
 import Checkbox from '@/components/Form/Checkbox'
 import CheckboxWithDescription from '@/components/SignupVolunteering/CheckboxWithDescription'
 import Textarea from '@/components/Form/Textarea'
+import { useVolunteeringForm } from '@/hooks/useData'
 
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
+  const { data } = useVolunteeringForm()
 
   return (
     <div
@@ -16,7 +18,9 @@ const SignupVolunteering: FC = () => {
         'mx-auto px-8 py-7'
       )}
     >
-      <h3 className="text-lg font-semibold">{t('signup.volunteering.header')}</h3>
+      <h3 className="text-lg font-semibold">
+        {t('signup.volunteering.header')}
+      </h3>
       <div className="max-w-xs">
         <CheckboxWithDescription
           name="volunteering_resource"
@@ -50,7 +54,7 @@ const SignupVolunteering: FC = () => {
         </Checkbox>
         <Textarea
           name="volunteering_resource_other_description"
-          className={clsx('ml-5')}
+          className="ml-5"
         />
       </div>
     </div>

@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+import { useProductsForm } from '@/hooks/useData'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
@@ -7,6 +8,8 @@ export interface ISignUpProductsProps {
 
 const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
+  const { data } = useProductsForm();
+
   return (
     <section
       className={clsx(

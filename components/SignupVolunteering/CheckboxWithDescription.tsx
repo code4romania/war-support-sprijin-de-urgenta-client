@@ -2,7 +2,6 @@ import Checkbox from '@/components/Form/Checkbox'
 import { useTranslation } from 'react-i18next'
 import { ChangeEvent, FC, useState } from 'react'
 import Textarea from '@/components/Form/Textarea'
-import clsx from 'clsx'
 
 interface IProps {
   name: string
@@ -27,7 +26,7 @@ const CheckboxWithDescription: FC<IProps> = ({
 
   return (
     <>
-      <Checkbox name={name} value={value} onChange={onChange}>
+      <Checkbox name={name} value={value} onChange={onChange} {...rest}>
         {children}
       </Checkbox>
 
@@ -35,7 +34,7 @@ const CheckboxWithDescription: FC<IProps> = ({
         <Textarea
           label={t('signup.volunteering.description')}
           name={`volunteering_resource_${value}_description`}
-          className={clsx('ml-5')}
+          className="ml-5"
         />
       )}
     </>

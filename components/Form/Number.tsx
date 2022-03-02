@@ -1,5 +1,4 @@
-import { forwardRef, InputHTMLAttributes } from "react";
-import { ErrorOption } from "react-hook-form";
+import { forwardRef } from "react";
 import clsx from "clsx";
 import { ElementWrapper, Label } from "@/components/Form/common";
 import { InputElementProps } from "@/components/Form/types";
@@ -35,7 +34,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
         {...rest}
       />
 
-      {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
+      {errors && <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>}
     </ElementWrapper>
   );
 });
