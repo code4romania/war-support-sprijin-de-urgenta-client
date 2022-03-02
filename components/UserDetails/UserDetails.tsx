@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { ActionType } from '@/store/reducers/steps'
 
 export interface IUserDetailsProps {
-  type: string
+  type: number
   onClickBack: MouseEventHandler<HTMLButtonElement>
 }
 
@@ -21,7 +21,8 @@ export interface IInputProps {
 const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const form = userTypeForms[type as keyof typeof userTypeForms] || []
+  // @ts-ignore
+  const form = userTypeForms[type] || []
 
   const {
     handleSubmit,
@@ -32,7 +33,7 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
   })
 
   const onSubmit = (data: any) => {
-    dispatch(setSignupData(data))
+    dispatch(setSignupData({ ...data, type }))
     dispatch({ type: ActionType.INCREASE })
   }
 

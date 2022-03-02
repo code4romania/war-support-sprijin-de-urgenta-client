@@ -10,17 +10,17 @@ import { useUserTypeForm } from '@/hooks/useData'
 
 const UserTypeForm = () => {
   const { t } = useTranslation()
-  const [userType, setUserType] = useState<string>()
+  const [userType, setUserType] = useState<number | null>()
   const dispatch = useDispatch()
   const { data } = useUserTypeForm()
-  const userTypeOptions = data?.type.choices || [];
+  const userTypeOptions = data?.type.choices || []
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setUserType(e.target.value)
+    setUserType(+e.target.value)
   }
 
   const handleBack = () => {
-    setUserType('')
+    setUserType(null)
   }
 
   const handleSubmit = () => {
@@ -35,11 +35,10 @@ const UserTypeForm = () => {
           label={t('signup.userType.type')}
           onChange={handleChange}
         >
-          {userTypeOptions.map((option: UserType, idx: number) => {
-            console.log('option', option.display_name)
+          {userTypeOptions.map(({ value, display_name }: UserType) => {
             return (
-              <option key={`user-type-option-${option.value}`} value={option.value}>
-                {option.display_name}
+              <option key={`user-type-option-${value}`} value={value}>
+                {display_name}
               </option>
             )
           })}
