@@ -33,8 +33,6 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const { data } = useDataWithToken(endpoints['auth/user'], token)
   if (data) {
     dispatch(reauthenticate(token))
-  } else {
-    dispatch(deauthenticate())
   }
   return (
     <Layout>

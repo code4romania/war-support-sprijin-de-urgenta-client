@@ -86,7 +86,7 @@ const UserCredentials = () => {
           },
           redirect: 'follow', // manual, *follow, error
           referrerPolicy: 'no-referrer',
-          body: JSON.stringify(data),
+          body: JSON.stringify({ ...data, username: data.email }),
         }
       )
       const response = await res.json()

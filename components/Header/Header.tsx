@@ -61,7 +61,7 @@ const Header = () => {
               <span className="underline">DE URGENȚĂ</span>
             </div>
           </div>
-          <div className={"text-right"}>
+          <div className={'text-right'}>
             <Link href="/login">Login</Link>
             <LanguageSelector />
           </div>

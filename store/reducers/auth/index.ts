@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux'
-import { getCookie, removeCookie } from '@/utils/cookies'
+import { getCookie, removeCookie, setCookie } from '@/utils/cookies'
 import endpoints from 'endpoints.json'
 
 export enum ActionType {
@@ -23,15 +23,16 @@ export const authenticate =
       },
       body: JSON.stringify({ username, password }),
     })
-      .then(
-        (response) =>
-          response.json().then((data) => {
-            console.log('data', data)
-            if(data.non_field_errors){
-              console.log('error');
-            }
-          })
-        // dispatch({ type: ActionType.AUTHENTICATE, payload: response.data.access_token })
+      .then((response) =>
+        response.json().then((data) => {
+          if (data.access_token) {
+            setCookie('token', data.access_token)
+            dispatch({
+              type: ActionType.AUTHENTICATE,
+              payload: data.access_token,
+            })
+          }
+        })
       )
       .catch((err) => console.log(err))
 

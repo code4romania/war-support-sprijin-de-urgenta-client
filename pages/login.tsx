@@ -29,7 +29,7 @@ const LoginPage: NextPage = () => {
     }
   }, [t])
 
-  const onSubmit = (values: unknown) => {
+  const onSubmit = (values: any) => {
     dispatch(authenticate(values))
   }
 
