@@ -44,7 +44,6 @@ const LoginPage: NextPage = () => {
     setServerErrors({})
   }
 
-  console.log('serverErrors', serverErrors)
   return (
     <main className={clsx('grid place-items-center', 'py-28')}>
       <section className="space-y-16 w-96">
@@ -66,7 +65,7 @@ const LoginPage: NextPage = () => {
             {t('login.forgotPass')}
           </a>
           {serverErrors['non_field_errors']?.map((error: string) => (
-            <div>{error}</div>
+            <div className={'bg-red-50 p-1 px-2 text-white'}>{error}</div>
           ))}
           <div className="space-y-4">
             <Button
