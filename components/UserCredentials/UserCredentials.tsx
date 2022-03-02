@@ -52,13 +52,7 @@ const schema: SchemaOf<ICredentials> = yup.object().shape({
 })
 
 const UserCredentials = () => {
-  const [serverErrors, setServerErrors] = useState({
-    email: ['user with this email address already exists.'],
-    password: [
-      'This password is too short. It must contain at least 8 characters.',
-      'This password is too common.',
-    ],
-  })
+  const [serverErrors, setServerErrors] = useState({})
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const userData = useSelector((state: State) => state.signup.userData)
