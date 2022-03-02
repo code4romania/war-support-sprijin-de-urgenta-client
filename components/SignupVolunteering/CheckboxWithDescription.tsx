@@ -27,7 +27,7 @@ const CheckboxWithDescription: FC<IProps> = ({
 
   return (
     <>
-      <Checkbox name={name} value={value} onChange={onChange}>
+      <Checkbox name={name} value={value} onChange={onChange} {...rest}>
         {children}
       </Checkbox>
 

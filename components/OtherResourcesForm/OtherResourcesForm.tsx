@@ -2,10 +2,7 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import Textarea from "../Form/Textarea";
 
-export interface IOtherResourcesFormProps {
-}
-
-const OtherResourcesForm = ({}: IOtherResourcesFormProps) => {
+const OtherResourcesForm = ({}) => {
   const { t } = useTranslation();
 
   return( 
