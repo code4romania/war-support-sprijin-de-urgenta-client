@@ -20,6 +20,20 @@ export const userTypeOptions = [
   UserType.ngo,
 ]
 
+export const userTypeForms = {
+  [UserType.individual]: [
+    { name: 'name', label: 'Nume' },
+    { name: 'phone', label: 'Telefon' },
+    { name: 'email', label: 'Email' },
+  ],
+  [UserType.legalPerson]: [
+    { name: 'name', label: 'Denumire *' },
+    { name: 'id', label: 'CUI/CIF *' },
+  ],
+  [UserType.publicAuthority]: [{ name: 'name', label: 'Denumire *' }],
+  [UserType.ngo]: [{ name: 'name', label: 'Denumire *' }],
+}
+
 export const userType = (state = UserType.none, action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_USER_TYPE:

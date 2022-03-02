@@ -6,6 +6,7 @@ import { State } from '@/store/types/state.type'
 import { ActionType } from '@/store/reducers/steps'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
+import UserCredentials from '@/components/UserCredentials'
 import { UserComponentType } from '@/store/reducers/steps/types'
 import SignUpResources from '@/components/SignUpResources'
 import clsx from 'clsx'
@@ -15,7 +16,7 @@ const SignUp: NextPage = () => {
   const dispatch = useDispatch()
   const activeStep = useSelector((state: State) => state.steps.activeStep)
   const steps = useSelector((state: State) => state.steps.steps)
-  
+
   const handleStepForward = () => {
     dispatch({ type: ActionType.INCREASE })
   }
@@ -30,7 +31,11 @@ const SignUp: NextPage = () => {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
       break;
-    
+
+    case UserComponentType.userData:
+      currentComponent = <UserCredentials />
+      break;
+
     case UserComponentType.userResources:
       currentComponent = <SignUpResources />
       break;
