@@ -44,10 +44,6 @@ const LoginPage: NextPage = () => {
     }
   }
 
-  const handleChange = () => {
-    setServerErrors({})
-  }
-
   return (
     <main className={clsx('grid place-items-center', 'py-28')}>
       <section className="space-y-16 w-96">
@@ -56,14 +52,12 @@ const LoginPage: NextPage = () => {
             label={t('login.userLabel')}
             errors={errors['username']}
             {...register('username', constraints['username'])}
-            onChange={handleChange}
           />
           <Input
             type="password"
             label={t('login.passwordLabel')}
             errors={errors['password']}
             {...register('password', constraints['password'])}
-            onChange={handleChange}
           />
           <a href="#" className="self-end text-gray-300 mt-[-16px]">
             {t('login.forgotPass')}
