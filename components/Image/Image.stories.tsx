@@ -8,11 +8,12 @@ export default {
   component: Image
 } as ComponentMeta<typeof Image>;
 
-const Template: ComponentStory<typeof Image> = (args) => <Image {...args} />;
+const Template: ComponentStory<typeof Image> = (args) => <Image alt='Beautiful image' {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  src: 'https://picsum.photos/300/300'
+  src: 'https://picsum.photos/300/300',
+  alt: 'Beautiful image'
 }
 
 

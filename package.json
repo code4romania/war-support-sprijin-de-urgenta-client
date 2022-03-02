@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
+    "@reach/dialog": "^0.16.2",
     "@types/yup": "^0.29.13",
     "clsx": "^1.1.1",
     "extracted-loader": "^1.0.7",
@@ -23,6 +24,7 @@
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^10.0.1",
     "img-loader": "^4.0.0",
+    "js-cookie": "^3.0.1",
     "next": "12.1.0",
     "next-compose-plugins": "^2.2.1",
     "next-optimized-images": "^2.6.2",

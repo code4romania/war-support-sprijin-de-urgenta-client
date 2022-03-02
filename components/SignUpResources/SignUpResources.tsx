@@ -6,46 +6,15 @@ import { useSelector } from 'react-redux'
 import Checkbox from '../Form/Checkbox'
 import OtherResourcesForm from '../OtherResourcesForm'
 import SignUpProducts from '../SignUpProducts'
+import { SignUpServicesFormWithModal } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
-import SignUpServicesForm from '../SignUpServicesForm'
 
-interface ICategory {
-  name: string
-  id: number
-  translationKey: string
-}
-
-// TODO - Link this with api call (hardcoded for the moment).
-const CATEGORIES: ICategory[] = [
-  {
-    name: 'Servicii',
-    id: 1,
-    translationKey: 'services',
-  },
-  {
-    name: 'Produse',
-    id: 2,
-    translationKey: 'products',
-  },
-  {
-    name: 'Voluntariat',
-    id: 3,
-    translationKey: 'volunteer',
-  },
-  {
-    name: 'Altele',
-    id: 4,
-    translationKey: 'others',
-  },
-]
-
-// TODO - Add here component accordingly with the selection
-const resourceTypeBuilder = (id: number) => {
+const resourceTypeBuilder = (id: string) => {
   const dictionary = {
-    1: () => <SignUpServicesForm />,
-    2: () => <SignUpProducts />,
-    3: () => <SignupVolunteering />,
-    4: () => <OtherResourcesForm />,
+    services: () => <SignUpServicesFormWithModal />,
+    products: () => <SignUpProducts />,
+    volunteer: () => <SignupVolunteering />,
+    others: () => <OtherResourcesForm />,
     default: () => <OtherResourcesForm />,
   }
   return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
@@ -54,12 +23,15 @@ const resourceTypeBuilder = (id: number) => {
 const SignUpResources = () => {
   const { t } = useTranslation()
   const defaultOffer = useSelector((state: State) => state.defaultOffer)
+  const { categories } = useSelector((state: State) => state)
 
-  const [selectedResourceIds, setSelectedResourceIds] = useState([defaultOffer])
+  const [selectedResourceIds, setSelectedResourceIds] = useState(
+    defaultOffer ? [defaultOffer] : []
+  )
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
-    const value = parseInt(event.target.value, 10)
+    const value = event.target.value
 
     if (isChecked && !selectedResourceIds.includes(value))
       setSelectedResourceIds([...selectedResourceIds, value])
@@ -73,15 +45,15 @@ const SignUpResources = () => {
         <h3 className="mb-4 text-lg font-semibold">
           {t('signup.resources.offer')} *
         </h3>
-        {CATEGORIES.map(({ id, translationKey }) => (
-          <div key={id}>
+        {categories.map(({ slug }) => (
+          <div key={slug}>
             <Checkbox
               onChange={(event) => handleChange(event)}
               name="resource"
-              value={id}
-              checked={selectedResourceIds.includes(id)}
+              value={slug}
+              checked={selectedResourceIds.includes(slug)}
             >
-              {t(translationKey)}
+              {t(slug)}
             </Checkbox>
           </div>
         ))}
@@ -90,13 +62,11 @@ const SignUpResources = () => {
         </p>
       </div>
       {selectedResourceIds.length > 0 &&
-        selectedResourceIds
-          .sort((a, b) => a - b)
-          .map((id) => (
-            <div key={id} className={clsx('w-full')}>
-              {resourceTypeBuilder(id)}
-            </div>
-          ))}
+        selectedResourceIds.map((id) => (
+          <div key={id} className={clsx('w-full')}>
+            {resourceTypeBuilder(id)}
+          </div>
+        ))}
     </div>
   )
 }

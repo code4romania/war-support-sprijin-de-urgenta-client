@@ -1,27 +1,59 @@
-import { State } from '@/store/types/state.type'
 import { AnyAction } from 'redux'
+import * as yup from 'yup'
 
 export enum ActionType {
   SET_USER_TYPE = 'SET_USER_TYPE',
+  SET_SIGNUP_DATA = 'SET_SIGNUP_DATA',
   SET_DEFAULT_OFFER = 'SET_DEFAULT_OFFER',
 }
 
-export enum UserType {
-  none = 'None',
-  individual = 'Individual',
-  legalPerson = 'Legal Person',
-  publicAuthority = 'Public Authority',
-  ngo = 'NGO',
+export interface UserType {
+  value: number,
+  display_name: string,
 }
 
-export const userTypeOptions = [
-  UserType.individual,
-  UserType.legalPerson,
-  UserType.publicAuthority,
-  UserType.ngo,
-]
+export const userTypeForms = {
+  [1]: {
+    inputs: [
+      { name: 'last_name', label: 'signup.userType.last_name' },
+      { name: 'first_name', label: 'signup.userType.first_name' },
+      { name: 'phone_number', label: 'signup.userType.phone_number' },
+    ],
+    schema: yup.object().shape({
+      last_name: yup.string().required('Va rugam introduceti numele'),
+      first_name: yup.string().required('Va rugam introduceti prenumele'),
+      phone_number: yup
+        .string()
+        .required('Va rugam introduceti numarul de telefon'),
+    }),
+  },
+  [2]: {
+    inputs: [
+      { name: 'business_name', label: 'signup.userType.business_name' },
+      { name: 'identification_no', label: 'signup.userType.identification_no' },
+    ],
+    schema: yup.object().shape({
+      business_name: yup
+        .string()
+        .required('Va rugam introduceti numele companiei'),
+      identification_no: yup.string().required('Va rugam introduceti CUI/CIF'),
+    }),
+  },
+  [3]: {
+    inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+    schema: yup.object().shape({
+      business_name: yup.string().required('Va rugam introduceti numele companiei'),
+    }),
+  },
+  [4]: {
+    inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+    schema: yup.object().shape({
+      business_name: yup.string().required('Va rugam introduceti numele companiei'),
+    }),
+  },
+}
 
-export const userType = (state = UserType.none, action: AnyAction) => {
+export const userType = (state = '', action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_USER_TYPE:
       return action.payload.userType
@@ -39,18 +71,29 @@ export const setUserType = (userType: UserType) => {
   }
 }
 
+export const setSignupData = (userData: any) => {
+  return {
+    type: ActionType.SET_SIGNUP_DATA,
+    payload: {
+      userData,
+    },
+  }
+}
+
 // Reducer
-export const defaultOffer = (state = 1, action: AnyAction) => {
+export const signup = (state = '', action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_DEFAULT_OFFER:
       return action.payload.id
+    case ActionType.SET_SIGNUP_DATA:
+      return action.payload
     default:
       return state
   }
 }
 
 // Action creators
-export const setDefaultOffer = (id: number) => {
+export const setDefaultOffer = (id: string) => {
   return {
     type: ActionType.SET_DEFAULT_OFFER,
     payload: {

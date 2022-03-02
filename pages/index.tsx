@@ -2,31 +2,27 @@ import clsx from 'clsx'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
-import { useData } from '../hooks/useData'
-
-interface ICategory {
-  pk: number
-  name: string
-}
+import { State } from '@/store/types/state.type'
+import { ICategory } from '@/store/reducers/categories/types'
 
 import { setDefaultOffer } from '@/store/reducers/signup'
 
 import Button from '@/components/Button'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const HomePage: NextPage = () => {
   const router = useRouter()
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const { categories } = useSelector((state: State)=> state);
 
-  const handleClick = (pk: number) => {
-    if (pk) {
-      dispatch(setDefaultOffer(pk))
+  const handleClick = (slug: string) => {
+    if (slug) {
+      dispatch(setDefaultOffer(slug))
       router.push('/sign-up')
     }
   }
 
-  const { data } = useData('/categories_by_name')
   return (
     <main className={clsx('layout h-full')}>
       <section className="mb-24">
@@ -38,11 +34,11 @@ const HomePage: NextPage = () => {
       <div>
         <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
         <div className={clsx('grid grid-cols-2 gap-8')}>
-          {data?.map((item: ICategory) => (
+          {categories.map((item: ICategory) => (
             <Button
-              key={item.pk}
-              text={item.name}
-              onClick={() => handleClick(item.pk)}
+              key={item.slug}
+              text={t(item.slug)}
+              onClick={() => handleClick(item.slug)}
             />
           ))}
         </div>
