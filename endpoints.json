@@ -1,4 +1,5 @@
 {
+  "auth/user": "/auth/user/",
   "registration": "/registration/",
   "request/item": "/api/v1/request/item/",
   "request/other": "/api/v1/request/other/",
