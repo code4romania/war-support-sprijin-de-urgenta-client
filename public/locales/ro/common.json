@@ -2,6 +2,7 @@
   "en": "English",
   "ro": "Romanian",
   "ua": "Ukraine",
+  "ru": "Rusa",
   "homepage.title": "Centralizare oferte asistență umanitară",
   "homepage.subtitle": "Prin completarea acestui formular vei contribui la o coordonare eficientă a tuturor resurselor oferite.",
   "wanna.help": "Vreau să ajut cu:",
@@ -52,17 +53,8 @@
     "Autoritate publică",
     "ONG"
   ],
-  "signup.userType.business_name": "Denumire",
-  "signup.userType.first_name": "Prenume",
-  "signup.userType.last_name": "Nume",
-  "signup.userType.phone_number": "Telefon de contact",
-  "signup.userType.email": "Email",
-  "signup.userType.identification_no": "CUI/CIF",
-  "signup.userType.password": "Parola",
-  "signup.userType.re_password": "Confirma parola",
   "unit.tons": "tone",
   "services.transport-goods": "Transport marfă",
-  "services.transport-people": "Transport persoane",
   "services.capacity": "Capacitate:",
   "services.cooling": "Refrigerare",
   "services.transport": "Transport",
@@ -71,7 +63,6 @@
   "services.car-plate": "Număr mașină:",
   "yes": "Da",
   "no": "Nu",
-  "add": "Adaugă",
   "services.transport-type.national": "National",
   "describeTheResource": "Descrieți resursa"
 }

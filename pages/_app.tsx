@@ -6,6 +6,7 @@ import { initReactI18next } from 'react-i18next'
 import common_en from '../public/locales/en/common.json'
 import common_ro from '../public/locales/ro/common.json'
 import common_ua from '../public/locales/ua/common.json'
+import common_ru from '../public/locales/ru/common.json'
 
 import '../styles/globals.css'
 import { withStore } from '../store'
@@ -23,6 +24,7 @@ i18n.use(initReactI18next).init({
     en: { common: common_en },
     ro: { common: common_ro },
     ua: { common: common_ua },
+    ru: { common: common_ru },
   },
 })
 
