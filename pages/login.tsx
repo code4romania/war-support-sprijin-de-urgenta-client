@@ -7,11 +7,13 @@ import { useForm } from 'react-hook-form'
 import { useMemo, useState } from 'react'
 import { authenticate } from '@/store/reducers/auth'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { useRouter } from 'next/router'
 
 const LoginPage: NextPage = () => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
+  const router = useRouter()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const {
@@ -37,6 +39,8 @@ const LoginPage: NextPage = () => {
 
     if (res?.errors) {
       setServerErrors(res.errors)
+    } else {
+      router.push('/sign-up')
     }
   }
 
