@@ -52,6 +52,12 @@
     "Autoritate publică",
     "ONG"
   ],
+  "signup.userType.business_name": "Denumire",
+  "signup.userType.first_name": "Prenume",
+  "signup.userType.last_name": "Nume",
+  "signup.userType.phone_number": "Telefon de contact",
+  "signup.userType.email": "Email de contact",
+  "signup.userType.identification_no": "CUI/CIF",
   "unit.tons": "tone",
   "services.transport-goods": "Transport marfă",
   "services.transport-people": "Transport persoane",

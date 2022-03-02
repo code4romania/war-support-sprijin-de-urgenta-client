@@ -22,16 +22,17 @@ export const userTypeOptions = [
 
 export const userTypeForms = {
   [UserType.individual]: [
-    { name: 'name', label: 'Nume' },
-    { name: 'phone', label: 'Telefon' },
-    { name: 'email', label: 'Email' },
+    { name: 'last_name', label: 'signup.userType.last_name' },
+    { name: 'first_name', label: 'signup.userType.first_name' },
+    { name: 'phone_number', label: 'signup.userType.phone_number' },
+    { name: 'email', label: 'Email', type: 'email' },
   ],
   [UserType.legalPerson]: [
-    { name: 'name', label: 'Denumire *' },
-    { name: 'id', label: 'CUI/CIF *' },
+    { name: 'business_name', label: 'signup.userType.business_name' },
+    { name: 'identification_no', label: 'signup.userType.identification_no' },
   ],
-  [UserType.publicAuthority]: [{ name: 'name', label: 'Denumire *' }],
-  [UserType.ngo]: [{ name: 'name', label: 'Denumire *' }],
+  [UserType.publicAuthority]: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+  [UserType.ngo]: [{ name: 'business_name', label: 'signup.userType.business_name' }],
 }
 
 export const userType = (state = UserType.none, action: AnyAction) => {
