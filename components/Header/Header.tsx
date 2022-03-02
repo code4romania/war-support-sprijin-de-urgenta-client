@@ -43,7 +43,7 @@ const Header = () => {
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline whitespace-nowrap"
             >
-              {`${t('findout.more')}`}
+              {t('findout.more')}
             </a>
           </div>
         </div>
