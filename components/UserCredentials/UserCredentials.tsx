@@ -121,6 +121,9 @@ const UserCredentials = ({ }) => {
             {...register(input.name)}
           />
         ))}
+        {serverErrors['general'].map((error, index) => (
+          <div key={index}>{error}</div>
+        ))}
       </div>
       <StepperButtonGroup
         steps={[
