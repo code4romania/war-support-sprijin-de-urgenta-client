@@ -27,6 +27,7 @@ export const useFormSchema = (path: string) => {
   return { data: data?.actions?.POST, error }
 }
 
+export const useUserTypeForm = () => useFormSchema(endpoints['registration'])
 export const useProductsForm = () => useFormSchema(endpoints['donate/item'])
 export const useServicesForm = () =>
   useFormSchema(endpoints['donate/transport_service'])

@@ -7,23 +7,13 @@ export enum ActionType {
   SET_DEFAULT_OFFER = 'SET_DEFAULT_OFFER',
 }
 
-export enum UserType {
-  none = 'None',
-  individual = 'Individual',
-  legalPerson = 'Legal Person',
-  publicAuthority = 'Public Authority',
-  ngo = 'NGO',
+export interface UserType {
+  value: number,
+  display_name: string,
 }
 
-export const userTypeOptions = [
-  UserType.individual,
-  UserType.legalPerson,
-  UserType.publicAuthority,
-  UserType.ngo,
-]
-
 export const userTypeForms = {
-  [UserType.individual]: {
+  [1]: {
     inputs: [
       { name: 'last_name', label: 'signup.userType.last_name' },
       { name: 'first_name', label: 'signup.userType.first_name' },
@@ -37,7 +27,7 @@ export const userTypeForms = {
         .required('Va rugam introduceti numarul de telefon'),
     }),
   },
-  [UserType.legalPerson]: {
+  [2]: {
     inputs: [
       { name: 'business_name', label: 'signup.userType.business_name' },
       { name: 'identification_no', label: 'signup.userType.identification_no' },
@@ -49,13 +39,13 @@ export const userTypeForms = {
       identification_no: yup.string().required('Va rugam introduceti CUI/CIF'),
     }),
   },
-  [UserType.publicAuthority]: {
+  [3]: {
     inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
     schema: yup.object().shape({
       business_name: yup.string().required('Va rugam introduceti numele companiei'),
     }),
   },
-  [UserType.ngo]: {
+  [4]: {
     inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
     schema: yup.object().shape({
       business_name: yup.string().required('Va rugam introduceti numele companiei'),
@@ -63,7 +53,7 @@ export const userTypeForms = {
   },
 }
 
-export const userType = (state = UserType.none, action: AnyAction) => {
+export const userType = (state = '', action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_USER_TYPE:
       return action.payload.userType

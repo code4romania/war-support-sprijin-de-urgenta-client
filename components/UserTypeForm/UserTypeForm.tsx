@@ -3,14 +3,17 @@ import { ChangeEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ActionType } from '@/store/reducers/steps'
 import Dropdown from '../Form/Dropdown'
-import { UserType, userTypeOptions } from '@/store/reducers/signup'
+import { UserType } from '@/store/reducers/signup'
 import UserDetails from '@/components/UserDetails'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
+import { useUserTypeForm } from '@/hooks/useData'
 
 const UserTypeForm = () => {
   const { t } = useTranslation()
   const [userType, setUserType] = useState<string>()
   const dispatch = useDispatch()
+  const { data } = useUserTypeForm()
+  const userTypeOptions = data?.type.choices || [];
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setUserType(e.target.value)
@@ -33,9 +36,10 @@ const UserTypeForm = () => {
           onChange={handleChange}
         >
           {userTypeOptions.map((option: UserType, idx: number) => {
+            console.log('option', option.display_name)
             return (
-              <option key={`user-type-option-${idx}`} value={option}>
-                {t(`signup.userType.options.${idx}`)}
+              <option key={`user-type-option-${option.value}`} value={option.value}>
+                {option.display_name}
               </option>
             )
           })}
