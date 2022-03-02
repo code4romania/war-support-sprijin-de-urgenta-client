@@ -48,24 +48,28 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="container px-2 mx-auto border-b border-gray-300">
-        <div
-          className={`${flexItemsCenter} ${clsx('justify-between', 'py-4')}`}
-        >
-          <div className={`${flexItemsCenter}`}>
-            <Link href="/" passHref>
-              <a>
-                <Image
-                  src="/logo.svg"
-                  alt="Sprijin de urgență"
-                  className="h-[42px]"
-                />
-              </a>
-            </Link>
-          </div>
-          <div className="text-right">
-            <Link href="/login">Login</Link>
-            <LanguageSelector />
+      <div
+        className="border-b-2 border-gray-50"
+      >
+        <div className="container px-2 mx-auto ">
+          <div
+            className={`${flexItemsCenter} ${clsx('justify-between', 'py-4')}`}
+          >
+            <div className={`${flexItemsCenter}`}>
+              <Link href="/" passHref>
+                <a>
+                  <Image
+                    src="/logo.svg"
+                    alt="Sprijin de urgență"
+                    className="h-[42px]"
+                  />
+                </a>
+              </Link>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link href="/login">Login</Link>
+              <LanguageSelector />
+            </div>
           </div>
         </div>
       </div>

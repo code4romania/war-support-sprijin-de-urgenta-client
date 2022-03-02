@@ -9,7 +9,7 @@ export interface ILayoutProps {
 
 const Layout = ({ children }: ILayoutProps) => {
   return (
-    <div className="flex flex-col gap-8 min-h-full">
+    <div className="flex flex-col min-h-full">
       <Header />
       {children}
       <Footer />
