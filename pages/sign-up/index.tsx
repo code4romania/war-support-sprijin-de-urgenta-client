@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import StepperButton from '@/components/StepperButton'
 import { State } from '@/store/types/state.type'
 import { ActionType } from '@/store/reducers/steps'
 import Stepper from '@/components/Stepper'
@@ -10,6 +9,7 @@ import UserCredentials from '@/components/UserCredentials'
 import { UserComponentType } from '@/store/reducers/steps/types'
 import SignUpResources from '@/components/SignUpResources'
 import clsx from 'clsx'
+import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 
 const SignUp: NextPage = () => {
   const { t } = useTranslation()
@@ -30,15 +30,15 @@ const SignUp: NextPage = () => {
   switch (steps[activeStep].component) {
     case UserComponentType.userType:
       currentComponent = <UserTypeForm />
-      break;
+      break
 
     case UserComponentType.userData:
       currentComponent = <UserCredentials />
-      break;
+      break
 
     case UserComponentType.userResources:
       currentComponent = <SignUpResources />
-      break;
+      break
 
     default:
       currentComponent = <div></div>
@@ -52,27 +52,6 @@ const SignUp: NextPage = () => {
         steps={steps.map((step) => step.label)}
       />
       <div className={'mt-12 px-3'}>{currentComponent}</div>
-      <div className="flex flex-wrap justify-start w-full mt-8 md:justify-start">
-        <div
-          onClick={handleStepBackward}
-          className="flex items-center md:mr-6 md:w-44"
-        >
-          <StepperButton disabled={activeStep === 0} direction="backward">
-            {t('steps.backward')}
-          </StepperButton>
-        </div>
-        <div
-          onClick={handleStepForward}
-          className="flex items-center justify-end md:ml-6 md:w-44"
-        >
-          <StepperButton
-            disabled={activeStep === steps.length - 1}
-            direction="forward"
-          >
-            {t('steps.forward')}
-          </StepperButton>
-        </div>
-      </div>
     </div>
   )
 }

@@ -3,8 +3,9 @@ import { ChangeEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ActionType } from '@/store/reducers/steps'
 import Dropdown from '../Form/Dropdown'
-import { setUserType, UserType, userTypeOptions } from '@/store/reducers/signup'
+import { UserType, userTypeOptions } from '@/store/reducers/signup'
 import UserDetails from '@/components/UserDetails'
+import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 
 const UserTypeForm = () => {
   const { t } = useTranslation()
@@ -12,34 +13,47 @@ const UserTypeForm = () => {
   const dispatch = useDispatch()
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    // dispatch(setUserType(e.target.value as UserType))
     setUserType(e.target.value)
-    // dispatch({ type: ActionType.INCREASE })
+  }
+
+  const handleBack = ()=>{
+    setUserType('');
+  }
+
+  const handleSubmit = ()=>{
+    dispatch({ type: ActionType.INCREASE })
   }
 
   return (
-    <div
-      className={`bg-blue-50 px-4 py-4 rounded-md`}
-      // style={{ height: `${userTypeOptions.length * 50 + 5}px` }}
-    >
-      {!userType ? (
-        <Dropdown
-          name="userType"
-          label={t('signup.userType.type')}
-          onChange={handleChange}
-        >
-          {userTypeOptions.map((option: UserType, idx: number) => {
-            return (
-              <option key={`user-type-option-${idx}`} value={option}>
-                {t(`signup.userType.options.${idx}`)}
-              </option>
-            )
-          })}
-        </Dropdown>
-      ) : (
-        <UserDetails type={userType} />
-      )}
-    </div>
+    <>
+      <div
+        className={`bg-blue-50 px-4 py-4 rounded-md`}
+      >
+        {!userType ? (
+          <Dropdown
+            name="userType"
+            label={t('signup.userType.type')}
+            onChange={handleChange}
+          >
+            {userTypeOptions.map((option: UserType, idx: number) => {
+              return (
+                <option key={`user-type-option-${idx}`} value={option}>
+                  {t(`signup.userType.options.${idx}`)}
+                </option>
+              )
+            })}
+          </Dropdown>
+        ) : (
+          <UserDetails type={userType} />
+        )}
+      </div>
+      <StepperButtonGroup
+        steps={[
+          { disabled: !userType, direction: 'backward', onClick: handleBack},
+          { disabled: !userType, direction: 'forward', onClick: handleSubmit },
+        ]}
+      />
+    </>
   )
 }
 
