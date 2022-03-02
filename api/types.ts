@@ -1,14 +1,19 @@
 export type GoodsTransportServicesRequest = {
-    name?:string;
-    description?: string;
-    available_until?: Date,
-    is_finished?: boolean,
-    county_coverage?: string;
-    is_infinitely_reusable?: string;
-    currently_in_use?: true;
-    used_by?: string;
-    usable_weight?: number;
+    weight_capacity?: number;
+    weight_unit?: string;
     has_refrigeration?: boolean;
-    subCategory?: number;
-    donor?: number;
+    type?: string;
+    county_coverage?: string;
+    availability?: string;
+    availability_interval_from?: Date;
+    availability_interval_to?: Date;
+    driver_name?: string;
+    driver_id?: string;
+    car_registration_number?: string;
+    available_seats?: number;
+    has_disabled_access?: boolean;
+    pets_allowed?: boolean;
+    status?: number;
+    donor?: string;
+    category?: string;
 }

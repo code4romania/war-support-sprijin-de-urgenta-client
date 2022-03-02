@@ -11,11 +11,13 @@ import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
 import { useMemo } from 'react'
+import { GoodsTransportServicesRequest } from 'api'
+import { date } from 'yup/lib/locale'
 
 type ServicesForm = {
   transportGoods?: boolean;
   capacity?: number;
-  needsCooling?: boolean | null;
+  hasRefrigeration?: boolean | null;
   transportType?: string;
   transportCounty?: string;
   tgDriverName?: string;
@@ -42,7 +44,7 @@ const SignUpServicesForm = () => {
       is: true,
       then: yup.number().required()
     }),
-    needsCooling: yup.boolean().nullable().when('transportGoods', {
+    hasRefrigeration: yup.boolean().nullable().when('transportGoods', {
       is: true,
       then: yup.boolean().nullable().required()
     }),
@@ -133,9 +135,13 @@ const SignUpServicesForm = () => {
   const onSubmit = (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
     const goodsTransportRequest: GoodsTransportServicesRequest = {
-      usable_weight: data.capacity,
-      has_refrigeration: !!data.needsCooling,
+      weight_capacity: data.capacity,
+      has_refrigeration: !!data.hasRefrigeration,
+      type: data.transportType,
       county_coverage: data.transportCounty,
+      driver_name: data.tgDriverName,
+      driver_id: data.tgDriverCI,
+      car_registration_number: data.tpCarPlate,
     }
   }
 
