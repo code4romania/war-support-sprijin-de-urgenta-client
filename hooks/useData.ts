@@ -12,31 +12,30 @@ const authFetcher = (url: string, token: string) =>
     r.json()
   )
 
-export const useData = (path: string) => {
+export const useFetchData = (
+  path: string | string[],
+  fetcher: any,
+  token?: string
+) => {
   if (!path) {
     throw new Error('Path is required')
   }
-
-  const { data, error } = useSwr(`${baseUrl}${path}`, fetcher)
+  const url = `${baseUrl}${path}`
+  const key = token ? [url, token] : url
+  const { data, error } = useSwr(key, fetcher)
 
   return { data, error }
 }
 
+export const useData = (path: string) => useFetchData(path, fetcher)
+
 export const useFormSchema = (path: string) => {
-  if (!path) {
-    throw new Error('Path is required')
-  }
-
-  const { data, error } = useSwr(`${baseUrl}${path}`, configFetcher)
-
+  const { data, error } = useFetchData(path, configFetcher)
   return { data: data?.actions?.POST, error }
 }
 
 export const useDataWithToken = (path: string, token: string) => {
-  if (!path) {
-    throw new Error('Path is required')
-  }
-  const { data, error } = useSwr([`${baseUrl}${path}`, token], authFetcher)
+  const { data, error } = useFetchData(path, authFetcher, token)
 
   return { data, error }
 }

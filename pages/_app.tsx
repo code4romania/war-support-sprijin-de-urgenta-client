@@ -34,7 +34,7 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   if (data) {
     dispatch(reauthenticate(token))
   } else {
-    // dispatch(deauthenticate())
+    dispatch(deauthenticate())
   }
   return (
     <Layout>
