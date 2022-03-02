@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux'
-import { removeCookie } from '@/utils/cookies'
+import { getCookie, removeCookie } from '@/utils/cookies'
 
 export enum ActionType {
   AUTHENTICATE = 'AUTHENTICATE',
@@ -7,7 +7,7 @@ export enum ActionType {
 }
 
 export const initialState = {
-  token: null,
+  token: getCookie('token'),
 }
 
 export const reauthenticate = (token: string) => {

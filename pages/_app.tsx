@@ -9,11 +9,11 @@ import common_ua from '../public/locales/ua/common.json'
 
 import '../styles/globals.css'
 import { withStore } from '../store'
-import { reauthenticate } from '@/store/reducers/auth'
+import { reauthenticate, deauthenticate } from '@/store/reducers/auth'
 import { useDataWithToken } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
-import { getCookie } from '@/utils/cookies'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
 
 i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
@@ -27,11 +27,14 @@ i18n.use(initReactI18next).init({
 })
 
 const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
-  const token = getCookie('token')
   const dispatch = useDispatch()
+  const token = useSelector((state: State) => state.auth.token)
+  // @ts-ignore
   const { data } = useDataWithToken(endpoints['auth/user'], token)
   if (data) {
     dispatch(reauthenticate(token))
+  } else {
+    // dispatch(deauthenticate())
   }
   return (
     <Layout>

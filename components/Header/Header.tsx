@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 import Image from '@/components/Image'
 import LanguageSelector from '@/components/Header/LanguageSelector'
 
@@ -60,7 +61,10 @@ const Header = () => {
               <span className="underline">DE URGENȚĂ</span>
             </div>
           </div>
-          <LanguageSelector />
+          <div className={"text-right"}>
+            <Link href="/login">Login</Link>
+            <LanguageSelector />
+          </div>
         </div>
       </div>
       <div
