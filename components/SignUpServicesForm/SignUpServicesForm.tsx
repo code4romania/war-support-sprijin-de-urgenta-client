@@ -25,7 +25,6 @@ type ServicesForm = {
 const SignUpServicesForm = () => {
   const { t } = useTranslation()
   const { data } = useServicesForm();
-  console.log('useServicesForm data', data);
 
   const schema: SchemaOf<ServicesForm> = yup.object().shape({
     transportGoods: yup.boolean().required(),

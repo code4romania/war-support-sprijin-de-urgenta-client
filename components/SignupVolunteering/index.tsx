@@ -9,7 +9,6 @@ import { useVolunteeringForm } from '@/hooks/useData'
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
   const { data } = useVolunteeringForm()
-  console.log('useVolunteeringForm data', data)
 
   return (
     <div

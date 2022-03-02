@@ -9,7 +9,6 @@ export interface ISignUpProductsProps {
 const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm();
-  console.log('useProductsForm data', data);
 
   return (
     <section
