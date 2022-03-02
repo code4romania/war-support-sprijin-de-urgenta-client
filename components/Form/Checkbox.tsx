@@ -17,7 +17,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
             'appearance-none mr-2 bg-white',
             'before:content-[" "] before:block',
             'w-4 h-4',
-            'border-gray-100 border-2 rounded-sm',
+            'border-gray-200 border-2 rounded-sm',
             'checked:border-blue-600 checked:bg-blue-600',
             'checked:bg-checkbox-selected bg-center bg-no-repeat'
           )}
