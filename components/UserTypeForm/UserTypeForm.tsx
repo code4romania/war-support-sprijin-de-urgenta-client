@@ -35,6 +35,7 @@ const UserTypeForm = () => {
             name="userType"
             label={`${t('signup.userType.type')}: *`}
             onChange={handleChange}
+            placeholder={t('signup.userType.type.placeholder')}
           >
             {userTypeOptions.map(({ value, display_name }: UserType) => {
               return (
