@@ -72,7 +72,7 @@ const OtherResourcesForm = ({}) => {
       )}:`}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Dropdown label={t('signup.other.category')} {...register('category')}>
-          {categories.map(({ id, name }) => (
+          {categories?.map(({ id, name }) => (
             <option value={id}>{name}</option>
           ))}
         </Dropdown>

@@ -16,7 +16,8 @@ export type TransportServicesRequest = {
   pets_allowed?: boolean
   status?: number
   donor?: string
-  category?: string
+  category?: number
+  description?: string
 }
 
 export enum TransportType {
@@ -29,4 +30,11 @@ export enum AvailabilityType {
   Weekdays = 'WD',
   Anytime = 'A',
   FixedIntervals = 'FI',
+}
+
+export enum TransportCategories {
+  Goods = 1,
+  People = 2,
+  Medical = 3,
+  Other = 4,
 }

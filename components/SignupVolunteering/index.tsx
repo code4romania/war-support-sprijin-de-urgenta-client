@@ -19,7 +19,11 @@ const SignupVolunteering: FC = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues:{
+      available_until: today
+    }
+  })
 
   const onSubmit = async (values: any) => {
     fetch(
@@ -84,7 +88,6 @@ const SignupVolunteering: FC = () => {
           <Input label={t('signup.volunteering.town')} {...register('town')} />
         </div>
         <DateInput
-          value={today}
           label={t('signup.volunteering.available_until')}
           {...register('available_until')}
         />

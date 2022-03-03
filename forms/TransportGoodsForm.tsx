@@ -4,6 +4,7 @@ import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import Date from '@/components/Form/Date'
+import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { MultiSelectOption } from '@/components/Form/types'
 import { useServicesForm } from '@/hooks/useData'
@@ -13,7 +14,12 @@ import {
   roCarRegistrationNumber,
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { AvailabilityType, TransportServicesRequest, TransportType } from 'api'
+import {
+  AvailabilityType,
+  TransportServicesRequest,
+  TransportType,
+  TransportCategories,
+} from 'api'
 import clsx from 'clsx'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -53,10 +59,8 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     availability: yup.string().typeError(t('error.must.be.string')),
-    availability_interval_from: yup
-      .date()
-      .typeError(t('error.must.be.date')),
-    availability_interval_to: yup.date().typeError(t('error.must.be.string')),
+    availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
+    availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
@@ -108,6 +112,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     const goodsTransportRequest: TransportServicesRequest = {
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
+      availability_interval_to: data.availability_interval_to,
       weight_capacity: data.weight_capacity,
       weight_unit: data.weight_unit,
       has_refrigeration: !!data.has_refrigeration,
@@ -117,28 +122,33 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       driver_id: data.driver_id,
       car_registration_number: data.car_registration_number,
       driver_contact: data.driver_contact,
+      description: data.description,
+      category: TransportCategories.Goods,
     }
 
     //TODO: below call is a working post to transport_service, need a hook to POST data
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
     //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/api/v1/donate/transport_service/`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify([goodsTransportRequest])
-    })
-    if(response.ok){
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}/api/v1/donate/transport_service/`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify([goodsTransportRequest]),
+      }
+    )
+    if (response.ok) {
       setServerErrors({})
       const data = await response.json()
-      console.log('data', data);
+      console.log('data', data)
       onSubmit(goodsTransportRequest)
     } else {
       const data = await response.json()
       setServerErrors(data)
-      console.log('data', data);
+      console.log('data', data)
     }
   }
 
@@ -150,18 +160,30 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             <Input
               type="number"
               label={t('services.capacity')}
-              errors={errors['weight_capacity']}
+              errors={
+                serverErrors['weight_capacity']
+                  ? { message: serverErrors['weight_capacity'].join('\n') }
+                  : errors['weight_capacity']
+              }
               step="any"
               {...register('weight_capacity')}
             />
             <Input
               label={t('services.weight_unit')}
-              errors={errors['weight_unit']}
+              errors={
+                serverErrors['weight_unit']
+                  ? { message: serverErrors['weight_unit'].join('\n') }
+                  : errors['weight_unit']
+              }
               {...register('weight_unit')}
             />
           </div>
           <RadioGroup
-            errors={errors.has_refrigeration}
+            errors={
+              serverErrors['has_refrigeration']
+                ? { message: serverErrors['has_refrigeration'].join('\n') }
+                : errors['has_refrigeration']
+            }
             label={t('services.cooling')}
           >
             <div className={clsx('flex flex-row gap-6')}>
@@ -173,7 +195,14 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               </Radio>
             </div>
           </RadioGroup>
-          <RadioGroup errors={errors.type} label={t('services.transport')}>
+          <RadioGroup
+            errors={
+              serverErrors['type']
+                ? { message: serverErrors['type'].join('\n') }
+                : errors['type']
+            }
+            label={t('services.transport')}
+          >
             {typeOptions?.map(({ display_name, value }) => (
               <Radio value={value} {...register('type')}>
                 {display_name}
@@ -240,15 +269,23 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
           {showAvailabilityIntervals && (
             <div className="flex space-x-2">
               <Date
+                type={'time'}
                 label={t('services.availability_interval_from')}
+                errors={errors['availability_interval_from']}
                 {...register('availability_interval_from')}
               />
               <Date
+                type={'time'}
                 label={t('services.availability_interval_to')}
+                errors={errors['availability_interval_to']}
                 {...register('availability_interval_to')}
               />
             </div>
           )}
+          <Textarea
+            label={t('services.description')}
+            {...register('description')}
+          />
         </section>
         <Button type="submit" text={t('add')} variant="tertiary" size="small" />
       </form>
