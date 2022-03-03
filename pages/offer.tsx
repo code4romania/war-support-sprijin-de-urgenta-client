@@ -55,6 +55,7 @@ const OfferPage: NextPage = () => {
             headingTwo={t('cta.offer_stay.heading_two')}
             description={t('cta.offer_stay.description')}
             ctaLabel={t('cta.offer_stay.button_label')}
+            goToUrl={'https://www.unacoperis.ro/'}
           />
         </div>
       </section>

@@ -55,6 +55,7 @@ const RequestPage: NextPage = () => {
             headingTwo={t('cta.request_stay.heading_two')}
             description={t('cta.request_stay.description')}
             ctaLabel={t('cta.request_stay.button_label')}
+            goToUrl={'https://www.unacoperis.ro/'}
           />
         </div>
       </section>
