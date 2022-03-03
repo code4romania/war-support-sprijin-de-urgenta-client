@@ -13,9 +13,10 @@ const UserTypeForm = () => {
   const [userType, setUserType] = useState<number | null>()
   const dispatch = useDispatch()
   const { data } = useUserTypeForm()
-  const userTypeOptions = data?.type.choices || []
+  const emptyOption = { value: 0, display_name: '' }
+  const userTypeOptions = [emptyOption, ...(data?.type.choices || [])]
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {  
     setUserType(+e.target.value)
   }
 
