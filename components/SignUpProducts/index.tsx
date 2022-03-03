@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useProductsForm } from '@/hooks/useData'
+import Form from "@/components/SignUpProducts/Form";
 
 export interface ISignUpProductsProps {
   defaultProp?: string
@@ -19,6 +20,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       )}
     >
       <h3 className="text-lg font-semibold">{t('products')}</h3>
+      <Form />
     </section>
   )
 }
