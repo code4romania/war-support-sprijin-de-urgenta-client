@@ -51,8 +51,10 @@ const schema: SchemaOf<ICredentials> = yup.object().shape({
     .required('Va rugam confirmati parola'),
 })
 
-const UserCredentials = ({ }) => {
-  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>({})
+const UserCredentials = ({}) => {
+  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
+    {}
+  )
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const userData = useSelector((state: State) => state.signup.userData)
@@ -107,23 +109,24 @@ const UserCredentials = ({ }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
-        {inputs.map((input: IInput) => (
-          <Input
-            key={input.name}
-            label={`${t(input.label)}: *`}
-            errors={
-              serverErrors[input.name]
-                ?
-                { message: serverErrors[input.name].join('\n') }
-                : errors[input.name]
-            }
-            type={input.type}
-            {...register(input.name)}
-          />
-        ))}
-        {serverErrors['general']?.map((error, index) => (
-          <div key={index}>{error}</div>
-        ))}
+        <div className="max-w-sm">
+          {inputs.map((input: IInput) => (
+            <Input
+              key={input.name}
+              label={`${t(input.label)}: *`}
+              errors={
+                serverErrors[input.name]
+                  ? { message: serverErrors[input.name].join('\n') }
+                  : errors[input.name]
+              }
+              type={input.type}
+              {...register(input.name)}
+            />
+          ))}
+          {serverErrors['general']?.map((error, index) => (
+            <div key={index}>{error}</div>
+          ))}
+        </div>
       </div>
       <StepperButtonGroup
         steps={[

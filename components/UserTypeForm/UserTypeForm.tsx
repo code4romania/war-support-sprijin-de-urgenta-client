@@ -29,20 +29,22 @@ const UserTypeForm = () => {
 
   return !userType ? (
     <>
-      <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
-        <Dropdown
-          name="userType"
-          label={t('signup.userType.type')}
-          onChange={handleChange}
-        >
-          {userTypeOptions.map(({ value, display_name }: UserType) => {
-            return (
-              <option key={`user-type-option-${value}`} value={value}>
-                {display_name}
-              </option>
-            )
-          })}
-        </Dropdown>
+      <div className={'bg-blue-50 px-4 py-4 rounded-md'}>
+        <div className="max-w-sm">
+          <Dropdown
+            name="userType"
+            label={`${t('signup.userType.type')}: *`}
+            onChange={handleChange}
+          >
+            {userTypeOptions.map(({ value, display_name }: UserType) => {
+              return (
+                <option key={`user-type-option-${value}`} value={value}>
+                  {display_name}
+                </option>
+              )
+            })}
+          </Dropdown>
+        </div>
       </div>
       <StepperButtonGroup
         steps={[

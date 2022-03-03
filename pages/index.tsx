@@ -25,44 +25,40 @@ const HomePage: NextPage = () => {
         </section>
       </main>
       <Spacer size="6.5rem" />
-      <section className="bg-gray-100 ">
+      <section className="">
         <div
-          className={clsx(
-            ' flex flex-col gap-3 justify-center layout',
-            'lg:flex-row relative'
-          )}
+          className={clsx('flex flex-col gap-3 justify-center ', 'lg:flex-row')}
         >
           <div
             className={clsx(
-              'bg-gray-100 flex-1 rounded-lg',
-              'ml-[-32px] pl-[32px] mr-[-32px] pr-[32px]',
-              'lg:m-0 lg:p-0 lg:z-10'
+              'bg-gray-100 w-full flex flex-col items-start sm:items-center'
             )}
           >
-            <CallToAction
-              headingOne={t('cta.offer_stay.heading_one')}
-              headingTwo={t('cta.offer_stay.heading_two')}
-              description={t('cta.offer_stay.description')}
-              ctaLabel={t('cta.offer_stay.button_label')}
-              goToUrl={'https://www.unacoperis.ro/'}
-            />
+            <div className="lg:self-end max-w-[35rem] px-5 md:px-0">
+              <CallToAction
+                headingOne={t('cta.offer_stay.heading_one')}
+                headingTwo={t('cta.offer_stay.heading_two')}
+                description={t('cta.offer_stay.description')}
+                ctaLabel={t('cta.offer_stay.button_label')}
+                goToUrl={'https://www.unacoperis.ro/'}
+              />
+            </div>
           </div>
 
-          <div className="w-full h-3 bg-white lg:absolute lg:w-5 lg:h-full lg:block"></div>
           <div
             className={clsx(
-              'bg-gray-100 flex-1 rounded-lg',
-              'ml-[-32px] pl-[32px] mr-[-32px] pr-[32px]',
-              'lg:m-0 lg:p-0 lg:z-10'
+              'bg-gray-100 w-full flex flex-col items-start sm:items-center '
             )}
           >
-            <CallToAction
-              headingOne={t('cta.request_stay.heading_one')}
-              headingTwo={t('cta.request_stay.heading_two')}
-              description={t('cta.request_stay.description')}
-              ctaLabel={t('cta.request_stay.button_label')}
-              goToUrl={'https://www.unacoperis.ro/'}
-            />
+            <div className="lg:self-start max-w-[35rem] px-5 md:px-0">
+              <CallToAction
+                headingOne={t('cta.request_stay.heading_one')}
+                headingTwo={t('cta.request_stay.heading_two')}
+                description={t('cta.request_stay.description')}
+                ctaLabel={t('cta.request_stay.button_label')}
+                goToUrl={'https://www.unacoperis.ro/'}
+              />
+            </div>
           </div>
         </div>
       </section>
