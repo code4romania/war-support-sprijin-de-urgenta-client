@@ -62,17 +62,15 @@ const OtherResourcesForm = ({}) => {
     }
   }
 
-  console.log('serverErrors', serverErrors)
-
   return (
     <section
       className={clsx(
-        'container grid place-items-start',
+        'container grid place-items-start gap-6',
         'bg-blue-50 rounded',
         'mx-auto px-8 py-7'
       )}
     >
-      <h3 className="text-sm">{`${t('describeTheResource')}:`}</h3>
+      <h3 className="text-lg font-semibold">{`${t('signup.other.header')}:`}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={'flex space-x-4'}>
           <DateInput
