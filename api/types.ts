@@ -18,3 +18,8 @@ export type TransportServicesRequest = {
     donor?: string;
     category?: string;
 }
+
+export enum TransportType {
+  National = "1",
+  County = "2"
+}

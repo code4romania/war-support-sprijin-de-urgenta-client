@@ -8,7 +8,7 @@ import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
 import { roIdentityCardRegex, phoneNumberRegex } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { TransportServicesRequest } from 'api'
+import { TransportServicesRequest, TransportType } from 'api'
 import clsx from 'clsx'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
@@ -87,7 +87,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     const goodsTransportRequest: TransportServicesRequest = {
       weight_capacity: data.capacity,
       has_refrigeration: !!data.hasRefrigeration,
-      type: data.transportType ?? '',
+      type: data.transportType || '',
       county_coverage: data.transportCounty,
       driver_name: data.driverName,
       driver_id: data.driverCI,
@@ -158,7 +158,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             </Radio>
             <Radio value={typeOptions && typeOptions[1]?.value} {...register('transportType')} className={clsx('mb-0')}>
               <Dropdown {...register('transportCounty')}
-                disabled={watchTransportType !== 'county'}
+                disabled={watchTransportType !== TransportType.County}
                 errors={errors.transportCounty}
                 placeholder={t('services.county.placeholder')}
               >

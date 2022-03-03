@@ -8,7 +8,7 @@ import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
 import { phoneNumberRegex, roCarRegistrationNumber, roIdentityCardRegex } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { TransportServicesRequest } from 'api/types'
+import { TransportServicesRequest, TransportType } from 'api/types'
 import clsx from 'clsx'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
@@ -79,6 +79,8 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       </Checkbox>
     ));
   }, [data?.availability?.choices, register]);
+
+  const typeOptions: { value: number, display_name: string }[] = data?.type?.choices;
 
   const onSave = (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
@@ -157,13 +159,13 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
           label={t('services.transport')}
         >
           <Radio
-            value="national"
+            value={typeOptions[0].value}
             {...register('transportType')}
           >
-            {t('services.transport-type.national')}
+            {typeOptions[0].display_name}
           </Radio>
-          <Radio value="county" {...register('transportType')}>
-            <Dropdown placeholder={t('services.county.placeholder')} {...register('transportCounty')} disabled={watchtransportType !== 'county'}>
+          <Radio value={typeOptions[1].value} {...register('transportType')}>
+            <Dropdown placeholder={t('services.county.placeholder')} {...register('transportCounty')} disabled={watchtransportType !== TransportType.County}>
               {countiesOptions}
             </Dropdown>
           </Radio>
