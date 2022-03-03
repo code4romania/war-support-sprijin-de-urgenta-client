@@ -14,6 +14,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
           ref={ref}
           className={clsx(
             'appearance-none mr-2',
+            'cursor-pointer',
             'w-4 h-4',
             'before:content-[" "] before:block',
             'border-gray-200 border-2 rounded-lg',
@@ -22,7 +23,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
           )}
           {...rest}
         />
-        <label htmlFor={`${name}_${value}`} className="text-sm">
+        <label htmlFor={`${name}_${value}`} className="text-sm cursor-pointer">
           {children}
         </label>
         {errors && (

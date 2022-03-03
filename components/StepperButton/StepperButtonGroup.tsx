@@ -5,7 +5,7 @@ const StepperButtonGroup = ({ steps }: any) => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-wrap justify-start w-full mt-8 md:justify-start">
+    <div className="flex flex-wrap justify-start sm:justify-between w-full mt-8">
       {steps.map((step: any) => (
         <div
           key={step.direction}
