@@ -39,12 +39,27 @@ const OtherResourcesForm = ({}) => {
         body: JSON.stringify([
           {
             ...values,
+            available_from:
+              values.available_until &&
+              new Date(values.available_until).toISOString(),
+            available_until:
+              values.available_until &&
+              new Date(values.available_until).toISOString(),
+            expiration_date:
+              values.expiration_date &&
+              new Date(values.expiration_date).toISOString(),
           },
         ]),
       }
     )
-    const [data] = await res.json()
-    setServerErrors(data)
+
+    if (res.ok) {
+      setServerErrors({})
+      const [data] = await res.json()
+    } else {
+      const [data] = await res.json()
+      setServerErrors(data)
+    }
   }
 
   console.log('serverErrors', serverErrors)
@@ -57,11 +72,11 @@ const OtherResourcesForm = ({}) => {
         'mx-auto px-8 py-7'
       )}
     >
-      {/*<h3 className="text-sm">{`${t('describeTheResource')}:`}</h3>*/}
+      <h3 className="text-sm">{`${t('describeTheResource')}:`}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={'flex space-x-4'}>
           <DateInput
-            label={t('signup.volunteering.available_from')}
+            label={t('signup.other.available_from')}
             value={today}
             errors={
               serverErrors['available_from']
@@ -72,7 +87,7 @@ const OtherResourcesForm = ({}) => {
           />
           <DateInput
             value={today}
-            label={t('signup.volunteering.available_until')}
+            label={t('signup.other.available_until')}
             errors={
               serverErrors['available_until']
                 ? { message: serverErrors['available_until'].join('\n') }
@@ -83,7 +98,7 @@ const OtherResourcesForm = ({}) => {
         </div>
         <div className={'flex space-x-4'}>
           <Dropdown
-            label={t('signup.volunteering.county_coverage')}
+            label={t('signup.other.county_coverage')}
             errors={
               serverErrors['county_coverage']
                 ? { message: serverErrors['county_coverage'].join('\n') }
@@ -106,7 +121,7 @@ const OtherResourcesForm = ({}) => {
             )}
           </Dropdown>
           <Input
-            label={t('signup.volunteering.town')}
+            label={t('signup.other.town')}
             {...register('town')}
             errors={
               serverErrors['town']
@@ -116,7 +131,7 @@ const OtherResourcesForm = ({}) => {
           />
         </div>
         <Textarea
-          label={t('signup.volunteering.description')}
+          label={t('signup.other.description')}
           className={clsx('w-full')}
           errors={
             serverErrors['description']
@@ -126,17 +141,16 @@ const OtherResourcesForm = ({}) => {
           {...register('description')}
         />
         <Input
-          label={t('signup.others.name')}
+          label={t('signup.other.name')}
           {...register('name')}
           errors={
-            serverErrors['expiration_date']
-              ? { message: serverErrors['expiration_date'].join('\n') }
-              : errors['expiration_date']
+            serverErrors['name']
+              ? { message: serverErrors['name'].join('\n') }
+              : errors['name']
           }
         />
-        {/*<Input label={t('signup.others.subcategory')} {...register('subcategory')} />*/}
         <DateInput
-          label={t('signup.volunteering.expiration_date')}
+          label={t('signup.other.expiration_date')}
           errors={
             serverErrors['expiration_date']
               ? { message: serverErrors['expiration_date'].join('\n') }
