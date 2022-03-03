@@ -1,14 +1,43 @@
 import { FC } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
-import Checkbox from '@/components/Form/Checkbox'
-import CheckboxWithDescription from '@/components/SignupVolunteering/CheckboxWithDescription'
+import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
-import { useVolunteeringForm } from '@/hooks/useData'
+import { useData, useVolunteeringForm } from '@/hooks/useData'
+import DateInput from '@/components/Form/Date'
+import Dropdown from '@/components/Form/Dropdown'
+import { useForm } from 'react-hook-form'
+import endpoints from 'endpoints.json'
 
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
-  const { data } = useVolunteeringForm()
+  const { data: formData } = useVolunteeringForm()
+  const { data: categories } = useData(endpoints['categories/volunteering'])
+  const countyCovarage = formData ? formData['county_coverage'].choices : []
+  const today = new Date().toISOString().substr(0, 10)
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = async (values: any) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/volunteering']}`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify([values]),
+      }
+    )
+  }
 
   return (
     <div
@@ -21,42 +50,47 @@ const SignupVolunteering: FC = () => {
       <h3 className="text-lg font-semibold">
         {t('signup.volunteering.header')}
       </h3>
-      <div className="max-w-xs">
-        <CheckboxWithDescription
-          name="volunteering_resource"
-          value="psychologist"
-        >
-          {t('signup.volunteering.psychologist')}
-        </CheckboxWithDescription>
-        <CheckboxWithDescription name="volunteering_resource" value="medic">
-          {t('signup.volunteering.medic')}
-        </CheckboxWithDescription>
-        <CheckboxWithDescription name="volunteering_resource" value="nurse">
-          {t('signup.volunteering.nurse')}
-        </CheckboxWithDescription>
-        <CheckboxWithDescription name="volunteering_resource" value="lawyer">
-          {t('signup.volunteering.lawyer')}
-        </CheckboxWithDescription>
-        <CheckboxWithDescription name="volunteering_resource" value="cook">
-          {t('signup.volunteering.cook')}
-        </CheckboxWithDescription>
-        <CheckboxWithDescription name="volunteering_resource" value="manager">
-          {t('signup.volunteering.manager')}
-        </CheckboxWithDescription>
-        <CheckboxWithDescription
-          name="volunteering_resource"
-          value="translator"
-        >
-          {t('signup.volunteering.translator')}
-        </CheckboxWithDescription>
-        <Checkbox name="volunteering_resource" value="other">
-          {t('signup.volunteering.other')}
-        </Checkbox>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Dropdown label={t('signup.volunteering.type')} {...register('type')}>
+          {categories?.map(({ id, name }: { id: string; name: string }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
+        </Dropdown>
         <Textarea
-          name="volunteering_resource_other_description"
-          className="ml-5"
+          label={t('signup.volunteering.description')}
+          {...register('description')}
         />
-      </div>
+        <div className={'flex space-x-4'}>
+          <Dropdown
+            label={t('signup.volunteering.county_coverage')}
+            {...register('county_coverage')}
+          >
+            {countyCovarage.map(
+              ({
+                value,
+                display_name,
+              }: {
+                value: string
+                display_name: string
+              }) => (
+                <option key={value} value={value}>
+                  {display_name}
+                </option>
+              )
+            )}
+          </Dropdown>
+          <Input label={t('signup.volunteering.town')} {...register('town')} />
+        </div>
+        <DateInput
+          value={today}
+          label={t('signup.volunteering.available_until')}
+          {...register('available_until')}
+        />
+        {/*TODO: remove*/}
+        <button type={'submit'}>Send</button>
+      </form>
     </div>
   )
 }

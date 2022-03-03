@@ -46,3 +46,5 @@ export const useServicesForm = () =>
   useFormSchema(endpoints['donate/transport_service'])
 export const useVolunteeringForm = () =>
   useFormSchema(endpoints['donate/volunteering'])
+export const useOthersForm = () =>
+  useFormSchema(endpoints['donate/other'])
