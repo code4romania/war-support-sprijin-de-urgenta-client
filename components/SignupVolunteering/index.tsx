@@ -1,8 +1,7 @@
 import { FC } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
-import Checkbox from '@/components/Form/Checkbox'
-import CheckboxWithDescription from '@/components/SignupVolunteering/CheckboxWithDescription'
+import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 import { useData, useVolunteeringForm } from '@/hooks/useData'
 import DateInput from '@/components/Form/Date'
@@ -59,13 +58,10 @@ const SignupVolunteering: FC = () => {
             </option>
           ))}
         </Dropdown>
-        <div className={'flex space-x-4'}>
-          <DateInput
-            value={today}
-            label={t('signup.volunteering.available_until')}
-            {...register('available_until')}
-          />
-        </div>
+        <Textarea
+          label={t('signup.volunteering.description')}
+          {...register('description')}
+        />
         <div className={'flex space-x-4'}>
           <Dropdown
             label={t('signup.volunteering.county_coverage')}
@@ -87,9 +83,10 @@ const SignupVolunteering: FC = () => {
           </Dropdown>
           <Input label={t('signup.volunteering.town')} {...register('town')} />
         </div>
-        <Textarea
-          name="volunteering_resource_other_description"
-          className="ml-5"
+        <DateInput
+          value={today}
+          label={t('signup.volunteering.available_until')}
+          {...register('available_until')}
         />
         {/*TODO: remove*/}
         <button type={'submit'}>Send</button>
