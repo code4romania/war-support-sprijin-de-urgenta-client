@@ -10,6 +10,34 @@ const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
   const { data } = useVolunteeringForm()
 
+  const onSubmit = async (values: any) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/volunteering']}`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify([
+          {
+            ...values,
+            available_from:
+              values.available_from &&
+              new Date(values.available_from).toISOString(),
+            available_until:
+              values.available_until &&
+              new Date(values.available_until).toISOString(),
+          },
+        ]),
+      }
+    )
+  }
+
   return (
     <div
       className={clsx(

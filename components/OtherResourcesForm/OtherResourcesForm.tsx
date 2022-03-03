@@ -40,8 +40,8 @@ const OtherResourcesForm = ({}) => {
           {
             ...values,
             available_from:
-              values.available_until &&
-              new Date(values.available_until).toISOString(),
+              values.available_from &&
+              new Date(values.available_from).toISOString(),
             available_until:
               values.available_until &&
               new Date(values.available_until).toISOString(),
