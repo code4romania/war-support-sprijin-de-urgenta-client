@@ -29,7 +29,7 @@ const Tents: FC<IProps> = ({
           name={`products_${resourceType}_capacity`}
           labelPosition="horizontal"
         />
-        <Label className={"ml-3 mt-3"}>
+        <Label name={t('signup.products.persons')} className={"ml-3 mt-3"}>
           {t('signup.products.persons')}
         </Label>
       </div>

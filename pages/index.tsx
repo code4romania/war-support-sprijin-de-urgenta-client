@@ -19,8 +19,8 @@ const HomePage: NextPage = () => {
         <Spacer size="6.5rem" />
         <section>
           <div className="flex flex-col gap-6 md:gap-8 md:flex-row">
-            <Button text={t('homepage.option_one')} route='offer'/>
-            <Button text={t('homepage.option_two')} route='request'/>
+            <Button text={t('homepage.option_one')} route='/offer'/>
+            <Button text={t('homepage.option_two')} route='/request'/>
           </div>
         </section>
       </main>
