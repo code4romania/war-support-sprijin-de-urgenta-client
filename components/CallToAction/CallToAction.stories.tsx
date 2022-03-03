@@ -18,6 +18,7 @@ Default.args = {
   headingTwo: 'Read more',
   description: 'Some Long Description Is Here',
   ctaLabel: 'Help Us!',
+  goToUrl: 'https://www.unacoperis.ro/'
 }
 Default.parameters = {
   design: {

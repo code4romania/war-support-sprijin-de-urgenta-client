@@ -19,8 +19,8 @@ const HomePage: NextPage = () => {
         <Spacer size="6.5rem" />
         <section>
           <div className="flex flex-col gap-6 md:gap-8 md:flex-row">
-            <Button text={t('homepage.option_one')} route='/offer'/>
-            <Button text={t('homepage.option_two')} route='/request'/>
+            <Button text={t('homepage.option_one')} route="/offer" />
+            <Button text={t('homepage.option_two')} route="/request" />
           </div>
         </section>
       </main>
@@ -44,6 +44,7 @@ const HomePage: NextPage = () => {
               headingTwo={t('cta.offer_stay.heading_two')}
               description={t('cta.offer_stay.description')}
               ctaLabel={t('cta.offer_stay.button_label')}
+              goToUrl={'https://www.unacoperis.ro/'}
             />
           </div>
 
@@ -60,6 +61,7 @@ const HomePage: NextPage = () => {
               headingTwo={t('cta.request_stay.heading_two')}
               description={t('cta.request_stay.description')}
               ctaLabel={t('cta.request_stay.button_label')}
+              goToUrl={'https://www.unacoperis.ro/'}
             />
           </div>
         </div>

@@ -5,6 +5,7 @@ export interface ICallToActionProps {
   headingTwo?: string
   description?: string
   ctaLabel: string
+  goToUrl: string
 }
 
 const CallToAction = ({
@@ -12,6 +13,7 @@ const CallToAction = ({
   headingTwo,
   description,
   ctaLabel,
+  goToUrl,
 }: ICallToActionProps) => {
   return (
     <div
@@ -20,13 +22,13 @@ const CallToAction = ({
         'md:items-center'
       )}
     >
-      <h2 className="flex flex-col gap-1 mb-1 text-2xl font-bold md:gap-2 md:items-center md:text-center text-left">
+      <h2 className="flex flex-col gap-1 mb-1 text-2xl font-bold text-left md:gap-2 md:items-center md:text-center">
         <span>{headingOne}</span>
         <span>{headingTwo}</span>
       </h2>
       <p className="md:px-12 md:text-center">{description}</p>
       <a
-        href="https://www.dopomoha.ro"
+        href={goToUrl}
         rel="noreferrer"
         target="_blank"
         className={clsx(
