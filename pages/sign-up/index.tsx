@@ -25,7 +25,7 @@ const SignUp: NextPage = () => {
   return (
     <div className="container md:mx-auto py-4">
       <Stepper
-        activeStep={activeStep}
+        activeStep={currentStep}
         steps={steps.map((step) => step.label)}
       />
       <div className="mt-12 px-3">{currentComponent}</div>
