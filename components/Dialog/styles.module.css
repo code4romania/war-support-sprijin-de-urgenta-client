@@ -15,3 +15,11 @@
 .closeButton {
   @apply sticky top-0 self-end;
 }
+
+.content::-webkit-scrollbar-track {
+  @apply bg-blue-50;
+}
+
+.content::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 border-[3px] border-blue-50;
+}
