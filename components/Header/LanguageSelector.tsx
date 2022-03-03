@@ -29,6 +29,7 @@ const LanguageSelector: FC = () => {
       id="locale"
       onChange={onChange}
       value={currentLocale}
+      noValidations={true}
     >
       <option value="ro">RO</option>
       <option value="en">EN</option>

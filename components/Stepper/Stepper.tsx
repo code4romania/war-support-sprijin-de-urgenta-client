@@ -7,7 +7,7 @@ export interface Props {
 
 const Stepper = ({ steps, activeStep }: Props) => {
   return (
-    <div className="border-gray-100 border-2 px-1 py-2 md:px-8 md:py-4 rounded-md flex items-center">
+    <div className="border-gray-200 border-2 px-1 py-2 md:px-8 md:py-4 rounded-md flex items-center">
       {steps.map((step: string, i: number) => (
         <div className="w-1/3" key={`${step}-stepper-item`}>
           <StepperItem
