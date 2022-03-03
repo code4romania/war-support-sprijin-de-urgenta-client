@@ -6,7 +6,7 @@ import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
-import { roIdentityCardRegex, phoneNumberRegex } from '@/utils/regexes'
+import { roIdentityCardRegex, phoneNumberRegex, roCarRegistrationNumber } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TransportServicesRequest, TransportType } from 'api'
 import clsx from 'clsx'
@@ -48,7 +48,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     availability: yup.array().of(yup.string().required()),
     driverName: yup.string().required(t('error.driverName.required')),
     driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
-    carRegistration: yup.string().required(t('error.carRegistration.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
+    carRegistration: yup.string().required(t('error.carRegistration.required')).matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex)
   });
 
