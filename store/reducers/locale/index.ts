@@ -1,24 +1,23 @@
-import { AnyAction } from "redux";
+import { AnyAction } from 'redux'
 
-export type LanguageCode = 'en' | 'ro' | 'ua';
+export type LanguageCode = 'en' | 'ro' | 'ua' | 'ru'
 
 // Reducer
 export const locale = (state = 'ro', action: AnyAction) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_LOCALE':
       return action.payload.languageCode
     default:
-      return state;
+      return state
   }
 }
 
 // Action creators
 export const setLocale = (languageCode: LanguageCode) => {
-  return ({
+  return {
     type: 'SET_LOCALE',
     payload: {
       languageCode,
-    }
-  });
+    },
+  }
 }
-

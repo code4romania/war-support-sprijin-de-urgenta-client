@@ -1,0 +1,25 @@
+.wrapper {
+  @apply fixed inset-0 flex items-center justify-center;
+}
+
+.backdrop {
+  @apply absolute w-full h-full;
+  background: hsl(220deg 5% 30% / 0.6);
+}
+
+.content {
+  @apply flex flex-col w-full h-full p-6 overflow-auto translate-x-0 bg-blue-50;
+  @apply sm:h-auto sm:max-h-[90%] sm:max-w-xl sm:rounded-lg sm:p-8;
+}
+
+.closeButton {
+  @apply sticky top-0 self-end;
+}
+
+.content::-webkit-scrollbar-track {
+  @apply bg-blue-50;
+}
+
+.content::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 border-[3px] border-blue-50;
+}

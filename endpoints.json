@@ -1,0 +1,14 @@
+{
+  "auth/login": "/auth/login/",
+  "auth/user": "/auth/user/",
+  "registration": "/registration/",
+  "request/item": "/api/v1/request/item/",
+  "request/other": "/api/v1/request/other/",
+  "request/transport_service": "/api/v1/request/transport_service/",
+  "request/volunteering": "/api/v1/request/volunteering/",
+  "donate/item": "/api/v1/donate/item/",
+  "donate/other": "/api/v1/donate/other/",
+  "donate/transport_service": "/api/v1/donate/transport_service/",
+  "donate/volunteering": "/api/v1/donate/volunteering/",
+  "categories/volunteering": "/api/v1/categories/volunteering/"
+}

@@ -1,7 +1,7 @@
 // component.js
 exports.component = name => `
   export interface I${name}Props {
-    defaultProp: string;
+    defaultProps: string;
   }
 
   const ${name} = ({}: I${name}Props) => {
