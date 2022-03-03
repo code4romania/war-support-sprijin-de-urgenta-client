@@ -35,14 +35,15 @@ export const SignUpServicesFormWithModal = () => {
       className={clsx(
         'container grid place-items-start',
         'bg-blue-50 rounded',
-        'mx-auto px-8 py-7'
+        'px-8 py-7 md:w-1/2'
       )}
     >
-      <div className="flex items-center gap-4 mb-8">
-        <h3 className="min-w-fit">{t('services.transport-goods')}</h3>
+      <div className="flex items-center gap-4 mb-8 w-full">
+        <h3 className="min-w-fit flex-1">{t('services.transport-goods')}</h3>
         <Button
           text={t('add')}
           size="small"
+          className='flex-1'
           variant="tertiary"
           onClick={() => {
             setShowForm('transportGoods')
@@ -50,10 +51,11 @@ export const SignUpServicesFormWithModal = () => {
           }}
         />
       </div>
-      <div className="flex items-center gap-4 mb-8">
-        <h3 className="min-w-fit">{t('services.transport-people')}</h3>
+      <div className="flex items-center gap-4 mb-8 w-full">
+        <h3 className="min-w-fit flex-1">{t('services.transport-people')}</h3>
         <Button
           text={t('add')}
+          className='flex-1'
           size="small"
           variant="tertiary"
           onClick={() => {

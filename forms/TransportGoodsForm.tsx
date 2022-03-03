@@ -16,7 +16,6 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 
-
 type ServicesForm = {
   capacity: number;
   hasRefrigeration: boolean | null;
@@ -45,7 +44,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       is: 'county',
       then: yup.string().required(t('error.county.required'))
     }),
-    availability: yup.array().of(yup.string().required()),
+    availability: yup.array().nullable().min(1, t('error.availability.minOne')).of(yup.string().required()),
     driverName: yup.string().required(t('error.driverName.required')),
     driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
     carRegistration: yup.string().required(t('error.carRegistration.required')).matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
@@ -55,6 +54,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ServicesForm>({
     defaultValues: {
       capacity: 0,
+      availability: []
     },
     resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',

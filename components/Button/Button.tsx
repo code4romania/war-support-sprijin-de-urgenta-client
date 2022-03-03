@@ -8,6 +8,7 @@ export interface IButtonProps {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
   variant?: 'primary' | 'secondary' | 'tertiary'
   size?: 'small' | 'medium' | 'large'
+  className?: string
   onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
@@ -57,6 +58,7 @@ const Button = ({
   route,
   variant,
   size,
+  className,
   onClick,
   type = 'button',
   ...rest
@@ -64,14 +66,14 @@ const Button = ({
   if (route) {
     return (
       <Link href={route} passHref>
-        <a className="w-full">
+        <a className={clsx("w-full", className)}>
           <ButtonInner text={text} variant={variant} size={size} {...rest} />
         </a>
       </Link>
     )
   }
   return (
-    <button onClick={onClick} type={type} className="w-full">
+    <button onClick={onClick} type={type} className={clsx("w-full", className)}>
       <ButtonInner text={text} variant={variant} size={size} {...rest} />
     </button>
   )
