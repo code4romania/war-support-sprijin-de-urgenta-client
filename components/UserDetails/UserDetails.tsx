@@ -1,5 +1,5 @@
 import Input from '@/components/Form/Input'
-import { userTypeForms, setSignupData } from '@/store/reducers/signup'
+import { setSignupData } from '@/store/reducers/signup'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -7,6 +7,8 @@ import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import { MouseEventHandler } from 'react'
 import { useDispatch } from 'react-redux'
 import { ActionType } from '@/store/reducers/steps'
+import * as yup from 'yup'
+import { phoneNumberRegex } from '@/utils/regexes'
 
 export interface IUserDetailsProps {
   type: number
@@ -21,6 +23,48 @@ export interface IInputProps {
 const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  
+  const userTypeForms: { [key: number]: any } = {
+    [1]: {
+      inputs: [
+        { name: 'last_name', label: 'signup.userType.last_name' },
+        { name: 'first_name', label: 'signup.userType.first_name' },
+        { name: 'phone_number', label: 'signup.userType.phone_number' },
+      ],
+      schema: yup.object().shape({
+        last_name: yup.string().required(t('signup.userType.last_name.required')),
+        first_name: yup.string().required(t('signup.userType.first_name.required')),
+        phone_number: yup
+          .string()
+          .required(t('signup.userType.phone_number.required'))
+          .matches(phoneNumberRegex, t('signup.userType.phone_number.invalid')),
+      }),
+    },
+    [2]: {
+      inputs: [
+        { name: 'business_name', label: 'signup.userType.business_name' },
+        { name: 'identification_no', label: 'signup.userType.identification_no' },
+      ],
+      schema: yup.object().shape({
+        business_name: yup
+          .string()
+          .required(t('signup.userType.business_name.required')),
+        identification_no: yup.string().required(t('signup.userType.identification_no.required')),
+      }),
+    },
+    [3]: {
+      inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+      schema: yup.object().shape({
+        business_name: yup.string().required(t('signup.userType.business_name.required')),
+      }),
+    },
+    [4]: {
+      inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+      schema: yup.object().shape({
+        business_name: yup.string().required(t('signup.userType.business_name.required')),
+      }),
+    },
+  }
   const form = userTypeForms[type] || []
 
   const {

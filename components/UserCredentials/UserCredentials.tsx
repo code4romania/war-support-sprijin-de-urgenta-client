@@ -39,18 +39,6 @@ const INPUTS = [
   },
 ]
 
-const schema: SchemaOf<ICredentials> = yup.object().shape({
-  email: yup
-    .string()
-    .email('Va rugam introduceti un email valid')
-    .required('Va rugam introduceti email-ul'),
-  password: yup.string().required('Va rugam introduceti o parola'),
-  re_password: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Parola nu coincide')
-    .required('Va rugam confirmati parola'),
-})
-
 const UserCredentials = ({}) => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
@@ -60,6 +48,18 @@ const UserCredentials = ({}) => {
   const userData = useSelector((state: State) => state.signup.userData)
   const inputs = INPUTS || []
 
+  const schema: SchemaOf<ICredentials> = yup.object().shape({
+    email: yup
+      .string()
+      .email(t('signup.userType.email.invalid'))
+      .required(t('signup.userType.email.required')),
+    password: yup.string().required('Va rugam introduceti o parola'),
+    re_password: yup
+      .string()
+      .oneOf([yup.ref('password'), null], t('signup.userType.re_password.missmatch'))
+      .required(t('signup.userType.re_password.required')),
+  })
+  
   const {
     handleSubmit,
     register,
