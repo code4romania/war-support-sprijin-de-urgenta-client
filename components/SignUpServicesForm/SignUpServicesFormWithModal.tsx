@@ -7,17 +7,6 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
 
-function getFormLocaleTitle(formType: string | undefined) {
-  switch (formType) {
-    case 'transportGoods':
-      return 'services.transport-goods'
-    case 'transportPersons':
-      return 'services.transport-people'
-    default:
-      return ''
-  }
-}
-
 export const SignUpServicesFormWithModal = () => {
   const { t } = useTranslation()
 
@@ -25,8 +14,6 @@ export const SignUpServicesFormWithModal = () => {
   const [showForm, setShowForm] = useState<
     'transportGoods' | 'transportPersons'
   >()
-
-  const servicesModalTitle = t(getFormLocaleTitle(showForm))
 
   const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
     console.log(data)
@@ -36,6 +23,11 @@ export const SignUpServicesFormWithModal = () => {
 
   const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
     console.log(data)
+    setShowDialog(false)
+    setShowForm(undefined)
+  }
+
+  const handleDialogDismiss = () => {
     setShowDialog(false)
     setShowForm(undefined)
   }
@@ -75,18 +67,32 @@ export const SignUpServicesFormWithModal = () => {
 
       {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
       <Dialog
-        title={servicesModalTitle}
         isOpen={showDialog}
         onDismiss={() => {
-          setShowDialog(false)
-          setShowForm(undefined)
+          handleDialogDismiss()
         }}
       >
         {showForm === 'transportGoods' && (
-          <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
+          <>
+            <Dialog.Header
+              title={t('services.transport-goods')}
+              onDismiss={() => {
+                handleDialogDismiss()
+              }}
+            />
+            <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
+          </>
         )}
         {showForm === 'transportPersons' && (
-          <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
+          <>
+            <Dialog.Header
+              title={t('services.transport-people')}
+              onDismiss={() => {
+                handleDialogDismiss()
+              }}
+            />
+            <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
+          </>
         )}
       </Dialog>
     </main>
