@@ -107,6 +107,7 @@
   "error.driverCI.required": "Introduceți seria si numarul de buletin",
   "error.driverName.required": "Introduceți numele șoferului",
   "error.driverContact.required": "Introduceți numărul de telefon a șoferului",
+  "error.driverContact.invalid": "Numărul de telefon in format invalid",
   "error.must.be.number": "Valoarea introdusă trebuie să fie un număr",
   "error.refrigeration.required": "Selectați dacă aveți posibilitatea de refrigerare",
   "error.transportType.required": "Selectați tipul de transport",

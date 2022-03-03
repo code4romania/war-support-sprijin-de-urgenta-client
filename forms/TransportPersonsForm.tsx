@@ -48,7 +48,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
     driverName: yup.string().required(t('error.driverName.required')),
     driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
     carPlate: yup.string().required(t('error.carRegistration.required')).matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
-    driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex)
+    driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex, t('error.driverContact.invalid'))
   });
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ServicesForm>({
