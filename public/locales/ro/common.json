@@ -138,5 +138,6 @@
   "signup.products.sleepingBags": "Saci de dormit",
   "signup.products.others": "Altele:",
   "signup.products.capacity": "Capacitate:",
-  "signup.products.persons": "persoane"
+  "signup.products.persons": "persoane",
+  "error.availability.minOne": "Trebuie să selectați minim o opțiune"
 }

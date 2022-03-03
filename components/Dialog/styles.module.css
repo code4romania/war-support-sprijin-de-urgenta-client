@@ -8,12 +8,20 @@
 }
 
 .content {
-  @apply flex flex-col w-full h-full p-6 overflow-auto translate-x-0 bg-blue-50;
-  @apply sm:h-auto sm:max-h-[90%] sm:max-w-xl sm:rounded-lg sm:p-8;
+  @apply flex flex-col w-full h-full px-6 pb-6 overflow-auto translate-x-0 bg-blue-50;
+  @apply sm:h-auto sm:max-h-[90%] sm:max-w-xl sm:rounded-lg;
+}
+
+.header {
+  @apply sticky top-0 flex items-center justify-center py-6 bg-blue-50;
+}
+
+.title {
+  @apply text-2xl;
 }
 
 .closeButton {
-  @apply sticky top-0 self-end;
+  @apply ml-auto;
 }
 
 .content::-webkit-scrollbar-track {
