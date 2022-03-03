@@ -17,14 +17,12 @@ export const SignUpServicesFormWithModal = () => {
 
   const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
     console.log(data)
-    setShowDialog(false)
-    setShowForm(undefined)
+    handleDialogDismiss()
   }
 
   const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
     console.log(data)
-    setShowDialog(false)
-    setShowForm(undefined)
+    handleDialogDismiss()
   }
 
   const handleDialogDismiss = () => {
@@ -68,17 +66,13 @@ export const SignUpServicesFormWithModal = () => {
       {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
       <Dialog
         isOpen={showDialog}
-        onDismiss={() => {
-          handleDialogDismiss()
-        }}
+        onDismiss={handleDialogDismiss}
       >
         {showForm === 'transportGoods' && (
           <>
             <Dialog.Header
               title={t('services.transport-goods')}
-              onDismiss={() => {
-                handleDialogDismiss()
-              }}
+              onDismiss={handleDialogDismiss}
             />
             <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
           </>
@@ -87,9 +81,7 @@ export const SignUpServicesFormWithModal = () => {
           <>
             <Dialog.Header
               title={t('services.transport-people')}
-              onDismiss={() => {
-                handleDialogDismiss()
-              }}
+              onDismiss={handleDialogDismiss}
             />
             <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
           </>
