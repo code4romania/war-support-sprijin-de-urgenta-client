@@ -12,7 +12,7 @@ const resourceTypeBuilder = (id: string) => {
   const dictionary = {
     services: () => <SignUpServicesFormWithModal />,
     products: () => <SignUpProducts />,
-    volunteer: () => <SignupVolunteering />,
+    "signup.volunteering.header": () => <SignupVolunteering />,
     others: () => <OtherResourcesForm />,
     default: () => <OtherResourcesForm />,
   }
