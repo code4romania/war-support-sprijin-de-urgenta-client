@@ -44,7 +44,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       is: 'county',
       then: yup.string().required(t('error.county.required'))
     }),
-    availability: yup.array().of(yup.string().required()),
+    availability: yup.array().nullable().min(1, t('error.availability.minOne')).of(yup.string().required()),
     driverName: yup.string().required(t('error.driverName.required')),
     driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
     carPlate: yup.string().required(t('error.carRegistration.required')).matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
