@@ -8,7 +8,7 @@ export const initialState = [
     slug: 'products',
   },
   {
-    slug: 'volunteer',
+    slug: 'signup.volunteering.header',
   },
   {
     slug: 'others',
