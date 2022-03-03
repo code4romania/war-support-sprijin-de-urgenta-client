@@ -24,6 +24,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
     hideLabel = false,
     className,
     noValidations,
+    plceholder,
     ...rest
   }, ref) => {
     return (
@@ -47,11 +48,8 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
             defaultValue={label}
             {...rest}
           >
-            <option
-              hidden
-              disabled
-            >
-              {label}
+            <option hidden disabled selected>
+              {plceholder}
             </option>
             {children}
           </select>

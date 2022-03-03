@@ -22,6 +22,7 @@ export interface DropdownElementProps extends InputHTMLAttributes<HTMLSelectElem
 }
 
 export interface GroupElementProps {
+  className?: string;
   label?: string;
-  errors?: ErrorOption;
+  errors?: ErrorOption | ErrorOption[];
 }
