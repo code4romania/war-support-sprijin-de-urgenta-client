@@ -16,23 +16,23 @@ import { DropdownElementProps } from '@/components/Form/types'
  */
 
 // eslint-disable-next-line react/display-name
-const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(
-  ({name,
-  errors,
-  label,
-  children,
-  hideLabel = false,
-  className,
-  noValidations,
-  ...rest
-}, ref) => {
-  return (
-    <ElementWrapper hasError={!!errors} className={className}  noValidations={noValidations}>
+const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
+    name,
+    errors,
+    label,
+    children,
+    hideLabel = false,
+    className,
+    noValidations,
+    ...rest
+  }, ref) => {
+    return (
+      <ElementWrapper hasError={!!errors} className={className} noValidations={noValidations}>
         {label && !hideLabel && (
-        <Label name={name} hasError={!!errors}>
-          {label}
-        </Label>
-      )}
+          <Label name={name} hasError={!!errors}>
+            {label}
+          </Label>
+        )}
 
         <div className="relative flex">
           <select
@@ -42,21 +42,20 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(
               'block w-full h-10 mt-1',
               'border border-gray-200 rounded-md',
               'px-2 py-1.5',
-              { 'border-red-50 border-2': errors }
+              {'border-red-50 border-2': errors}
             )}
             defaultValue={label}
-          {...rest}
-        >
-          <option
-            hidden
-            disabled
-
+            {...rest}
           >
-          {label}
-          </option>
-          {children}
-        </select>
-      </div>
+            <option
+              hidden
+              disabled
+            >
+              {label}
+            </option>
+            {children}
+          </select>
+        </div>
 
         {errors && (
           <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>

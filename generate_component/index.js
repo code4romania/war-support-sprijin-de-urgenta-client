@@ -23,5 +23,5 @@ function writeFileErrorHandler(err) {
 fs.writeFile(`${dir}/${name}.tsx`, component(name), writeFileErrorHandler);
 // stories.tsx
 fs.writeFile(`${dir}/${name}.stories.tsx`, story(name), writeFileErrorHandler);
-// index.tsx
+// Form.tsx
 fs.writeFile(`${dir}/index.ts`, barrel(name), writeFileErrorHandler);

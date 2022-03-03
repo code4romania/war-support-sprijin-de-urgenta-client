@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import SignUpProducts from './SignUpProducts';
+import SignUpProducts from '.';
 
 export default {
   title: 'SignUpProducts',

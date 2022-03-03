@@ -1,5 +1,5 @@
 import Input from "@/components/Form/Input";
-import { ResourceType } from "@/components/SignupProducts/types";
+import { ResourceType } from "@/components/SignUpProducts/types";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 

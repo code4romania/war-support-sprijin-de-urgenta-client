@@ -1,7 +1,7 @@
 import Input from "@/components/Form/Input";
 import { useTranslation } from "react-i18next";
 import { FC } from "react";
-import { ResourceType } from "@/components/SignupProducts/types";
+import { ResourceType } from "@/components/SignUpProducts/types";
 import clsx from "clsx";
 
 interface IProps {

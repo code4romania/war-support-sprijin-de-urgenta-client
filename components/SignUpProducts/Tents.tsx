@@ -1,9 +1,10 @@
-import { ResourceType } from "@/components/SignupProducts/types";
+import { ResourceType } from "@/components/SignUpProducts/types";
 import { FC } from "react";
-import Location from "@/components/SignupProducts/common/Location";
+import Location from "@/components/SignUpProducts/common/Location";
 import Input from "@/components/Form/Input";
 import { useTranslation } from "react-i18next";
 import { Label } from "@/components/Form/common";
+import ProductTypeWrapper from "@/components/SignUpProducts/common/ProductTypeWrapper";
 
 interface IProps {
   resourceType: ResourceType;
@@ -14,7 +15,7 @@ const Tents: FC<IProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div>
+    <ProductTypeWrapper>
       <Input
         type="number"
         name={`products_${resourceType}_qty`}
@@ -33,7 +34,7 @@ const Tents: FC<IProps> = ({
         </Label>
       </div>
       <Location resourceType="tents" counties={[]} cities={[]}/>
-    </div>
+    </ProductTypeWrapper>
   )
 }
 

@@ -1,6 +1,6 @@
 import Dropdown from "@/components/Form/Dropdown";
 import { FC } from "react";
-import { City, County, ResourceType } from "@/components/SignupProducts/types";
+import { City, County, ResourceType } from "@/components/SignUpProducts/types";
 import clsx from "clsx";
 import { Label } from "@/components/Form/common";
 import { useTranslation } from "react-i18next";

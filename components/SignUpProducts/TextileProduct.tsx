@@ -3,10 +3,11 @@ import Checkbox from "@/components/Form/Checkbox";
 import { useTranslation } from "react-i18next";
 import Input from "@/components/Form/Input";
 import Textarea from "@/components/Form/Textarea";
-import Location from "@/components/SignupProducts/common/Location";
+import Location from "@/components/SignUpProducts/common/Location";
 import clsx from "clsx";
-import Quantity from "@/components/SignupProducts/common/Quantity";
-import { ResourceType } from "@/components/SignupProducts/types";
+import Quantity from "@/components/SignUpProducts/common/Quantity";
+import { ResourceType } from "@/components/SignUpProducts/types";
+import ProductTypeWrapper from "@/components/SignUpProducts/common/ProductTypeWrapper";
 
 interface IProps {
   resourceType: ResourceType;
@@ -18,7 +19,7 @@ const TextileProduct: FC<IProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div>
+    <ProductTypeWrapper>
       <Checkbox
         name={`products_${resourceType}_clothing`}
       >
@@ -79,7 +80,7 @@ const TextileProduct: FC<IProps> = ({
       <Quantity resourceType="textile" />
 
       <Location resourceType="textile" counties={[]} cities={[]} />
-    </div>
+    </ProductTypeWrapper>
   )
 }
 
