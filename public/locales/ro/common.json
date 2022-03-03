@@ -106,6 +106,7 @@
   "error.driverCI.invalid": "Seria și numărul de buletin trebuie să fie de forma XT555222",
   "error.driverCI.required": "Introduceți seria si numarul de buletin",
   "error.driverName.required": "Introduceți numele șoferului",
+  "error.driverContact.required": "Introduceți numărul de telefon a șoferului",
   "error.must.be.number": "Valoarea introdusă trebuie să fie un număr",
   "error.refrigeration.required": "Selectați dacă aveți posibilitatea de refrigerare",
   "error.transportType.required": "Selectați tipul de transport",
