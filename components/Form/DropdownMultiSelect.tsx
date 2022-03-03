@@ -27,6 +27,7 @@ const DropdownMultiSelect = ({
         onChange={setSelected}
         labelledBy={clsx('labelledBy', 'Code 4 Romania')}
         disabled={disabled}
+        hasSelectAll={false}
       />
     </div>
   )
