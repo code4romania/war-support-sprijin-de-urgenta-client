@@ -16,7 +16,7 @@ const StepperItem = ({
 }: Props) => {
   const { t } = useTranslation()
   return (
-    <div className="flex items-center justify-center md:flex-row flex-col">
+    <div className="flex flex-col items-center justify-start md:flex-row">
       <div
         className={clsx(
           'transition-all border-gray-300 flex items-center justify-center w-12 h-12 p-2 rounded-full border-2',

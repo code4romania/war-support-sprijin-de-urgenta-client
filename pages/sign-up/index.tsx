@@ -7,6 +7,7 @@ import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import UserCredentials from '@/components/UserCredentials'
 import SignUpResources from '@/components/SignUpResources'
+import  Spacer from '@/components/Spacer';
 
 const componentMap = {
   [UserComponentType.userType]: <UserTypeForm />,
@@ -23,13 +24,16 @@ const SignUp: NextPage = () => {
   const currentComponent = componentMap[steps[currentStep].component] || <div />
 
   return (
-    <div className="container md:mx-auto py-4">
+    <main className="container md:mx-auto">
+      <Spacer size="3rem"/>
       <Stepper
         activeStep={currentStep}
         steps={steps.map((step) => step.label)}
       />
-      <div className="mt-12 px-3">{currentComponent}</div>
-    </div>
+      <Spacer size="4rem"/>
+      <div className="px-3 ">{currentComponent}</div>
+      <Spacer size="4rem"/>
+    </main>
   )
 }
 
