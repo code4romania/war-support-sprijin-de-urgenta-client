@@ -56,7 +56,9 @@ const SignupVolunteering: FC = () => {
           name="volunteering_resource_other_description"
           className="ml-5"
         />
-      </div>
+        {/*TODO: remove*/}
+        <button type={'submit'}>Send</button>
+      </form>
     </div>
   )
 }
