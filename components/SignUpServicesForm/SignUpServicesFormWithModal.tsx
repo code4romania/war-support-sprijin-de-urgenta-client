@@ -7,23 +7,37 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
 
+function getFormLocaleTitle(formType: string | undefined) {
+  switch (formType) {
+    case 'transportGoods':
+      return 'services.transport-goods'
+    case 'transportPersons':
+      return 'services.transport-people'
+    default:
+      return ''
+  }
+}
 
 export const SignUpServicesFormWithModal = () => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
-  const [showForm, setShowForm] = useState<'transportGoods' | 'transportPersons'>();
+  const [showForm, setShowForm] = useState<
+    'transportGoods' | 'transportPersons'
+  >()
+
+  const servicesModalTitle = t(getFormLocaleTitle(showForm))
 
   const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
-    console.log(data);
-    setShowDialog(false);
-    setShowForm(undefined);
+    console.log(data)
+    setShowDialog(false)
+    setShowForm(undefined)
   }
 
   const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
-    console.log(data);
-    setShowDialog(false);
-    setShowForm(undefined);
+    console.log(data)
+    setShowDialog(false)
+    setShowForm(undefined)
   }
 
   return (
@@ -41,7 +55,7 @@ export const SignUpServicesFormWithModal = () => {
           size="small"
           variant="tertiary"
           onClick={() => {
-            setShowForm('transportGoods');
+            setShowForm('transportGoods')
             setShowDialog(true)
           }}
         />
@@ -53,23 +67,27 @@ export const SignUpServicesFormWithModal = () => {
           size="small"
           variant="tertiary"
           onClick={() => {
-            setShowForm('transportPersons');
+            setShowForm('transportPersons')
             setShowDialog(true)
           }}
         />
       </div>
 
       {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
-      <Dialog isOpen={showDialog} onDismiss={() => {
-        setShowDialog(false)
-        setShowForm(undefined);
-      }}>
-        {showForm === 'transportGoods' &&
+      <Dialog
+        title={servicesModalTitle}
+        isOpen={showDialog}
+        onDismiss={() => {
+          setShowDialog(false)
+          setShowForm(undefined)
+        }}
+      >
+        {showForm === 'transportGoods' && (
           <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
-        }
-        {showForm === 'transportPersons' &&
+        )}
+        {showForm === 'transportPersons' && (
           <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
-        }
+        )}
       </Dialog>
     </main>
   )
