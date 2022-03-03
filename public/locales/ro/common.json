@@ -3,6 +3,7 @@
   "ro": "Romanian",
   "ua": "Ukraine",
   "ru": "Rusa",
+  "source.code": "Codul sursă",
   "homepage.option_one": "Vreau să ofer ajutor",
   "homepage.option_two": "Am o solicitare",
   "homepage.title": "Centralizare oferte asistență umanitară",
@@ -102,7 +103,6 @@
   "signup.products.textile": "Imbracaminte si alte textile",
   "signup.products.buildingMaterials": "Materiale de constructii",
   "signup.products.tents": "Corturi",
-
   "signup.products.product": "Produs:",
   "signup.products.qty": "Cantitate:",
   "signup.products.packaging": "Ambalaj:",
