@@ -101,8 +101,11 @@
   "error.county.required": "Selectați un județ",
   "error.driverName.required": "Introduceți numele șoferului",
   "error.driverCI.required": "Introduceți seria si numarul de buletin",
-  "error.driverCarPlate.required": "Introduceți numărul de înmatriculare al mașinii",
+  "error.carRegistration.required": "Introduceți numărul de înmatriculare al mașinii",
+  "error.carRegistation.invalid": "Numărul de înmatriculare trebuie să fie de forma B22BOM",
+  "error.driverCI.invalid": "Seria și numărul de buletin trebuie să fie de forma XT555222",
   "services.availability": "Cât timp puteți aloca pentru aceste activități?",
   "services.county.placeholder": "Selectează un județ",
-  "error.must.be.number": "Valoarea introdusă trebuie să fie un număar"
+  "error.must.be.number": "Valoarea introdusă trebuie să fie un număar",
+  "services.driverContact": "Număr de telefon"
 }

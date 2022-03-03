@@ -6,6 +6,7 @@ import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
+import { phoneNumberRegex, roCarRegistrationNumber, roIdentityCardRegex } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
@@ -25,6 +26,7 @@ type ServicesForm = {
   driverName: string;
   driverCI: string;
   carPlate: string;
+  driverContact: string;
 };
 interface ITransportPersonsFormProps {
   onSubmit: (data: TransportServicesRequest) => void;
@@ -37,15 +39,16 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
     personsNo: yup.number().required(),
     withDisabilities: yup.boolean().nullable().required(),
     withPets: yup.boolean().nullable().required(),
-    transportType: yup.string().required(),
+    transportType: yup.string().required(t('error.transportType.required')),
     transportCounty: yup.string().when('transportType', {
       is: 'county',
-      then: yup.string().required()
+      then: yup.string().required(t('error.county.required'))
     }),
     availability: yup.array().of(yup.string().required()),
-    driverName: yup.string().required(),
-    driverCI: yup.string().required(),
-    carPlate: yup.string().required()
+    driverName: yup.string().required(t('error.driverName.required')),
+    driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
+    carPlate: yup.string().required(t('error.carRegistration.required')).matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
+    driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex)
   });
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ServicesForm>({
@@ -87,6 +90,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       driver_name: data.driverName,
       driver_id: data.driverCI,
       car_registration_number: data.carPlate,
+      driver_contact: data.driverContact
     }
 
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
@@ -185,6 +189,13 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
           errors={errors.carPlate}
           label={t('services.car-plate')}
           {...register('carPlate')}
+        />
+        <Input
+          labelPosition='horizontal'
+          type="text"
+          errors={errors.driverContact}
+          label={t('services.driverContact')}
+          {...register('driverContact')}
         />
 
         <CheckboxGroup

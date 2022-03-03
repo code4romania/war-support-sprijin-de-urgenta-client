@@ -7,9 +7,10 @@ export type TransportServicesRequest = {
     availability?: string;
     availability_interval_from?: Date;
     availability_interval_to?: Date;
-    driver_name?: string;
-    driver_id?: string;
-    car_registration_number?: string;
+    driver_name: string;
+    driver_id: string;
+    driver_contact: string;
+    car_registration_number: string;
     available_seats?: number;
     has_disabled_access?: boolean;
     pets_allowed?: boolean;

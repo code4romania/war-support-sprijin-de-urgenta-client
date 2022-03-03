@@ -6,6 +6,7 @@ import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
+import { roIdentityCardRegex, phoneNumberRegex } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TransportServicesRequest } from 'api'
 import clsx from 'clsx'
@@ -24,7 +25,8 @@ type ServicesForm = {
   availability: string[];
   driverName: string;
   driverCI: string;
-  tgdriverCI: string;
+  carRegistration: string;
+  driverContact: string;
 };
 
 interface ITransportGoodsFormProps {
@@ -45,8 +47,9 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     }),
     availability: yup.array().of(yup.string().required()),
     driverName: yup.string().required(t('error.driverName.required')),
-    driverCI: yup.string().required(t('error.driverCI.required')),
-    tgdriverCI: yup.string().required(t('error.driverdriverCI.required')),
+    driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
+    carRegistration: yup.string().required(t('error.carRegistration.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
+    driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex)
   });
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ServicesForm>({
@@ -76,7 +79,10 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     ));
   }, [data?.availability?.choices, register]);
 
-  const onAdd = (data: ServicesForm) => {
+  const typeOptions: { value: number, display_name: string }[] = data?.type?.choices;
+
+
+  const onAdd = async (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
     const goodsTransportRequest: TransportServicesRequest = {
       weight_capacity: data.capacity,
@@ -85,9 +91,21 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       county_coverage: data.transportCounty,
       driver_name: data.driverName,
       driver_id: data.driverCI,
+      car_registration_number: data.carRegistration,
+      driver_contact: data.driverContact
     }
-    console.log(data);
-    
+
+    //TODO: below call is a working post to transport_service, need a hook to POST data
+    // const response = await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/en/api/v1/donate/transport_service/`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify([goodsTransportRequest])
+    // }).then(res => res.json());
+
+    // console.log(response);
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
     //TODO: if the API will receive an array then it makes sense to send data upwards
     onSubmit(goodsTransportRequest);
@@ -133,12 +151,12 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             label={t('services.transport')}
           >
             <Radio
-              value="national"
+              value={typeOptions && typeOptions[0]?.value}
               {...register('transportType')}
             >
-              {t('services.transport-type.national')}
+              {typeOptions && typeOptions[0]?.display_name}
             </Radio>
-            <Radio value="county" {...register('transportType')} className={clsx('mb-0')}>
+            <Radio value={typeOptions && typeOptions[1]?.value} {...register('transportType')} className={clsx('mb-0')}>
               <Dropdown {...register('transportCounty')}
                 disabled={watchTransportType !== 'county'}
                 errors={errors.transportCounty}
@@ -167,9 +185,16 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
           <Input
             labelPosition='horizontal'
             type="text"
-            errors={errors.tgdriverCI}
+            errors={errors.carRegistration}
             label={t('services.car-plate')}
-            {...register('tgdriverCI')}
+            {...register('carRegistration')}
+          />
+          <Input
+            labelPosition='horizontal'
+            type="text"
+            errors={errors.driverContact}
+            label={t('services.driverContact')}
+            {...register('driverContact')}
           />
 
           <CheckboxGroup
