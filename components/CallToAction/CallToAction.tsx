@@ -20,7 +20,7 @@ const CallToAction = ({
         'md:items-center'
       )}
     >
-      <h2 className="flex flex-col gap-1 mb-1 text-2xl font-bold md:gap-2 md:items-center">
+      <h2 className="flex flex-col gap-1 mb-1 text-2xl font-bold md:gap-2 md:items-center md:text-center text-left">
         <span>{headingOne}</span>
         <span>{headingTwo}</span>
       </h2>
