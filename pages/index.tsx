@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { ICategory } from '@/store/reducers/categories/types'
 import { setDefaultOffer } from '@/store/reducers/signup'
+
 import Button from '@/components/Button'
 import SubHeader from '@/components/SubHeader'
 import WelcomeBanner from '@/components/WelcomeBanner'
 import Spacer from '@/components/Spacer'
+import CallToAction from '@/components/CallToAction'
 
 const HomePage: NextPage = () => {
   const router = useRouter()
@@ -31,10 +33,10 @@ const HomePage: NextPage = () => {
 
       <main className="h-full layout">
         <WelcomeBanner />
-        <Spacer size="3.5rem"/>
+        <Spacer size="3.5rem" />
         <section>
           <h2 className="mb-4 text-xl leading-8">{t('wanna.help')}</h2>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-4 md:gap-8">
             {categories.map((item: ICategory) => (
               <Button
                 key={item.slug}
@@ -46,6 +48,17 @@ const HomePage: NextPage = () => {
         </section>
       </main>
       <Spacer size="5.5rem" />
+      <section className="w-screen m-0 bg-gray-100">
+        <div className="layout">
+          <CallToAction
+            headingOne={t('offerpage.cta.heading_one')}
+            headingTwo={t('offerpage.cta.heading_two')}
+            description={t('offerpage.cta.description')}
+            ctaLabel={t('offerpage.cta.button_label')}
+          />
+        </div>
+      </section>
+      <Spacer size="3rem" />
     </>
   )
 }

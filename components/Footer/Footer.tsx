@@ -9,8 +9,8 @@ const Footer = () => {
   return (
     <footer className="w-full mt-auto text-white bg-blue-950">
       <div className="mt-auto bg-gray-50">
-        <div className="layout flex items-center justify-end py-3">
-          <span className="mx-4">{t('incubated.by')}</span>
+        <div className="flex items-center justify-end py-3 layout">
+          <span className="mx-4 text-gray-700">{t('incubated.by')}</span>
 
           <a href="https://code4.ro/ro/code-for-romania-war-task-force">
             <Image
