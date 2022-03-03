@@ -9,5 +9,6 @@
   "donate/item": "/api/v1/donate/item/",
   "donate/other": "/api/v1/donate/other/",
   "donate/transport_service": "/api/v1/donate/transport_service/",
-  "donate/volunteering": "/api/v1/donate/volunteering/"
+  "donate/volunteering": "/api/v1/donate/volunteering/",
+  "categories/volunteering": "/api/v1/categories/volunteering/"
 }

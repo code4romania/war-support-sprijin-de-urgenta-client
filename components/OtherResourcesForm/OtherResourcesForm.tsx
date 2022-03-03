@@ -24,41 +24,33 @@ const OtherResourcesForm = ({}) => {
   } = useForm()
 
   const onSubmit = async (values: any) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/other']}`,
-      {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify([
-          {
-            ...values,
-            available_from:
-              values.available_from &&
-              new Date(values.available_from).toISOString(),
-            available_until:
-              values.available_until &&
-              new Date(values.available_until).toISOString(),
-            expiration_date:
-              values.expiration_date &&
-              new Date(values.expiration_date).toISOString(),
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/other']}`,
+        {
+          method: 'POST',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        ]),
-      }
-    )
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
+          body: JSON.stringify([values]),
+        }
+      )
 
-    if (res.ok) {
-      setServerErrors({})
-      const [data] = await res.json()
-    } else {
-      const [data] = await res.json()
-      setServerErrors(data)
+      if (res.ok) {
+        setServerErrors({})
+        const [data] = await res.json()
+        console.log('data', data)
+      } else {
+        const [data] = await res.json()
+        setServerErrors(data)
+      }
+    } catch (e) {
+      console.log('e', e)
     }
   }
 
@@ -70,30 +62,39 @@ const OtherResourcesForm = ({}) => {
         'mx-auto px-8 py-7'
       )}
     >
-      <h3 className="text-lg font-semibold">{`${t('signup.other.header')}:`}</h3>
+      <h3 className="text-lg font-semibold">{`${t(
+        'signup.other.header'
+      )}:`}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={'flex space-x-4'}>
-          <DateInput
-            label={t('signup.other.available_from')}
-            value={today}
-            errors={
-              serverErrors['available_from']
-                ? { message: serverErrors['available_from'].join('\n') }
-                : errors['available_from']
-            }
-            {...register('available_from')}
-          />
-          <DateInput
-            value={today}
-            label={t('signup.other.available_until')}
-            errors={
-              serverErrors['available_until']
-                ? { message: serverErrors['available_until'].join('\n') }
-                : errors['available_until']
-            }
-            {...register('available_until')}
-          />
-        </div>
+        <Input
+          label={t('signup.other.name')}
+          {...register('name')}
+          errors={
+            serverErrors['name']
+              ? { message: serverErrors['name'].join('\n') }
+              : errors['name']
+          }
+        />
+        <Textarea
+          label={t('signup.other.description')}
+          className={clsx('w-full')}
+          errors={
+            serverErrors['description']
+              ? { message: serverErrors['description'].join('\n') }
+              : errors['description']
+          }
+          {...register('description')}
+        />
+        <DateInput
+          value={today}
+          label={t('signup.other.available_until')}
+          errors={
+            serverErrors['available_until']
+              ? { message: serverErrors['available_until'].join('\n') }
+              : errors['available_until']
+          }
+          {...register('available_until')}
+        />
         <div className={'flex space-x-4'}>
           <Dropdown
             label={t('signup.other.county_coverage')}
@@ -128,25 +129,6 @@ const OtherResourcesForm = ({}) => {
             }
           />
         </div>
-        <Textarea
-          label={t('signup.other.description')}
-          className={clsx('w-full')}
-          errors={
-            serverErrors['description']
-              ? { message: serverErrors['description'].join('\n') }
-              : errors['description']
-          }
-          {...register('description')}
-        />
-        <Input
-          label={t('signup.other.name')}
-          {...register('name')}
-          errors={
-            serverErrors['name']
-              ? { message: serverErrors['name'].join('\n') }
-              : errors['name']
-          }
-        />
         <DateInput
           label={t('signup.other.expiration_date')}
           errors={
