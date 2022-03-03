@@ -10,7 +10,6 @@ import { State } from './types/state.type'
 import { createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
 import { auth, initialState as defaultAuthState } from './reducers/auth'
-import { user } from './reducers/user'
 import { locale } from './reducers/locale'
 import { signup } from './reducers/signup'
 import { steps, defaultStepsState } from './reducers/steps'
@@ -31,7 +30,6 @@ const withMiddlewares = (middleware: Middleware[]) => {
 const reducers = combineReducers({
   auth,
   locale,
-  user,
   steps,
   categories,
   signup,
