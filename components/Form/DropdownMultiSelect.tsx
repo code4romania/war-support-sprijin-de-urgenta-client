@@ -4,16 +4,6 @@ import { useState } from 'react'
 import { DropdownMultiSelectProps, MultiSelectOption } from './types'
 import { Label } from './common'
 
-const filterOptions =
-  (aOptions: MultiSelectOption[]) =>
-  (options = aOptions, filter: string | RegExp) => {
-    if (!filter) {
-      return options
-    }
-    const re = new RegExp(filter, 'g')
-    return options.filter(({ value }) => value && value.match(re))
-  }
-
 const DropdownMultiSelect = ({
   options,
   disabled,
@@ -35,7 +25,6 @@ const DropdownMultiSelect = ({
         options={options}
         value={selected}
         onChange={setSelected}
-        filterOptions={filterOptions(options)}
         labelledBy={clsx('labelledBy', 'Code 4 Romania')}
         disabled={disabled}
       />
