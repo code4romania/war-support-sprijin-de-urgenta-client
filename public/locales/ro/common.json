@@ -66,6 +66,7 @@
   "signup.resources.fillInDetails": "Completeaza Detalii Mai Jos Pentru Fiecare Resursa Selectata:",
   "signup.resources.gdpr": "Prin Completarea Formularului Accept Ca Datele Mele Să Fie Procesate De Guvernul României Cunosc Faptul Că Guvernul României Prelucrează Datele Mele Cu Caracter Personal În Baza Prevederilor Regulamentului (Ue) 2016/679",
   "signup.userType.type": "Tip Utilizator",
+  "signup.userType.type.placeholder": "Selectează tipul de utilizator",
   "signup.userType.options": [
     "Persoană fizică",
     "Persoană juridică",
