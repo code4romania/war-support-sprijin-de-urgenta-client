@@ -16,7 +16,7 @@ const Dialog = ({ isOpen, onDismiss, children }: IDialogProps) => {
       {isOpen && (
         <DialogOverlay className={styles.wrapper} onClick={onDismiss}>
           <div className={styles.backdrop} />
-          <DialogContent className={styles.content}>
+          <DialogContent aria-label='dialog-content' className={styles.content}>
             <IconButton
               variant="x"
               className={styles.closeButton}

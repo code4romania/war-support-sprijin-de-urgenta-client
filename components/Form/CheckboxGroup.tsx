@@ -1,8 +1,12 @@
-import { FC } from 'react'
-import { ElementWrapper } from '@/components/Form/common'
-import { InputElementProps } from '@/components/Form/types'
+import { ElementWrapper } from "@/components/Form/common";
+import { FC } from "react";
+import { GroupElementProps } from "./types";
 
-const CheckboxGroup: FC<InputElementProps> = ({ children, errors, label }) => {
+const CheckboxGroup: FC<GroupElementProps> = ({
+  children,
+  errors,
+  label,
+}) => {
   return (
     <ElementWrapper hasError={!!errors}>
       {label && (
@@ -11,9 +15,9 @@ const CheckboxGroup: FC<InputElementProps> = ({ children, errors, label }) => {
         </h3>
       )}
       {children}
-      {errors && (
-        <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>
-      )}
+      {Array.isArray(errors)
+        ? errors.map((e, index) => <p key={index} className="text-sm pl-1 pr-1 text-red-50">{e.message}</p>)
+        : <p className="text-sm pl-1 pr-1 text-red-50">{errors?.message}</p>}
     </ElementWrapper>
   )
 }
