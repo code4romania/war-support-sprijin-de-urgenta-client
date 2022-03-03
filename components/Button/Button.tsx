@@ -64,7 +64,7 @@ const Button = ({
   if (route) {
     return (
       <Link href={route} passHref>
-        <a>
+        <a className="w-full">
           <ButtonInner text={text} variant={variant} size={size} {...rest} />
         </a>
       </Link>
