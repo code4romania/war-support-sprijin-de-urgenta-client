@@ -69,7 +69,7 @@ export const auth = (state = initialState, action: AnyAction) => {
       const { token, userPk } = action.payload
       return { ...state, token, userPk }
     case ActionType.DEAUTHENTICATE:
-      return { token: null, user: null }
+      return { token: null, userPk: null }
     default:
       return state
   }
