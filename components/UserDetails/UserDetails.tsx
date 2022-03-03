@@ -39,14 +39,16 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
   return (
     <>
       <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
-        {form.inputs.map((item: IInputProps) => (
-          <Input
-            key={item.name}
-            label={`${t(item.label)}: *`}
-            errors={errors[item.name]}
-            {...register(item.name)}
-          />
-        ))}
+        <div className="max-w-sm">
+          {form.inputs.map((item: IInputProps) => (
+            <Input
+              key={item.name}
+              label={`${t(item.label)}: *`}
+              errors={errors[item.name]}
+              {...register(item.name)}
+            />
+          ))}
+        </div>
       </div>
       <StepperButtonGroup
         steps={[
