@@ -92,9 +92,10 @@ const UserCredentials = ({}) => {
         }
       )
       const response = await res.json()
-      if (response.access_token) {
-        setCookie('token', response.access_token)
-        dispatch(reauthenticate(response.access_token))
+      const { access_token, user } = response
+      if (access_token) {
+        setCookie('token', access_token)
+        dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
         dispatch({ type: ActionType.INCREASE })
       } else {
         setServerErrors(response)

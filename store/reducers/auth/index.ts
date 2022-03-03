@@ -25,13 +25,17 @@ export const authenticate =
     })
       .then((response) =>
         response.json().then((data) => {
-          if (data.access_token) {
-            setCookie('token', data.access_token)
+          const { access_token, user } = data
+          if (access_token) {
+            setCookie('token', access_token)
             dispatch({
               type: ActionType.AUTHENTICATE,
-              payload: data.access_token,
+              payload: {
+                token: access_token,
+                userPk: user.pk,
+              },
             })
-            return data;
+            return data
           } else {
             return { errors: data }
           }
@@ -39,9 +43,15 @@ export const authenticate =
       )
       .catch((err) => console.log(err))
 
-export const reauthenticate = (token: string) => {
+export const reauthenticate = ({
+  token,
+  userPk,
+}: {
+  token: string
+  userPk?: number
+}) => {
   return (dispatch: any) => {
-    dispatch({ type: ActionType.AUTHENTICATE, payload: token })
+    dispatch({ type: ActionType.AUTHENTICATE, payload: { token, userPk } })
   }
 }
 
@@ -56,9 +66,10 @@ export const deauthenticate = () => {
 export const auth = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ActionType.AUTHENTICATE:
-      return { ...state, token: action.payload }
+      const { token, userPk } = action.payload
+      return { ...state, token, userPk }
     case ActionType.DEAUTHENTICATE:
-      return { token: null }
+      return { token: null, user: null }
     default:
       return state
   }
