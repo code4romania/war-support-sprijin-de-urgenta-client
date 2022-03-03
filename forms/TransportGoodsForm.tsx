@@ -28,7 +28,6 @@ type ServicesForm = {
   availability?: string
   availability_interval_from?: Date
   availability_interval_to?: Date
-  available_seats?: number
   car_registration_number: string
   category?: string
   county_coverage?: string
@@ -56,9 +55,8 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup
       .date()
-      .typeError(t('error.must.be.string')),
+      .typeError(t('error.must.be.date')),
     availability_interval_to: yup.date().typeError(t('error.must.be.string')),
-    available_seats: yup.number().typeError(t('error.must.be.string')),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
@@ -162,7 +160,6 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               {...register('weight_unit')}
             />
           </div>
-
           <RadioGroup
             errors={errors.has_refrigeration}
             label={t('services.cooling')}

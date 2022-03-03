@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Textarea from '../Form/Textarea'
-import { useOthersForm } from '@/hooks/useData'
+import { useData, useOthersForm } from '@/hooks/useData'
 import { useForm } from 'react-hook-form'
 import DateInput from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
@@ -15,13 +15,18 @@ const OtherResourcesForm = ({}) => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
+  const { data: categories } = useData(endpoints['categories/other'])
   const countyCovarage = formData ? formData['county_coverage'].choices : []
   const today = new Date().toISOString().substr(0, 10)
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      available_until: today,
+    },
+  })
 
   const onSubmit = async (values: any) => {
     try {
@@ -66,6 +71,12 @@ const OtherResourcesForm = ({}) => {
         'signup.other.header'
       )}:`}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Dropdown label={t('signup.other.category')} {...register('category')}>
+          {categories.map(({ id, name }) => (
+            <option value={id}>{name}</option>
+          ))}
+        </Dropdown>
+
         <Input
           label={t('signup.other.name')}
           {...register('name')}
@@ -86,8 +97,8 @@ const OtherResourcesForm = ({}) => {
           {...register('description')}
         />
         <DateInput
-          value={today}
           label={t('signup.other.available_until')}
+          helpText={t('signup.other.available_until.help')}
           errors={
             serverErrors['available_until']
               ? { message: serverErrors['available_until'].join('\n') }
@@ -97,6 +108,7 @@ const OtherResourcesForm = ({}) => {
         />
         <div className={'flex space-x-4'}>
           <Dropdown
+            className={'w-1/2'}
             label={t('signup.other.county_coverage')}
             errors={
               serverErrors['county_coverage']
@@ -120,24 +132,16 @@ const OtherResourcesForm = ({}) => {
             )}
           </Dropdown>
           <Input
+            className={'w-1/2'}
             label={t('signup.other.town')}
-            {...register('town')}
             errors={
               serverErrors['town']
                 ? { message: serverErrors['town'].join('\n') }
                 : errors['town']
             }
+            {...register('town')}
           />
         </div>
-        <DateInput
-          label={t('signup.other.expiration_date')}
-          errors={
-            serverErrors['expiration_date']
-              ? { message: serverErrors['expiration_date'].join('\n') }
-              : errors['expiration_date']
-          }
-          {...register('expiration_date')}
-        />
         {/*TODO: remove*/}
         <button type={'submit'}>Send</button>
       </form>
