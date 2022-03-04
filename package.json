@@ -7,7 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "gc": "node ./generate_component/index.js",
+    "gc": "node ./scripts/generate_component/index.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
