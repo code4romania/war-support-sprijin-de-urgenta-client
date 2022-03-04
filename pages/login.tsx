@@ -48,6 +48,7 @@ const LoginPage: NextPage = () => {
   return (
     <main className="grid place-items-center py-28">
       <section className="space-y-16 w-96">
+        <ResourcesTableList list={[]}></ResourcesTableList>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
             label={t('login.userLabel')}
