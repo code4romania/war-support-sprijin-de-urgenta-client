@@ -9,7 +9,7 @@ export async function getStaticProps() {
   return {
     props: {
       protected: true,
-      redirectTo: '/sign-up/resources'
+      redirectTo: '/sign-up/request'
     },
   }
 }
