@@ -12,6 +12,7 @@ import endpoints from 'endpoints.json'
 import { useState } from 'react'
 import { reauthenticate } from '@/store/reducers/auth'
 import { setCookie } from '@/utils/cookies'
+import i18n from 'i18next'
 
 interface ICredentials {
   email: string
@@ -59,7 +60,7 @@ const UserCredentials = ({}) => {
       .oneOf([yup.ref('password'), null], t('signup.userType.re_password.missmatch'))
       .required(t('signup.userType.re_password.required')),
   })
-  
+
   const {
     handleSubmit,
     register,
@@ -76,7 +77,7 @@ const UserCredentials = ({}) => {
     const data = { ...values, ...userData }
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints.registration}`,
+        `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints.registration}`,
         {
           method: 'POST',
           mode: 'cors', // no-cors, *cors, same-origin
