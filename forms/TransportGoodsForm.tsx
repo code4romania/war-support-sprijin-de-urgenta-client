@@ -2,11 +2,17 @@ import Button from '@/components/Button'
 import Checkbox from '@/components/Form/Checkbox'
 import CheckboxGroup from '@/components/Form/CheckboxGroup'
 import Dropdown from '@/components/Form/Dropdown'
+import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
+import { MultiSelectOption } from '@/components/Form/types'
 import { useServicesForm } from '@/hooks/useData'
-import { roIdentityCardRegex, phoneNumberRegex, roCarRegistrationNumber } from '@/utils/regexes'
+import {
+  roIdentityCardRegex,
+  phoneNumberRegex,
+  roCarRegistrationNumber,
+} from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TransportServicesRequest, TransportType } from 'api'
 import clsx from 'clsx'
@@ -17,70 +23,105 @@ import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 
 type ServicesForm = {
-  capacity: number;
-  hasRefrigeration: boolean | null;
-  transportType: string | null;
-  transportCounty?: string;
-  availability: string[];
-  driverName: string;
-  driverCI: string;
-  carRegistration: string;
-  driverContact: string;
-};
+  capacity: number
+  hasRefrigeration: boolean | null
+  transportType: string | null
+  transportCounty?: string
+  availability: string[]
+  driverName: string
+  driverCI: string
+  carRegistration: string
+  driverContact: string
+}
 
 interface ITransportGoodsFormProps {
-  onSubmit: (data: TransportServicesRequest) => void;
+  onSubmit: (data: TransportServicesRequest) => void
 }
 
 export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
-  const { t } = useTranslation();
-  const { data } = useServicesForm();
+  const { t } = useTranslation()
+  const { data } = useServicesForm()
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    capacity: yup.number().typeError(t('error.must.be.number')).required(t('error.capacity.required')),
-    hasRefrigeration: yup.boolean().nullable().required(t('error.refrigeration.required')),
-    transportType: yup.string().nullable().required(t('error.transportType.required')),
+    capacity: yup
+      .number()
+      .typeError(t('error.must.be.number'))
+      .required(t('error.capacity.required')),
+    hasRefrigeration: yup
+      .boolean()
+      .nullable()
+      .required(t('error.refrigeration.required')),
+    transportType: yup
+      .string()
+      .nullable()
+      .required(t('error.transportType.required')),
     transportCounty: yup.string().when('transportType', {
       is: 'county',
-      then: yup.string().required(t('error.county.required'))
+      then: yup.string().required(t('error.county.required')),
     }),
-    availability: yup.array().nullable().min(1, t('error.availability.minOne')).of(yup.string().required()),
+    availability: yup
+      .array()
+      .nullable()
+      .min(1, t('error.availability.minOne'))
+      .of(yup.string().required()),
     driverName: yup.string().required(t('error.driverName.required')),
-    driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
-    carRegistration: yup.string().required(t('error.carRegistration.required')).matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
-    driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex)
-  });
+    driverCI: yup
+      .string()
+      .required(t('error.driverCI.required'))
+      .matches(roIdentityCardRegex, t('error.driverCI.invalid')),
+    carRegistration: yup
+      .string()
+      .required(t('error.carRegistration.required'))
+      .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
+    driverContact: yup
+      .string()
+      .required(t('error.driverContact.required'))
+      .matches(phoneNumberRegex),
+  })
 
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<ServicesForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<ServicesForm>({
     defaultValues: {
       capacity: 0,
-      availability: []
+      availability: [],
     },
     resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',
-    mode: 'all'
+    mode: 'all',
   })
 
-  const watchTransportType = watch("transportType");
+  const watchTransportType = watch('transportType')
 
   const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any, idx: number) => <option key={idx} value={c.value}>{c.display_name}</option>)
-  }, [data?.county_coverage?.choices]);
+    return data?.county_coverage?.choices.map((c: any, idx: number) => (
+      <option key={idx} value={c.value}>
+        {c.display_name}
+      </option>
+    ))
+  }, [data?.county_coverage?.choices])
+
+  // TODO Remove this after testing DropdownMultiSelect
+  const counties = useMemo(() => {
+    return data?.county_coverage?.choices.map((c: any, idx: number) => ({
+      value: c.value,
+      label: c.display_name,
+    }))
+  }, [data?.county_coverage?.choices])
 
   const availabilityOptions = useMemo(() => {
     return data?.availability?.choices.map((c: any, idx: number) => (
-      <Checkbox
-        key={idx}
-        {...register('availability')}
-        value={c.value}
-      >
+      <Checkbox key={idx} {...register('availability')} value={c.value}>
         {c.display_name}
       </Checkbox>
-    ));
-  }, [data?.availability?.choices, register]);
+    ))
+  }, [data?.availability?.choices, register])
 
-  const typeOptions: { value: number, display_name: string }[] = data?.type?.choices;
-
+  const typeOptions: { value: number; display_name: string }[] =
+    data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
@@ -92,7 +133,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       driver_name: data.driverName,
       driver_id: data.driverCI,
       car_registration_number: data.carRegistration,
-      driver_contact: data.driverContact
+      driver_contact: data.driverContact,
     }
 
     //TODO: below call is a working post to transport_service, need a hook to POST data
@@ -108,17 +149,17 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     // console.log(response);
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
     //TODO: if the API will receive an array then it makes sense to send data upwards
-    onSubmit(goodsTransportRequest);
+    onSubmit(goodsTransportRequest)
   }
 
   return (
     <div>
-      <form aria-label='form' className='w-full' onSubmit={handleSubmit(onAdd)}>
-        <section className='w-full'>
+      <form aria-label="form" className="w-full" onSubmit={handleSubmit(onAdd)}>
+        <section className="w-full">
           <div className={clsx('flex flex-row items-center gap-x-2')}>
             <Input
               type="number"
-              labelPosition='horizontal'
+              labelPosition="horizontal"
               label={t('services.capacity')}
               {...register('capacity')}
               errors={errors.capacity}
@@ -131,16 +172,10 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             label={t('services.cooling')}
           >
             <div className={clsx('flex flex-row gap-6')}>
-              <Radio
-                value="true"
-                {...register('hasRefrigeration')}
-              >
+              <Radio value="true" {...register('hasRefrigeration')}>
                 {t('yes')}
               </Radio>
-              <Radio
-                value="false"
-                {...register('hasRefrigeration')}
-              >
+              <Radio value="false" {...register('hasRefrigeration')}>
                 {t('no')}
               </Radio>
             </div>
@@ -153,11 +188,17 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             <Radio
               value={typeOptions && typeOptions[0]?.value}
               {...register('transportType')}
+              className={clsx('mb-4')}
             >
               {typeOptions && typeOptions[0]?.display_name}
             </Radio>
-            <Radio value={typeOptions && typeOptions[1]?.value} {...register('transportType')} className={clsx('mb-0')}>
-              <Dropdown {...register('transportCounty')}
+            <Radio
+              value={typeOptions && typeOptions[1]?.value}
+              {...register('transportType')}
+              className={clsx('mb-0')}
+            >
+              <Dropdown
+                {...register('transportCounty')}
                 disabled={watchTransportType !== TransportType.County}
                 errors={errors.transportCounty}
                 placeholder={t('services.county.placeholder')}
@@ -165,32 +206,46 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
                 {countiesOptions}
               </Dropdown>
             </Radio>
+            {/* 
+                // TODO Remove this after testing DropdownMultiSelect
+              */}
+            {/* <DropdownMultiSelect
+              {...register('transportCounty')}
+              disabled={watchTransportType !== TransportType.County}
+              options={counties || []}
+            >
+              <Radio
+                value={typeOptions && typeOptions[1]?.value}
+                {...register('transportType')}
+                className={clsx('mb-0')}
+              >
+              </Radio>
+            </DropdownMultiSelect> */}
           </RadioGroup>
 
-
           <Input
-            labelPosition='horizontal'
+            labelPosition="horizontal"
             type="text"
             errors={errors.driverName}
             label={t('services.driver-name')}
             {...register('driverName')}
           />
           <Input
-            labelPosition='horizontal'
+            labelPosition="horizontal"
             type="text"
             errors={errors.driverCI}
             label={t('services.driver-ci')}
             {...register('driverCI')}
           />
           <Input
-            labelPosition='horizontal'
+            labelPosition="horizontal"
             type="text"
             errors={errors.carRegistration}
             label={t('services.car-plate')}
             {...register('carRegistration')}
           />
           <Input
-            labelPosition='horizontal'
+            labelPosition="horizontal"
             type="text"
             errors={errors.driverContact}
             label={t('services.driverContact')}
