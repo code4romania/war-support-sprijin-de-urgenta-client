@@ -1,6 +1,7 @@
 import { AnyAction } from 'redux'
 import { getCookie, removeCookie, setCookie } from '@/utils/cookies'
 import endpoints from 'endpoints.json'
+import i18n from 'i18next'
 
 export enum ActionType {
   AUTHENTICATE = 'AUTHENTICATE',
@@ -14,8 +15,7 @@ export const initialState = {
 export const authenticate =
   ({ username, password }: { username: string; password: string }) =>
   (dispatch: any) =>
-    // @ts-ignore
-    fetch(process.env.NEXT_PUBLIC_PUBLIC_API + endpoints['auth/login'], {
+    fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['auth/login']}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
