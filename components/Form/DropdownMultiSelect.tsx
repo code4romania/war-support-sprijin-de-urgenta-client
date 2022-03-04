@@ -30,18 +30,18 @@ const DropdownMultiSelect = ({
   }
 
   return (
-    <div className="flex items-center">
+    <div className={clsx(className)}>
       {children}
       {label && !hideLabel && (
         <Label name={name} hasError={!!errors}>
           {label}
         </Label>
       )}
-      <div className={clsx('flex flex-col', className)}>
+      <div className={'flex flex-col mt-1'}>
         <Controller
           name={name}
           control={control}
-          render={({ field: { onChange } }) =>
+          render={({ field: { onChange } }) => (
             <div>
               <MultiSelect
                 options={options}
@@ -56,13 +56,22 @@ const DropdownMultiSelect = ({
                 valueRenderer={valueRenderer}
                 className="min-w-[190px]"
               />
-              {
-                Array.isArray(errors)
-                  ? errors.map((e, index) => <p key={index} className="absolute text-sm pl-1 pr-1 text-red-50">{e.message}</p>)
-                  : <p className="absolute text-sm pl-1 pr-1 text-red-50">{errors?.message}</p>
-              }
+              {Array.isArray(errors) ? (
+                errors.map((e, index) => (
+                  <p
+                    key={index}
+                    className="absolute text-sm pl-1 pr-1 text-red-50"
+                  >
+                    {e.message}
+                  </p>
+                ))
+              ) : (
+                <p className="absolute text-sm pl-1 pr-1 text-red-50">
+                  {errors?.message}
+                </p>
+              )}
             </div>
-          }
+          )}
         />
       </div>
     </div>

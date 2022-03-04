@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Input from '@/components/Form/Input'
@@ -12,6 +12,7 @@ import i18n from 'i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 
 type VolunteeringResourceForm = {
   type?: string
@@ -25,16 +26,27 @@ const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
   const { data: formData } = useVolunteeringForm()
   const { data: categories } = useData(endpoints['categories/volunteering'])
-  const countyCovarage = formData ? formData['county_coverage'].choices : []
+  const countyCovarage = useMemo(() => {
+    return formData?.county_coverage?.choices.map((c: any) => ({
+      value: c.value,
+      label: c.display_name,
+    }))
+  }, [formData?.county_coverage?.choices])
   const today = new Date().toISOString().substr(0, 10)
-  const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup.object().shape({
-    type: yup.string().typeError(t('error.must.be.string')),
-    town: yup.string().typeError(t('error.must.be.string')),
-    description: yup.string().typeError(t('error.must.be.string')),
-    available_until: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.string().typeError(t('error.must.be.string')),
-  })
+  const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup
+    .object()
+    .shape({
+      type: yup.string().typeError(t('error.must.be.string')),
+      town: yup.string().typeError(t('error.must.be.string')),
+      description: yup.string().typeError(t('error.must.be.string')),
+      available_until: yup.string().typeError(t('error.must.be.string')),
+      county_coverage: yup
+        .array()
+        .min(1, t('error.county.minOne'))
+        .of(yup.string().required()),
+    })
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors },
@@ -84,24 +96,14 @@ const SignupVolunteering: FC = () => {
           {...register('description')}
         />
         <div className={'flex space-x-4'}>
-          <Dropdown
-            label={t('signup.volunteering.county_coverage')}
+          <DropdownMultiSelect
             {...register('county_coverage')}
-          >
-            {countyCovarage.map(
-              ({
-                value,
-                display_name,
-              }: {
-                value: string
-                display_name: string
-              }) => (
-                <option key={value} value={value}>
-                  {display_name}
-                </option>
-              )
-            )}
-          </Dropdown>
+            className={clsx('w-1/2 mb-4')}
+            options={countyCovarage || []}
+            errors={errors['county_coverage']}
+            control={control}
+            label={t('signup.other.county_coverage')}
+          />
           <Input label={t('signup.volunteering.town')} {...register('town')} />
         </div>
         <DateInput
