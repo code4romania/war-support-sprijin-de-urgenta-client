@@ -1,5 +1,6 @@
 import useSwr from 'swr'
 import endpoints from 'endpoints.json'
+import i18n from 'i18next'
 
 const baseUrl = process.env.NEXT_PUBLIC_PUBLIC_API
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
@@ -20,7 +21,8 @@ export const useFetchData = (
   if (!path) {
     throw new Error('Path is required')
   }
-  const url = `${baseUrl}${path}`
+  const currentLocale = i18n.language;
+  const url = `${baseUrl}/${currentLocale}${path}`
   const key = token ? [url, token] : url
   const { data, error } = useSwr(key, fetcher)
 

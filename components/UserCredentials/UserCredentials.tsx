@@ -12,6 +12,8 @@ import endpoints from 'endpoints.json'
 import { useState } from 'react'
 import { reauthenticate } from '@/store/reducers/auth'
 import { setCookie } from '@/utils/cookies'
+import i18n from 'i18next'
+import { useRouter } from 'next/router'
 
 interface ICredentials {
   email: string
@@ -39,26 +41,30 @@ const INPUTS = [
   },
 ]
 
-const schema: SchemaOf<ICredentials> = yup.object().shape({
-  email: yup
-    .string()
-    .email('Va rugam introduceti un email valid')
-    .required('Va rugam introduceti email-ul'),
-  password: yup.string().required('Va rugam introduceti o parola'),
-  re_password: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Parola nu coincide')
-    .required('Va rugam confirmati parola'),
-})
-
 const UserCredentials = ({}) => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
   const { t } = useTranslation()
+  const router = useRouter();
   const dispatch = useDispatch()
-  const userData = useSelector((state: State) => state.signup.userData)
+  const userData = useSelector((state: State) => state.signup?.userData)
   const inputs = INPUTS || []
+
+  const schema: SchemaOf<ICredentials> = yup.object().shape({
+    email: yup
+      .string()
+      .email(t('signup.userType.email.invalid'))
+      .required(t('signup.userType.email.required')),
+    password: yup.string().required('Va rugam introduceti o parola'),
+    re_password: yup
+      .string()
+      .oneOf(
+        [yup.ref('password'), null],
+        t('signup.userType.re_password.missmatch')
+      )
+      .required(t('signup.userType.re_password.required')),
+  })
 
   const {
     handleSubmit,
@@ -76,7 +82,7 @@ const UserCredentials = ({}) => {
     const data = { ...values, ...userData }
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints.registration}`,
+        `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints.registration}`,
         {
           method: 'POST',
           mode: 'cors', // no-cors, *cors, same-origin
@@ -92,10 +98,11 @@ const UserCredentials = ({}) => {
         }
       )
       const response = await res.json()
-      if (response.access_token) {
-        setCookie('token', response.access_token)
-        dispatch(reauthenticate(response.access_token))
-        dispatch({ type: ActionType.INCREASE })
+      const { access_token, user } = response
+      if (access_token) {
+        setCookie('token', access_token)
+        dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
+        router.push('/request/resources')
       } else {
         setServerErrors(response)
       }

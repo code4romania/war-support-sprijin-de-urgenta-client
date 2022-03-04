@@ -8,20 +8,36 @@ export enum ActionType {
 type Action = { type: ActionType.DECREASE } | { type: ActionType.INCREASE }
 
 export const defaultStepsState: StepsStore = {
-  steps: [
-    {
-      label: 'steps.userType',
-      component: UserComponentType.userType
-    },
-    {
-      label: 'steps.userData',
-      component: UserComponentType.userData
-    },
-    {
-      label: 'steps.resources',
-      component: UserComponentType.userResources,
-    },
-  ],
+  steps: {
+    request: [
+      {
+        label: 'steps.userType',
+        component: UserComponentType.userType
+      },
+      {
+        label: 'steps.userData',
+        component: UserComponentType.userData
+      },
+      {
+        label: 'steps.resources.request',
+        component: UserComponentType.userResources,
+      },
+    ],
+    offer: [
+      {
+        label: 'steps.userType',
+        component: UserComponentType.userType
+      },
+      {
+        label: 'steps.userData',
+        component: UserComponentType.userData
+      },
+      {
+        label: 'steps.resources.offer',
+        component: UserComponentType.userResources,
+      },
+    ],
+  },
   activeStep: 0,
 }
 
@@ -31,7 +47,7 @@ export const steps = (
 ): StepsStore => {
   switch (action.type) {
     case ActionType.INCREASE: {
-      if (state.activeStep + 1 > state.steps.length - 1) {
+      if (state.activeStep + 1 > state.steps['request'].length - 1) {
         return state
       }
       return {

@@ -10,11 +10,12 @@ import common_ru from '../public/locales/ru/common.json'
 
 import '../styles/globals.css'
 import { withStore } from '../store'
-import { reauthenticate } from '@/store/reducers/auth'
+import { deauthenticate, reauthenticate, verificationFailed } from '@/store/reducers/auth'
 import { useDataWithToken } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
+import { useRouter } from 'next/router'
 
 i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
@@ -28,13 +29,31 @@ i18n.use(initReactI18next).init({
   },
 })
 
+const clientOnly = typeof window !== 'undefined'
+
 const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const dispatch = useDispatch()
-  const token = useSelector((state: State) => state.auth.token)
+  const router = useRouter()
+  const token: string = useSelector((state: State) => state.auth.token)
   const { data } = useDataWithToken(endpoints['auth/user'], token)
-  if (data) {
-    dispatch(reauthenticate(token))
+
+  if (!data && pageProps.protected) {
+    return <div />
   }
+
+  if (data?.email) {
+    dispatch(reauthenticate({ token: token, userPk: data.pk }))
+  } else {
+    if (clientOnly) {
+      if(data){
+        dispatch(verificationFailed())
+      }
+      if (pageProps.protected && pageProps.redirectTo) {
+        router.push(pageProps.redirectTo)
+      }
+    }
+  }
+
   return (
     <Layout>
       <Component {...pageProps} />

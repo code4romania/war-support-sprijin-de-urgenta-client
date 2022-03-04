@@ -19,14 +19,11 @@ const resourceTypeBuilder = (id: string) => {
   return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
 }
 
-const SignUpResources = () => {
+const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
-  const defaultOffer = useSelector((state: State) => state.defaultOffer)
   const { categories } = useSelector((state: State) => state)
 
-  const [selectedResourceIds, setSelectedResourceIds] = useState(
-    defaultOffer ? [defaultOffer] : []
-  )
+  const [selectedResourceIds, setSelectedResourceIds] = useState<string[]>([])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
@@ -42,7 +39,7 @@ const SignUpResources = () => {
     <div className="space-y-4">
       <div className="flex flex-col px-8 rounded-md py-7 bg-blue-50">
         <h3 className="mb-4 text-lg font-semibold">
-          {t('signup.resources.offer')} *
+          {t(`signup.resources.${type}`)} *
         </h3>
         {categories.map(({ slug }) => (
           <div key={slug}>
