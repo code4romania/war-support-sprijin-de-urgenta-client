@@ -3,6 +3,7 @@ import { MultiSelect } from 'react-multi-select-component'
 import { useState } from 'react'
 import { DropdownMultiSelectProps, MultiSelectOption } from './types'
 import { Label } from './common'
+import { useTranslation } from 'react-i18next'
 
 const DropdownMultiSelect = ({
   options,
@@ -13,6 +14,18 @@ const DropdownMultiSelect = ({
   errors,
 }: DropdownMultiSelectProps) => {
   const [selected, setSelected] = useState([])
+  const { t } = useTranslation('common')
+
+  const valueRenderer = (selected: typeof options) => {
+    if (!selected.length) {
+      return t('services.county.placeholder')
+    }
+
+    if (selected.length === 1) return selected[0].label
+    // TODO add translation
+    return `${selected.length} judete selectate`
+  }
+
   console.log(options)
   return (
     <div>
@@ -28,6 +41,7 @@ const DropdownMultiSelect = ({
         labelledBy={clsx('labelledBy', 'Code 4 Romania')}
         disabled={disabled}
         hasSelectAll={false}
+        valueRenderer={valueRenderer}
       />
     </div>
   )

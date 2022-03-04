@@ -204,16 +204,15 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               >
                 {countiesOptions}
               </Dropdown>
-              {/* 
+            </Radio>
+            {/* <DropdownMultiSelect
+              {...register('transportCounty')}
+              disabled={watchTransportType !== TransportType.County}
+              options={counties || []}
+            ></DropdownMultiSelect> */}
+            {/* 
                 // TODO Remove this after testing DropdownMultiSelect
               */}
-              <DropdownMultiSelect
-                {...register('transportCounty')}
-                disabled={watchTransportType !== TransportType.County}
-                options={counties || []}
-                label={t('services.county.placeholder')}
-              ></DropdownMultiSelect>
-            </Radio>
           </RadioGroup>
 
           <Input
