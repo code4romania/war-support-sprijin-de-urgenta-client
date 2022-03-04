@@ -8,6 +8,7 @@ import { authenticate } from '@/store/reducers/auth'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import ResourcesTableList from '@/components/ResourcesTableList'
 
 const LoginPage: NextPage = () => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
@@ -47,6 +48,7 @@ const LoginPage: NextPage = () => {
   return (
     <main className="grid place-items-center py-28">
       <section className="space-y-16 w-96">
+        <ResourcesTableList list={[]}></ResourcesTableList>
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
             label={t('login.userLabel')}
