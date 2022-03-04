@@ -12,9 +12,7 @@ export default {
 const Template: ComponentStory<typeof UserCredentials> = (args) => <UserCredentials {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  defaultProps: 'UserCredentials default props'
-}
+
 Default.parameters = {
   design: {
     type: 'figma',
