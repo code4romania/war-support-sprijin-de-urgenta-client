@@ -6,6 +6,7 @@ export interface InputElementProps
   name: string
   label?: string
   errors?: ErrorOption
+  helpText?: string
 }
 
 export interface TextareaElementProps

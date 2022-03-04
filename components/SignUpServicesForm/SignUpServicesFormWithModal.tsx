@@ -39,7 +39,7 @@ export const SignUpServicesFormWithModal = () => {
       )}
     >
       <div className="flex items-center gap-4 mb-8 w-full">
-        <h3 className="min-w-fit flex-1">{t('services.transport-goods')}</h3>
+        <h3 className="min-w-fit flex-1 mb-4 text-lg font-semibold">{t('services.transport-goods')}</h3>
         <Button
           text={t('add')}
           size="small"
@@ -52,7 +52,7 @@ export const SignUpServicesFormWithModal = () => {
         />
       </div>
       <div className="flex items-center gap-4 mb-8 w-full">
-        <h3 className="min-w-fit flex-1">{t('services.transport-people')}</h3>
+        <h3 className="min-w-fit flex-1 mb-4 text-lg font-semibold">{t('services.transport-people')}</h3>
         <Button
           text={t('add')}
           className='flex-1'

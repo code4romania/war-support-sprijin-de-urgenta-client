@@ -1,26 +1,28 @@
-import Input from "@/components/Form/Input";
-import { FC } from "react";
-import { useTranslation } from "react-i18next";
-import { ResourceType } from "@/components/SignUpProducts/types";
-
+import Input from '@/components/Form/Input'
+import { FC } from 'react'
+import { useTranslation } from 'react-i18next'
+import { ResourceType } from '@/components/SignUpProducts/types'
 
 interface IProps {
-  resourceType: ResourceType;
+  resourceType: ResourceType
 }
 
-const Quantity: FC<IProps> = ({
-  resourceType,
-}) => {
-  const { t } = useTranslation();
+const Quantity: FC<IProps> = ({ resourceType }) => {
+  const { t } = useTranslation()
 
   return (
-    <div className="flex justify-start">
+    <div className="flex justify-start space-x-6">
       <Input
         name={`products_${resourceType}_qty`}
         type="number"
         label={t('signup.products.qty')}
         labelPosition="horizontal"
-        className={"mr-5"}
+      />
+
+      <Input
+        name={`products_${resourceType}_unit_type`}
+        label={t('signup.products.unit_type')}
+        labelPosition="horizontal"
       />
 
       <Input
@@ -32,4 +34,4 @@ const Quantity: FC<IProps> = ({
   )
 }
 
-export default Quantity;
+export default Quantity

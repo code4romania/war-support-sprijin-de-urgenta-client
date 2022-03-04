@@ -8,6 +8,17 @@ import DateInput from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import { useForm } from 'react-hook-form'
 import endpoints from 'endpoints.json'
+import i18n from 'i18next'
+import yup, { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+type VolunteeringResourceForm = {
+  type?: string
+  town?: string
+  description?: string
+  available_until?: string
+  county_coverage?: string
+}
 
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
@@ -15,15 +26,24 @@ const SignupVolunteering: FC = () => {
   const { data: categories } = useData(endpoints['categories/volunteering'])
   const countyCovarage = formData ? formData['county_coverage'].choices : []
   const today = new Date().toISOString().substr(0, 10)
+  const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup.object().shape({
+    type: yup.string().typeError(t('error.must.be.string')),
+    town: yup.string().typeError(t('error.must.be.string')),
+    description: yup.string().typeError(t('error.must.be.string')),
+    available_until: yup.string().typeError(t('error.must.be.string')),
+    county_coverage: yup.string().typeError(t('error.must.be.string')),
+  })
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(volunteeringResourcesSchema),
+  })
 
   const onSubmit = async (values: any) => {
     fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/volunteering']}`,
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/volunteering']}`,
       {
         method: 'POST',
         mode: 'cors',
@@ -84,7 +104,6 @@ const SignupVolunteering: FC = () => {
           <Input label={t('signup.volunteering.town')} {...register('town')} />
         </div>
         <DateInput
-          value={today}
           label={t('signup.volunteering.available_until')}
           {...register('available_until')}
         />
