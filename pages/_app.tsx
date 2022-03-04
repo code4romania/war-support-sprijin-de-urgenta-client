@@ -10,7 +10,7 @@ import common_ru from '../public/locales/ru/common.json'
 
 import '../styles/globals.css'
 import { withStore } from '../store'
-import { reauthenticate } from '@/store/reducers/auth'
+import { deauthenticate, reauthenticate, verificationFailed } from '@/store/reducers/auth'
 import { useDataWithToken } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,14 +38,19 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const { data } = useDataWithToken(endpoints['auth/user'], token)
 
   if (!data && pageProps.protected) {
-    return <div/>
+    return <div />
   }
 
   if (data?.email) {
     dispatch(reauthenticate({ token: token, userPk: data.pk }))
   } else {
-    if (clientOnly && pageProps.protected && pageProps.redirectTo) {
-      router.push(pageProps.redirectTo)
+    if (clientOnly) {
+      if(data){
+        dispatch(verificationFailed())
+      }
+      if (pageProps.protected && pageProps.redirectTo) {
+        router.push(pageProps.redirectTo)
+      }
     }
   }
 

@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
 import LanguageSelector from '@/components/Header/LanguageSelector'
 import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
+import { deauthenticate } from '@/store/reducers/auth'
 
 const PARTNERSHIPS = [
   {
@@ -24,6 +27,13 @@ const smallBoldTextWithGrayAndMarginAside: string = clsx(
 
 const Header = () => {
   const { t } = useTranslation('common')
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector((state: State) => state.auth.userPk)
+  const isLoadingUser = useSelector((state: State) => state.auth.loading)
+  const handleLogout = () => {
+    dispatch(deauthenticate())
+  }
+
   return (
     <div className="w-full mx-auto">
       <div className="bg-gray-50">
@@ -48,9 +58,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div
-        className="border-b-2 border-gray-50"
-      >
+      <div className="border-b-2 border-gray-50">
         <div className="container px-2 mx-auto ">
           <div
             className={`${flexItemsCenter} ${clsx('justify-between', 'py-4')}`}
@@ -67,7 +75,17 @@ const Header = () => {
               </Link>
             </div>
             <div className="flex items-center gap-2">
-              <Link href="/login">Login</Link>
+              {!isLoadingUser && (
+                <div>
+                  {isLoggedIn ? (
+                    <div className="cursor-pointer" onClick={handleLogout}>
+                      Logout
+                    </div>
+                  ) : (
+                    <Link href="/login">Login</Link>
+                  )}
+                </div>
+              )}
               <LanguageSelector />
             </div>
           </div>
