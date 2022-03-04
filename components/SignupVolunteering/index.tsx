@@ -8,6 +8,7 @@ import DateInput from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import { useForm } from 'react-hook-form'
 import endpoints from 'endpoints.json'
+import i18n from 'i18next'
 
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
@@ -27,7 +28,7 @@ const SignupVolunteering: FC = () => {
 
   const onSubmit = async (values: any) => {
     fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/volunteering']}`,
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/volunteering']}`,
       {
         method: 'POST',
         mode: 'cors',
