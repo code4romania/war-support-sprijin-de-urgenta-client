@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react'
-import { ErrorOption } from 'react-hook-form'
+import { Control, ErrorOption } from 'react-hook-form'
 
 export interface InputElementProps
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -41,9 +41,10 @@ export interface MultiSelectOption {
 export interface DropdownMultiSelectProps {
   name: string
   options: MultiSelectOption[]
-  disabled: boolean
+  disabled?: boolean
   label?: string
   hideLabel?: boolean
-  errors?: ErrorOption
+  errors?: ErrorOption | ErrorOption[]
   children: ReactNode
+  control: Control<any, any>
 }

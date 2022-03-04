@@ -122,7 +122,6 @@
   "error.must.be.string": "Valoarea introdusă trebuie contina caractere",
   "error.must.be.time": "Valoarea introdusă trebuie să fie tip oră:minute",
   "error.must.be.date": "Valoarea introdusă trebuie să fie tip dată",
-  "error.must.be.boolean": "Valoarea introdusă trebuie să fie tip dată",
   "signup.products.header": "Produse",
   "signup.products.food": "Alimente",
   "signup.products.generalHygiene": "Produse de igiena generala",
@@ -165,5 +164,7 @@
   "services.county.placeholder": "Selectează un județ",
   "error.must.be.number": "Valoarea introdusă trebuie să fie un număar",
   "error.must.be.boolean": "Alegeți o opțiune",
-  "services.driverContact": "Număr de telefon"
+  "services.driverContact": "Număr de telefon",
+  "error.county.minOne": "Trebuie să selectați minim un județ",
+  "controls.counties.selected": "județe selectate"
 }
