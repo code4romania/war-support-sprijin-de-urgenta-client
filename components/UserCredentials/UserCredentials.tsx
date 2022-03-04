@@ -88,7 +88,6 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
   const handleBack = () => {
     dispatch({ type: ActionType.DECREASE })
   }
-  console.log(errors);
   const onSubmit = async (values: any) => {
     const data = { ...values, ...userData }
     try {
