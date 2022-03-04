@@ -26,6 +26,8 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
+import i18n from 'i18next'
+import endpoints from 'endpoints.json'
 
 type ServicesForm = {
   driver_contact: string
@@ -143,7 +145,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
     //TODO: if the API will receive an array then it makes sense to send data upwards
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/api/v1/donate/transport_service/`,
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
       {
         method: 'POST',
         headers: {
