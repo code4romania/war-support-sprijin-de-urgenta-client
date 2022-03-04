@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { reauthenticate } from '@/store/reducers/auth'
 import { setCookie } from '@/utils/cookies'
 import i18n from 'i18next'
+import { useRouter } from 'next/router'
 
 interface ICredentials {
   email: string
@@ -45,8 +46,9 @@ const UserCredentials = ({}) => {
     {}
   )
   const { t } = useTranslation()
+  const router = useRouter();
   const dispatch = useDispatch()
-  const userData = useSelector((state: State) => state.signup.userData)
+  const userData = useSelector((state: State) => state.signup?.userData)
   const inputs = INPUTS || []
 
   const schema: SchemaOf<ICredentials> = yup.object().shape({
@@ -57,7 +59,10 @@ const UserCredentials = ({}) => {
     password: yup.string().required('Va rugam introduceti o parola'),
     re_password: yup
       .string()
-      .oneOf([yup.ref('password'), null], t('signup.userType.re_password.missmatch'))
+      .oneOf(
+        [yup.ref('password'), null],
+        t('signup.userType.re_password.missmatch')
+      )
       .required(t('signup.userType.re_password.required')),
   })
 
@@ -97,7 +102,7 @@ const UserCredentials = ({}) => {
       if (access_token) {
         setCookie('token', access_token)
         dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
-        dispatch({ type: ActionType.INCREASE })
+        router.push('request/resources')
       } else {
         setServerErrors(response)
       }

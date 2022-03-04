@@ -10,6 +10,6 @@ export interface Step {
 }
 
 export interface StepsStore {
-  steps: Step[]
+  steps: {[key:string]: Step[]}
   activeStep: number
 }

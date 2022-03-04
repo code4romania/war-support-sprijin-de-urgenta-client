@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react'
 import { authenticate } from '@/store/reducers/auth'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const LoginPage: NextPage = () => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
@@ -39,7 +40,7 @@ const LoginPage: NextPage = () => {
     if (res?.errors) {
       setServerErrors(res.errors)
     } else if (res?.access_token) {
-      router.push('/sign-up')
+      router.push('/')
     }
   }
 
@@ -61,9 +62,13 @@ const LoginPage: NextPage = () => {
           <a href="#" className="self-end text-gray-300 mt-[-16px]">
             {t('login.forgotPass')}
           </a>
-          {serverErrors['non_field_errors']?.map((error: string, index: number) => (
-            <div key={index} className={'bg-red-50 p-1 px-2 text-white'}>{error}</div>
-          ))}
+          {serverErrors['non_field_errors']?.map(
+            (error: string, index: number) => (
+              <div key={index} className={'bg-red-50 p-1 px-2 text-white'}>
+                {error}
+              </div>
+            )
+          )}
           <div className="space-y-4">
             <Button
               type="submit"
@@ -71,11 +76,13 @@ const LoginPage: NextPage = () => {
               size="medium"
               variant="primary"
             />
-            <Button
-              text={t('login.signUp')}
-              size="medium"
-              variant="secondary"
-            />
+            <Link href={'/sign-up/offer'}>
+              <Button
+                text={t('login.signUp')}
+                size="medium"
+                variant="secondary"
+              />
+            </Link>
           </div>
         </form>
       </section>
