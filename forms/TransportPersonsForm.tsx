@@ -58,7 +58,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
   )
 
   const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    available_seats: yup.string().typeError(t('error.must.be.number')),
+    available_seats: yup.number().typeError(t('error.must.be.number')).required(),
     availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
