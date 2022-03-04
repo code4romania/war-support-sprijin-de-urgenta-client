@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import Textarea from '../Form/Textarea'
@@ -7,11 +8,11 @@ import DateInput from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import Input from '@/components/Form/Input'
 import endpoints from 'endpoints.json'
-import { useState } from 'react'
 import i18n from 'i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 
 type OtherResourceForm = {
   name?: string
@@ -29,14 +30,18 @@ const OtherResourcesForm = ({}) => {
     {}
   )
   const { data: categories } = useData(endpoints['categories/other'])
-  const countyCovarage = formData ? formData['county_coverage'].choices : []
+
+  const countyCovarage = useMemo(() => {
+    return formData?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
+  }, [formData?.county_coverage?.choices])
+
   const today = new Date().toISOString().substr(0, 10)
   const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
     name: yup.string().typeError(t('error.must.be.string')),
     category: yup.string().typeError(t('error.must.be.string')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.string().typeError(t('error.must.be.string')),
+    county_coverage: yup.array().min(1, t('error.county.minOne')).of(yup.string().required()),
     town: yup.string().typeError(t('error.must.be.string')),
   })
 
@@ -44,6 +49,7 @@ const OtherResourcesForm = ({}) => {
     handleSubmit,
     register,
     formState: { errors },
+    control
   } = useForm({
     resolver: yupResolver(otherResourcesSchema),
   })
@@ -127,30 +133,18 @@ const OtherResourcesForm = ({}) => {
           {...register('available_until')}
         />
         <div className={'flex space-x-4'}>
-          <Dropdown
-            className={'w-1/2'}
-            label={t('signup.other.county_coverage')}
+          <DropdownMultiSelect
+            {...register('county_coverage')}
+            className={clsx('w-1/2 mb-4')}
+            options={countyCovarage || []}
             errors={
               serverErrors['county_coverage']
                 ? { message: serverErrors['county_coverage'].join('\n') }
                 : errors['county_coverage']
             }
-            {...register('county_coverage')}
-          >
-            {countyCovarage.map(
-              ({
-                value,
-                display_name,
-              }: {
-                value: string
-                display_name: string
-              }) => (
-                <option key={value} value={value}>
-                  {display_name}
-                </option>
-              )
-            )}
-          </Dropdown>
+            control={control}
+            label={t('signup.other.county_coverage')}
+          />
           <Input
             className={'w-1/2'}
             label={t('signup.other.town')}
