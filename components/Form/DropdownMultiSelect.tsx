@@ -12,6 +12,7 @@ const DropdownMultiSelect = ({
   label,
   hideLabel = false,
   name,
+  className,
   control,
   errors,
   children,
@@ -36,18 +37,17 @@ const DropdownMultiSelect = ({
           {label}
         </Label>
       )}
-      <div className='flex flex-col'>
+      <div className={clsx('flex flex-col', className)}>
         <Controller
           name={name}
           control={control}
           render={({ field: { onChange } }) =>
             <div>
               <MultiSelect
-                name={name}
                 options={options}
                 value={selected}
                 onChange={(props: any) => {
-                  onChange(props?.value?.map((p: any) => p.value))
+                  onChange(props.map((p: any) => p.value))
                   setSelected(props)
                 }}
                 labelledBy={clsx('labelledBy', 'Code 4 Romania')}

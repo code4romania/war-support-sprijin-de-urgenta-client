@@ -62,7 +62,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
-      .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
+      .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
     county_coverage: yup.array().when('type', {
       is: TransportType.County,
@@ -111,20 +111,19 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   })
 
   const showCountyCoverageDropdown = watch('type') === TransportType.County
+  const countyCoverage = watch('county_coverage')
+  console.log(countyCoverage)
   const showAvailabilityIntervals = watch('availability') === AvailabilityType.FixedIntervals
 
   const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any, idx: number) => (
-      <option key={idx} value={c.value}>
-        {c.display_name}
-      </option>
-    ))
+    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
   }, [data?.county_coverage?.choices])
 
   const typeOptions: { value: number; display_name: string }[] =
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
+    console.log(data);
     //Preparing object for mutation. The api seems incomplete
     const goodsTransportRequest: TransportServicesRequest = {
       availability: data.availability,
@@ -220,30 +219,24 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             }
             label={t('services.transport')}
           >
-            {
-              typeOptions?.map(({ display_name, value }, index) => (
-                <Radio key={index} value={value} {...register('type')}>
-                  {display_name}
-                </Radio>
-              ))
-            }
-            {
-              showCountyCoverageDropdown && (
-                <DropdownMultiSelect
-                  {...register('county_coverage')}
-                  control={control}
-                  options={countiesOptions || []}
-                  errors={errors.county_coverage}
-                >
-                  <Radio
-                    value={typeOptions && typeOptions[1]?.value}
-                    {...register('type')}
-                    className={clsx('mb-0')}
-                  >
-                  </Radio>
-                </DropdownMultiSelect>
-              )
-            }
+            <Radio value={typeOptions && typeOptions[0].value} {...register('type')}>
+              {typeOptions && typeOptions[0].display_name}
+            </Radio>
+            <DropdownMultiSelect
+              {...register('county_coverage')}
+              className={clsx('mb-4')}
+              disabled={!showCountyCoverageDropdown}
+              control={control}
+              options={countiesOptions || []}
+              errors={errors.county_coverage}
+            >
+              <Radio
+                value={typeOptions && typeOptions[1]?.value}
+                {...register('type')}
+                className={clsx('!mb-0')}
+              >
+              </Radio>
+            </DropdownMultiSelect>
           </RadioGroup >
           <Input
             labelPosition="horizontal"

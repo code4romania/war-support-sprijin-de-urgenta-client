@@ -45,6 +45,7 @@ export interface DropdownMultiSelectProps {
   label?: string
   hideLabel?: boolean
   errors?: ErrorOption | ErrorOption[]
-  children: ReactNode
+  children?: ReactNode
+  className?: string
   control: Control<any, any>
 }
