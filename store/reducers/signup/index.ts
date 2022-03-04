@@ -1,3 +1,4 @@
+import { phoneNumberRegex } from '@/utils/regexes';
 import { AnyAction } from 'redux'
 import * as yup from 'yup'
 
@@ -10,47 +11,6 @@ export enum ActionType {
 export interface UserType {
   value: number,
   display_name: string,
-}
-
-export const userTypeForms: { [key: number]: any } = {
-  [1]: {
-    inputs: [
-      { name: 'last_name', label: 'signup.userType.last_name' },
-      { name: 'first_name', label: 'signup.userType.first_name' },
-      { name: 'phone_number', label: 'signup.userType.phone_number' },
-    ],
-    schema: yup.object().shape({
-      last_name: yup.string().required('Va rugam introduceti numele'),
-      first_name: yup.string().required('Va rugam introduceti prenumele'),
-      phone_number: yup
-        .string()
-        .required('Va rugam introduceti numarul de telefon'),
-    }),
-  },
-  [2]: {
-    inputs: [
-      { name: 'business_name', label: 'signup.userType.business_name' },
-      { name: 'identification_no', label: 'signup.userType.identification_no' },
-    ],
-    schema: yup.object().shape({
-      business_name: yup
-        .string()
-        .required('Va rugam introduceti numele companiei'),
-      identification_no: yup.string().required('Va rugam introduceti CUI/CIF'),
-    }),
-  },
-  [3]: {
-    inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
-    schema: yup.object().shape({
-      business_name: yup.string().required('Va rugam introduceti numele companiei'),
-    }),
-  },
-  [4]: {
-    inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
-    schema: yup.object().shape({
-      business_name: yup.string().required('Va rugam introduceti numele companiei'),
-    }),
-  },
 }
 
 export const userType = (state = '', action: AnyAction) => {

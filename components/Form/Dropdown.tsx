@@ -45,7 +45,6 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
               'px-2 py-1.5',
               {'border-red-50 border-2': errors}
             )}
-            defaultValue={label}
             {...rest}
           >
             <option hidden disabled selected>
