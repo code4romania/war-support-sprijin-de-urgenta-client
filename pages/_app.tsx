@@ -15,6 +15,7 @@ import { useDataWithToken } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
+import { useRouter } from 'next/router'
 
 i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
@@ -28,13 +29,26 @@ i18n.use(initReactI18next).init({
   },
 })
 
+const clientOnly = typeof window !== 'undefined'
+
 const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const token: string = useSelector((state: State) => state.auth.token)
   const { data } = useDataWithToken(endpoints['auth/user'], token)
-  if (data) {
-    if (!data.code) dispatch(reauthenticate({ token: token, userPk: data.pk }))
+
+  if (!data && pageProps.protected) {
+    return <div/>
   }
+
+  if (data?.email) {
+    dispatch(reauthenticate({ token: token, userPk: data.pk }))
+  } else {
+    if (clientOnly && pageProps.protected && pageProps.redirectTo) {
+      router.push(pageProps.redirectTo)
+    }
+  }
+
   return (
     <Layout>
       <Component {...pageProps} />

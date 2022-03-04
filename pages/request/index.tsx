@@ -22,7 +22,9 @@ const RequestPage: NextPage = () => {
   const handleClick = (slug: string) => {
     if (slug) {
       dispatch(setDefaultOffer(slug))
-      router.push('/sign-up')
+      router.push({
+        pathname: '/request/resources',
+      })
     }
   }
 
