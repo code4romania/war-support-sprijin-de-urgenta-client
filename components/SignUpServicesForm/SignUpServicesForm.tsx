@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
 
-export const SignUpServicesFormWithModal = () => {
+export const SignUpServicesForm = () => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
