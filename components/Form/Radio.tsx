@@ -5,7 +5,7 @@ import { InputElementProps } from '@/components/Form/types'
 const Element = forwardRef<HTMLInputElement, InputElementProps>(
   ({ name, children, value, className, errors, ...rest }, ref) => {
     return (
-      <div className={clsx('flex items-center mb-4', className)}>
+      <div className={clsx('flex items-center', className)}>
         <input
           type="radio"
           name={name}

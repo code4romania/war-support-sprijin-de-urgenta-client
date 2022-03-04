@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
+import { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react'
 import { ErrorOption } from 'react-hook-form'
 
 export interface InputElementProps
@@ -44,4 +44,5 @@ export interface DropdownMultiSelectProps {
   label?: string
   hideLabel?: boolean
   errors?: ErrorOption
+  children: ReactNode
 }

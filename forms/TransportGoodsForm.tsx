@@ -188,6 +188,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             <Radio
               value={typeOptions && typeOptions[0]?.value}
               {...register('transportType')}
+              className={clsx('mb-4')}
             >
               {typeOptions && typeOptions[0]?.display_name}
             </Radio>
@@ -205,14 +206,21 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
                 {countiesOptions}
               </Dropdown>
             </Radio>
+            {/* 
+                // TODO Remove this after testing DropdownMultiSelect
+              */}
             {/* <DropdownMultiSelect
               {...register('transportCounty')}
               disabled={watchTransportType !== TransportType.County}
               options={counties || []}
-            ></DropdownMultiSelect> */}
-            {/* 
-                // TODO Remove this after testing DropdownMultiSelect
-              */}
+            >
+              <Radio
+                value={typeOptions && typeOptions[1]?.value}
+                {...register('transportType')}
+                className={clsx('mb-0')}
+              >
+              </Radio>
+            </DropdownMultiSelect> */}
           </RadioGroup>
 
           <Input

@@ -12,6 +12,7 @@ const DropdownMultiSelect = ({
   hideLabel = false,
   name,
   errors,
+  children,
 }: DropdownMultiSelectProps) => {
   const [selected, setSelected] = useState([])
   const { t } = useTranslation('common')
@@ -26,9 +27,9 @@ const DropdownMultiSelect = ({
     return `${selected.length} judete selectate`
   }
 
-  console.log(options)
   return (
-    <div>
+    <div className="flex items-center">
+      {children}
       {label && !hideLabel && (
         <Label name={name} hasError={!!errors}>
           {label}
@@ -42,6 +43,7 @@ const DropdownMultiSelect = ({
         disabled={disabled}
         hasSelectAll={false}
         valueRenderer={valueRenderer}
+        className="min-w-[190px]"
       />
     </div>
   )
