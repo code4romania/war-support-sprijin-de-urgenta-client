@@ -19,7 +19,7 @@ type OtherResourceForm = {
   category?: string
   description?: string
   available_until?: string
-  county_coverage?: string
+  county_coverage: string[]
   town?: string
 }
 
