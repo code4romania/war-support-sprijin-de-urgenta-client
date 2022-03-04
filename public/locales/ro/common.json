@@ -162,9 +162,11 @@
   "error.driverCI.invalid": "Seria și numărul de buletin trebuie să fie de forma XT555222",
   "services.availability": "Cât timp puteți aloca pentru aceste activități?",
   "services.county.placeholder": "Selectează un județ",
-  "error.must.be.number": "Valoarea introdusă trebuie să fie un număar",
+  "error.must.be.number": "Valoarea introdusă trebuie să fie un număr",
   "error.must.be.boolean": "Alegeți o opțiune",
   "services.driverContact": "Număr de telefon",
   "error.county.minOne": "Trebuie să selectați minim un județ",
-  "controls.counties.selected": "județe selectate"
+  "controls.counties.selected": "județe selectate",
+  "gdpr.consent": "Prin completarea formularului accept ca datele mele să fie procesate de Departamentul pentru Situații de Urgență. Cunosc faptul că Departamentul pentru Situații de Urgență prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.",
+  "signup.error.gdpr.required": "Pentru a merge mai departe trebuie să vă dați acordul cu privire la procesarea datelor cu caracter personal"
 }

@@ -9,7 +9,8 @@ import Input from '@/components/Form/Input'
 import endpoints from 'endpoints.json'
 import { useState } from 'react'
 import i18n from 'i18next'
-import yup, { SchemaOf } from 'yup'
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 type OtherResourceForm = {

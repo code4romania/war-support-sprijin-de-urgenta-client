@@ -2,17 +2,20 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import UserCredentials from './UserCredentials';
+import Consent from './Consent';
 
 export default {
-  title: 'UserCredentials',
-  component: UserCredentials
-} as ComponentMeta<typeof UserCredentials>;
+  title: 'GdprConsent',
+  component: Consent
+} as ComponentMeta<typeof Consent>;
 
-const Template: ComponentStory<typeof UserCredentials> = (args) => <UserCredentials {...args} />;
+const Template: ComponentStory<typeof Consent> = (args) => <Consent {...args} />;
 
 export const Default = Template.bind({});
-
+Default.args = {
+  className: '',
+  name: ''
+}
 Default.parameters = {
   design: {
     type: 'figma',
