@@ -1,24 +1,24 @@
-import type { NextPage } from 'next'
 import { useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { UserComponentType } from '@/store/reducers/steps/types'
+import Spacer from '@/components/Spacer'
 import Stepper from '@/components/Stepper'
 import UserTypeForm from '@/components/UserTypeForm'
 import UserCredentials from '@/components/UserCredentials'
-import Spacer from '@/components/Spacer'
-import { useRouter } from 'next/router'
+
+export interface ISignupPageProps {
+  resourceType: string
+}
 
 const componentMap = {
   [UserComponentType.userType]: <UserTypeForm />,
   [UserComponentType.userData]: <UserCredentials />,
 }
 
-const SignUp: NextPage = () => {
+const SignupPage = ({ resourceType }: ISignupPageProps) => {
   const steps = useSelector((state: State) => state.steps.steps)
   const activeStep = useSelector((state: State) => state.steps.activeStep)
-  const router = useRouter()
-  const { resourceType } = router.query
-  const type = resourceType === 'offer' ? 'offer' : 'request';
+  const type = resourceType === 'offer' ? 'offer' : 'request'
 
   const currentComponent =
     activeStep === 0
@@ -39,4 +39,4 @@ const SignUp: NextPage = () => {
   )
 }
 
-export default SignUp
+export default SignupPage
