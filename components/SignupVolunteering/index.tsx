@@ -19,7 +19,7 @@ type VolunteeringResourceForm = {
   town?: string
   description?: string
   available_until?: string
-  county_coverage?: string
+  county_coverage: string[]
 }
 
 const SignupVolunteering: FC = () => {
