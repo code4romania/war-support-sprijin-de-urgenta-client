@@ -102,7 +102,7 @@ const UserCredentials = ({}) => {
       if (access_token) {
         setCookie('token', access_token)
         dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
-        router.push('request/resources')
+        router.push('/request/resources')
       } else {
         setServerErrors(response)
       }
