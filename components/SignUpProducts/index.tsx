@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useState, useMemo } from 'react'
 
 import Button from '../Button'
 import Form from '@/components/SignUpProducts/Form'
@@ -24,47 +24,52 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const PRODUCTS: IProductsProps[] = [
-  {
-    resourceType: 'food',
-    label: 'signup.products.food',
-    children: <GenericProduct resourceType="food" />,
-  },
-  {
-    resourceType: 'generalHygiene',
-    label: 'signup.products.generalHygiene',
-    children: <GenericProduct resourceType="generalHygiene" />,
-  },
-  {
-    resourceType: 'feminineHygiene',
-    label: 'signup.products.feminineHygiene',
-    children: <GenericProduct resourceType="feminineHygiene" />,
-  },
-  {
-    resourceType: 'textile',
-    label: 'signup.products.textile',
-    children: <TextileProduct resourceType="textile" />,
-  },
-  {
-    resourceType: 'buildingMaterials',
-    label: 'signup.products.buildingMaterials',
-    children: <BuildingMaterials resourceType="buildingMaterials" />,
-  },
-  {
-    resourceType: 'tents',
-    label: 'signup.products.tents',
-    children: <Tents resourceType="tents" />,
-  },
-  {
-    resourceType: 'others',
-    label: 'Others',
-    children: <Others />,
-  },
-]
 
 const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
+
+  const countyChoices = useMemo(() => {
+    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
+  }, [data?.county_coverage?.choices])
+
+  const PRODUCTS: IProductsProps[] = [
+    {
+      resourceType: 'food',
+      label: 'signup.products.food',
+      children: <GenericProduct resourceType="food" counties={countyChoices} />,
+    },
+    {
+      resourceType: 'generalHygiene',
+      label: 'signup.products.generalHygiene',
+      children: <GenericProduct resourceType="generalHygiene" />,
+    },
+    {
+      resourceType: 'feminineHygiene',
+      label: 'signup.products.feminineHygiene',
+      children: <GenericProduct resourceType="feminineHygiene" />,
+    },
+    {
+      resourceType: 'textile',
+      label: 'signup.products.textile',
+      children: <TextileProduct resourceType="textile" />,
+    },
+    {
+      resourceType: 'buildingMaterials',
+      label: 'signup.products.buildingMaterials',
+      children: <BuildingMaterials resourceType="buildingMaterials" />,
+    },
+    {
+      resourceType: 'tents',
+      label: 'signup.products.tents',
+      children: <Tents resourceType="tents" />,
+    },
+    {
+      resourceType: 'others',
+      label: 'Others',
+      children: <Others />,
+    },
+  ]
 
   const [showDialog, setShowDialog] = useState(false)
   const [dialogProductResourceType, setDialogProductResourceType] =

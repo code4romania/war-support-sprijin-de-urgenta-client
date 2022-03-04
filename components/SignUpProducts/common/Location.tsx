@@ -1,46 +1,48 @@
-import Dropdown from "@/components/Form/Dropdown";
-import { FC } from "react";
-import { City, County, ResourceType } from "@/components/SignUpProducts/types";
-import clsx from "clsx";
-import { Label } from "@/components/Form/common";
-import { useTranslation } from "react-i18next";
+import Dropdown from '@/components/Form/Dropdown'
+import Input from '@/components/Form/Input'
+import { FC } from 'react'
+import { City, County, ResourceType } from '@/components/SignUpProducts/types'
+import clsx from 'clsx'
+import { Label } from '@/components/Form/common'
+import { useTranslation } from 'react-i18next'
+import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
+import { useForm } from 'react-hook-form'
 
 interface IProps {
-  resourceType: ResourceType;
-  counties: County[];
-  cities: City[];
+  resourceType: ResourceType
+  counties: County[]
+  control: any
 }
 
 const Location: FC<IProps> = ({
   resourceType,
   counties = [],
-  cities = [],
+  control,
+  register,
+  errors,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
-    <div className={clsx('flex justify-start')}>
-      <Label className={"mr-5 pt-3"}>
-        {t('signup.products.location')}
-      </Label>
-      <Dropdown
-        label={t('signup.products.county')}
-        className={"mr-5"}
-        name={`products_${resourceType}_county`}
-        hideLabel
-      >
-        {counties.map(county => <option key={county}>{county}</option>)}
-      </Dropdown>
-
-      <Dropdown
-        label={t('signup.products.city')}
-        name={`products_${resourceType}_city`}
-        hideLabel
-      >
-        {cities.map(city => <option key={city}>{city}</option>)}
-      </Dropdown>
-    </div>
+    <>
+      <div className={clsx('flex flex-row')}>
+        <Label className={'pt-3 flex-1'}>{t('signup.products.county')}</Label>
+        <DropdownMultiSelect
+          {...register('county_coverage')}
+          className={clsx('w-1/2 mb-4')}
+          options={counties || []}
+          errors={errors['county_coverage']}
+          control={control}
+        />
+      </div>
+      <Input
+        name={`products_${resourceType}_town`}
+        type="string"
+        label={t('signup.products.town')}
+        labelPosition="horizontal"
+      />
+    </>
   )
 }
 
-export default Location;
+export default Location
