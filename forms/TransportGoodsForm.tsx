@@ -38,9 +38,7 @@ type ServicesForm = {
   category?: string
   county_coverage?: string
   description?: string
-  has_disabled_access?: boolean
   has_refrigeration?: boolean
-  pets_allowed?: boolean
   type?: string
   weight_capacity?: number
   weight_unit?: string
@@ -70,12 +68,28 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       is: 'county',
       then: yup.string().required(t('error.county.required')),
     }),
-    availability: yup.array().of(yup.string().required()),
-    driverName: yup.string().required(t('error.driverName.required')),
-    driverCI: yup.string().required(t('error.driverCI.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
-    carRegistration: yup.string().required(t('error.carRegistration.required')).matches(roIdentityCardRegex, t('error.driverCI.invalid')),
-    driverContact: yup.string().required(t('error.driverContact.required')).matches(phoneNumberRegex)
-  });
+    description: yup.string().typeError(t('error.must.be.string')),
+    driver_name: yup.string().required(t('error.driverName.required')),
+    driver_id: yup
+      .string()
+      .required(t('error.driverCI.required'))
+      .matches(roIdentityCardRegex, t('error.driverCI.invalid')),
+    driver_contact: yup
+      .string()
+      .required(t('error.driverContact.required'))
+      .matches(phoneNumberRegex, t('error.driverContact.invalid')),
+    has_refrigeration: yup
+      .boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.has_refrigeration.required')),
+    type: yup.string(),
+    weight_unit: yup
+      .string()
+      .typeError(t('error.must.be.string')),
+    weight_capacity: yup
+      .number()
+      .typeError(t('error.must.be.number'))
+  })
 
   const {
     register,
@@ -85,7 +99,6 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   } = useForm<ServicesForm>({
     defaultValues: {
       weight_capacity: 0,
-      availability: []
     },
     resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',
