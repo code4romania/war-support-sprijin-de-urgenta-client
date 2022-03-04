@@ -9,6 +9,17 @@ import Input from '@/components/Form/Input'
 import endpoints from 'endpoints.json'
 import { useState } from 'react'
 import i18n from 'i18next'
+import yup, { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+type OtherResourceForm = {
+  name?: string
+  category?: string
+  description?: string
+  available_until?: string
+  county_coverage?: string
+  town?: string
+}
 
 const OtherResourcesForm = ({}) => {
   const { t } = useTranslation()
@@ -19,14 +30,21 @@ const OtherResourcesForm = ({}) => {
   const { data: categories } = useData(endpoints['categories/other'])
   const countyCovarage = formData ? formData['county_coverage'].choices : []
   const today = new Date().toISOString().substr(0, 10)
+  const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
+    name: yup.string().typeError(t('error.must.be.string')),
+    category: yup.string().typeError(t('error.must.be.string')),
+    description: yup.string().typeError(t('error.must.be.string')),
+    available_until: yup.string().typeError(t('error.must.be.string')),
+    county_coverage: yup.string().typeError(t('error.must.be.string')),
+    town: yup.string().typeError(t('error.must.be.string')),
+  })
+
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      available_until: today,
-    },
+    resolver: yupResolver(otherResourcesSchema),
   })
 
   const onSubmit = async (values: any) => {
@@ -73,7 +91,7 @@ const OtherResourcesForm = ({}) => {
       )}:`}</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Dropdown label={t('signup.other.category')} {...register('category')}>
-          {categories?.map(({ id, name }) => (
+          {categories?.map(({ id, name }: { id: number; name: string }) => (
             <option value={id}>{name}</option>
           ))}
         </Dropdown>
