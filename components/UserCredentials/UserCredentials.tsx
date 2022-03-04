@@ -41,12 +41,16 @@ const INPUTS = [
   },
 ]
 
-const UserCredentials = ({}) => {
+interface UserCredentialsProps {
+  resourceType: string
+}
+
+const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
   const { t } = useTranslation()
-  const router = useRouter();
+  const router = useRouter()
   const dispatch = useDispatch()
   const userData = useSelector((state: State) => state.signup?.userData)
   const inputs = INPUTS || []
@@ -102,7 +106,7 @@ const UserCredentials = ({}) => {
       if (access_token) {
         setCookie('token', access_token)
         dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
-        router.push('/request/resources')
+        router.push(`/${resourceType}/resources`)
       } else {
         setServerErrors(response)
       }
@@ -115,7 +119,7 @@ const UserCredentials = ({}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
+      <div className="bg-blue-50 px-4 py-4 rounded-md">
         <div className="max-w-sm">
           {inputs.map((input: IInput) => (
             <Input
