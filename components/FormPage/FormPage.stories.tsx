@@ -12,9 +12,7 @@ export default {
 const Template: ComponentStory<typeof FormPage> = (args) => <FormPage {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  defaultProps: 'FormPage default props'
-}
+
 Default.parameters = {
   design: {
     type: 'figma',
