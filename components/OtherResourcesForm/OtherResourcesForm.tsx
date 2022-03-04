@@ -6,8 +6,9 @@ import { useForm } from 'react-hook-form'
 import DateInput from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import Input from '@/components/Form/Input'
-import endpoints from '../../endpoints.json'
+import endpoints from 'endpoints.json'
 import { useState } from 'react'
+import i18n from 'i18next'
 
 const OtherResourcesForm = ({}) => {
   const { t } = useTranslation()
@@ -31,7 +32,7 @@ const OtherResourcesForm = ({}) => {
   const onSubmit = async (values: any) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PUBLIC_API}${endpoints['donate/other']}`,
+        `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/other']}`,
         {
           method: 'POST',
           mode: 'cors',
