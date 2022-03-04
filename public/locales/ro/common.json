@@ -162,7 +162,7 @@
   "error.driverCI.invalid": "Seria și numărul de buletin trebuie să fie de forma XT555222",
   "services.availability": "Cât timp puteți aloca pentru aceste activități?",
   "services.county.placeholder": "Selectează un județ",
-  "error.must.be.number": "Valoarea introdusă trebuie să fie un număar",
+  "error.must.be.number": "Valoarea introdusă trebuie să fie un număr",
   "error.must.be.boolean": "Alegeți o opțiune",
   "services.driverContact": "Număr de telefon",
   "error.county.minOne": "Trebuie să selectați minim un județ",

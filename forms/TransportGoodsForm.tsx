@@ -6,12 +6,10 @@ import Radio from '@/components/Form/Radio'
 import Date from '@/components/Form/Date'
 import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
-import { MultiSelectOption } from '@/components/Form/types'
 import { useServicesForm } from '@/hooks/useData'
 import {
-  roIdentityCardRegex,
   phoneNumberRegex,
-  roCarRegistrationNumber,
+  roCarRegistrationNumber, roIdentityCardRegex
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
@@ -38,7 +36,7 @@ type ServicesForm = {
   availability_interval_to?: Date
   car_registration_number: string
   category?: string
-  county_coverage?: string
+  county_coverage?: string[]
   description?: string
   has_refrigeration?: boolean
   type?: string
@@ -64,11 +62,14 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
-      .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
+      .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.string().when('transportType', {
-      is: 'county',
-      then: yup.string().required(t('error.county.required')),
+    county_coverage: yup.array().when('type', {
+      is: TransportType.County,
+      then: yup
+        .array()
+        .min(1, t('error.county.minOne'))
+        .of(yup.string().required()),
     }),
     description: yup.string().typeError(t('error.must.be.string')),
     driver_name: yup.string().required(t('error.driverName.required')),
@@ -98,9 +99,11 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     handleSubmit,
     formState: { errors },
     watch,
+    control
   } = useForm<ServicesForm>({
     defaultValues: {
       weight_capacity: 0,
+      county_coverage: []
     },
     resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',
@@ -108,21 +111,19 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   })
 
   const showCountyCoverageDropdown = watch('type') === TransportType.County
-  const showAvailabilityIntervals =
-    watch('availability') === AvailabilityType.FixedIntervals
+  const countyCoverage = watch('county_coverage')
+  console.log(countyCoverage)
+  const showAvailabilityIntervals = watch('availability') === AvailabilityType.FixedIntervals
 
   const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any, idx: number) => (
-      <option key={idx} value={c.value}>
-        {c.display_name}
-      </option>
-    ))
+    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
   }, [data?.county_coverage?.choices])
 
   const typeOptions: { value: number; display_name: string }[] =
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
+    console.log(data);
     //Preparing object for mutation. The api seems incomplete
     const goodsTransportRequest: TransportServicesRequest = {
       availability: data.availability,
@@ -218,21 +219,25 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             }
             label={t('services.transport')}
           >
-            {typeOptions?.map(({ display_name, value }) => (
-              <Radio value={value} {...register('type')}>
-                {display_name}
-              </Radio>
-            ))}
-            {showCountyCoverageDropdown && (
-              <Dropdown
-                label={t('services.county_coverage')}
-                placeholder={t('services.county.placeholder')}
-                {...register('county_coverage')}
+            <Radio value={typeOptions && typeOptions[0].value} {...register('type')}>
+              {typeOptions && typeOptions[0].display_name}
+            </Radio>
+            <DropdownMultiSelect
+              {...register('county_coverage')}
+              className={clsx('mb-4')}
+              disabled={!showCountyCoverageDropdown}
+              control={control}
+              options={countiesOptions || []}
+              errors={errors.county_coverage}
+            >
+              <Radio
+                value={typeOptions && typeOptions[1]?.value}
+                {...register('type')}
+                className={clsx('!mb-0')}
               >
-                {countiesOptions}
-              </Dropdown>
-            )}
-          </RadioGroup>
+              </Radio>
+            </DropdownMultiSelect>
+          </RadioGroup >
           <Input
             labelPosition="horizontal"
             type="text"
@@ -281,29 +286,31 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               }
             )}
           </Dropdown>
-          {showAvailabilityIntervals && (
-            <div className="flex space-x-2">
-              <Date
-                type={'time'}
-                label={t('services.availability_interval_from')}
-                errors={errors['availability_interval_from']}
-                {...register('availability_interval_from')}
-              />
-              <Date
-                type={'time'}
-                label={t('services.availability_interval_to')}
-                errors={errors['availability_interval_to']}
-                {...register('availability_interval_to')}
-              />
-            </div>
-          )}
+          {
+            showAvailabilityIntervals && (
+              <div className="flex space-x-2">
+                <Date
+                  type={'time'}
+                  label={t('services.availability_interval_from')}
+                  errors={errors['availability_interval_from']}
+                  {...register('availability_interval_from')}
+                />
+                <Date
+                  type={'time'}
+                  label={t('services.availability_interval_to')}
+                  errors={errors['availability_interval_to']}
+                  {...register('availability_interval_to')}
+                />
+              </div>
+            )
+          }
           <Textarea
             label={t('services.description')}
             {...register('description')}
           />
-        </section>
+        </section >
         <Button type="submit" text={t('add')} variant="tertiary" size="small" />
-      </form>
-    </div>
+      </form >
+    </div >
   )
 }

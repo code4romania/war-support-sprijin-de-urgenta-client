@@ -39,7 +39,7 @@ type ServicesForm = {
   availability_interval_to?: Date
   car_registration_number: string
   category?: string
-  county_coverage?: string
+  county_coverage?: string[]
   description?: string
   has_disabled_access?: boolean
   pets_allowed: boolean
@@ -67,9 +67,12 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       .required(t('error.carRegistration.required'))
       .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.string().when('transportType', {
-      is: 'county',
-      then: yup.string().required(t('error.county.required')),
+    county_coverage: yup.array().when('type', {
+      is: TransportType.County,
+      then: yup
+        .array()
+        .min(1, t('error.county.minOne'))
+        .of(yup.string().required()),
     }),
     description: yup.string().typeError(t('error.must.be.string')),
     driver_name: yup.string().required(t('error.driverName.required')),
@@ -103,6 +106,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
     handleSubmit,
     formState: { errors },
     watch,
+    control
   } = useForm<ServicesForm>({
     resolver: yupResolver(transportPersonsSchema),
     reValidateMode: 'onSubmit',
@@ -114,11 +118,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
     watch('availability') === AvailabilityType.FixedIntervals
 
   const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any, idx: number) => (
-      <option key={idx} value={c.value}>
-        {c.display_name}
-      </option>
-    ))
+    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
   }, [data?.county_coverage?.choices])
 
   const typeOptions: { value: number; display_name: string }[] =
@@ -228,20 +228,23 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
             }
             label={t('services.transport')}
           >
-            {typeOptions?.map(({ display_name, value }) => (
-              <Radio value={value} {...register('type')}>
-                {display_name}
-              </Radio>
-            ))}
-            {showCountyCoverageDropdown && (
-              <Dropdown
-                label={t('services.county_coverage')}
-                placeholder={t('services.county.placeholder')}
-                {...register('county_coverage')}
+            <Radio value={typeOptions && typeOptions[0].value} {...register('type')}>
+              {typeOptions && typeOptions[0].display_name}
+            </Radio>
+            <DropdownMultiSelect
+              {...register('county_coverage')}
+              className={clsx('mb-4')}
+              disabled={!showCountyCoverageDropdown}
+              control={control}
+              options={countiesOptions || []}
+              errors={errors.county_coverage}
+            >
+              <Radio
+                value={typeOptions && typeOptions[1]?.value}
+                {...register('type')}
               >
-                {countiesOptions}
-              </Dropdown>
-            )}
+              </Radio>
+            </DropdownMultiSelect>
           </RadioGroup>
           <Input
             labelPosition="horizontal"
@@ -277,9 +280,9 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
           >
             {data?.availability?.choices.map(
               ({
-                 display_name,
-                 value,
-               }: {
+                display_name,
+                value,
+              }: {
                 display_name: string
                 value: string
               }) => {

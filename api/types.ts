@@ -3,7 +3,7 @@ export type TransportServicesRequest = {
   weight_unit?: string
   has_refrigeration?: boolean
   type?: string
-  county_coverage?: string
+  county_coverage?: string[]
   availability?: string
   availability_interval_from?: Date
   availability_interval_to?: Date
