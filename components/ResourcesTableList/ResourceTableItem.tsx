@@ -3,12 +3,14 @@ import React from 'react'
 import Image from '../Image'
 
 export type ResourceTableItemProps = {
+  id: string
   name: string
-  quantity: string
+  quantity?: number
   um?: string
+  onDelete?: (itemName: string) => void
 }
 
-const ResourceTableItem = ({ name, quantity, um }: ResourceTableItemProps) => {
+const ResourceTableItem = ({ id, name, quantity, um, onDelete }: ResourceTableItemProps) => {
   return (
     <div
       className={clsx(
@@ -20,8 +22,12 @@ const ResourceTableItem = ({ name, quantity, um }: ResourceTableItemProps) => {
     >
       <div className="w-50%">{name}</div>
       <div className="w-50% flex items-center">
-        <span className="mr-3">{`${quantity} ${um}`}</span>
-        <Image alt="delete_icon" src="/icons/delete.svg" />
+        {quantity && um && <span className="mr-3">{`${quantity} ${um}`}</span>}
+        {onDelete &&
+          <button onClick={() => onDelete(id)}>
+            <Image alt="delete_icon" src="/icons/delete.svg" />
+          </button>
+        }
       </div>
     </div>
   )

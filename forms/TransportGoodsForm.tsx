@@ -56,7 +56,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   )
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    availability: yup.string().typeError(t('error.must.be.string')),
+    availability: yup.string().required('error.availability.required').typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
     car_registration_number: yup
@@ -242,7 +242,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_name}
-            label={t('services.driver-name')}
+            label={`${t('services.driver-name')}:`}
             {...register('driver_name')}
           />
           <Input
@@ -268,6 +268,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
           />
           <Dropdown
             label={t('services.availability')}
+            errors={errors.availability}
             {...register('availability')}
           >
             {data?.availability?.choices.map(

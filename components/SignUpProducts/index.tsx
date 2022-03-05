@@ -1,19 +1,15 @@
+import { useProductsForm } from '@/hooks/useData'
 import clsx from 'clsx'
+import React, { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import React, { ReactNode, useState, useMemo } from 'react'
-
 import Button from '../Button'
-import Form from '@/components/SignUpProducts/Form'
-import { useData, useProductsForm } from '@/hooks/useData'
-import { TransportServicesRequest } from 'api'
 import Dialog from '../Dialog'
-import Others from './Others'
-import { TransportPersonsForm } from 'forms'
-import GenericProduct from './GenericProduct'
-import TextileProduct from './TextileProduct'
+import ResourcesTableList from '../ResourcesTableList'
 import BuildingMaterials from './BuildingMaterials'
+import GenericProduct from './GenericProduct'
+import Others from './Others'
 import Tents from './Tents'
-import endpoints from 'endpoints.json'
+import TextileProduct from './TextileProduct'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
@@ -25,11 +21,16 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({}: ISignUpProductsProps) => {
+const SignUpProducts = ({ }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
   //TODO: Find a way to map the categories with corresponding components..
-  const { data: categories} = useData(endpoints['categories/item'])
+
+  const [productsList, setProductsList] = useState<any[]>([]);
+
+  const onProductAdd = (data: any) => {
+    setProductsList((state: any) => [...state, data])
+  }
 
   const countyChoices = useMemo(() => {
     return data?.county_coverage?.choices.map((c: any) => ({
@@ -42,13 +43,14 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'food',
       label: 'signup.products.food',
-      children: <GenericProduct resourceType="food" counties={countyChoices} category={1} />,
+      children: <GenericProduct onSubmit={onProductAdd} resourceType="food" counties={countyChoices} category={1} />,
     },
     {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
       children: (
         <GenericProduct
+          onSubmit={onProductAdd}
           resourceType="generalHygiene"
           counties={countyChoices}
           category={2}
@@ -60,6 +62,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       label: 'signup.products.feminineHygiene',
       children: (
         <GenericProduct
+          onSubmit={onProductAdd}
           resourceType="feminineHygiene"
           counties={countyChoices}
           category={3}
@@ -70,7 +73,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       resourceType: 'textile',
       label: 'signup.products.textile',
       children: (
-        <TextileProduct resourceType="textile" counties={countyChoices} />
+        <TextileProduct onSubmit={onProductAdd} resourceType="textile" counties={countyChoices} />
       ),
     },
     {
@@ -78,6 +81,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       label: 'signup.products.buildingMaterials',
       children: (
         <BuildingMaterials
+          onSubmit={onProductAdd}
           resourceType="buildingMaterials"
           counties={countyChoices}
         />
@@ -86,7 +90,11 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: <Tents resourceType="tents" counties={countyChoices} category={6}/>,
+      children: <Tents
+        onSubmit={onProductAdd}
+        resourceType="tents"
+        counties={countyChoices}
+        category={6} />,
     },
     {
       resourceType: 'others',
@@ -128,35 +136,57 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     )
   }
 
+  const resourcesTableColumns = [
+    t('resources.product'),
+    t('resources.quantity'),
+  ]
+
+  const onProductRemoved = (itemId: string) => {
+    const index = productsList.findIndex(p => p.name === itemId);
+    if (index > -1) {
+      productsList.splice(index, 1)
+      setProductsList(productsList)
+    }
+  }
+
   return (
     <main
       className={clsx(
         'container grid place-items-start',
         'bg-blue-50 rounded',
-        'px-8 py-7 md:w-1/2'
+        'px-8 py-7 w-full'
       )}
     >
-      {PRODUCTS.length > 0 &&
-        PRODUCTS.map(
-          ({ resourceType, label }: IProductsProps, index: number) => (
-            <React.Fragment key={`${resourceType}_${label}_${index}`}>
-              <div className="flex items-center gap-4 mb-8 w-full">
-                <h3 className="min-w-fit flex-1">{t(label)}</h3>
-                <Button
-                  text={t('add')}
-                  size="small"
-                  className="flex-1"
-                  variant="tertiary"
-                  onClick={() => {
-                    setShowDialog(true)
-                    setDialogProductResourceType(resourceType)
-                  }}
-                />
-              </div>
-            </React.Fragment>
-          )
-        )}
-      {!!dialogProductResourceType && renderDialog(dialogProductResourceType)}
+      <section className={clsx('flex flex-col md:flex-row w-full')}>
+        <div className='w-full md:w-1/2'>
+          {PRODUCTS.length > 0 &&
+            PRODUCTS.map(
+              ({ resourceType, label }: IProductsProps, index: number) => (
+                <React.Fragment key={`${resourceType}_${label}_${index}`}>
+                  <div className="flex items-center gap-4 mb-8 w-full">
+                    <h3 className="min-w-fit flex-1">{t(label)}</h3>
+                    <Button
+                      text={t('add')}
+                      size="small"
+                      className="flex-1"
+                      variant="tertiary"
+                      onClick={() => {
+                        setShowDialog(true)
+                        setDialogProductResourceType(resourceType)
+                      }}
+                    />
+                  </div>
+                </React.Fragment>
+              )
+            )}
+        </div>
+        <ResourcesTableList className='w-full md:w-1/2 ml-0 md:ml-4'
+          title={t('resources.added.products')}
+          columns={resourcesTableColumns}
+          list={productsList.map(t => ({ id: t.id, name: t.name, quantity: t.quantity, um: t.um }))}
+          onItemRemoved={onProductRemoved} />
+        {!!dialogProductResourceType && renderDialog(dialogProductResourceType)}
+      </section>
     </main>
   )
 }

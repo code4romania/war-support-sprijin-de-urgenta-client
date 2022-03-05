@@ -12,9 +12,10 @@ interface IProps {
   resourceType: ResourceType
   counties: County[]
   category: number
+  onSubmit: (values:any) => void
 }
 
-const GenericProduct: FC<IProps> = ({ resourceType, counties, category }) => {
+const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
   const {
     handleSubmit,
     register,
@@ -22,12 +23,12 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category }) => {
     control,
   } = useForm()
 
-  const onSubmit = (values: any) => {
-    console.log('values', { ...values, category })
+  const onFormSubmit = (values: any) => {
+    onSubmit(values);
   }
 
   return (
-    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Location
         resourceType={resourceType}
         counties={counties}
