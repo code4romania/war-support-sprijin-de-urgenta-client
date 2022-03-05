@@ -103,7 +103,7 @@
   "services.cooling": "Refrigerare",
   "services.transport": "Transport",
   "services.description": "Detalii",
-  "services.driver-name": "Nume șofer:",
+  "services.driver-name": "Nume șofer",
   "services.driver-ci": "Serie și nr. buletin:",
   "services.car-plate": "Număr mașină:",
   "services.transport-persons": "Transport persoane",
@@ -168,5 +168,9 @@
   "error.county.minOne": "Trebuie să selectați minim un județ",
   "controls.counties.selected": "județe selectate",
   "gdpr.consent": "Prin completarea formularului accept ca datele mele să fie procesate de Departamentul pentru Situații de Urgență. Cunosc faptul că Departamentul pentru Situații de Urgență prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.",
-  "signup.error.gdpr.required": "Pentru a merge mai departe trebuie să vă dați acordul cu privire la procesarea datelor cu caracter personal"
+  "signup.error.gdpr.required": "Pentru a merge mai departe trebuie să vă dați acordul cu privire la procesarea datelor cu caracter personal",
+  "error.availability.required": "Trebuie să selectați o valoare",
+  "resources.product": "Produs",
+  "resources.added.products": "Produse adăugate",
+  "resources.quantity": "Cantitate"
 }
