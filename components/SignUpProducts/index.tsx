@@ -131,7 +131,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     ) || {
       resourceType: 'others',
       label: 'Others',
-      children: <Others />,
+      children: <Others resourceType={'others'} onSubmit={onProductAdd} />,
     }
 
     return (
