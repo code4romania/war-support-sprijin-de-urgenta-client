@@ -12,9 +12,7 @@ export default {
 const Template: ComponentStory<typeof ResourcesForm> = (args) => <ResourcesForm {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  defaultProps: 'ResourcesForm default props'
-}
+
 Default.parameters = {
   design: {
     type: 'figma',
