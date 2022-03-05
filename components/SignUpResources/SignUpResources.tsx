@@ -7,6 +7,8 @@ import OtherResourcesForm from '../OtherResourcesForm'
 import SignUpProducts from '../SignUpProducts'
 import { SignUpServicesForm } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
+import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
+import Spacer from '@/components/Spacer'
 
 const resourceTypeBuilder = (id: string) => {
   const dictionary = {
@@ -63,6 +65,16 @@ const SignUpResources = ({ type }: { type: string }) => {
             {resourceTypeBuilder(id)}
           </div>
         ))}
+      <Spacer size={'1em'}/>
+      <StepperButtonGroup
+        steps={[
+          { disabled: true, direction: 'backward'},
+          {
+            disabled: selectedResourceIds.length === 0,
+            direction: 'forward',
+          },
+        ]}
+      />
     </div>
   )
 }
