@@ -6,6 +6,10 @@ import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../Form/types'
+import { useTranslation } from 'react-i18next'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
+import clsx from 'clsx'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -20,6 +24,7 @@ type BuildingMaterialsForm = {
   unit_type: string;
   packaging_type: string;
   expiration_date: string;
+  offer_transport: boolean;
 }
 
 const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
@@ -35,8 +40,22 @@ const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
     onSubmit(donateItemRequest)
   }
 
+  const { t } = useTranslation()
+
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+      >
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('offer_transport')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('offer_transport')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Location
         counties={counties}
         register={register}

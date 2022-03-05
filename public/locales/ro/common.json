@@ -222,5 +222,5 @@
   "resources.product": "Produs",
   "resources.quantity": "Cantitate",
   "resources.added.products": "Produse adăugate",
-  "services.driver-name": "Nume șofer"
+  "services.offerTransport": "Pot asigura transport"
 }
