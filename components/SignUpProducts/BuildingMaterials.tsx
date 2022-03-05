@@ -31,6 +31,7 @@ const BuildingMaterials: FC<IProps> = ({ resourceType, counties }) => {
         counties={counties}
         register={register}
         control={control}
+        errors={errors}
       />
     </ProductTypeWrapper>
   )

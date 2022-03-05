@@ -24,13 +24,15 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-
 const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
   const countyChoices = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
+    return data?.county_coverage?.choices.map((c: any) => ({
+      value: c.value,
+      label: c.display_name,
+    }))
   }, [data?.county_coverage?.choices])
 
   const PRODUCTS: IProductsProps[] = [
@@ -42,27 +44,44 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
-      children: <GenericProduct resourceType="generalHygiene" counties={countyChoices} />,
+      children: (
+        <GenericProduct
+          resourceType="generalHygiene"
+          counties={countyChoices}
+        />
+      ),
     },
     {
       resourceType: 'feminineHygiene',
       label: 'signup.products.feminineHygiene',
-      children: <GenericProduct resourceType="feminineHygiene" counties={countyChoices} />,
+      children: (
+        <GenericProduct
+          resourceType="feminineHygiene"
+          counties={countyChoices}
+        />
+      ),
     },
     {
       resourceType: 'textile',
       label: 'signup.products.textile',
-      children: <TextileProduct resourceType="textile" />,
+      children: (
+        <TextileProduct resourceType="textile" counties={countyChoices} />
+      ),
     },
     {
       resourceType: 'buildingMaterials',
       label: 'signup.products.buildingMaterials',
-      children: <BuildingMaterials resourceType="buildingMaterials" counties={countyChoices} />,
+      children: (
+        <BuildingMaterials
+          resourceType="buildingMaterials"
+          counties={countyChoices}
+        />
+      ),
     },
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: <Tents resourceType="tents" />,
+      children: <Tents resourceType="tents" counties={countyChoices} />,
     },
     {
       resourceType: 'others',
