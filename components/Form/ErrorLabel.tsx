@@ -13,13 +13,13 @@ export const ErrorLabel = ({ errors, className }: IErrorLabelProps) => {
         errors.map((e, index) => (
           <p
             key={index}
-            className={clsx("absolute text-sm pl-1 pr-1 text-red-50", className)}
+            className={clsx("text-sm pl-1 pr-1 text-red-50", className)}
           >
             {e.message}
           </p>
         ))
       ) : (
-        <p className={clsx("absolute text-sm pl-1 pr-1 text-red-50", className)}>
+        <p className={clsx("text-sm pl-1 pr-1 text-red-50", className)}>
           {errors?.message}
         </p>
       )}
