@@ -1,19 +1,20 @@
+import React from 'react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import ResourcesTableList from './ResourcesTableList';
+import ResourcesTableList from './ResourcesTableList'
 
 export default {
   title: 'ResourcesTableList',
-  component: ResourcesTableList
-} as ComponentMeta<typeof ResourcesTableList>;
+  component: ResourcesTableList,
+} as ComponentMeta<typeof ResourcesTableList>
 
-const Template: ComponentStory<typeof ResourcesTableList> = (args) => <ResourcesTableList {...args} />;
+const Template: ComponentStory<typeof ResourcesTableList> = (args) => (
+  <ResourcesTableList {...args} />
+)
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
-  defaultProps: 'ResourcesTableList default props'
+  list: [{ name: 'Product 1', quantity: '20', um: 'boxes' }, { name: 'Product 2', quantity: '30', um: 'cans' }],
 }
 Default.parameters = {
   design: {
