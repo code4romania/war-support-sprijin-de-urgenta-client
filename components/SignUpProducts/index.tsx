@@ -42,12 +42,12 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
-      children: <GenericProduct resourceType="generalHygiene" />,
+      children: <GenericProduct resourceType="generalHygiene" counties={countyChoices} />,
     },
     {
       resourceType: 'feminineHygiene',
       label: 'signup.products.feminineHygiene',
-      children: <GenericProduct resourceType="feminineHygiene" />,
+      children: <GenericProduct resourceType="feminineHygiene" counties={countyChoices} />,
     },
     {
       resourceType: 'textile',
@@ -57,7 +57,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'buildingMaterials',
       label: 'signup.products.buildingMaterials',
-      children: <BuildingMaterials resourceType="buildingMaterials" />,
+      children: <BuildingMaterials resourceType="buildingMaterials" counties={countyChoices} />,
     },
     {
       resourceType: 'tents',

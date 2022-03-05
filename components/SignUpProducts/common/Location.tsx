@@ -10,8 +10,10 @@ import { useForm } from 'react-hook-form'
 
 interface IProps {
   resourceType: ResourceType
-  counties: County[]
-  control: any
+  counties?: County[]
+  control?: any
+  register?: any
+  errors?: any
 }
 
 const Location: FC<IProps> = ({

@@ -21,7 +21,6 @@ const SignupProducts: FC = () => {
           {t('signup.products.food')}
         </Checkbox>
       </CategoryWrapper>
-      <GenericProduct resourceType="food"/>
 
       <Separator/>
 
@@ -30,7 +29,6 @@ const SignupProducts: FC = () => {
           {t('signup.products.generalHygiene')}
         </Checkbox>
       </CategoryWrapper>
-      <GenericProduct resourceType="generalHygiene"/>
 
       <Separator/>
 
@@ -39,7 +37,6 @@ const SignupProducts: FC = () => {
           {t('signup.products.feminineHygiene')}
         </Checkbox>
       </CategoryWrapper>
-      <GenericProduct resourceType="feminineHygiene"/>
 
       <Separator/>
 
@@ -57,7 +54,6 @@ const SignupProducts: FC = () => {
           {t('signup.products.buildingMaterials')}
         </Checkbox>
       </CategoryWrapper>
-      <BuildingMaterials resourceType="buildingMaterials"/>
 
       <Separator/>
 
@@ -66,7 +62,6 @@ const SignupProducts: FC = () => {
           {t('signup.products.tents')}
         </Checkbox>
       </CategoryWrapper>
-      <Tents resourceType="tents"/>
 
       <Separator/>
 
