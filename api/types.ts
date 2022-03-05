@@ -58,3 +58,12 @@ export type DonateItemRequest = {
   category?: number
   textile_category?: number
 }
+
+export type DonateOtherRequest = {
+  name: string,
+  category: number
+  description?: string,
+  available_until?: Date,
+  county_coverage?: string[]
+  town?: string
+}

@@ -221,6 +221,8 @@
   "error.availability.required": "Trebuie să selectați o valoare",
   "resources.product": "Produs",
   "resources.quantity": "Cantitate",
+  "resources.other": "Resurse",
   "resources.added.products": "Produse adăugate",
+  "resources.added.other": "Alte resurse adăugate",
   "services.driver-name": "Nume șofer"
 }
