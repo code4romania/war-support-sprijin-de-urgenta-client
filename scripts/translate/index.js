@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+/*   
+    Update the CSV files with latest translations
+    Run from terminal `npm run translate`
+    Enjoy the 1 hour you won not copy pasting
+    beer++
+*/
 const csv = require('csvtojson')
 const fs = require('fs')
 const mkdirp = require('mkdirp')
@@ -11,8 +17,8 @@ const csvFilePath = './scripts/translate/JSON_Translations.csv'
 
 /**
  *   change as needed
- *   key = the locale folder
- *   value = the csv column header for each lang
+ *   key = used to create the locale folder ex: ./public/locales/{key}/common.json
+ *   value = the csv column header for each lang 
  */
 const localesMap = {
   ro: 'Romana',
