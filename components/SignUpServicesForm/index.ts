@@ -1,2 +1,2 @@
-export * from './SignUpServicesFormWithModal'
+export * from './SignUpServicesForm'
 

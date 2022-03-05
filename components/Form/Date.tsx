@@ -8,6 +8,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   name,
   errors,
   value,
+  helpText,
   ...rest
 }, ref) => {
   return (
@@ -15,6 +16,8 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
       {label && (
         <Label name={name} hasError={!!errors}>{label}</Label>
       )}
+
+      {helpText}
 
       <input
         name={name}

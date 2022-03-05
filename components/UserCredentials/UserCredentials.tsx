@@ -1,24 +1,26 @@
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { ActionType } from '@/store/reducers/steps'
-import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import Input from '@/components/Form/Input'
-import { SchemaOf } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { State } from '@/store/types/state.type'
-import endpoints from 'endpoints.json'
-import { useState } from 'react'
+import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import { reauthenticate } from '@/store/reducers/auth'
+import { ActionType } from '@/store/reducers/steps'
+import { State } from '@/store/types/state.type'
 import { setCookie } from '@/utils/cookies'
+import { yupResolver } from '@hookform/resolvers/yup'
+import endpoints from 'endpoints.json'
 import i18n from 'i18next'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
+import Consent from '../GdprConsent'
 
 interface ICredentials {
   email: string
   password: string
   re_password: string
+  gdpr_consent: boolean
 }
 
 interface IInput {
@@ -41,12 +43,16 @@ const INPUTS = [
   },
 ]
 
-const UserCredentials = ({}) => {
+interface UserCredentialsProps {
+  resourceType: string
+}
+
+const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
   const { t } = useTranslation()
-  const router = useRouter();
+  const router = useRouter()
   const dispatch = useDispatch()
   const userData = useSelector((state: State) => state.signup?.userData)
   const inputs = INPUTS || []
@@ -64,20 +70,24 @@ const UserCredentials = ({}) => {
         t('signup.userType.re_password.missmatch')
       )
       .required(t('signup.userType.re_password.required')),
+    gdpr_consent: yup
+      .boolean().required().oneOf([true], t('signup.error.gdpr.required'))
   })
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
+  } = useForm<{ [key: string | 'gdpr_consent']: any }>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      gdpr_consent: false
+    }
   })
 
   const handleBack = () => {
     dispatch({ type: ActionType.DECREASE })
   }
-
   const onSubmit = async (values: any) => {
     const data = { ...values, ...userData }
     try {
@@ -102,7 +112,7 @@ const UserCredentials = ({}) => {
       if (access_token) {
         setCookie('token', access_token)
         dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
-        router.push('/request/resources')
+        router.push(`/${resourceType}/resources`)
       } else {
         setServerErrors(response)
       }
@@ -115,7 +125,7 @@ const UserCredentials = ({}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className={`bg-blue-50 px-4 py-4 rounded-md`}>
+      <div className="bg-blue-50 px-4 py-4 rounded-md">
         <div className="max-w-sm">
           {inputs.map((input: IInput) => (
             <Input
@@ -130,9 +140,15 @@ const UserCredentials = ({}) => {
               {...register(input.name)}
             />
           ))}
-          {serverErrors['general']?.map((error, index) => (
-            <div key={index}>{error}</div>
-          ))}
+        </div>
+      </div>
+
+      <div className={`bg-blue-50 px-4 py-4 rounded-md mt-4`}>
+        <div className="md:w-2/3 max-w-small">
+          <Consent name={'gdpr_consent'}
+            register={register}
+            text={`${t('gdpr.consent')} *`}
+            errors={errors.gdpr_consent} />
         </div>
       </div>
       <StepperButtonGroup

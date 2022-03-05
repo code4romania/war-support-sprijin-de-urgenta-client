@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux'
 import Checkbox from '../Form/Checkbox'
 import OtherResourcesForm from '../OtherResourcesForm'
 import SignUpProducts from '../SignUpProducts'
-import { SignUpServicesFormWithModal } from '../SignUpServicesForm'
+import { SignUpServicesForm } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
 
 const resourceTypeBuilder = (id: string) => {
   const dictionary = {
-    services: () => <SignUpServicesFormWithModal />,
+    services: () => <SignUpServicesForm />,
     products: () => <SignUpProducts />,
     volunteer: () => <SignupVolunteering />,
     others: () => <OtherResourcesForm />,
