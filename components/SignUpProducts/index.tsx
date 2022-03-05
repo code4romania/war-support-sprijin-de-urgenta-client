@@ -106,14 +106,10 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: (
-        <Tents
-          onSubmit={onProductAdd}
-          resourceType="tents"
-          counties={countyChoices}
-          category={6}
-        />
-      ),
+      children: <Tents
+        onSubmit={onProductAdd}
+        counties={countyChoices}
+        category={6} />,
     },
     {
       resourceType: 'others',
