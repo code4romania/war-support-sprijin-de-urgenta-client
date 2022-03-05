@@ -144,6 +144,7 @@
   "signup.products.others": "Altele:",
   "signup.products.capacity": "Capacitate:",
   "signup.products.persons": "persoane",
+  "signup.products.description": "Descriere:",
   "error.availability.minOne": "Trebuie să selectați minim o opțiune",
   "signup.products.unit_type": "Unitate de măsură:",
   "error.capacity.required": "Introduceți capacitatea",
@@ -216,5 +217,6 @@
   "error.availability.required": "Trebuie să selectați o valoare",
   "resources.product": "Produs",
   "resources.quantity": "Cantitate",
-  "resources.added.products": "Produse adăugate"
+  "resources.added.products": "Produse adăugate",
+  "services.driver-name": "Nume șofer"
 }
