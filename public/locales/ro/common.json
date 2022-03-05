@@ -99,6 +99,7 @@
   "services.cooling": "Refrigerare",
   "services.transport": "Transport",
   "services.description": "Detalii",
+  "services.driver-name": "Nume șofer",
   "services.driver-ci": "Serie și nr. buletin:",
   "services.car-plate": "Număr mașină:",
   "services.transport-persons": "Transport persoane",
@@ -215,6 +216,5 @@
   "error.availability.required": "Trebuie să selectați o valoare",
   "resources.product": "Produs",
   "resources.quantity": "Cantitate",
-  "resources.added.products": "Produse adăugate",
-  "services.driver-name": "Nume șofer"
+  "resources.added.products": "Produse adăugate"
 }
