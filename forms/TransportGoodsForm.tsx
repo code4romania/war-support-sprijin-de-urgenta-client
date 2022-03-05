@@ -9,7 +9,8 @@ import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
 import {
   phoneNumberRegex,
-  roCarRegistrationNumber, roIdentityCardRegex
+  roCarRegistrationNumber,
+  roIdentityCardRegex,
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
@@ -86,12 +87,8 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_refrigeration.required')),
     type: yup.string(),
-    weight_unit: yup
-      .string()
-      .typeError(t('error.must.be.string')),
-    weight_capacity: yup
-      .number()
-      .typeError(t('error.must.be.number'))
+    weight_unit: yup.string().typeError(t('error.must.be.string')),
+    weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })
 
   const {
@@ -99,11 +96,11 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     handleSubmit,
     formState: { errors },
     watch,
-    control
+    control,
   } = useForm<ServicesForm>({
     defaultValues: {
       weight_capacity: 0,
-      county_coverage: []
+      county_coverage: [],
     },
     resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',
@@ -113,17 +110,21 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
   const showCountyCoverageDropdown = watch('type') === TransportType.County
   const countyCoverage = watch('county_coverage')
   console.log(countyCoverage)
-  const showAvailabilityIntervals = watch('availability') === AvailabilityType.FixedIntervals
+  const showAvailabilityIntervals =
+    watch('availability') === AvailabilityType.FixedIntervals
 
   const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
+    return data?.county_coverage?.choices.map((c: any) => ({
+      value: c.value,
+      label: c.display_name,
+    }))
   }, [data?.county_coverage?.choices])
 
   const typeOptions: { value: number; display_name: string }[] =
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    console.log(data);
+    console.log('onAdd', data)
     //Preparing object for mutation. The api seems incomplete
     const goodsTransportRequest: TransportServicesRequest = {
       availability: data.availability,
@@ -141,6 +142,9 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       description: data.description,
       category: TransportCategories.Goods,
     }
+
+    onSubmit(goodsTransportRequest);
+    return false;
 
     //TODO: below call is a working post to transport_service, need a hook to POST data
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
@@ -219,25 +223,30 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             }
             label={t('services.transport')}
           >
-            <Radio value={typeOptions && typeOptions[0].value} {...register('type')}>
+            <Radio
+              value={typeOptions && typeOptions[0].value}
+              {...register('type')}
+            >
               {typeOptions && typeOptions[0].display_name}
             </Radio>
-            <DropdownMultiSelect
-              {...register('county_coverage')}
-              className={clsx('mb-4')}
-              disabled={!showCountyCoverageDropdown}
-              control={control}
-              options={countiesOptions || []}
-              errors={errors.county_coverage}
+            <Radio
+              value={typeOptions && typeOptions[1]?.value}
+              {...register('type')}
+              className={clsx('!mb-0')}
             >
-              <Radio
-                value={typeOptions && typeOptions[1]?.value}
-                {...register('type')}
-                className={clsx('!mb-0')}
-              >
-              </Radio>
-            </DropdownMultiSelect>
-          </RadioGroup >
+              {typeOptions && typeOptions[1].display_name}
+            </Radio>
+            {showCountyCoverageDropdown && (
+              <DropdownMultiSelect
+                {...register('county_coverage')}
+                className={clsx('mb-4')}
+                disabled={!showCountyCoverageDropdown}
+                control={control}
+                options={countiesOptions || []}
+                errors={errors.county_coverage}
+              />
+            )}
+          </RadioGroup>
           <Input
             labelPosition="horizontal"
             type="text"
@@ -287,31 +296,29 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
               }
             )}
           </Dropdown>
-          {
-            showAvailabilityIntervals && (
-              <div className="flex space-x-2">
-                <Date
-                  type={'time'}
-                  label={t('services.availability_interval_from')}
-                  errors={errors['availability_interval_from']}
-                  {...register('availability_interval_from')}
-                />
-                <Date
-                  type={'time'}
-                  label={t('services.availability_interval_to')}
-                  errors={errors['availability_interval_to']}
-                  {...register('availability_interval_to')}
-                />
-              </div>
-            )
-          }
+          {showAvailabilityIntervals && (
+            <div className="flex space-x-2">
+              <Date
+                type={'time'}
+                label={t('services.availability_interval_from')}
+                errors={errors['availability_interval_from']}
+                {...register('availability_interval_from')}
+              />
+              <Date
+                type={'time'}
+                label={t('services.availability_interval_to')}
+                errors={errors['availability_interval_to']}
+                {...register('availability_interval_to')}
+              />
+            </div>
+          )}
           <Textarea
             label={t('services.description')}
             {...register('description')}
           />
-        </section >
+        </section>
         <Button type="submit" text={t('add')} variant="tertiary" size="small" />
-      </form >
-    </div >
+      </form>
+    </div>
   )
 }

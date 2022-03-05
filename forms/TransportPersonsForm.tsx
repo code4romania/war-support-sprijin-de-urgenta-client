@@ -50,7 +50,9 @@ interface ITransportPersonsFormProps {
   onSubmit: (data: TransportServicesRequest) => void
 }
 
-export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) => {
+export const TransportPersonsForm = ({
+  onSubmit,
+}: ITransportPersonsFormProps) => {
   const { t } = useTranslation()
   const { data } = useServicesForm()
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
@@ -58,7 +60,10 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
   )
 
   const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    available_seats: yup.number().typeError(t('error.must.be.number')).required(),
+    available_seats: yup
+      .number()
+      .typeError(t('error.must.be.number'))
+      .required(),
     availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
@@ -93,12 +98,8 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       .typeError(t('error.must.be.boolean'))
       .required(t('error.boolean.required')),
     type: yup.string(),
-    weight_unit: yup
-      .string()
-      .typeError(t('error.must.be.string')),
-    weight_capacity: yup
-      .number()
-      .typeError(t('error.must.be.number'))
+    weight_unit: yup.string().typeError(t('error.must.be.string')),
+    weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })
 
   const {
@@ -106,7 +107,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
     handleSubmit,
     formState: { errors },
     watch,
-    control
+    control,
   } = useForm<ServicesForm>({
     resolver: yupResolver(transportPersonsSchema),
     reValidateMode: 'onSubmit',
@@ -118,7 +119,10 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
     watch('availability') === AvailabilityType.FixedIntervals
 
   const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any) => ({ value: c.value, label: c.display_name }))
+    return data?.county_coverage?.choices.map((c: any) => ({
+      value: c.value,
+      label: c.display_name,
+    }))
   }, [data?.county_coverage?.choices])
 
   const typeOptions: { value: number; display_name: string }[] =
@@ -126,7 +130,7 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
 
   const onAdd = async (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
-    const goodsTransportRequest: TransportServicesRequest = {
+    const personsTransportRequest: TransportServicesRequest = {
       available_seats: data.available_seats,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
@@ -143,6 +147,9 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
       category: TransportCategories.People,
     }
 
+    onSubmit(personsTransportRequest)
+    return false
+
     //TODO: below call is a working post to transport_service, need a hook to POST data
     //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
     //TODO: if the API will receive an array then it makes sense to send data upwards
@@ -154,14 +161,14 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify([goodsTransportRequest]),
+        body: JSON.stringify([personsTransportRequest]),
       }
     )
     if (response.ok) {
       setServerErrors({})
       const data = await response.json()
       console.log('data', data)
-      onSubmit(goodsTransportRequest)
+      onSubmit(personsTransportRequest)
     } else {
       const data = await response.json()
       setServerErrors(data)
@@ -228,23 +235,29 @@ export const TransportPersonsForm = ({ onSubmit }: ITransportPersonsFormProps) =
             }
             label={t('services.transport')}
           >
-            <Radio value={typeOptions && typeOptions[0].value} {...register('type')}>
+            <Radio
+              value={typeOptions && typeOptions[0].value}
+              {...register('type')}
+            >
               {typeOptions && typeOptions[0].display_name}
             </Radio>
-            <DropdownMultiSelect
-              {...register('county_coverage')}
-              className={clsx('mb-4')}
-              disabled={!showCountyCoverageDropdown}
-              control={control}
-              options={countiesOptions || []}
-              errors={errors.county_coverage}
+            <Radio
+              value={typeOptions && typeOptions[1]?.value}
+              {...register('type')}
+              className={clsx('!mb-0')}
             >
-              <Radio
-                value={typeOptions && typeOptions[1]?.value}
-                {...register('type')}
-              >
-              </Radio>
-            </DropdownMultiSelect>
+              {typeOptions && typeOptions[1].display_name}
+            </Radio>
+            {showCountyCoverageDropdown && (
+              <DropdownMultiSelect
+                {...register('county_coverage')}
+                className={clsx('mb-4')}
+                disabled={!showCountyCoverageDropdown}
+                control={control}
+                options={countiesOptions || []}
+                errors={errors.county_coverage}
+              />
+            )}
           </RadioGroup>
           <Input
             labelPosition="horizontal"
