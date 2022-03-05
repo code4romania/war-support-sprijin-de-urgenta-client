@@ -12,11 +12,13 @@ const PARTNERSHIPS = [
     id: 1,
     src: '/gov_ro.svg',
     alt: 'Romanian GOV Logo',
+    url: 'https://gov.ro/',
   },
   {
     id: 2,
     src: '/dsu_logo.svg',
     alt: 'DSU Logo',
+    url: 'http://www.dsu.mai.gov.ro/',
   },
 ]
 
@@ -97,18 +99,22 @@ const Header = () => {
           {t('partenership.with')}
         </span>
         <div className="flex items-center gap-2">
-          {PARTNERSHIPS.map(({ id, src, alt }) => (
-            <Image key={id} src={src} alt={alt} className="h-[38px]" />
+          {PARTNERSHIPS.map(({ id, src, alt, url }) => (
+            <a key={id} href={url} rel="noreferrer" target="_blank">
+              <Image src={src} alt={alt} className="h-[38px]" />
+            </a>
           ))}
         </div>
         <span className={`${smallBoldTextWithGrayAndMarginAside} lowercase`}>
           {t('created.by')}
         </span>
-        <Image
-          src="/code4romania.svg"
-          alt="Code 4 Romania logo"
-          className="h-[34px]"
-        />
+        <a href="https://www.code4.ro/" rel="noreferrer" target="_blank">
+          <Image
+            src="/code4romania.svg"
+            alt="Code 4 Romania logo"
+            className="h-[34px]"
+          />
+        </a>
       </div>
     </div>
   )

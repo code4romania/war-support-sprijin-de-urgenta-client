@@ -99,7 +99,7 @@
   "services.cooling": "Refrigeration",
   "services.transport": "Transport",
   "services.description": "Details",
-  "services.driver-name": "Driver Name:",
+  "services.driver-name": "Driver Name",
   "services.driver-ci": "Series And ID No:",
   "services.car-plate": "Car Number:",
   "services.transport-persons": "Passenger transportation",
@@ -212,5 +212,9 @@
   "cookie.policy.turnoff.p1": "Refusing to accept cookies or deactivating them can make some websites difficult or impossible to navigate or use. Refusing to accept cookies also does not mean that you will no longer receive online ads.",
   "cookie.policy.turnoff.p2": "You can set up your browser to reject cookies automatically or you can select only some websites where cookies are enabled. But, for example, if you turn off cookies on this website you can not follow through with the next steps in filling out the form.",
   "cookie.policy.turnoff.p3": "Modern browsers offer the ability to change cookie settings. You can usually find cookie settings under the “options” tab or the “preferences” menu of your browser.",
-  "cookie.policy.p10": "For third-party cookies settings and for more information about online ad confidentiality, IAB Romania offers the following website:"
+  "cookie.policy.p10": "For third-party cookies settings and for more information about online ad confidentiality, IAB Romania offers the following website:",
+  "error.availability.required": "Select a value",
+  "resources.product": "Product",
+  "resources.quantity": "Quantity",
+  "resources.added.products": "Added products"
 }

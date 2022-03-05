@@ -52,7 +52,6 @@ const DropdownMultiSelect = ({
                 }}
                 labelledBy={clsx('labelledBy', 'Code 4 Romania')}
                 disabled={disabled}
-                hasSelectAll={false}
                 valueRenderer={valueRenderer}
                 className="min-w-[190px]"
               />

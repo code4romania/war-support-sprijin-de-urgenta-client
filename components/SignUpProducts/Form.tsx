@@ -64,9 +64,7 @@ const SignupProducts: FC = () => {
 
       <Separator/>
 
-      <CategoryWrapper>
-        <Others/>
-      </CategoryWrapper>
+
     </div>
   )
 }

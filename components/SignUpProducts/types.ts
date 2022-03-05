@@ -5,6 +5,7 @@ export type ResourceType =
   | 'feminineHygiene'
   | 'buildingMaterials'
   | 'tents'
+  | 'others'
 
 export interface County {
   display_name: string
