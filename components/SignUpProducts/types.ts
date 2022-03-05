@@ -1,4 +1,14 @@
-export type ResourceType = 'food' | 'textile' | 'generalHygiene' | 'feminineHygiene' | 'buildingMaterials' | 'tents';
+export type ResourceType =
+  | 'food'
+  | 'textile'
+  | 'generalHygiene'
+  | 'feminineHygiene'
+  | 'buildingMaterials'
+  | 'tents'
 
-export type County = string;
-export type City = string;
+export interface County {
+  display_name: string
+  value: string
+}
+
+export type City = string

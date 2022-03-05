@@ -10,5 +10,7 @@
   "donate/other": "/api/v1/donate/other/",
   "donate/transport_service": "/api/v1/donate/transport_service/",
   "donate/volunteering": "/api/v1/donate/volunteering/",
+  "categories/item": "/api/v1/categories/item/",
+  "categories/other": "/api/v1/categories/other/",
   "categories/volunteering": "/api/v1/categories/volunteering/"
 }

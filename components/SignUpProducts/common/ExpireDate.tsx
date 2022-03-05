@@ -5,19 +5,23 @@ import { useTranslation } from "react-i18next";
 
 interface IProps {
   resourceType: ResourceType;
+  register: any
+  errors: any
 }
 
 const ExpireDate: FC<IProps> = ({
   resourceType,
+  register,
+  errors
 }) => {
   const { t } = useTranslation();
 
   return (
     <Input
       type="date"
-      name={`product_${resourceType}_expire_date`}
       label={t('signup.products.expireDate')}
       labelPosition="horizontal"
+      {...register('expiration_date')}
     />
   )
 }
