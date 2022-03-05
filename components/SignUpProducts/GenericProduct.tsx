@@ -3,14 +3,12 @@ import Location from '@/components/SignUpProducts/common/Location'
 import Product from '@/components/SignUpProducts/common/Product'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
 import Quantity from '@/components/SignUpProducts/common/Quantity'
-import { ResourceType } from '@/components/SignUpProducts/types'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
-  resourceType: ResourceType
   counties: MultiSelectOption[]
   category: number
   onSubmit: (values: DonateItemRequest) => void
@@ -26,7 +24,7 @@ type GenericProductForm = {
   expiration_date: string;
 }
 
-const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
+const GenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
   const {
     handleSubmit,
     register,
@@ -42,7 +40,6 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Location
-        resourceType={resourceType}
         counties={counties}
         control={control}
         register={register}
@@ -54,14 +51,12 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit
       />
 
       <Product
-        resourceType={resourceType}
         register={register}
         errors={errors}
         names={{ name: 'name' }}
       />
 
       <Quantity
-        resourceType={resourceType}
         register={register}
         errors={errors}
         names={{
@@ -72,7 +67,6 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit
       />
 
       <ExpireDate
-        resourceType={resourceType}
         register={register}
         errors={errors}
         names={{

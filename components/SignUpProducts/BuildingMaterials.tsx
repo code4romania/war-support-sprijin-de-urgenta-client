@@ -2,14 +2,12 @@ import Location from '@/components/SignUpProducts/common/Location'
 import Product from '@/components/SignUpProducts/common/Product'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
 import Quantity from '@/components/SignUpProducts/common/Quantity'
-import { ResourceType } from '@/components/SignUpProducts/types'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
-  resourceType: ResourceType
   counties: MultiSelectOption[]
   onSubmit: (values: DonateItemRequest) => void
 }
@@ -24,7 +22,7 @@ type BuildingMaterialsForm = {
   expiration_date: string;
 }
 
-const BuildingMaterials: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
+const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
   const {
     handleSubmit,
     register,
@@ -40,7 +38,6 @@ const BuildingMaterials: FC<IProps> = ({ resourceType, counties, onSubmit }) => 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Location
-        resourceType={resourceType}
         counties={counties}
         register={register}
         control={control}
@@ -51,14 +48,12 @@ const BuildingMaterials: FC<IProps> = ({ resourceType, counties, onSubmit }) => 
         }}
       />
       <Product
-        resourceType={resourceType}
         errors={errors}
         register={register}
         names={{ name: 'name' }}
       />
 
       <Quantity
-        resourceType={resourceType}
         errors={errors}
         register={register}
         names={{

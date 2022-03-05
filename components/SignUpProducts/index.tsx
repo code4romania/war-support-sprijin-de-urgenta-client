@@ -51,7 +51,6 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       children: (
         <GenericProduct
           onSubmit={onProductAdd}
-          resourceType="food"
           counties={countyChoices}
           category={1}
         />
@@ -63,7 +62,6 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       children: (
         <GenericProduct
           onSubmit={onProductAdd}
-          resourceType="generalHygiene"
           counties={countyChoices}
           category={2}
         />
@@ -75,7 +73,6 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       children: (
         <GenericProduct
           onSubmit={onProductAdd}
-          resourceType="feminineHygiene"
           counties={countyChoices}
           category={3}
         />
@@ -98,7 +95,6 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       children: (
         <BuildingMaterials
           onSubmit={onProductAdd}
-          resourceType="buildingMaterials"
           counties={countyChoices}
         />
       ),
@@ -114,7 +110,7 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
     {
       resourceType: 'others',
       label: 'Others',
-      children: <Others resourceType={'others'} onSubmit={onProductAdd} />,
+      children: <Others onSubmit={onProductAdd} />,
     },
   ]
 
@@ -128,7 +124,7 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
     ) || {
       resourceType: 'others',
       label: 'Others',
-      children: <Others resourceType={'others'} onSubmit={onProductAdd} />,
+      children: <Others onSubmit={onProductAdd} />,
     }
 
     return (

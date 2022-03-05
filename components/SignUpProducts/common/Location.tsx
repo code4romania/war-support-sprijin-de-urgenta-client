@@ -10,16 +10,14 @@ import { useTranslation } from 'react-i18next'
 type RecordKey = 'county_coverage' | 'town';
 
 interface IProps<TFormValues> {
-  resourceType: ResourceType
   counties?: MultiSelectOption[]
   control: Control<TFormValues, any>
   register: UseFormRegister<TFormValues>
-  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[] | undefined>
+  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   names: Record<RecordKey, Path<TFormValues>>
 }
 
 const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
-  resourceType,
   counties = [],
   control,
   register,

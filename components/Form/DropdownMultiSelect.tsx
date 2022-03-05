@@ -4,6 +4,7 @@ import { Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelect } from 'react-multi-select-component'
 import { Label } from './common'
+import { ErrorLabel } from './ErrorLabel'
 import { DropdownMultiSelectProps } from './types'
 
 const DropdownMultiSelect = ({
@@ -55,20 +56,7 @@ const DropdownMultiSelect = ({
                 valueRenderer={valueRenderer}
                 className="min-w-[190px]"
               />
-              {Array.isArray(errors) ? (
-                errors.map((e, index) => (
-                  <p
-                    key={index}
-                    className="absolute text-sm pl-1 pr-1 text-red-50"
-                  >
-                    {e.message}
-                  </p>
-                ))
-              ) : (
-                <p className="absolute text-sm pl-1 pr-1 text-red-50">
-                  {errors?.message}
-                </p>
-              )}
+              <ErrorLabel errors={errors} />
             </div>
           )}
         />

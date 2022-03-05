@@ -56,7 +56,6 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
         </Label>
       </div>
       <Location
-        resourceType="tents"
         counties={counties}
         control={control}
         errors={errors}

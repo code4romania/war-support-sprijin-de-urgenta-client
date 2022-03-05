@@ -1,20 +1,17 @@
 import Input from "@/components/Form/Input";
 import { PartialRecord } from "@/components/Form/types";
-import { ResourceType } from "@/components/SignUpProducts/types";
 import { ErrorOption, Path, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 type RecordKey = 'name';
 
 interface IProps<TFormValues> {
-  resourceType: ResourceType;
-  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[] | undefined>
+  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   register: UseFormRegister<TFormValues>
   names: Record<RecordKey, Path<TFormValues>>
 }
 
 const Product = <TFormValues extends PartialRecord<RecordKey, unknown>>({
-  resourceType,
   errors,
   register,
   names

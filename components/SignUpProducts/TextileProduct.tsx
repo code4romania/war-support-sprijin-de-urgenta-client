@@ -1,16 +1,15 @@
-import { FC } from 'react'
 import Checkbox from '@/components/Form/Checkbox'
-import { useTranslation } from 'react-i18next'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 import Location from '@/components/SignUpProducts/common/Location'
-import clsx from 'clsx'
+import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
 import Quantity from '@/components/SignUpProducts/common/Quantity'
 import { ResourceType } from '@/components/SignUpProducts/types'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import { County } from '@/components/SignUpProducts/types'
-import { useForm } from 'react-hook-form'
 import { DonateItemRequest } from 'api'
+import clsx from 'clsx'
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
@@ -85,7 +84,7 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
         </div>
       </div>
 
-      <Quantity resourceType="textile"
+      <Quantity
         register={register}
         errors={errors}
         names={{
@@ -95,7 +94,7 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
         }}
       />
 
-      <Location resourceType="textile"
+      <Location
         counties={counties}
         control={control}
         register={register}

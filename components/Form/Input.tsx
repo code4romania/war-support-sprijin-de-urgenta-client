@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import clsx from "clsx";
 import { ElementWrapper, Label } from "@/components/Form/common";
 import { InputElementProps } from "@/components/Form/types";
+import { ErrorLabel } from "./ErrorLabel";
 
 interface IProps extends InputElementProps {
   labelPosition?: 'horizontal' | 'vertical';
@@ -50,20 +51,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
           {...rest}
         />
       </div>
-      {Array.isArray(errors) ? (
-        errors.map((e, index) => (
-          <p
-            key={index}
-            className="absolute text-sm pl-1 pr-1 text-sm text-red-50"
-          >
-            {e.message}
-          </p>
-        ))
-      ) : (
-        <p className="absolute text-sm pl-1 pr-1 text-sm text-red-50">
-          {errors?.message}
-        </p>
-      )}
+      <ErrorLabel errors={errors} />
     </ElementWrapper>
   );
 });

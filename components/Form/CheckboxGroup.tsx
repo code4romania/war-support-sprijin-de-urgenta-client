@@ -1,5 +1,6 @@
 import { ElementWrapper } from "@/components/Form/common";
 import { FC } from "react";
+import { ErrorLabel } from "./ErrorLabel";
 import { GroupElementProps } from "./types";
 
 const CheckboxGroup: FC<GroupElementProps> = ({
@@ -15,9 +16,7 @@ const CheckboxGroup: FC<GroupElementProps> = ({
         </h3>
       )}
       {children}
-      {Array.isArray(errors)
-        ? errors.map((e, index) => <p key={index} className="text-sm pl-1 pr-1 text-red-50">{e.message}</p>)
-        : <p className="text-sm pl-1 pr-1 text-red-50">{errors?.message}</p>}
+      <ErrorLabel errors={errors} />
     </ElementWrapper>
   )
 }
