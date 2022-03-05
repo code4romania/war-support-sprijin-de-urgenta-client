@@ -143,6 +143,7 @@
   "signup.products.others": "Altele:",
   "signup.products.capacity": "Capacitate:",
   "signup.products.persons": "persoane",
+  "signup.products.description": "Descriere:",
   "error.availability.minOne": "Trebuie să selectați minim o opțiune",
   "signup.products.unit_type": "Unitate de măsură:",
   "error.capacity.required": "Introduceți capacitatea",

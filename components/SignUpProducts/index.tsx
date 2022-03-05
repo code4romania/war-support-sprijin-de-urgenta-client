@@ -21,12 +21,12 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({ }: ISignUpProductsProps) => {
+const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
   //TODO: Find a way to map the categories with corresponding components..
 
-  const [productsList, setProductsList] = useState<any[]>([]);
+  const [productsList, setProductsList] = useState<any[]>([])
 
   const onProductAdd = (data: any) => {
     setProductsList((state: any) => [...state, data])
@@ -43,7 +43,14 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
     {
       resourceType: 'food',
       label: 'signup.products.food',
-      children: <GenericProduct onSubmit={onProductAdd} resourceType="food" counties={countyChoices} category={1} />,
+      children: (
+        <GenericProduct
+          onSubmit={onProductAdd}
+          resourceType="food"
+          counties={countyChoices}
+          category={1}
+        />
+      ),
     },
     {
       resourceType: 'generalHygiene',
@@ -73,7 +80,11 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       resourceType: 'textile',
       label: 'signup.products.textile',
       children: (
-        <TextileProduct onSubmit={onProductAdd} resourceType="textile" counties={countyChoices} />
+        <TextileProduct
+          onSubmit={onProductAdd}
+          resourceType="textile"
+          counties={countyChoices}
+        />
       ),
     },
     {
@@ -90,16 +101,19 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: <Tents
-        onSubmit={onProductAdd}
-        resourceType="tents"
-        counties={countyChoices}
-        category={6} />,
+      children: (
+        <Tents
+          onSubmit={onProductAdd}
+          resourceType="tents"
+          counties={countyChoices}
+          category={6}
+        />
+      ),
     },
     {
       resourceType: 'others',
       label: 'Others',
-      children: <Others />,
+      children: <Others resourceType={'others'} onSubmit={onProductAdd} />,
     },
   ]
 
@@ -142,7 +156,7 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
   ]
 
   const onProductRemoved = (itemId: string) => {
-    const index = productsList.findIndex(p => p.name === itemId);
+    const index = productsList.findIndex((p) => p.name === itemId)
     if (index > -1) {
       productsList.splice(index, 1)
       setProductsList(productsList)
@@ -158,7 +172,7 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       )}
     >
       <section className={clsx('flex flex-col md:flex-row w-full')}>
-        <div className='w-full md:w-1/2'>
+        <div className="w-full md:w-1/2">
           {PRODUCTS.length > 0 &&
             PRODUCTS.map(
               ({ resourceType, label }: IProductsProps, index: number) => (
@@ -180,11 +194,18 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
               )
             )}
         </div>
-        <ResourcesTableList className='w-full md:w-1/2 ml-0 md:ml-4'
+        <ResourcesTableList
+          className="w-full md:w-1/2 ml-0 md:ml-4"
           title={t('resources.added.products')}
           columns={resourcesTableColumns}
-          list={productsList.map(t => ({ id: t.id, name: t.name, quantity: t.quantity, um: t.um }))}
-          onItemRemoved={onProductRemoved} />
+          list={productsList.map((t) => ({
+            id: t.id,
+            name: t.name,
+            quantity: t.quantity,
+            um: t.um,
+          }))}
+          onItemRemoved={onProductRemoved}
+        />
         {!!dialogProductResourceType && renderDialog(dialogProductResourceType)}
       </section>
     </main>
