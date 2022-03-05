@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import clsx from "clsx";
 import { ElementWrapper, Label } from "@/components/Form/common";
 import { InputElementProps } from "@/components/Form/types";
+import { ErrorLabel } from "./ErrorLabel";
 
 const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   name,
@@ -29,12 +30,12 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
           'px-3 py-2',
           'border border-gray-200 rounded-md',
           'focus:ring-blue-600 focus:border-blue-600 focus:border-2 focus:outline-none',
-          {'border-red-50 border-2': errors}
+          { 'border-red-50 border-2': errors }
         )}
         {...rest}
       />
 
-      {errors && <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>}
+      <ErrorLabel errors={errors} />
     </ElementWrapper>
   );
 });

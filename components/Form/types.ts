@@ -5,7 +5,7 @@ export interface InputElementProps
   extends InputHTMLAttributes<HTMLInputElement> {
   name: string
   label?: string
-  errors?: ErrorOption
+  errors?: ErrorOption | ErrorOption[]
   helpText?: string
 }
 
@@ -49,3 +49,7 @@ export interface DropdownMultiSelectProps {
   className?: string
   control: Control<any, any>
 }
+
+export type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T;
+};

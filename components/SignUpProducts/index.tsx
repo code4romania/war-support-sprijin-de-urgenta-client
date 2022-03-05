@@ -1,4 +1,5 @@
 import { useProductsForm } from '@/hooks/useData'
+import { DonateItemRequest } from 'api'
 import clsx from 'clsx'
 import React, { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -21,15 +22,19 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({}: ISignUpProductsProps) => {
+const SignUpProducts = ({ }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
+
+  const [showDialog, setShowDialog] = useState(false)
+  const [dialogProductResourceType, setDialogProductResourceType] = useState('others')
+  const [productsList, setProductsList] = useState<DonateItemRequest[]>([]);
+
   //TODO: Find a way to map the categories with corresponding components..
 
-  const [productsList, setProductsList] = useState<any[]>([])
-
-  const onProductAdd = (data: any) => {
-    setProductsList((state: any) => [...state, data])
+  const onProductAdd = (data: DonateItemRequest) => {
+    setProductsList((state) => [...state, data])
+    handleDialogDismiss();
   }
 
   const countyChoices = useMemo(() => {
@@ -46,7 +51,6 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       children: (
         <GenericProduct
           onSubmit={onProductAdd}
-          resourceType="food"
           counties={countyChoices}
           category={1}
         />
@@ -58,7 +62,6 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       children: (
         <GenericProduct
           onSubmit={onProductAdd}
-          resourceType="generalHygiene"
           counties={countyChoices}
           category={2}
         />
@@ -70,7 +73,6 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       children: (
         <GenericProduct
           onSubmit={onProductAdd}
-          resourceType="feminineHygiene"
           counties={countyChoices}
           category={3}
         />
@@ -93,7 +95,6 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       children: (
         <BuildingMaterials
           onSubmit={onProductAdd}
-          resourceType="buildingMaterials"
           counties={countyChoices}
         />
       ),
@@ -101,25 +102,17 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: (
-        <Tents
-          onSubmit={onProductAdd}
-          resourceType="tents"
-          counties={countyChoices}
-          category={6}
-        />
-      ),
+      children: <Tents
+        onSubmit={onProductAdd}
+        counties={countyChoices}
+        category={6} />,
     },
     {
       resourceType: 'others',
       label: 'Others',
-      children: <Others resourceType={'others'} onSubmit={onProductAdd} />,
+      children: <Others onSubmit={onProductAdd} />,
     },
   ]
-
-  const [showDialog, setShowDialog] = useState(false)
-  const [dialogProductResourceType, setDialogProductResourceType] =
-    useState('others')
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
@@ -131,7 +124,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     ) || {
       resourceType: 'others',
       label: 'Others',
-      children: <Others resourceType={'others'} onSubmit={onProductAdd} />,
+      children: <Others onSubmit={onProductAdd} />,
     }
 
     return (
@@ -198,14 +191,12 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
           className="w-full md:w-1/2 ml-0 md:ml-4"
           title={t('resources.added.products')}
           columns={resourcesTableColumns}
-          list={productsList.map((t) => ({
-            id: t.id,
-            name: t.name,
+          list={productsList.map(t => ({
+            id: t.name, name: t.name,
             quantity: t.quantity,
-            um: t.um,
+            um: t.unit_type
           }))}
-          onItemRemoved={onProductRemoved}
-        />
+          onItemRemoved={onProductRemoved} />
         {!!dialogProductResourceType && renderDialog(dialogProductResourceType)}
       </section>
     </main>

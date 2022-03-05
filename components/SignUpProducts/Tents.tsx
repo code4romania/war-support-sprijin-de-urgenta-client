@@ -1,38 +1,46 @@
-import { ResourceType } from '@/components/SignUpProducts/types'
-import { FC } from 'react'
-import Location from '@/components/SignUpProducts/common/Location'
-import Input from '@/components/Form/Input'
-import { useTranslation } from 'react-i18next'
 import { Label } from '@/components/Form/common'
+import Input from '@/components/Form/Input'
+import Location from '@/components/SignUpProducts/common/Location'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import { County } from '@/components/SignUpProducts/types'
+import { DonateItemRequest } from 'api'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
-  resourceType: ResourceType
-  counties?: County[]
+  counties?: MultiSelectOption[]
   category: number
-  onSubmit: (values: any) => void
+  onSubmit: (values: DonateItemRequest) => void
+}
+type TentsForm = {
+  county_coverage: string[]
+  town: string;
+  name: string;
+  quantity: number;
+  tent_capacity: number;
+  unit_type: string;
 }
 
-const Tents: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
+const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm()
+  } = useForm<TentsForm>()
 
-  const onFormSubmit = (values: any) => {
-    onSubmit(values)
+  const onFormSubmit = (values: DonateItemRequest) => {
+    const donateItemRequest: DonateItemRequest = { ...values, unit_type: 'tent' };
+    onSubmit(donateItemRequest)
   }
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Input
         type="number"
-        name={`products_${resourceType}_qty`}
+        {...register('quantity')}
         label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
@@ -40,7 +48,7 @@ const Tents: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
         <Input
           type="number"
           label={t('signup.products.capacity')}
-          name={`products_${resourceType}_capacity`}
+          {...register('tent_capacity')}
           labelPosition="horizontal"
         />
         <Label name={t('signup.products.persons')} className={'ml-3 mt-3'}>
@@ -48,11 +56,14 @@ const Tents: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
         </Label>
       </div>
       <Location
-        resourceType="tents"
         counties={counties}
         control={control}
         errors={errors}
         register={register}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town'
+        }}
       />
     </ProductTypeWrapper>
   )
