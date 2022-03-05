@@ -8,12 +8,12 @@
 }
 
 .content {
-  @apply flex flex-col w-full h-full px-6 pb-6 overflow-auto translate-x-0 bg-blue-50;
+  @apply flex flex-col w-full h-full px-6 pb-6 overflow-auto translate-x-0 bg-blue-50 isolate;
   @apply sm:h-auto sm:max-h-[90%] sm:max-w-xl sm:rounded-lg;
 }
 
 .header {
-  @apply sticky top-0 flex items-center justify-center py-6 bg-blue-50;
+  @apply sticky top-0 z-10 flex items-center justify-center py-6 bg-blue-50;
 }
 
 .title {
@@ -25,7 +25,7 @@
 }
 
 .content::-webkit-scrollbar-track {
-  @apply bg-blue-50;
+  @apply sm:rounded-lg bg-blue-50;
 }
 
 .content::-webkit-scrollbar-thumb {

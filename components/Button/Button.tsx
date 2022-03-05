@@ -26,7 +26,7 @@ const ButtonInner = ({
         {
           'px-4 py-1.5 text-sm': size === 'small',
           'px-4 py-5': size === 'medium',
-          'px-12 py-11 ': size === 'large',
+          'px-8 py-8 md:px-12 md:py-11 ': size === 'large',
         },
         {
           'bg-blue-900 text-white': variant === 'primary',
