@@ -23,9 +23,11 @@ const ResourceTableItem = ({ id, name, quantity, um, onDelete }: ResourceTableIt
       <div className="w-50%">{name}</div>
       <div className="w-50% flex items-center">
         {quantity && um && <span className="mr-3">{`${quantity} ${um}`}</span>}
-        <button onClick={() => onDelete && onDelete(id)}>
-          <Image alt="delete_icon" src="/icons/delete.svg" />
-        </button>
+        {onDelete &&
+          <button onClick={() => onDelete(id)}>
+            <Image alt="delete_icon" src="/icons/delete.svg" />
+          </button>
+        }
       </div>
     </div>
   )

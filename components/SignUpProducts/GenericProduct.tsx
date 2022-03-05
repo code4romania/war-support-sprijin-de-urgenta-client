@@ -24,7 +24,6 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit
   } = useForm()
 
   const onFormSubmit = (values: any) => {
-    console.log('values', { ...values, category })
     onSubmit(values);
   }
 

@@ -81,6 +81,7 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
       label: 'signup.products.buildingMaterials',
       children: (
         <BuildingMaterials
+          onSubmit={onProductAdd}
           resourceType="buildingMaterials"
           counties={countyChoices}
         />
@@ -89,7 +90,11 @@ const SignUpProducts = ({ }: ISignUpProductsProps) => {
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: <Tents resourceType="tents" counties={countyChoices} category={6} />,
+      children: <Tents
+        onSubmit={onProductAdd}
+        resourceType="tents"
+        counties={countyChoices}
+        category={6} />,
     },
     {
       resourceType: 'others',

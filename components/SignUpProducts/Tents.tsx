@@ -12,9 +12,10 @@ interface IProps {
   resourceType: ResourceType
   counties?: County[]
   category: number
+  onSubmit: (values: any) => void
 }
 
-const Tents: FC<IProps> = ({ resourceType, counties, category }) => {
+const Tents: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
@@ -23,12 +24,12 @@ const Tents: FC<IProps> = ({ resourceType, counties, category }) => {
     control,
   } = useForm()
 
-  const onSubmit = (values: any) => {
-    console.log('values', {...values, category});
+  const onFormSubmit = (values: any) => {
+    onSubmit(values)
   }
 
   return (
-    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Input
         type="number"
         name={`products_${resourceType}_qty`}

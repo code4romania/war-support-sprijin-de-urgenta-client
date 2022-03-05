@@ -10,9 +10,10 @@ import { useForm } from 'react-hook-form'
 interface IProps {
   resourceType: ResourceType
   counties: County[]
+  onSubmit: (values: any) => void
 }
 
-const BuildingMaterials: FC<IProps> = ({ resourceType, counties }) => {
+const BuildingMaterials: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
   const {
     handleSubmit,
     register,
@@ -20,12 +21,12 @@ const BuildingMaterials: FC<IProps> = ({ resourceType, counties }) => {
     control,
   } = useForm()
 
-  const onSubmit = (values: any) => {
-    console.log('values', values)
+  const onFormSubmit = (values: any) => {
+    onSubmit(values)
   }
 
   return (
-    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Location
         resourceType={resourceType}
         counties={counties}

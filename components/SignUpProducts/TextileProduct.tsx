@@ -27,7 +27,6 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
   } = useForm()
 
   const onFormSubmit = (values: any) => {
-    console.log('on submit', values)
     onSubmit(values)
   }
 

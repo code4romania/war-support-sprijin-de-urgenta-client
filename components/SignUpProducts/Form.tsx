@@ -45,7 +45,6 @@ const SignupProducts: FC = () => {
           {t('signup.products.textile')}
         </Checkbox>
       </CategoryWrapper>
-      <TextileProduct resourceType="textile"/>
 
       <Separator/>
 
