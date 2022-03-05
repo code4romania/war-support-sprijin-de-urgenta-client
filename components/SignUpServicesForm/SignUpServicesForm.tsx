@@ -44,16 +44,15 @@ export const SignUpServicesForm = () => {
   }
 
   return (
-    <main
+    <section
       className={clsx(
         'container grid place-items-start',
         'bg-blue-50 rounded',
         'px-8 py-7'
       )}
-      
     >
-      <section className={clsx('w-full')}>
-        <h3 className="mb-8 text-xl font-semibold">{t('services')}</h3>
+      <h3 className="mb-8 text-xl font-semibold">{t('services')}</h3>
+      <div className={clsx('w-full')}>
         <div
           className={clsx(
             'flex flex-col items-center w-full gap-4 mb-6 ',
@@ -122,7 +121,7 @@ export const SignUpServicesForm = () => {
             )}
           </div>
         </div>
-      </section>
+      </div>
       {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
       <Dialog isOpen={showDialog} onDismiss={handleDialogDismiss}>
         {showForm === 'transportGoods' && (
@@ -144,6 +143,6 @@ export const SignUpServicesForm = () => {
           </>
         )}
       </Dialog>
-    </main>
+    </section>
   )
 }

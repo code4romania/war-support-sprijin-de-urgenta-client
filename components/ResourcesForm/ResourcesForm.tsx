@@ -16,7 +16,7 @@ export interface IResourcesFormProps {
   tableTitle: string
   tableColumns: string[]
   tableItems: any[]
-  updateTableItems: (items: any[]) => void;
+  updateTableItems: (items: any[]) => void
   showDialog: boolean
   setShowDialog: (showDialog: boolean) => void
 }
@@ -28,7 +28,7 @@ const ResourcesForm = ({
   tableItems,
   updateTableItems,
   showDialog,
-  setShowDialog
+  setShowDialog,
 }: IResourcesFormProps) => {
   const { t } = useTranslation()
 
@@ -67,19 +67,20 @@ const ResourcesForm = ({
   }
 
   return (
-    <main
+    <section
       className={clsx(
         'container grid place-items-start',
         'bg-blue-50 rounded',
         'px-8 py-7 w-full'
       )}
     >
-      <section className={clsx('flex flex-col md:flex-row w-full')}>
+      <h3 className="mb-8 text-xl font-semibold">{t('products')}</h3>
+      <div className={clsx('flex flex-col gap-4 md:flex-row w-full')}>
         <div className="w-full md:w-1/2">
           {categories.map(({ resourceType, label }, index) => (
             <React.Fragment key={`${resourceType}_${label}_${index}`}>
               <div className="flex items-center w-full gap-4 mb-8">
-                <h3 className="flex-1 min-w-fit">{t(label)}</h3>
+                <h4 className="flex-1 min-w-fit">{t(label)}</h4>
                 <Button
                   text={t('add')}
                   size="small"
@@ -94,21 +95,24 @@ const ResourcesForm = ({
             </React.Fragment>
           ))}
         </div>
-        <ResourcesTableList
-          className="w-full ml-0 md:w-1/2 md:ml-4"
-          title={tableTitle}
-          columns={tableColumns}
-          list={tableItems.map((t) => ({
-            id: t.name,
-            name: t.name,
-            quantity: t.quantity,
-            um: t.unit_type,
-          }))}
-          onItemRemoved={onItemRemoved}
-        />
+        <div className="w-full md:flex-[1_0_50%]">
+          {tableItems.length > 0 && (
+            <ResourcesTableList
+              title={tableTitle}
+              columns={tableColumns}
+              list={tableItems.map((t) => ({
+                id: t.name,
+                name: t.name,
+                quantity: t.quantity,
+                um: t.unit_type,
+              }))}
+              onItemRemoved={onItemRemoved}
+            />
+          )}
+        </div>
         {!!dialogResourceType && renderDialog(dialogResourceType)}
-      </section>
-    </main>
+      </div>
+    </section>
   )
 }
 

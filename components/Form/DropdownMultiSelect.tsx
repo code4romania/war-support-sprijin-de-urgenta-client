@@ -54,7 +54,6 @@ const DropdownMultiSelect = ({
                 labelledBy={clsx('labelledBy', 'Code 4 Romania')}
                 disabled={disabled}
                 valueRenderer={valueRenderer}
-                className="min-w-[190px]"
               />
               <ErrorLabel errors={errors} />
             </div>
