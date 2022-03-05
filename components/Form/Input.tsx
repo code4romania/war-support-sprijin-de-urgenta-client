@@ -27,7 +27,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
           <Label
             name={name}
             hasError={!!errors}
-            className={clsx({'flex-1': labelPosition === 'horizontal'})}
+            className={clsx({'flex-1 mr-1': labelPosition === 'horizontal'})}
           >
             {label}
           </Label>
