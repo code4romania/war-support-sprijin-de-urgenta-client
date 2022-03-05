@@ -29,7 +29,7 @@ const Footer = () => {
             </li>
 
             <li>
-              <Link href="/despre-proiect" passHref>
+              <Link href="/about-project" passHref>
                 <a>{t('about.project')}</a>
               </Link>
             </li>
