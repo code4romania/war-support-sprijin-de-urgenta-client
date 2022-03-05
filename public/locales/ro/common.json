@@ -99,7 +99,7 @@
   "services.cooling": "Refrigerare",
   "services.transport": "Transport",
   "services.description": "Detalii",
-  "services.driver-name": "Nume șofer:",
+  "services.driver-name": "Nume șofer",
   "services.driver-ci": "Serie și nr. buletin:",
   "services.car-plate": "Număr mașină:",
   "services.transport-persons": "Transport persoane",
@@ -212,5 +212,9 @@
   "cookie.policy.turnoff.p1": "Dezactivarea și refuzul de a primi cookie-uri pot face anumite site-uri impracticabile sau dificil de vizitat și folosit. De asemenea, refuzul de a accepta cookie-uri nu înseamnă că nu veți mai primi/vedea publicitate online.",
   "cookie.policy.turnoff.p2": "Este posibilă setarea din browser pentru ca aceste cookie-uri să nu mai fie acceptate sau poți seta browserul să accepte cookie-uri de la un site anume. Dar, de exemplu, dacă nu dorești să folosești cookie-urile nu poți să urmezi și pașii următori după înregistrarea completarea formularului.",
   "cookie.policy.turnoff.p3": "Toate browserele moderne oferă posibilitatea de a schimba setarile cookie-urilor. Aceste setari se găsesc de regula în “opțiuni“ sau în meniul de “preferințe“ al browserului tău.",
-  "cookie.policy.p10": "Pentru setarile cookie-urilor generate de terți, și pentru mai multe informații privind confidențialitatea legată de publicitatea online, IAB Romania pune la dispoziție următorul site:"
+  "cookie.policy.p10": "Pentru setarile cookie-urilor generate de terți, și pentru mai multe informații privind confidențialitatea legată de publicitatea online, IAB Romania pune la dispoziție următorul site:",
+  "error.availability.required": "Trebuie să selectați o valoare",
+  "resources.product": "Produs",
+  "resources.added.products": "Produse adăugate",
+  "resources.quantity": "Cantitate"
 }
