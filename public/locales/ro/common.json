@@ -72,16 +72,10 @@
   "signup.resources.gdpr": "Prin completarea formularului accept ca datele mele să fie procesate de Guvernul României. Cunosc faptul că Guvernul României prelucrează datele mele cu caracter personal în baza prevederilor regulamentului (UE) 2016/679",
   "signup.userType.type": "Tip utilizator",
   "signup.userType.type.placeholder": "Selectează tipul de utilizator",
-  "signup.userType.options": [
-    "Persoană fizică",
-    "Persoană juridică",
-    "Autoritate publică",
-    "ONG"
-  ],
   "signup.userType.business_name": "Denumire",
-  "signup.userType.business_name.required": "Va rugam introduceti numele companiei",
+  "signup.userType.business_name.required": "Va rugăm introduceti numele companiei",
   "signup.userType.first_name": "Prenume",
-  "signup.userType.first_name.required": "Va rugam introduceti prenumele",
+  "signup.userType.first_name.required": "Va rugăm introduceti prenumele",
   "signup.userType.last_name": "Nume",
   "signup.userType.last_name.required": "Va rugam introduceti numele",
   "signup.userType.phone_number": "Telefon de contact",
