@@ -13,6 +13,7 @@ interface IProps {
   counties: MultiSelectOption[]
   onSubmit: (values: DonateItemRequest) => void
 }
+
 type BuildingMaterialsForm = {
   county_coverage: string[]
   town: string;
