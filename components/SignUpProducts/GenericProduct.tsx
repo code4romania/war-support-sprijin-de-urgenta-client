@@ -11,9 +11,10 @@ import { useForm } from 'react-hook-form'
 interface IProps {
   resourceType: ResourceType
   counties: County[]
+  category: number
 }
 
-const GenericProduct: FC<IProps> = ({ resourceType, counties }) => {
+const GenericProduct: FC<IProps> = ({ resourceType, counties, category }) => {
   const {
     handleSubmit,
     register,
@@ -21,18 +22,34 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties }) => {
     control,
   } = useForm()
 
+  const onSubmit = (values: any) => {
+    console.log('values', { ...values, category })
+  }
+
   return (
-    <ProductTypeWrapper>
-      <Product resourceType={resourceType} />
-
-      <Quantity resourceType={resourceType} />
-
-      <ExpireDate resourceType={resourceType} />
-
+    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
       <Location
         resourceType={resourceType}
         counties={counties}
         control={control}
+        register={register}
+        errors={errors}
+      />
+
+      <Product
+        resourceType={resourceType}
+        register={register}
+        errors={errors}
+      />
+
+      <Quantity
+        resourceType={resourceType}
+        register={register}
+        errors={errors}
+      />
+
+      <ExpireDate
+        resourceType={resourceType}
         register={register}
         errors={errors}
       />

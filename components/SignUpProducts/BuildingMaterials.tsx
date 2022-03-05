@@ -20,12 +20,12 @@ const BuildingMaterials: FC<IProps> = ({ resourceType, counties }) => {
     control,
   } = useForm()
 
+  const onSubmit = (values: any) => {
+    console.log('values', values)
+  }
+
   return (
-    <ProductTypeWrapper>
-      <Product resourceType={resourceType} />
-
-      <Quantity resourceType={resourceType} />
-
+    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
       <Location
         resourceType={resourceType}
         counties={counties}
@@ -33,6 +33,10 @@ const BuildingMaterials: FC<IProps> = ({ resourceType, counties }) => {
         control={control}
         errors={errors}
       />
+      <Product resourceType={resourceType} errors={errors} register={register} />
+
+      <Quantity resourceType={resourceType} errors={errors} register={register} />
+
     </ProductTypeWrapper>
   )
 }
