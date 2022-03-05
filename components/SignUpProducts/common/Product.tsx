@@ -5,19 +5,24 @@ import { ResourceType } from "@/components/SignUpProducts/types";
 
 interface IProps {
   resourceType: ResourceType;
+  register: any
+  errors: any
 }
 
 const Product: FC<IProps> = ({
   resourceType,
+  register,
+  errors
 }) => {
   const { t } = useTranslation();
 
   return (
     <div>
       <Input
-        name={`products_${resourceType}_name`}
         label={t('signup.products.product')}
         labelPosition="horizontal"
+        error={errors['name']}
+        {...register('name')}
       />
     </div>
   )

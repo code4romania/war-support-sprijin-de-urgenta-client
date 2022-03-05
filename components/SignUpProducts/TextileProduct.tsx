@@ -25,8 +25,12 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
     control,
   } = useForm()
 
+  const onSubmit = (values: any)=> {
+    console.log('on submit', values)
+  }
+
   return (
-    <ProductTypeWrapper>
+    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
       <Checkbox name={`products_${resourceType}_clothing`}>
         {t('signup.products.clothing')}
       </Checkbox>
@@ -68,7 +72,7 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
         </div>
       </div>
 
-      <Quantity resourceType="textile" />
+      <Quantity resourceType="textile" register={register} errors={errors} />
 
       <Location resourceType="textile" counties={counties} control={control} register={register} errors={errors}  />
     </ProductTypeWrapper>

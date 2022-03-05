@@ -5,30 +5,32 @@ import { ResourceType } from '@/components/SignUpProducts/types'
 
 interface IProps {
   resourceType: ResourceType
+  register: any
+  errors: any
 }
 
-const Quantity: FC<IProps> = ({ resourceType }) => {
+const Quantity: FC<IProps> = ({ resourceType, register, errors }) => {
   const { t } = useTranslation()
 
   return (
     <div className="flex flex-col justify-start space-y-2">
       <Input
-        name={`products_${resourceType}_qty`}
         type="number"
         label={t('signup.products.qty')}
         labelPosition="horizontal"
+        {...register('quantity')}
       />
 
       <Input
-        name={`products_${resourceType}_unit_type`}
         label={t('signup.products.unit_type')}
         labelPosition="horizontal"
+        {...register('unit_type')}
       />
 
       <Input
-        name={`products_${resourceType}_packaging`}
         label={t('signup.products.packaging')}
         labelPosition="horizontal"
+        {...register('packaging_type')}
       />
     </div>
   )

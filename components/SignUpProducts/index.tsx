@@ -4,7 +4,7 @@ import React, { ReactNode, useState, useMemo } from 'react'
 
 import Button from '../Button'
 import Form from '@/components/SignUpProducts/Form'
-import { useProductsForm } from '@/hooks/useData'
+import { useData, useProductsForm } from '@/hooks/useData'
 import { TransportServicesRequest } from 'api'
 import Dialog from '../Dialog'
 import Others from './Others'
@@ -13,6 +13,7 @@ import GenericProduct from './GenericProduct'
 import TextileProduct from './TextileProduct'
 import BuildingMaterials from './BuildingMaterials'
 import Tents from './Tents'
+import endpoints from 'endpoints.json'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
@@ -27,6 +28,8 @@ export interface IProductsProps {
 const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
+  //TODO: Find a way to map the categories with corresponding components..
+  const { data: categories} = useData(endpoints['categories/item'])
 
   const countyChoices = useMemo(() => {
     return data?.county_coverage?.choices.map((c: any) => ({
@@ -39,7 +42,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'food',
       label: 'signup.products.food',
-      children: <GenericProduct resourceType="food" counties={countyChoices} />,
+      children: <GenericProduct resourceType="food" counties={countyChoices} category={1} />,
     },
     {
       resourceType: 'generalHygiene',
@@ -48,6 +51,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
         <GenericProduct
           resourceType="generalHygiene"
           counties={countyChoices}
+          category={2}
         />
       ),
     },
@@ -58,6 +62,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
         <GenericProduct
           resourceType="feminineHygiene"
           counties={countyChoices}
+          category={3}
         />
       ),
     },

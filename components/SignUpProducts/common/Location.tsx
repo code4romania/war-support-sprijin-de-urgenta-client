@@ -38,10 +38,10 @@ const Location: FC<IProps> = ({
         />
       </div>
       <Input
-        name={`products_${resourceType}_town`}
         type="string"
         label={t('signup.products.town')}
         labelPosition="horizontal"
+        {...register('town')}
       />
     </>
   )
