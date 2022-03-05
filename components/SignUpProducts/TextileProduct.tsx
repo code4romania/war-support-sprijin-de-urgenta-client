@@ -10,11 +10,22 @@ import { ResourceType } from '@/components/SignUpProducts/types'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
 import { County } from '@/components/SignUpProducts/types'
 import { useForm } from 'react-hook-form'
+import { DonateItemRequest } from 'api'
+import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
   resourceType: ResourceType
-  counties?: County[]
-  onSubmit: (values: any) => void
+  counties?: MultiSelectOption[]
+  onSubmit: (values: DonateItemRequest) => void
+}
+
+type TextileProductForm = {
+  county_coverage: string[]
+  town: string;
+  name: string;
+  quantity: number;
+  unit_type: string;
+  packaging_type: string;
 }
 
 const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
@@ -24,10 +35,11 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
     register,
     formState: { errors },
     control,
-  } = useForm()
+  } = useForm<TextileProductForm>()
 
-  const onFormSubmit = (values: any) => {
-    onSubmit(values)
+  const onFormSubmit = (values: DonateItemRequest) => {
+    const donateItemRequest: DonateItemRequest = { ...values };
+    onSubmit(donateItemRequest)
   }
 
   return (
@@ -73,9 +85,26 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
         </div>
       </div>
 
-      <Quantity resourceType="textile" register={register} errors={errors} />
+      <Quantity resourceType="textile"
+        register={register}
+        errors={errors}
+        names={{
+          quantity: 'quantity',
+          packaging_type: 'packaging_type',
+          unit_type: 'unit_type'
+        }}
+      />
 
-      <Location resourceType="textile" counties={counties} control={control} register={register} errors={errors} />
+      <Location resourceType="textile"
+        counties={counties}
+        control={control}
+        register={register}
+        errors={errors}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town'
+        }}
+      />
     </ProductTypeWrapper>
   )
 }
