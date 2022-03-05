@@ -32,7 +32,7 @@ const CallToAction = ({
         rel="noreferrer"
         target="_blank"
         className={clsx(
-          'px-4 py-3 text-xl font-semibold text-white  bg-green-50',
+          'px-8 py-4 text-xl rounded font-semibold text-white  bg-green-50',
           'md:px-20'
         )}
       >
