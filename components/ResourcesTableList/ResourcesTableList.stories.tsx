@@ -14,7 +14,10 @@ const Template: ComponentStory<typeof ResourcesTableList> = (args) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  list: [{ name: 'Product 1', quantity: '20', um: 'boxes' }, { name: 'Product 2', quantity: '30', um: 'cans' }],
+  list: [
+    { id: '1', name: 'Product 1', quantity: 20, um: 'boxes' },
+    { id: '2', name: 'Product 2', quantity: 30, um: 'cans' },
+  ],
 }
 Default.parameters = {
   design: {
