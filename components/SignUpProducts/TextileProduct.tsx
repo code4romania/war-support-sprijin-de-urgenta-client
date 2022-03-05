@@ -14,9 +14,10 @@ import { useForm } from 'react-hook-form'
 interface IProps {
   resourceType: ResourceType
   counties?: County[]
+  onSubmit: (values: any) => void
 }
 
-const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
+const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
@@ -25,12 +26,13 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
     control,
   } = useForm()
 
-  const onSubmit = (values: any)=> {
+  const onFormSubmit = (values: any) => {
     console.log('on submit', values)
+    onSubmit(values)
   }
 
   return (
-    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Checkbox name={`products_${resourceType}_clothing`}>
         {t('signup.products.clothing')}
       </Checkbox>
@@ -74,7 +76,7 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
 
       <Quantity resourceType="textile" register={register} errors={errors} />
 
-      <Location resourceType="textile" counties={counties} control={control} register={register} errors={errors}  />
+      <Location resourceType="textile" counties={counties} control={control} register={register} errors={errors} />
     </ProductTypeWrapper>
   )
 }
