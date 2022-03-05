@@ -42,8 +42,8 @@ const OtherResourcesForm = ({}) => {
     }))
   }, [formData?.county_coverage?.choices])
 
-  const categories = categoriesList?.map(
-    (category: { id: number; name: string }) => ({
+  const categories =
+    categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
       children: (
@@ -53,8 +53,7 @@ const OtherResourcesForm = ({}) => {
           category={category.id}
         />
       ),
-    })
-  ) || [];
+    })) || []
   //
   // const onSubmit = async (values: any) => {
   //   try {
@@ -95,7 +94,7 @@ const OtherResourcesForm = ({}) => {
         'mx-auto px-8 py-7'
       )}
     >
-      <h3 className="text-lg font-semibold">{`${t(
+      <h3 className="text-xl font-semibold">{`${t(
         'signup.other.header'
       )}:`}</h3>
       <ResourcesForm
