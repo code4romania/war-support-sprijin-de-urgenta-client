@@ -166,7 +166,6 @@
   "controls.counties.selected": "județe selectate",
   "gdpr.consent": "Prin completarea formularului accept ca datele mele să fie procesate de Departamentul pentru Situații de Urgență. Cunosc faptul că Departamentul pentru Situații de Urgență prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.",
   "signup.error.gdpr.required": "Pentru a merge mai departe trebuie să vă dați acordul cu privire la procesarea datelor cu caracter personal",
-
   "cookie.policy.title": "Politica de confidențialitate**",
   "cookie.policy.p1": "Acest website folosește cookie-uri pentru a furniza vizitatorilor o experiență mult mai bună de navigare și servicii adaptate nevoilor și interesului fiecăruia.",
   "cookie.policy.p2": "“Cookie“-urile au rolul de a facilita accesul și livrarea serviciilor folosite de utilizator de internet, cum ar fi personalizarea anumitor setări (limba, țara, prețuri afișate în moneda națională. “Cookie“-urile, pe baza informațiilor pe care le adună despre utilizatori, îi ajută pe deținătorii de site-uri să își eficientizeze produsul astfel încât acesta să fie cât mai ușor accesat de către utilizatori, de asemenea cresc gradul de eficiență a publicității online și nu în ultimul rând pot permite aplicațiilor multimedia sau de alt tip de pe alte site-uri să fie incluse într-un anumit site pentru a face navigarea mai utilă.",
@@ -176,54 +175,42 @@
   "cookie.policy.whatiscookie.p3": "Cookie-urile nu solicită informații cu caracter personal și nu identifică personal utilizatorii de internet.",
   "cookie.policy.whatiscookie.p4": "Cookieuri de sesiune - acestea sunt stocate temporar în istoricul browser-ului care le memorează până când utilizatorul iese de pe web-siteul respectiv sau închide fereastra browserului.",
   "cookie.policy.whatiscookie.p5": "Cookieuri Persistente - Acestea sunt stocate, în funcție de durata prestabilită, pe hard-drive-ul unui computer sau echipament. Cookie-urile persistente le includ și pe cele plasate de un alt website decât cel pe care îl vizitează utilizatorul la momentul respectiv - cunoscute sub numele de “third party cookies“ - care pot fi folosite în mod anonim pentru a memora interesele unui utilizator, astfel încât să fie livrată publicitate cât mai relevantă pentru utilizatori.",
-  
   "cookie.policy.p3.header": "Care sunt avantajele cookie-urilor?",
   "cookie.policy.p3.content": "Un cookie conține informații care fac legătura între utilizatori și un anume website. Dacă un browser accesează acel web-server din nou, acesta poate citi informația deja stocată și reacționa în consecință.",
   "cookie.policy.p4.header": "Care este durata de viață a unui cookie?",
   "cookie.policy.p4.content": "Exista cookie-uri folosite exclusiv pentru o singură sesiune - acestea nu mai sunt reținute după ce utilizatorul iese de pe website. Cookie-uri permanente - sunt reținute și refolosite de fiecare dată când utilizatorul revine pe acel website, însă pot fi șterse oricând de utilizator.",
   "cookie.policy.p5.header": "Ce sunt cookie-urile plasate de terți?",
   "cookie.policy.p5.content": "Părți de conținut sau servicii pot fi plasate pe website-ul accesat, de către terțe părți prin intermediul bannerelor, boxurilor sau linkurilor - iar toate aceste instrumente pot conține cookie-uri. Ele se numesc “third party cookies“ pentru că nu sunt plasate de proprietarul website-ului respectiv, iar furnizorii terți se supun legilor îin vigoare și politicilor de confidențialitate ale deținătorului site-ului.",
- 
   "cookie.policy.p6.header": "Cum sunt folosite cookie-urile de către acest site?",
   "cookie.policy.p6.content": "O vizită pe acest site poate plasa cookie-uri în scopuri de:",
   "cookie.policy.type.general": "Cookie-uri pentru analiza vizitatorilor",
   "cookie.policy.type.registration": "Cookie-uri de înregistrare",
   "cookie.policy.type.thirdparty": "Unele cookie-uri pot proveni de la terți.",
-
   "cookie.policy.type.general.content": "De fiecare dată când un utilizator vizitează acest site softul de analytics furnizat de o terță parte generează un cookie de analiză a utilizatorului. Acest cookie ne spune dacă ați mai vizitat acest site până acum. Browser-ul ne va spune dacă aveți acest cookie, iar dacă nu, vom genera unul. Acesta permite monitorizarea utilizatorilor unici care ne vizitează și cât de des o fac. Acest cookie nu poate fi folosit pentru a identifica persoanele fizice, ele sunt folosite doar în scop statistic.",
   "cookie.policy.type.registration.content": "When registering to this website, we generate a cookie with your registration data. The cookie helps us in the next steps for communicating with the server. It is possible for this cookie to remain on your device if you do not follow through with all the registration steps. However, this cookie will be overwritten the next time you attempt to register on this website.",
   "cookie.policy.type.thirdparty.content": "Pe unele pagini, terții pot seta propriile cookie-uri anonime, în scopul de a urmări succesul unei aplicații, sau pentru a customiza o aplicație. Datorită modului de utilizare, acest site nu poate accesa aceste cookie-uri, la fel cum terțele părți nu pot accesa cookie-urile deținute de acest site. De exemplu, când distribuiți o pagină folosind butonul pentru rețelele sociale aflat pe acest site, acea rețea socială va înregistra activitatea dvs.",
-
   "cookie.policy.p7.header": "Ce tip de informații sunt stocate și accesate prin intermediul cookie-urilor?",
   "cookie.policy.p7.content": "Cookie-urile păstrează informații într-un fișier text de mici dimensiuni care permit unui website să recunoască un browser. Webserver-ul va recunoaște browserul până când cookie-ul expiră sau este șters. Cookie-ul stochează informații importante care îmbunătățesc experiența de navigare pe Internet (ex: un număr de ordine pentru donația ta).",
-
   "cookie.policy.p8.header": "De ce sunt cookie-urile importante pentru Internet?",
   "cookie.policy.p8.content": "Cookie-urile reprezintă punctul central al funcționării eficiente a Internetului, ajutând la generarea unei experiențe de navigare prietenoase și adaptată preferințelor și intereselor fiecărui utilizator. Refuzarea sau dezactivarea cookieurilor poate face unele site-uri imposibil de folosit.",
   "cookie.policy.p9": "Refuzarea sau dezactivarea cookie-urilor nu înseamnă că nu veți mai primi publicitate online - ci doar că aceasta nu va mai putea ține cont de preferințele și interesele dvs, evidențiate prin comportamentul de navigare.",
-
   "cookie.policy.security.header": "Securitate și probleme legate de confidențialitate",
   "cookie.policy.security.p1": "Cookie-urile NU sunt viruși! Ele folosesc formate tip plain text. Nu sunt alcătuite din bucăți de cod așa că nu pot fi executate nici nu pot auto-rula. În consecință, nu se pot duplica sau replica pe alte rețele pentru a se rula sau replica din nou. Deoarece nu pot îndeplini aceste funcții, nu pot fi considerate viruși.",
   "cookie.policy.security.p2": "Cookie-urile pot fi totuși folosite pentru scopuri negative. Deoarece stochează informații despre preferințele și istoricul de navigare al utilizatorilor, atât pe un anume site cât și pe mai multe alte siteuri, cookieurile pot fi folosite ca o formă de Spyware. Multe produse anti-spyware sunt conștiente de acest fapt și în mod constant marchează cookie-urile pentru a fi șterse în cadrul procedurilor de ștergere/scanare anti-virus/anti-spyware.",
   "cookie.policy.security.p3": "În general browserele au integrate setari de confidențialitate care furnizează diferite nivele de acceptare a cookieurilor, perioada de valabilitate și ștergere automată dupa ce utilizatorul a vizitat un anumit site.",
-
-
   "cookie.policy.other.header": "Alte aspecte de securitate legate de cookie-uri",
   "cookie.policy.other.p1": "Deoarece protecția identității este foarte valoroasă și reprezintă dreptul fiecărui utilizator de internet, este indicat să se știe ce eventuale probleme pot crea cookieurile. Pentru că prin intermediul lor se transmit în mod constant în ambele sensuri informații între browser și website, dacă un atacator sau persoana neautorizată intervine în parcursul de transmitere a datelor, informațiile conținute de cookie pot fi interceptate. Deși foarte rar, acest lucru se poate întâmpla dacă browserul se conectează la server folosind o rețea necriptată (ex: o rețea WiFi nesecurizată).",
   "cookie.policy.other.p2": "Alte atacuri bazate pe cookie implică setări greșite ale cookieurilor pe servere. Dacă un website nu solicită browserului să folosească doar canale criptate, atacatorii pot folosi această vulnerabilitate pentru a păcăli browserele în a trimite informații prin intermediul canalelor nesecurizate. Atacatorii utilizează apoi informațiile în scopuri de a accesa neautorizat anumite site-uri. Este foarte important să fiți atenți în alegerea metodei celei mai potrivite de protecție a informațiilor personale.",
-
   "cookie.policy.advice.header": "Sfaturi pentru o navigare sigură și responsabilă, bazată pe cookies",
   "cookie.policy.advice.p1": "Datorită flexibilitatii lor și a faptului ca majoritatea dintre cele mai vizitate site-uri și cele mai mari folosesc cookieuri, acestea sunt aproape inevitabile.",
   "cookie.policy.advice.p2": "Dezactivarea cookie-urilor nu va permite accesul utilizatorului pe site-urile cele mai răspândite și utilizate printre care Youtube, Gmail, Yahoo și altele. Iată câteva sfaturi care vă pot asigura că navigați fără griji însă cu ajutorul cookie-urilor:",
   "cookie.policy.advice.p1.1": "Particularizați-vă setările browserului în ceea ce privește cookie-urile pentru a reflecta un nivel confortabil pentru voi al securității utilizării cookie-urilor. Dacă nu vă deranjează cookie-urile și sunteți singura persoană care utilizează computerul, puteți seta termene lungi de expirare pentru stocarea istoricului de navigare și al datelor personale de acces. Dacă împărțiți accesul la calculator, puteți lua în considerare setarea browserului pentru a șterge datele individuale de navigare de fiecare dată când închideți browserul. Aceasta este o variantă de a accesa site-urile care plasează cookie-uri și de a șterge orice informație de vizitare la închiderea sesiunii navigare.",
   "cookie.policy.advice.p1.2": "Instalați-vă și updatați-vă constant aplicații antispyware.",
   "cookie.policy.advice.p1.3": "Multe dintre aplicațiile de detectare și prevenire a spyware-ului includ detectarea atacurilor pe site-uri. Astfel, impiedică browserul de la a accesa website-uri care ar putea să exploateze vulnerabilitățile browserului sau să descarce software periculos. Asigurați-vă că aveți browserul mereu updatat. Multe dintre atacurile bazate pe cookies se realizează exploatând punctele slabe ale versiunilor vechi ale browserelor.",
-
   "cookie.policy.advice.p3": "Cookie-urile sunt pretutindeni și nu pot fi evitate dacă doriți să vă bucurați de acces pe cele mai bune și cele mai mari site-uri de pe Internet - locale sau internaționale. Cu o înțelegere clară a modului lor de operare și a beneficiilor pe care le aduc, puteți lua măsurile necesare de securitate astel încât să puteți naviga cu încredere pe internet.",
-
   "cookie.policy.turnoff.header": "Cum pot opri cookie-urile?",
   "cookie.policy.turnoff.p1": "Dezactivarea și refuzul de a primi cookie-uri pot face anumite site-uri impracticabile sau dificil de vizitat și folosit. De asemenea, refuzul de a accepta cookie-uri nu înseamnă că nu veți mai primi/vedea publicitate online.",
   "cookie.policy.turnoff.p2": "Este posibilă setarea din browser pentru ca aceste cookie-uri să nu mai fie acceptate sau poți seta browserul să accepte cookie-uri de la un site anume. Dar, de exemplu, dacă nu dorești să folosești cookie-urile nu poți să urmezi și pașii următori după înregistrarea completarea formularului.",
   "cookie.policy.turnoff.p3": "Toate browserele moderne oferă posibilitatea de a schimba setarile cookie-urilor. Aceste setari se găsesc de regula în “opțiuni“ sau în meniul de “preferințe“ al browserului tău.",
-
-  "cookie.policy.p10": "Pentru setarile cookie-urilor generate de terți, și pentru mai multe informații privind confidențialitatea legată de publicitatea online, IAB Romania pune la dispoziție următorul site: "
+  "cookie.policy.p10": "Pentru setarile cookie-urilor generate de terți, și pentru mai multe informații privind confidențialitatea legată de publicitatea online, IAB Romania pune la dispoziție următorul site:"
 }
