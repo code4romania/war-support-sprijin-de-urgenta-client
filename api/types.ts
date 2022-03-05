@@ -38,3 +38,23 @@ export enum TransportCategories {
   Medical = 3,
   Other = 4,
 }
+
+export type DonateItemRequest = {
+  county_coverage: string[]
+  has_transportation?: boolean
+  town?: string,
+  description?: string,
+  status?: string,
+  name: string,
+  quantity?: number
+  packaging_type?: string,
+  unit_type: string,
+  expiration_date?: string,
+  stock?: number
+  kids_age?: string,
+  other_textiles?: string,
+  tent_capacity?: number
+  donor?: number
+  category?: number
+  textile_category?: number
+}

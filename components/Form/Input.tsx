@@ -27,7 +27,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
           <Label
             name={name}
             hasError={!!errors}
-            className={clsx({'flex-1': labelPosition === 'horizontal'})}
+            className={clsx({ 'flex-1': labelPosition === 'horizontal' })}
           >
             {label}
           </Label>
@@ -44,13 +44,26 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
             'px-3 py-2',
             'border border-gray-200 rounded-md',
             'focus:ring-blue-600 focus:border-blue-600 focus:border-2 focus:outline-none',
-            {'flex-1': labelPosition === 'horizontal'},
-            {'border-red-50 border-2': errors}
+            { 'flex-1': labelPosition === 'horizontal' },
+            { 'border-red-50 border-2': errors }
           )}
           {...rest}
         />
       </div>
-      {errors && <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>}
+      {Array.isArray(errors) ? (
+        errors.map((e, index) => (
+          <p
+            key={index}
+            className="absolute text-sm pl-1 pr-1 text-sm text-red-50"
+          >
+            {e.message}
+          </p>
+        ))
+      ) : (
+        <p className="absolute text-sm pl-1 pr-1 text-sm text-red-50">
+          {errors?.message}
+        </p>
+      )}
     </ElementWrapper>
   );
 });

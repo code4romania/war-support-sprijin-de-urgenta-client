@@ -1,19 +1,23 @@
 import Input from "@/components/Form/Input";
+import { PartialRecord } from "@/components/Form/types";
 import { ResourceType } from "@/components/SignUpProducts/types";
-import { FC } from "react";
+import { ErrorOption, Path, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-interface IProps {
+type RecordKey = 'expiration_date';
+interface IProps<TFormValues> {
   resourceType: ResourceType;
-  register: any
-  errors: any
+  register: UseFormRegister<TFormValues>
+  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[] | undefined>
+  names: Record<RecordKey, Path<TFormValues>>
 }
 
-const ExpireDate: FC<IProps> = ({
+const ExpireDate = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   resourceType,
   register,
-  errors
-}) => {
+  errors,
+  names
+}: IProps<TFormValues>) => {
   const { t } = useTranslation();
 
   return (
@@ -21,7 +25,8 @@ const ExpireDate: FC<IProps> = ({
       type="date"
       label={t('signup.products.expireDate')}
       labelPosition="horizontal"
-      {...register('expiration_date')}
+      {...register && register(names.expiration_date)}
+      errors={errors && errors[names.expiration_date]}
     />
   )
 }

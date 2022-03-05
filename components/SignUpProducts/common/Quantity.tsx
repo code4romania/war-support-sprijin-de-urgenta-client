@@ -1,15 +1,24 @@
-import Input from '@/components/Form/Input'
-import { FC } from 'react'
-import { useTranslation } from 'react-i18next'
-import { ResourceType } from '@/components/SignUpProducts/types'
+import Input from '@/components/Form/Input';
+import { PartialRecord } from '@/components/Form/types';
+import { ResourceType } from '@/components/SignUpProducts/types';
+import { ErrorOption, Path, UseFormRegister } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
-interface IProps {
+
+type RecordKey = 'quantity' | 'unit_type' | 'packaging_type';
+interface IProps<TFormValues> {
   resourceType: ResourceType
-  register: any
-  errors: any
+  register: UseFormRegister<TFormValues>
+  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[] | undefined>
+  names: Record<RecordKey, Path<TFormValues>>
 }
 
-const Quantity: FC<IProps> = ({ resourceType, register, errors }) => {
+const Quantity = <TFormValues extends PartialRecord<RecordKey, unknown>>({
+  resourceType,
+  register,
+  errors,
+  names
+}: IProps<TFormValues>) => {
   const { t } = useTranslation()
 
   return (
@@ -18,19 +27,22 @@ const Quantity: FC<IProps> = ({ resourceType, register, errors }) => {
         type="number"
         label={t('signup.products.qty')}
         labelPosition="horizontal"
-        {...register('quantity')}
+        {...register && register(names.quantity)}
+        errors={errors && errors[names.quantity]}
       />
 
       <Input
         label={t('signup.products.unit_type')}
         labelPosition="horizontal"
-        {...register('unit_type')}
+        {...register && register(names.unit_type)}
+        errors={errors && errors[names.unit_type]}
       />
 
       <Input
         label={t('signup.products.packaging')}
         labelPosition="horizontal"
-        {...register('packaging_type')}
+        {...register && register(names.packaging_type)}
+        errors={errors && errors[names.packaging_type]}
       />
     </div>
   )
