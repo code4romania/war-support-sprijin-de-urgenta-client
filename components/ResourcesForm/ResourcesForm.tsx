@@ -78,8 +78,8 @@ const ResourcesForm = ({
         <div className="w-full md:w-1/2">
           {categories.map(({ resourceType, label }, index) => (
             <React.Fragment key={`${resourceType}_${label}_${index}`}>
-              <div className="flex items-center gap-4 mb-8 w-full">
-                <h3 className="min-w-fit flex-1">{t(label)}</h3>
+              <div className="flex items-center w-full gap-4 mb-8">
+                <h3 className="flex-1 min-w-fit">{t(label)}</h3>
                 <Button
                   text={t('add')}
                   size="small"
@@ -95,7 +95,7 @@ const ResourcesForm = ({
           ))}
         </div>
         <ResourcesTableList
-          className="w-full md:w-1/2 ml-0 md:ml-4"
+          className="w-full ml-0 md:w-1/2 md:ml-4"
           title={tableTitle}
           columns={tableColumns}
           list={tableItems.map((t) => ({
