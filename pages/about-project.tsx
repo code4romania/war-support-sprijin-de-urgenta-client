@@ -31,9 +31,9 @@ const AboutPage = () => {
     <>
       <SubHeader />
       <div className="layout">
-        <Spacer size="3rem" />
+        <Spacer size="3.5rem" />
         <h1 className="text-3xl font-bold leading-normal md:max-w-[30ch]">{t('about.project')}</h1>
-        <Spacer size="3rem" />
+        <Spacer size="3.5rem" />
         <p className="mb-4">{t('about.p1')}</p>
         <p>{t('about.p2')}</p>
         <Spacer size="4rem" />

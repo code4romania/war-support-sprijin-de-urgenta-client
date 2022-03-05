@@ -34,10 +34,16 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <a href="https://dopomoha.ro/">Dopomoha.ro</a>
+              <a rel="noreferrer" target="_blank" href="https://dopomoha.ro/">
+                Dopomoha.ro
+              </a>
             </li>
             <li>
-              <a href="https://github.com/code4romania/war-support-sprijin-de-urgenta-client">
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://github.com/code4romania/war-support-sprijin-de-urgenta-client"
+              >
                 {t('source.code')}
               </a>
             </li>
@@ -47,12 +53,12 @@ const Footer = () => {
 
             <ul>
               <li>
-                <Link href="/politica-de-confidentialitate" passHref>
+                <Link href="/confidentiality-policy" passHref>
                   <a>{t('confidentiality.policy')}</a>
                 </Link>
               </li>
               <li>
-                <Link href="/politica-de-confidentialitate" passHref>
+                <Link href="/confidentiality-policy" passHref>
                   <a>{t('terms.and.conditions')}</a>
                 </Link>
               </li>
