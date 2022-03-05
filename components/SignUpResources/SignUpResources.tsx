@@ -9,32 +9,47 @@ import { SignUpServicesForm } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import Spacer from '@/components/Spacer'
+import ThankYouMessage from '../ThankYouMessage'
 
-const resourceTypeBuilder = (id: string) => {
-  const dictionary = {
+const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
+  const componentMap = {
     services: () => <SignUpServicesForm />,
     products: () => <SignUpProducts />,
     volunteer: () => <SignupVolunteering />,
     others: () => <OtherResourcesForm />,
     default: () => <OtherResourcesForm />,
   }
-  return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
+  return (
+    componentMap[resourceType as keyof typeof componentMap] ||
+    componentMap.default
+  )()
 }
 
 const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const [selectedResourceIds, setSelectedResourceIds] = useState<string[]>([])
+  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
+    []
+  )
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
     const value = event.target.value
+    setSubmitSuccess(false);
 
-    if (isChecked && !selectedResourceIds.includes(value))
-      setSelectedResourceIds([...selectedResourceIds, value])
-    else if (!isChecked && selectedResourceIds.includes(value))
-      setSelectedResourceIds(selectedResourceIds.filter((id) => id !== value))
+    if (isChecked && !selectedResourceTypes.includes(value))
+      setSelectedResourceTypes([...selectedResourceTypes, value])
+    else if (!isChecked && selectedResourceTypes.includes(value))
+      setSelectedResourceTypes(
+        selectedResourceTypes.filter((id) => id !== value)
+      )
+  }
+
+  const handleSubmit = () => {
+    setSubmitSuccess(true)
+    setSelectedResourceTypes([])
   }
 
   return (
@@ -49,7 +64,7 @@ const SignUpResources = ({ type }: { type: string }) => {
               onChange={(event) => handleChange(event)}
               name="resource"
               value={slug}
-              checked={selectedResourceIds.includes(slug)}
+              checked={selectedResourceTypes.includes(slug)}
             >
               {t(slug)}
             </Checkbox>
@@ -59,19 +74,21 @@ const SignUpResources = ({ type }: { type: string }) => {
           {t('signup.resources.fillInDetails')}
         </p>
       </div>
-      {selectedResourceIds.length > 0 &&
-        selectedResourceIds.map((id) => (
-          <div key={id} className="w-full">
-            {resourceTypeBuilder(id)}
+      {selectedResourceTypes.length > 0 &&
+        selectedResourceTypes.map((resourceType) => (
+          <div key={resourceType} className="w-full">
+            {resourceTypeBuilder({ resourceType })}
           </div>
         ))}
-      <Spacer size={'1em'}/>
+      {submitSuccess && <ThankYouMessage type={type} />}
+      <Spacer size={'1em'} />
       <StepperButtonGroup
         steps={[
-          { disabled: true, direction: 'backward'},
+          { disabled: true, direction: 'backward' },
           {
-            disabled: selectedResourceIds.length === 0,
+            disabled: selectedResourceTypes.length === 0,
             direction: 'forward',
+            onClick: handleSubmit
           },
         ]}
       />
