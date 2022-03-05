@@ -1,0 +1,166 @@
+Identifier,Romana,Engleza,Ucrainieana,Rusa
+en,Engleză,English,Англійська,Английский
+ro,Română,Romanian,Румунська ,Румынский
+ua,Ucraineană,Ukraine,Українська,Украинский
+ru,Rusă,,,
+source.code,Codul sursă,Source code ,Вихідний код,Исходный код
+homepage.option_one,Vreau să ofer ajutor,I want to help,Я хочу допомогти,Я хочу помочь
+homepage.option_two,Am o solicitare,I have a request,У мене є прохання,У меня есть запрос
+homepage.title,Centralizare oferte asistență umanitară,Humanitarian Assistance Centralisation,Централізація пропозиції гуманітарної допомоги ,Централизация гуманитарной помощи
+homepage.subtitle,Prin completarea acestui formular vei contribui la o coordonare eficientă a tuturor resurselor oferite.,By Completing This Form You Will Contribute To Efficient Coordination Of All Resources Offered,"Заповнивши цю форму, ви зробити свій внесок для ефективної координації всіх наданих ресурсів","Заполнив эту форму, вы внесете свой вклад в эффективную координацию всех предлагаемых ресурсов"
+homepage.get_all_info_you_need,Află toate inforrmațiile de care ai nevoie pe,Find out all the information you need on ,Вся необхідна інформація на ,Узнайте всю необходимую информацию на 
+hero.title,Platformă integrată de management de resurse și solicitări,Integrated resource and demand management platform ,Інтегрована платформа управління ресурсами та попитом,Интегрированная платформа управления ресурсами и спросом.
+hero.subtitle_one,"Platforma Sprijin de Urgențâ este un sistem integrat de management al resurselor pe care societatea civilă și toate persoanele fizice și juridice le pot aduce împreună pentru a ajuta în situații critice. În funcție de nevoile curente, alege una dintre variantele de mai jos.","The Sprijin de Urgență Platform is an integrated resource management system that the civil society and all individuals and legal entities can bring together in order to help in critical situations. Depending on your current needs, choose one of the options below.","Платформа підтримки надзвичайних ситуацій – це інтегрована система управління ресурсами, яку громадянське суспільство та всі фізичні та юридичні особи можуть об’єднати, щоб допомогти у критичних ситуаціях. Залежно від ваших поточних потреб оберіть один із наведених нижче варіантів.","Платформа поддержки в чрезвычайных ситуациях – это интегрированная система управления ресурсами, которую гражданское общество и все физические и юридические лица могут объединить, чтобы помочь в критических ситуациях. В зависимости от ваших текущих потребностей, выберите один из следующих вариантов."
+hero.subtitle_two,Sprijin de Urgență este un proiect dezvoltat de Code for Romania pentru Departamentul de Situații de Urgență pentru administrarea de resurse și nevoi în momente de criză.,Sprijin de Urgență is a project developed by Code for Romania for the Department of Emergency Situations for managing resources and needs in times of crisis. ,"Надзвичайна підтримка – це проект, розроблений Кодексом Румунії для Департаменту надзвичайних ситуацій для управління ресурсами та потребами під час кризи.","Чрезвычайная поддержка – проект, разработанный Code for Romania для Департамента по чрезвычайным ситуациям с целью управления ресурсами и потребностями во время кризисных ситуаций."
+cta.offer_stay.heading_one,Am unul sau mai multe spații de cazare disponibile.,I have one or more accommodations available.,В мене є один або більше варіантів розміщення. ,У меня есть одно или несколько мест для проживания.
+cta.offer_stay.heading_two,Cum le pot pune la dispoziție?,How can I make them available? ,Як я можу зробити їх доступними?,Как я могу сделать их доступными?
+cta.offer_stay.description,"Managementul spațiilor de cazare necesită multiple verificări pentru a ne putea asigura că persoanele vulnerabile care vin acum spre România sunt transferate către locuri adecvate pentru nevoile lor, în siguranță. Dacă vrei să pui un spațiu la dispoziție, te rugăm să o faci prin intermediul modulului dedicat cazării, Un Acoperiș.","Accommodation management requires multiple checks in order to ensure that vulnerable people who are now coming to Romania are safely transferred to places suitable for their needs. If you want to offer accommodation, please do so through the module dedicated to accommodation, Un Acoperiș. ","Управління житлом вимагає багаторазових перевірок, щоб гарантувати, що вразливі люди, які зараз приїжджають до Румунії, були безпечно переміщені в місця, відповідні їхнім потребам. Якщо ви хочете запропонувати житло, зробіть це через модуль, присвячений розміщенню, Un Acoperiș.","Управление местами проживания требует многократных проверок для того, чтобы гарантировать, что уязвимые люди, которые сейчас прибывают в Румынию, переводятся в безопасные места, соответствующие их потребностям. Если вы хотите предоставить место для проживания, пожалуйста, сделайте это через посвященный портал, Un Acoperiș. "
+cta.offer_stay.button_label,Ofer spații de cazare,I offer accommodation,Я пропоную житло,Я предлагаю размещение
+cta.request_stay.heading_one,Am nevoie de un spațiu de cazare.,I need accommodation ,Мені потрібне житло,Мне необходимо размещение
+cta.request_stay.heading_two,Cum pot solicita?,How can I apply? ,Як я можу подати заявку?,Как мне подать заявку?
+cta.request_stay.description,"Dacă te afli în situația în care ai nevoie de un spațiu de cazare te rugăm să o faci prin intermediul modulului dedicat cazării, Un Acoperiș. Te vom ruga să completezi un formular simplu pentru a ne da seama care sunt nevoile tale de cazare și te vom ghida spre cel mai potrivit loc pentru tine","If you find yourself in the position where you need accommodation, please do it through the module dedicated to accommodation, Un Acoperiș. We will ask you to fill in a simple form to find out what your accommodation needs are and we will guide you to the most suitable place for you. ","Якщо ви опинилися у становищі, де вам потрібне житло, зробіть це за допомогою модуля, присвяченого житлу, Un Acoperiș. Ми попросимо вас заповнити просту форму, щоб дізнатися яке житло вам потрібно, і допоможемо знайти найкращий варіант.","Если вы оказались в положении, когда вам нужно жилье, пожалуйста, сделайте это через посвященный портал, Un Acoperiș. Мы попросим вас заполнить простую форму, чтобы узнать ваши потребности, и направим вас в наиболее подходящее для вас место."
+cta.request_stay.button_label,Am nevoie de cazare,I need accommodation ,Мені потрібне житло,Мне необходимо размещение
+offerpage.needs,Am nevoie de:,I need,мені потрібно,Мне нужно
+wanna.help,Vreau să ajut cu:,I Want To Help With:,Хочу допомогти з,Я хочу помочь с:
+housing,Cazare,Accommodation,Проживання,Жилье
+products,Produse,Products,Харчування,Продукты
+services,Servicii,Services,Послуги,Услуги
+others,Altele,Other,Інші,Другие
+volunteer,Voluntar,Volunteer,Волонтер,Доброволец
+findout.more,Află mai multe,Learn More,Дізнайся більше,Подробнее
+solution.by,O soluție Code for Romania.,A Code For Romania Solution,Код для Румунії рішення,Решение Кода Для Румынии
+login.submit,Login,Login,Логін,Логин
+login.signUp,Creeaza cont,Create Account,створити обліковий запис,Создать аккаунт
+login.userLabel,Nume utilizator,Username,ім'я користувача,Имя пользователя
+login.passwordLabel,Parola,Password,Пароль,Пароль
+login.forgotPass,Ai uitat parola?,Forgot Password?,Забули пароль? ,Забыли пароль ?
+partenership.with,Un proiect in parteneriat cu,A Project In Partnership With,Проєкт в партнерстві з,Проект в партнерстве с
+steps.userType,Tip utilizator,User Type,Тип користувача,Тип пользователя
+steps.userData,Date utilizator,User Data,Дані користувача,Пользовательские данные
+steps.resources.request,Resurse solicitate,,,
+steps.resources.offer,Resurse oferite,Resources Offered,Пропоновані ресурси,Предлагаемые ресурсы
+steps.forward,Pasul urmator,Next Step,Наступний крок,Следующий шаг
+steps.backward,Pasul anterior,Previous Step,Попередній крок,Предыдущий шаг
+created.by,Realizat de,Done By,Зроблено,Сделано
+validation.required,Câmpul este obligatoriu,Field Is Required,Обов'язкове поле,Поле обязательно для заполнения
+signup.volunteering.header,Voluntariat,Volunteer,Волонтерство,Доброволец
+signup.volunteering.type,Profesie:,Profession:,Професія:,Профессия:
+signup.volunteering.available_until,Disponibil pana la:,Available until,Доступний до,Доступно до:
+signup.volunteering.county_coverage,Judet:,County,повіт,Округ
+signup.volunteering.town,Oras:,City,місто,Город
+signup.volunteering.description,Vă rog să descrieți pe scurt experiența în domeniu:,Please Briefly Describe Your Experience In The Field:,Будь ласка коротко опишіть ваш досвід в цьому полі,"Пожалуйста, кратко опишите ваш опыт в этой области:"
+signup.other.header,Alte resurse,Other resources,Інші ресурси,Другие ресурсы
+signup.other.available_until,Până la:,To,До,До
+signup.other.available_until.help,"Spune-ne până la ce dată e disponibilă oferta ta, dacă este un serviciu, până când e disponibil sau dacă este un produs, care este data lui de expirare.",,,
+signup.other.county_coverage,Judet:,County,Повіт,Округ
+signup.other.name,Denumire:,Name:,названня,Именование:
+signup.other.town,Oras:,City:,Місто:,Город:
+signup.other.description,Descriere:,Description,Опис,Описание
+signup.other.category,Categorie,,,
+incubated.by,proiect dezvoltat în programul,Project Developed In Program,Проєкт розроблено в програмі ,Проект разработан в программе
+about.project,Despre proiect,About the Project,Про проєкт,О проекте
+code4ro.description,Organizație neguvernamentală independentă neafiliată politic și apolitică,"Independent Non-Governmental Organization, Politically Unaffiliated and Apolitical",Політична та неполітична неурядова незалежна організація,"Независимая неправительственная организация, политически неаффилированная и аполитичная"
+confidentiality.policy,Politică de confidențialitate,Privacy Policy,Політика конфіденційності ,Политика конфиденциальности
+terms.and.conditions,Termeni și condiții,Terms and Conditions,Правила та умови,Условия и положения
+useful.links,Linkuri utile,Useful Links,Корисні посилання,Полезные ссылки
+legal.info,Informații legale,Legal Information,Правова інформація,Юридическая информация
+signup.resources.offer,Resursa oferita:,Resource Offered:,Наданий ресурс,Предоставленный ресурс
+signup.resources.request,Resursa solicitata:,,,
+signup.resources.fillInDetails,Completeaza detalii mai jos pentru fiecare resursa selectata:,Complete Details Below For Each Selected Resource:,Заповніть деталі нижче для кожного вибраного ресурсу:,Заполните данные ниже для каждого выбранного ресурса:
+signup.resources.gdpr,Prin completarea formularului accept ca datele mele să fie procesate de Guvernul României. Cunosc faptul că Guvernul României prelucrează datele mele cu caracter personal în baza prevederilor regulamentului (UE) 2016/679,By Completing the Form I Accept That My Data May Be Processed By The Government of Romania I Acknowledge That The Government of Romania Processes My Personal Data Based On The Provisions Of Regulation (EU) 2016/679,"Заповнюючи форму, я погоджуюсь з тим, що мої дані обробляються урядом Румунії. Я знаю, що уряд Румунії обробляє мої персональні дані відповідно до положень Регламенту (ЄС) 2016/679.","Заполняя форму, я соглашаюсь с тем, что мои данные могут обрабатываться правительством Румынии. Я подтверждаю, что правительство Румынии обрабатывает мои личные данные на основании положений Регламента (ЕС) 2016/679."
+signup.userType.type,Tip utilizator,User Type,Тип користувача,Тип пользователя
+signup.userType.type.placeholder,Selectează tipul de utilizator,,,
+signup.userType.business_name,Denumire,Name,названня,Именование
+signup.userType.business_name.required,Va rugăm introduceti numele companiei,,,
+signup.userType.first_name,Prenume,First name,Ім'я,Имя
+signup.userType.first_name.required,Va rugăm introduceti prenumele,,,
+signup.userType.last_name,Nume,Last Name,Прізвище ,Фамилия
+signup.userType.last_name.required,Va rugam introduceti numele,,,
+signup.userType.phone_number,Telefon de contact,Phone number,номер телефону,Номер телефона
+signup.userType.phone_number.invalid,Numărul de telefon in format invalid,,,
+signup.userType.phone_number.required,Va rugam introduceti numarul de telefon,,,
+signup.userType.email,Email,Email adress,Електронна адреса,Электронный адрес  
+signup.userType.email.invalid,Va rugam introduceti un email valid,,,
+signup.userType.email.required,Va rugam introduceti adresa de email,,,
+signup.userType.identification_no,CUI/CIF,Tax number ,Код ЄДРПОУ,ИНН/ОГРН
+signup.userType.identification_no.required,Va rugam introduceti CUI/CIF,,,
+signup.userType.password,Parola,Password,Пароль,Пароль
+signup.userType.password.required,Va rugam introduceti o parola,,,
+signup.userType.re_password,Confirma parola,Confirm password,Підтвердити пароль,Подтверждение пароля
+signup.userType.re_password.required,Va rugam confirmati parola,,,
+signup.userType.re_password.missmatch,Parola nu coincide,,,
+unit.tons,tone,Tone,Tone,Тон
+unit.persons,persoane,people,особи,лица
+services.transport-goods,Transport marfă,Freight Transport,Вантажний транспорт,Грузовой транспорт
+services.transport-people,Transport persoane,Passenger transportation,Пасажирські перевезення,Пассажирские перевозки
+services.capacity,Capacitate:,Capacity:,Місткість,Вместимость
+services.cooling,Refrigerare,Refrigeration,Охолодження,Охлаждение
+services.transport,Transport,Transport,Транспорт,Транспорт
+services.description,Detalii,,,
+services.driver-name,Nume șofer:,Driver Name:,Имя водителя,Имя водителя
+services.driver-ci,Serie și nr. buletin:,Series And ID No:,Серія і номер документа,Серия и номер документа
+services.car-plate,Număr mașină:,Car Number:,Номер автомобіля,Номер автомобиля
+services.transport-persons,Transport persoane,Passenger transportation,Пасажирські перевезення,Пассажирские перевозки
+services.available_seats,Număr de locuri in mașină,,,
+services.has_disabled_access,Transport persoane cu dizabilități,Transport of people with disabilities,Перевезення людей з обмеженими можливостями,Перевозка людей с ограниченными возможностями
+services.pets_allowed,Transport cu animale de companie,Transportation with pets,Перевезення з домашніми тваринами,Перевозка с домашними животными
+yes,Da,Yes,Так ,Да
+no,Nu,No,Ні,Нет
+add,Adaugă,Add,Додати,Добавить
+services.transport-type.national,National,National,Національний,Национальный
+describeTheResource,Descrieți resursa,Describe Resource,Опишіть ресурс,Опишите ресурс
+services.availability_interval_from,De la,,,
+services.availability_interval_to,Până la,,,
+services.weight_unit,Unitate de măsură,,,
+services.county_coverage,Județ,,,
+error.must.be.string,Valoarea introdusă trebuie contina caractere,,,
+error.must.be.time,Valoarea introdusă trebuie să fie tip oră:minute,,,
+error.must.be.date,Valoarea introdusă trebuie să fie tip dată,,,
+signup.products.header,Produse,Products,Продукти,Продукты
+signup.products.food,Alimente,Food,Харчування,Еда
+signup.products.generalHygiene,Produse de igiena generala,General hygiene products,Засоби загальної гігієни,Средства общей гигиены
+signup.products.feminineHygiene,Produse de igiena feminina,Women's hygiene products,Засоби жіночої гігієни,Средства женской гигиены
+signup.products.textile,Imbracaminte si alte textile,Clothing and other textiles,Одяг та інші текстильні вироби,Одяг та інші текстильні вироби
+signup.products.buildingMaterials,Materiale de constructii,Building materials,Будівельні матеріали,Строительные материалы
+signup.products.tents,Corturi,Tents,Намети:,Палатки:
+signup.products.product,Produs:,Product:,Продукт:,Товар:
+signup.products.qty,Cantitate:,Quantity:,Кількість:,Количество:
+signup.products.packaging,Ambalaj:,Packaging:,Упаковка:,Упаковка:
+signup.products.expireDate,Data de expirare:,Expiration date:,Термін придатності:,Срок годности:
+signup.products.location,Locatie resursa:,Location of the resource:,Місцезнаходження ресурсу:,Расположение ресурса:
+signup.products.county,Judet,County,повіт,Округ
+signup.products.city,Localitate,City,місто,Город
+signup.products.clothing,Haine:,Clothes:,одяг,одежда
+signup.products.female,Femei,Women,жінки,женщины
+signup.products.male,Barbati,Men,чоловіків,мужчины
+signup.products.children,Copii,Children,Діти,Дети
+signup.products.children.age,Varsta:,Age:,вік,возраст
+signup.products.blankets,Paturi,Beds,Ліжка,Кровати
+signup.products.sheets,Cuverturi,Blankets,Ковдри,Одеяла
+signup.products.sleepingBags,Saci de dormit,Sleeping bags,Спальні мішки,Спальные мешки
+signup.products.others,Altele:,Others:,інші,разное
+signup.products.capacity,Capacitate:,Capacity: ,ємкість,емкость
+signup.products.persons,persoane,,,
+error.availability.minOne,Trebuie să selectați minim o opțiune,,,
+signup.products.unit_type,Unitate de măsură:,,,
+error.capacity.required,Introduceți capacitatea,Enter the capacity,Введіть ємність,Введите емкость
+error.refrigeration.required,Selectați dacă aveți posibilitatea de refrigerare,Select if you can refrigerate,"Виберіть, чи можна охолодити","Выберите, можно ли охлаждать"
+error.transportType.required,Selectați tipul de transport,"Select the type of transport
+",Виберіть вид транспорту,Выберите вид транспорта
+error.county.required,Selectați un județ,Select a county,Виберіть повіт,Выберите округ
+error.driverName.required,Introduceți numele șoferului,Enter the driver's name,Введіть ім'я водія,Введите имя водителя
+error.driverCI.required,Introduceți seria si numarul de buletin,Enter the serial and the number of the ID,Введіть серію та номер «внутрішнього» паспорта ,Введите серию и номер «внутреннего» паспорта
+error.driverContact.required,Introduceți numarul de telefon,,,
+error.driverContact.invalid,Numarul de telefon este invalid,,,
+error.carRegistration.required,Introduceți numărul de înmatriculare al mașinii,Enter the car registration number,Введіть реєстраційний номер автомобіля,Введите регистрационный номер автомобиля
+error.carRegistation.invalid,Numărul de înmatriculare trebuie să fie de forma B22BOM,The registration number must be in the form B22BOM,Реєстраційний номер має бути у формі B22BOM,Регистрационный номер должен быть в форме B22BOM.
+error.driverCI.invalid,Seria și numărul de buletin trebuie să fie de forma XT555222,The serial and the number must be in the form XT555222,Серійний номер і номер повинні бути у формі XT555222,Серийный номер и номер должны быть в формате XT555222.
+services.availability,Cât timp puteți aloca pentru aceste activități?,How much time can you spend on these activities?,Скільки часу ви можете витратити на ці дії?,Сколько времени вы можете потратить на эти занятия?
+services.county.placeholder,Selectează un județ,Select a county,Виберіть округ,Выберите округ
+error.must.be.number,Valoarea introdusă trebuie să fie un număr,,,
+error.must.be.boolean,Alegeți o opțiune,,,
+services.driverContact,Număr de telefon,Phone number,номер телефону,Номер телефона
+error.county.minOne,Trebuie să selectați minim un județ,,,
+controls.counties.selected,județe selectate,,,
+gdpr.consent,Prin completarea formularului accept ca datele mele să fie procesate de Departamentul pentru Situații de Urgență. Cunosc faptul că Departamentul pentru Situații de Urgență prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.,,,
+signup.error.gdpr.required,Pentru a merge mai departe trebuie să vă dați acordul cu privire la procesarea datelor cu caracter personal,,,

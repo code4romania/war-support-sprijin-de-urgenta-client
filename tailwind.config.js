@@ -14,9 +14,12 @@ module.exports = {
         400: '#70AEFF',
         600: '#006AF5',
         900: '#004AAD',
+        950: '#00478F',
       },
       gray: {
-        100: '##D1D5DB',
+        50: '#F3F4F6',
+        100: '#EDEDED',
+        200: '#D1D5DB',
         300: '#B3B3B3',
         500: '#6B7280',
         700: '#374151',
@@ -24,11 +27,32 @@ module.exports = {
       },
       white: '#FFFFFF',
       black: '#000000',
+      red: {
+        50: '#BB0000',
+      },
+      green: {
+        50: '#00A542',
+      },
+      yellow: {
+        50: '#FFBA0A'
+      }
+    },
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1350px',
     },
     extend: {
       fontFamily: {
         sans: ['Titillium Web', ...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: {
+        'checkbox-selected': 'url("/icons/checkbox_selected.svg")',
+        'radio-selected': 'url("/icons/radio_selected.svg")',
+      }
     },
+    plugins: [require('@tailwindcss/forms')],
   },
 }
