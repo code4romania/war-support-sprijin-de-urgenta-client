@@ -11,9 +11,10 @@ import { useForm } from 'react-hook-form'
 interface IProps {
   resourceType: ResourceType
   counties?: County[]
+  category: number
 }
 
-const Tents: FC<IProps> = ({ resourceType, counties }) => {
+const Tents: FC<IProps> = ({ resourceType, counties, category }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
@@ -22,8 +23,12 @@ const Tents: FC<IProps> = ({ resourceType, counties }) => {
     control,
   } = useForm()
 
+  const onSubmit = (values: any) => {
+    console.log('values', {...values, category});
+  }
+
   return (
-    <ProductTypeWrapper>
+    <ProductTypeWrapper onSubmit={handleSubmit(onSubmit)}>
       <Input
         type="number"
         name={`products_${resourceType}_qty`}

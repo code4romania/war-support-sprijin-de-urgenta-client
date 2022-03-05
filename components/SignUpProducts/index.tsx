@@ -86,7 +86,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: <Tents resourceType="tents" counties={countyChoices} />,
+      children: <Tents resourceType="tents" counties={countyChoices} category={6}/>,
     },
     {
       resourceType: 'others',
