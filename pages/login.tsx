@@ -8,6 +8,7 @@ import { authenticate } from '@/store/reducers/auth'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import ResourcesTableList from '@/components/ResourcesTableList'
 
 const LoginPage: NextPage = () => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
