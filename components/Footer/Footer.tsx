@@ -23,7 +23,7 @@ const Footer = () => {
       </div>
       <div className="grid py-12 layout gap-y-10 gap-x-6 lg:py-24 lg:grid-cols-2">
         <nav className="flex flex-wrap">
-          <ul className="w-full md:w-1/2 md:px-3 md:py-0">
+          <ul className="w-full space-y-1 md:w-1/2 md:px-3 md:py-0">
             <li className="mb-4 font-bold tracking-wide">
               {t('useful.links')}
             </li>
@@ -51,7 +51,7 @@ const Footer = () => {
           <ul className="w-full py-5 md:w-1/2 md:px-3 md:py-0">
             <li className="mb-4 font-bold tracking-wide">{t('legal.info')}</li>
 
-            <ul>
+            <ul className="space-y-1">
               <li>
                 <Link href="/confidentiality-policy" passHref>
                   <a>{t('confidentiality.policy')}</a>
@@ -66,9 +66,9 @@ const Footer = () => {
           </ul>
         </nav>
 
-        <div className="tracking-wide lg:text-right">
+        <div className="space-y-4 tracking-wide lg:text-right">
           <p>&copy; {new Date().getFullYear()} Code for Romania.</p>
-          <p>{t('code4ro.description')}</p>
+          <p className="max-w-[45ch] lg:ml-auto md">{t('code4ro.description')}</p>
         </div>
       </div>
     </footer>
