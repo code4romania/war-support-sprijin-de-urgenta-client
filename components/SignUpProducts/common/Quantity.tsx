@@ -11,7 +11,7 @@ const Quantity: FC<IProps> = ({ resourceType }) => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex justify-start space-x-6">
+    <div className="flex flex-col justify-start space-y-2">
       <Input
         name={`products_${resourceType}_qty`}
         type="number"
