@@ -28,6 +28,7 @@ const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
 const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
@@ -36,6 +37,7 @@ const SignUpResources = ({ type }: { type: string }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
     const value = event.target.value
+    setSubmitSuccess(false);
 
     if (isChecked && !selectedResourceTypes.includes(value))
       setSelectedResourceTypes([...selectedResourceTypes, value])
@@ -43,6 +45,11 @@ const SignUpResources = ({ type }: { type: string }) => {
       setSelectedResourceTypes(
         selectedResourceTypes.filter((id) => id !== value)
       )
+  }
+
+  const handleSubmit = () => {
+    setSubmitSuccess(true)
+    setSelectedResourceTypes([])
   }
 
   return (
@@ -73,10 +80,7 @@ const SignUpResources = ({ type }: { type: string }) => {
             {resourceTypeBuilder({ resourceType })}
           </div>
         ))}
-      {/* 
-          // TODO Add thank you conditional after form post is ready
-        */}
-      <ThankYouMessage type={type} />
+      {submitSuccess && <ThankYouMessage type={type} />}
       <Spacer size={'1em'} />
       <StepperButtonGroup
         steps={[
@@ -84,6 +88,7 @@ const SignUpResources = ({ type }: { type: string }) => {
           {
             disabled: selectedResourceTypes.length === 0,
             direction: 'forward',
+            onClick: handleSubmit
           },
         ]}
       />
