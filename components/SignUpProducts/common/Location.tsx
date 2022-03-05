@@ -1,28 +1,31 @@
-import Dropdown from '@/components/Form/Dropdown'
-import Input from '@/components/Form/Input'
-import { FC } from 'react'
-import { City, County, ResourceType } from '@/components/SignUpProducts/types'
-import clsx from 'clsx'
 import { Label } from '@/components/Form/common'
-import { useTranslation } from 'react-i18next'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
-import { useForm } from 'react-hook-form'
+import Input from '@/components/Form/Input'
+import { MultiSelectOption, PartialRecord } from '@/components/Form/types'
+import { ResourceType } from '@/components/SignUpProducts/types'
+import clsx from 'clsx'
+import { Control, ErrorOption, Path, UseFormRegister } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
-interface IProps {
+type RecordKey = 'county_coverage' | 'town';
+
+interface IProps<TFormValues> {
   resourceType: ResourceType
-  counties?: County[]
-  control?: any
-  register?: any
-  errors?: any
+  counties?: MultiSelectOption[]
+  control: Control<TFormValues, any>
+  register: UseFormRegister<TFormValues>
+  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[] | undefined>
+  names: Record<RecordKey, Path<TFormValues>>
 }
 
-const Location: FC<IProps> = ({
+const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   resourceType,
   counties = [],
   control,
   register,
   errors,
-}) => {
+  names
+}: IProps<TFormValues>) => {
   const { t } = useTranslation()
 
   return (
@@ -30,10 +33,10 @@ const Location: FC<IProps> = ({
       <div className={clsx('flex flex-row')}>
         <Label className={'pt-3 flex-1'}>{t('signup.products.county')}</Label>
         <DropdownMultiSelect
-          {...register('county_coverage')}
+          {...register && register(names.county_coverage)}
           className={clsx('w-1/2 mb-4')}
           options={counties || []}
-          errors={errors['county_coverage']}
+          errors={errors && errors[names.county_coverage]}
           control={control}
         />
       </div>
@@ -41,7 +44,8 @@ const Location: FC<IProps> = ({
         type="string"
         label={t('signup.products.town')}
         labelPosition="horizontal"
-        {...register('town')}
+        errors={errors && errors[names.town]}
+        {...register(names.town)}
       />
     </>
   )

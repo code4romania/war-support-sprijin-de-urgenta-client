@@ -26,8 +26,19 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
         <label htmlFor={`${name}_${value}`} className="text-sm cursor-pointer">
           {children}
         </label>
-        {errors && (
-          <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>
+        {Array.isArray(errors) ? (
+          errors.map((e, index) => (
+            <p
+              key={index}
+              className="absolute text-sm pl-1 pr-1 text-red-50"
+            >
+              {e.message}
+            </p>
+          ))
+        ) : (
+          <p className="absolute text-sm pl-1 pr-1 text-red-50">
+            {errors?.message}
+          </p>
         )}
       </div>
     )

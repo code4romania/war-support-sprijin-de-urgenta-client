@@ -1,18 +1,29 @@
-import Location from '@/components/SignUpProducts/common/Location'
-import Quantity from '@/components/SignUpProducts/common/Quantity'
-import Product from '@/components/SignUpProducts/common/Product'
-import { FC } from 'react'
-import { ResourceType } from '@/components/SignUpProducts/types'
 import ExpireDate from '@/components/SignUpProducts/common/ExpireDate'
+import Location from '@/components/SignUpProducts/common/Location'
+import Product from '@/components/SignUpProducts/common/Product'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import { County } from '@/components/SignUpProducts/types'
+import Quantity from '@/components/SignUpProducts/common/Quantity'
+import { ResourceType } from '@/components/SignUpProducts/types'
+import { DonateItemRequest } from 'api'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
   resourceType: ResourceType
-  counties: County[]
+  counties: MultiSelectOption[]
   category: number
-  onSubmit: (values:any) => void
+  onSubmit: (values: DonateItemRequest) => void
+}
+
+type GenericProductForm = {
+  county_coverage: string[]
+  town: string;
+  name: string;
+  quantity: number;
+  unit_type: string;
+  packaging_type: string;
+  expiration_date: string;
 }
 
 const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit }) => {
@@ -21,10 +32,11 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit
     register,
     formState: { errors },
     control,
-  } = useForm()
+  } = useForm<GenericProductForm>()
 
-  const onFormSubmit = (values: any) => {
-    onSubmit(values);
+  const onFormSubmit = (values: GenericProductForm) => {
+    const donateItemRequest: DonateItemRequest = { ...values };
+    onSubmit(donateItemRequest);
   }
 
   return (
@@ -35,24 +47,37 @@ const GenericProduct: FC<IProps> = ({ resourceType, counties, category, onSubmit
         control={control}
         register={register}
         errors={errors}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town'
+        }}
       />
 
       <Product
         resourceType={resourceType}
         register={register}
         errors={errors}
+        names={{ name: 'name' }}
       />
 
       <Quantity
         resourceType={resourceType}
         register={register}
         errors={errors}
+        names={{
+          quantity: 'quantity',
+          packaging_type: 'packaging_type',
+          unit_type: 'unit_type'
+        }}
       />
 
       <ExpireDate
         resourceType={resourceType}
         register={register}
         errors={errors}
+        names={{
+          expiration_date: 'expiration_date'
+        }}
       />
     </ProductTypeWrapper>
   )
