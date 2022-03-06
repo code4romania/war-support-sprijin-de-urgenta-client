@@ -15,11 +15,11 @@ interface IProps {
 }
 type TentsForm = {
   county_coverage: string[]
-  town: string;
-  name: string;
-  quantity: number;
-  tent_capacity: number;
-  unit_type: string;
+  town: string
+  name: string
+  quantity: number
+  tent_capacity: number
+  unit_type: string
 }
 
 const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
@@ -32,7 +32,10 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
   } = useForm<TentsForm>()
 
   const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values, unit_type: 'tent' };
+    const donateItemRequest: DonateItemRequest = {
+      ...values,
+      unit_type: 'tent',
+    }
     onSubmit(donateItemRequest)
   }
 
@@ -44,14 +47,17 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
         label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
-      <div className="flex">
+      <div className="flex gap-4">
         <Input
           type="number"
           label={t('signup.products.capacity')}
           {...register('tent_capacity')}
           labelPosition="horizontal"
         />
-        <Label name={t('signup.products.persons')} className={'ml-3 mt-3'}>
+        <Label
+          name={t('signup.products.persons')}
+          className={'translate-y-[10px] flex-[1_0_25%]'}
+        >
           {t('signup.products.persons')}
         </Label>
       </div>
@@ -62,7 +68,7 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
         register={register}
         names={{
           county_coverage: 'county_coverage',
-          town: 'town'
+          town: 'town',
         }}
       />
     </ProductTypeWrapper>
