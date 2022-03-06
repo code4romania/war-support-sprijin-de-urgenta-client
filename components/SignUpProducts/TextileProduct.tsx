@@ -26,7 +26,7 @@ type TextileProductForm = {
   quantity: number;
   unit_type: string;
   packaging_type: string;
-  offer_transport: boolean;
+  has_transportation: boolean;
 }
 
 const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
@@ -49,10 +49,10 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
         label={t('services.offerTransport')}
       >
         <div className={clsx('flex flex-row gap-6')}>
-          <Radio value="true" {...register('offer_transport')}>
+          <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
           </Radio>
-          <Radio value="false" {...register('offer_transport')}>
+          <Radio value="false" {...register('has_transportation')}>
             {t('no')}
           </Radio>
         </div>
