@@ -22,13 +22,13 @@ export const SignUpServicesForm = () => {
   >([])
 
   const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
-    setGoodsList((state) => [...state, data])
     handleDialogDismiss()
+    setGoodsList((state) => [...state, data])
   }
 
   const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
-    setPersonsTransportList((state) => [...state, data])
     handleDialogDismiss()
+    setPersonsTransportList((state) => [...state, data])
   }
 
   const onGoodsRemoved = (itemName: string) => {

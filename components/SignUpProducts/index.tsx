@@ -28,8 +28,8 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
   const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
 
   const onProductAdd = (data: DonateItemRequest) => {
-    setProductsList((state) => [...state, data])
     handleDialogDismiss()
+    setProductsList((state) => [...state, data])
   }
 
   const countyChoices = useMemo(() => {

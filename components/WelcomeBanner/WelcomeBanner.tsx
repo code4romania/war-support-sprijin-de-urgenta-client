@@ -2,12 +2,16 @@ import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
 import clsx from 'clsx'
 import Spacer from '../Spacer'
+import { motion } from 'framer-motion'
 
 const WelcomeBanner = ({}) => {
   const { t } = useTranslation('common')
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 150 }}
+      animate={{ opacity: 1, y: 0 }}
+      
       className={clsx(
         'flex flex-col-reverse gap-5 justify-between',
         'md:flex-row'
@@ -27,7 +31,7 @@ const WelcomeBanner = ({}) => {
         alt="Code 4 Romania logo"
         className="md:max-w-[426px]"
       />
-    </div>
+    </motion.div>
   )
 }
 
