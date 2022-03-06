@@ -40,10 +40,8 @@ const SignUpProducts = ({
   const { data } = useProductsForm()
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
 
   const onProductAdd = (data: DonateItemRequest) => {
-    setProductsList((state) => [...state, data])
     onAddItem(data)
     handleDialogDismiss()
   }
@@ -191,7 +189,7 @@ const SignUpProducts = ({
         categories={categories}
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}
-        tableItems={productsList}
+        tableItems={items}
         onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
