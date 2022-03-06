@@ -125,12 +125,13 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="bg-blue-50 px-4 py-4 rounded-md">
+      <div className="px-4 py-4 rounded-md bg-blue-50">
         <div className="max-w-sm">
           {inputs.map((input: IInput) => (
             <Input
               key={input.name}
-              label={`${t(input.label)}: *`}
+              required
+              label={`${t(input.label)}:`}
               errors={
                 serverErrors[input.name]
                   ? { message: serverErrors[input.name].join('\n') }
@@ -147,7 +148,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
         <div className="md:w-2/3 max-w-small">
           <Consent name={'gdpr_consent'}
             register={register}
-            text={`${t('gdpr.consent')} *`}
+            text={`${t('gdpr.consent')}`}
             errors={errors.gdpr_consent} />
         </div>
       </div>

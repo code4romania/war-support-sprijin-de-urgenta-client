@@ -29,6 +29,7 @@ export interface DropdownElementProps
 export interface GroupElementProps {
   className?: string
   label?: string
+  required?: boolean
   errors?: ErrorOption | ErrorOption[]
 }
 
@@ -45,6 +46,7 @@ export interface DropdownMultiSelectProps {
   label?: string
   hideLabel?: boolean
   errors?: ErrorOption | ErrorOption[]
+  required?: boolean,
   children?: ReactNode
   className?: string
   control: Control<any, any>
