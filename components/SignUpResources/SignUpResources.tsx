@@ -45,7 +45,7 @@ const SignUpResources = ({ type }: { type: string }) => {
           onAddPersonItem={onAddService}
         />
       ),
-      products: () => <SignUpProducts onAddItem={onAddProduct}/>,
+      products: () => <SignUpProducts onAddItem={onAddProduct} />,
       volunteer: () => <SignupVolunteering />,
       others: () => <OtherResourcesForm />,
       default: () => <OtherResourcesForm />,
@@ -70,7 +70,7 @@ const SignUpResources = ({ type }: { type: string }) => {
   }
 
   const onSubmit = async (values: any, endpoint: string) => {
-    fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -84,15 +84,16 @@ const SignUpResources = ({ type }: { type: string }) => {
     })
   }
 
-  const handleSubmit = () => {
-    // setSubmitSuccess(true)
-    // setSelectedResourceTypes([])
-    if(servicesList.length){
-      onSubmit(servicesList, endpoints['donate/transport_service'])
+  const handleSubmit = async () => {
+    if (servicesList.length) {
+      await onSubmit(servicesList, endpoints['donate/transport_service'])
     }
-    if(productsList.length){
-      onSubmit(servicesList, endpoints['donate/item'])
+    if (productsList.length) {
+      await onSubmit(servicesList, endpoints['donate/item'])
     }
+
+    setSubmitSuccess(true)
+    setSelectedResourceTypes([])
   }
 
   return (
