@@ -2,6 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import ThankYouMessage from './ThankYouMessage'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export default {
   title: 'ThankYouMessage',
