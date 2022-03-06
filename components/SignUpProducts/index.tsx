@@ -11,8 +11,9 @@ import ResourcesForm from '@/components/ResourcesForm'
 import clsx from 'clsx'
 
 export interface ISignUpProductsProps {
-  defaultProp?: string
+  items: DonateItemRequest[]
   onAddItem: (item: DonateItemRequest) => void
+  onRemoveItem: (index: number) => void
 }
 
 export interface IProductsProps {
@@ -21,7 +22,7 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
+const SignUpProducts = ({ items, onAddItem, onRemoveItem }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
@@ -130,7 +131,7 @@ const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}
         tableItems={productsList}
-        updateTableItems={setProductsList}
+        onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />
