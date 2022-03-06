@@ -3,6 +3,7 @@ import { DialogOverlay, DialogContent } from '@reach/dialog'
 
 import styles from './styles.module.css'
 import IconButton from '../Button/IconButton'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export interface IDialogProps {
   isOpen: boolean
@@ -23,17 +24,31 @@ export interface IDialogProps {
 //    </Dialog>
 
 const Dialog = ({ isOpen, onDismiss, children }: IDialogProps) => {
+  const MotionDialogOverlay = motion(DialogOverlay)
+  const MotionDialogContent = motion(DialogContent)
   return (
-    <>
+    <AnimatePresence initial={false} exitBeforeEnter={true}>
       {isOpen && (
-        <DialogOverlay className={styles.wrapper} onClick={onDismiss}>
-          <div className={styles.backdrop} />
-          <DialogContent aria-label="dialog-content" className={styles.content}>
+        <MotionDialogOverlay className={styles.wrapper} onClick={onDismiss}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className={styles.backdrop}
+          />
+          <MotionDialogContent
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, transition: { duration:0.2 } }}
+            aria-label="dialog-content"
+            className={styles.content}
+          >
             {children}
-          </DialogContent>
-        </DialogOverlay>
+          </MotionDialogContent>
+        </MotionDialogOverlay>
       )}
-    </>
+    </AnimatePresence>
   )
 }
 
