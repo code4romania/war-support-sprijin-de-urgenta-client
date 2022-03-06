@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export interface IThankYouMessageProps {
-  type: string
+  type: FormPageProps.Offer | FormPageProps.Request
 }
 
 const ThankYouMessage = ({ type }: IThankYouMessageProps) => {

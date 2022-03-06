@@ -8,9 +8,9 @@ import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
 import {
-  roIdentityCardRegex,
   phoneNumberRegex,
   roCarRegistrationNumber,
+  roIdentityCardRegex,
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
@@ -25,9 +25,10 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
+import i18n from 'i18next'
+import endpoints from 'endpoints.json'
 
 type ServicesForm = {
-  available_seats: number
   driver_contact: string
   driver_id: string
   driver_name: string
@@ -38,33 +39,36 @@ type ServicesForm = {
   category?: string
   county_coverage?: string[]
   description?: string
-  has_disabled_access?: boolean
-  pets_allowed: boolean
+  has_refrigeration?: boolean
   type?: string
+  weight_capacity?: number
+  weight_unit?: string
 }
 
-interface ITransportPersonsFormProps {
+interface IOfferTransportGoodsFormProps {
   onSubmit: (data: TransportServicesRequest) => void
 }
 
-export const TransportPersonsForm = ({
+export const OfferTransportGoodsForm = ({
   onSubmit,
-}: ITransportPersonsFormProps) => {
+}: IOfferTransportGoodsFormProps) => {
   const { t } = useTranslation()
   const { data } = useServicesForm()
+  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
+    {}
+  )
 
-  const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    available_seats: yup
-      .number()
-      .typeError(t('error.must.be.number'))
-      .required(),
-    availability: yup.string().typeError(t('error.must.be.string')),
+  const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
+    availability: yup
+      .string()
+      .required('error.availability.required')
+      .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
-      .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
+      .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
     county_coverage: yup.array().when('type', {
       is: TransportType.County,
@@ -83,14 +87,10 @@ export const TransportPersonsForm = ({
       .string()
       .required(t('error.driverContact.required'))
       .matches(phoneNumberRegex, t('error.driverContact.invalid')),
-    has_disabled_access: yup
+    has_refrigeration: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.boolean.required')),
-    pets_allowed: yup
-      .boolean()
-      .typeError(t('error.must.be.boolean'))
-      .required(t('error.boolean.required')),
+      .required(t('error.has_refrigeration.required')),
     type: yup.string(),
     weight_unit: yup.string().typeError(t('error.must.be.string')),
     weight_capacity: yup.number().typeError(t('error.must.be.number')),
@@ -103,12 +103,18 @@ export const TransportPersonsForm = ({
     watch,
     control,
   } = useForm<ServicesForm>({
-    resolver: yupResolver(transportPersonsSchema),
+    defaultValues: {
+      weight_capacity: 0,
+      county_coverage: [],
+    },
+    resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
   })
 
   const showCountyCoverageDropdown = watch('type') === TransportType.County
+  const countyCoverage = watch('county_coverage')
+  console.log(countyCoverage)
   const showAvailabilityIntervals =
     watch('availability') === AvailabilityType.FixedIntervals
 
@@ -118,18 +124,19 @@ export const TransportPersonsForm = ({
       label: c.display_name,
     }))
   }, [data?.county_coverage?.choices])
-
   const typeOptions: { value: number; display_name: string }[] =
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    const personsTransportRequest: TransportServicesRequest = {
-      available_seats: data.available_seats,
+    console.log('onAdd', data)
+    //Preparing object for mutation. The api seems incomplete
+    const goodsTransportRequest: TransportServicesRequest = {
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
       availability_interval_to: data.availability_interval_to,
-      has_disabled_access: !!data.has_disabled_access,
-      pets_allowed: !!data.pets_allowed,
+      weight_capacity: data.weight_capacity,
+      weight_unit: data.weight_unit,
+      has_refrigeration: !!data.has_refrigeration,
       type: data.type,
       county_coverage: data.county_coverage,
       driver_name: data.driver_name,
@@ -137,10 +144,11 @@ export const TransportPersonsForm = ({
       car_registration_number: data.car_registration_number,
       driver_contact: data.driver_contact,
       description: data.description,
-      category: TransportCategories.People,
+      category: TransportCategories.Goods,
     }
 
-    onSubmit(personsTransportRequest)
+    onSubmit(goodsTransportRequest)
+    return false
   }
 
   return (
@@ -150,39 +158,50 @@ export const TransportPersonsForm = ({
           <div className={clsx('flex flex-row items-center space-x-2')}>
             <Input
               type="number"
-              label={t('services.available_seats')}
-              errors={errors['available_seats']}
+              label={t('services.capacity')}
+              errors={
+                serverErrors['weight_capacity']
+                  ? { message: serverErrors['weight_capacity'].join('\n') }
+                  : errors['weight_capacity']
+              }
               step="any"
-              {...register('available_seats')}
+              {...register('weight_capacity')}
+            />
+            <Input
+              label={t('services.weight_unit')}
+              errors={
+                serverErrors['weight_unit']
+                  ? { message: serverErrors['weight_unit'].join('\n') }
+                  : errors['weight_unit']
+              }
+              {...register('weight_unit')}
             />
           </div>
           <RadioGroup
-            errors={errors['has_disabled_access']}
-            label={t('services.has_disabled_access')}
+            errors={
+              serverErrors['has_refrigeration']
+                ? { message: serverErrors['has_refrigeration'].join('\n') }
+                : errors['has_refrigeration']
+            }
+            label={t('services.cooling')}
           >
             <div className={clsx('flex flex-row gap-6')}>
-              <Radio value="true" {...register('has_disabled_access')}>
+              <Radio value="true" {...register('has_refrigeration')}>
                 {t('yes')}
               </Radio>
-              <Radio value="false" {...register('has_disabled_access')}>
+              <Radio value="false" {...register('has_refrigeration')}>
                 {t('no')}
               </Radio>
             </div>
           </RadioGroup>
           <RadioGroup
-            errors={errors['pets_allowed']}
-            label={t('services.pets_allowed')}
+            errors={
+              serverErrors['type']
+                ? { message: serverErrors['type'].join('\n') }
+                : errors['type']
+            }
+            label={t('services.transport')}
           >
-            <div className={clsx('flex flex-row gap-6')}>
-              <Radio value="true" {...register('pets_allowed')}>
-                {t('yes')}
-              </Radio>
-              <Radio value="false" {...register('pets_allowed')}>
-                {t('no')}
-              </Radio>
-            </div>
-          </RadioGroup>
-          <RadioGroup errors={errors['type']} label={t('services.transport')}>
             <Radio
               value={typeOptions && typeOptions[0].value}
               {...register('type')}
@@ -211,7 +230,7 @@ export const TransportPersonsForm = ({
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_name}
-            label={t('services.driver-name')}
+            label={`${t('services.driver-name')}:`}
             {...register('driver_name')}
           />
           <Input
@@ -237,6 +256,7 @@ export const TransportPersonsForm = ({
           />
           <Dropdown
             label={t('services.availability')}
+            errors={errors.availability}
             {...register('availability')}
           >
             {data?.availability?.choices.map(

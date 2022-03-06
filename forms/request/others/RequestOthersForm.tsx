@@ -1,7 +1,7 @@
 import { DonateOtherRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { MultiSelectOption } from '../Form/types'
+import { MultiSelectOption } from '../../../components/Form/types'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 import clsx from 'clsx'
@@ -12,7 +12,7 @@ import Button from '@/components/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SchemaOf } from 'yup'
 import * as yup from 'yup'
-import { OtherResourceForm } from './OtherResourcesForm'
+import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -25,16 +25,20 @@ type Form = {
   description?: string
   available_until?: Date
   county_coverage: string[]
-  town?: string
+  town: string
 }
 
-const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
+export const RequestOthersForm: FC<IProps> = ({
+  counties,
+  category,
+  onSubmit,
+}) => {
   const { t } = useTranslation()
-
-  const otherResourcesSchema: SchemaOf<Form> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(t('error.name.required')),
+  const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
+    name: yup.string().typeError(t('error.must.be.string')).required(),
+    category: yup.number().typeError(t('error.must.be.number')),
     description: yup.string().typeError(t('error.must.be.string')),
-    available_until: yup.mixed().typeError(t('error.must.be.string')),
+    available_until: yup.string().typeError(t('error.must.be.string')),
     county_coverage: yup
       .array()
       .min(1, t('error.county.minOne'))
@@ -46,16 +50,11 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
     register,
     formState: { errors },
     control,
-  } = useForm<Form>({
+  } = useForm({
     resolver: yupResolver(otherResourcesSchema),
-    reValidateMode: 'onSubmit',
-    mode: 'all',
-    defaultValues: {
-      county_coverage: [],
-    }
   })
 
-  const onFormSubmit = (values: Form) => {
+  const onFormSubmit = (values: any) => {
     const donateOtherRequest: DonateOtherRequest = { ...values, category }
     onSubmit(donateOtherRequest)
   }
@@ -99,5 +98,3 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
     </form>
   )
 }
-
-export default Dialog

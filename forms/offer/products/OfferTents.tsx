@@ -1,51 +1,50 @@
-import Location from '@/components/SignUpProducts/common/Location'
-import Product from '@/components/SignUpProducts/common/Product'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import Quantity from '@/components/SignUpProducts/common/Quantity'
+import { Label } from '@/components/Form/common'
+import Input from '@/components/Form/Input'
+import Location from 'forms/common/Location'
+import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { MultiSelectOption } from '../Form/types'
 import { useTranslation } from 'react-i18next'
+import { MultiSelectOption } from '../../../components/Form/types'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
 import clsx from 'clsx'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-
 interface IProps {
-  counties: MultiSelectOption[]
+  counties?: MultiSelectOption[]
+  category: number
   onSubmit: (values: DonateItemRequest) => void
 }
-
-type BuildingMaterialsForm = {
+type OfferTentsForm = {
   county_coverage: string[]
-  has_transportation: boolean;
-  town?: string;
-  name: string;
-  quantity?: number;
-  unit_type: string;
-  packaging_type: string;
-  expiration_date?: string;
+  has_transportation: boolean
+  town?: string
+  name: string
+  quantity?: number
+  tent_capacity: number
+  unit_type: string
 }
 
-const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
+export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
 
-  const buildingMaterialsSchema: SchemaOf<BuildingMaterialsForm> = yup.object().shape({
-    county_coverage: yup.array()
+  const tentsSchema: SchemaOf<OfferTentsForm> = yup.object().shape({
+    county_coverage: yup
+      .array()
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
-    has_transportation: yup.boolean()
+    has_transportation: yup
+      .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     town: yup.string(),
     name: yup.string().required(t('error.productName.required')),
     quantity: yup.number().typeError(t('error.must.be.number')),
+    tent_capacity: yup.number().required(t('error.tentCapacity.required')),
     unit_type: yup.string().required(t('error.unitType.required')),
-    packaging_type: yup.string().required(t('error.packagkingType.required')),
-    expiration_date: yup.mixed().typeError(t('error.must.be.date')),
   })
 
   const {
@@ -53,25 +52,26 @@ const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
     register,
     formState: { errors },
     control,
-  } = useForm<BuildingMaterialsForm>({
-    resolver: yupResolver(buildingMaterialsSchema),
+  } = useForm<OfferTentsForm>({
+    resolver: yupResolver(tentsSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
     defaultValues: {
-      county_coverage: []
-    }
+      county_coverage: [],
+    },
   })
 
   const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values };
+    const donateItemRequest: DonateItemRequest = {
+      ...values,
+      unit_type: 'tent',
+    }
     onSubmit(donateItemRequest)
   }
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup
-        label={t('services.offerTransport')}
-      >
+      <RadioGroup label={t('services.offerTransport')}>
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -81,32 +81,36 @@ const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
           </Radio>
         </div>
       </RadioGroup>
+      <Input
+        type="number"
+        {...register('quantity')}
+        label={t('signup.products.qty')}
+        labelPosition="horizontal"
+      />
+      <div className="flex gap-4">
+        <Input
+          type="number"
+          label={t('signup.products.capacity')}
+          {...register('tent_capacity')}
+          labelPosition="horizontal"
+        />
+        <Label
+          name={t('signup.products.persons')}
+          className={'translate-y-[10px] flex-[1_0_25%]'}
+        >
+          {t('signup.products.persons')}
+        </Label>
+      </div>
       <Location
         counties={counties}
-        register={register}
         control={control}
         errors={errors}
+        register={register}
         names={{
           county_coverage: 'county_coverage',
-          town: 'town'
+          town: 'town',
         }}
       />
-      <Product
-        errors={errors}
-        register={register}
-        names={{ name: 'name' }}
-      />
-
-      <Quantity
-        errors={errors}
-        register={register}
-        names={{
-          quantity: 'quantity',
-          packaging_type: 'packaging_type',
-          unit_type: 'unit_type'
-        }} />
-
     </ProductTypeWrapper>
   )
 }
-export default BuildingMaterials
