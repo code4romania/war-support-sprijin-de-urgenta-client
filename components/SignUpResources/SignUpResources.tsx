@@ -14,11 +14,14 @@ import {
   DonateItemRequest,
   DonateOtherRequest,
   DonateVolunteeringRequest,
+  ServerError,
+  ServerErrorByEndpoint,
   TransportServicesRequest,
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
 import { FormPageProps } from '../FormPage/FormPage'
+import ServerErrorsMessage from '../ServerErrorsMessage'
 
 export interface ISignUpResources {
   type: FormPageProps.Offer | FormPageProps.Request
@@ -34,6 +37,9 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
     []
   )
+
+  const [serverErrors, setServerErrors] = useState<ServerErrorByEndpoint>({});
+
   const removeItem = (array: any[], index: number) => {
     const newArray = [...array]
     newArray.splice(index, 1)
@@ -143,59 +149,74 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       | DonateOtherRequest[],
     endpoint: string
   ) => {
-    try {
-      return await fetch(
-        `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`,
-        {
-          method: 'POST',
-          mode: 'cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          redirect: 'follow',
-          referrerPolicy: 'no-referrer',
-          body: JSON.stringify(values),
-        }
-      ).then(async (response) => {
-        if (response.status >= 400 && response.status < 600) {
-          const responseJson = await response.json()
-          const error = Object.assign(
-            {},
-            {
-              error: responseJson,
-              status: response.status,
-              statusText: response.statusText,
-            }
-          )
-          return Promise.reject(error)
-        }
-        return Promise.resolve(response)
-      })
-    } catch (e: any) {
-      const requestError: Record<string, any> = {}
-      requestError[endpoint] = e
-      Promise.reject(requestError)
-    }
+    return await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(values),
+    }).then(async (response) => {
+      if (!response.ok) {
+        const responseJson = await response.json();
+        const error: ServerError = Object.assign({}, {
+          endpoint,
+          error: responseJson,
+          status: response.status,
+          statusText: response.statusText
+        });
+        return Promise.reject(error);
+      }
+      return Promise.resolve(response);
+    });
   }
 
   const handleSubmit = async () => {
+    const serverErrors: ServerErrorByEndpoint = {};
+
     if (servicesList.length) {
-      await onSubmit(servicesList, endpoints['donate/transport_service'])
+      try {
+        await onSubmit(servicesList, endpoints['donate/transport_service'])
+      }
+      catch (e: any) {
+        serverErrors[e.endpoint] = e.error
+      }
     }
     if (productsList.length) {
-      await onSubmit(productsList, endpoints['donate/item'])
+      try {
+        await onSubmit(productsList, endpoints['donate/item'])
+      }
+      catch (e: any) {
+        serverErrors[e.endpoint] = e.error
+      }
     }
     if (volunteeringList.length) {
-      await onSubmit(volunteeringList, endpoints['donate/volunteering'])
+      try {
+        await onSubmit(volunteeringList, endpoints['donate/volunteering'])
+      } catch (e: any) {
+        serverErrors[e.endpoint] = e.error
+        console.log(serverErrors)
+      }
     }
     if (othersList.length) {
-      await onSubmit(othersList, endpoints['donate/other'])
+      try {
+        await onSubmit(othersList, endpoints['donate/other'])
+      }
+      catch (e: any) {
+        serverErrors[e.endpoint] = e.error
+      }
     }
 
-    setSubmitSuccess(true)
-    setSelectedResourceTypes([])
+    if (Object.keys(serverErrors).length === 0) {
+      setSubmitSuccess(true)
+      setSelectedResourceTypes([])
+    } else {
+      setServerErrors(serverErrors);
+    }
   }
 
   return (
@@ -228,6 +249,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         ))}
       {submitSuccess && <ThankYouMessage type={type} />}
       <Spacer size={'1em'} />
+      {Object.keys(serverErrors).length > 0 && <ServerErrorsMessage errors={serverErrors} />}
       <StepperButtonGroup
         steps={[
           { disabled: true, direction: 'backward' },
