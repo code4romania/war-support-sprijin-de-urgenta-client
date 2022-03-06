@@ -53,7 +53,8 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
     reValidateMode: 'onSubmit',
     mode: 'all',
     defaultValues: {
-      county_coverage: []
+      county_coverage: [],
+      available_until: (new Date()).toISOString().split('T')[0]
     }
   })
 
@@ -86,7 +87,6 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
       />
       <DateInput
         label={t('signup.volunteering.available_until')}
-
         {...register('available_until')}
       />
       <Button type="submit" text={t('add')} variant="tertiary" size="small" />
