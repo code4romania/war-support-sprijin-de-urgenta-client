@@ -10,20 +10,9 @@ import SignupVolunteering from '../SignupVolunteering'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import Spacer from '@/components/Spacer'
 import ThankYouMessage from '../ThankYouMessage'
-
-const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
-  const componentMap = {
-    services: () => <SignUpServicesForm />,
-    products: () => <SignUpProducts />,
-    volunteer: () => <SignupVolunteering />,
-    others: () => <OtherResourcesForm />,
-    default: () => <OtherResourcesForm />,
-  }
-  return (
-    componentMap[resourceType as keyof typeof componentMap] ||
-    componentMap.default
-  )()
-}
+import { TransportServicesRequest } from 'api'
+import endpoints from 'endpoints.json'
+import i18n from 'i18next'
 
 const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
@@ -33,6 +22,33 @@ const SignUpResources = ({ type }: { type: string }) => {
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
   )
+  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
+    []
+  )
+  console.log('servicesList', servicesList)
+
+  const onAddService = (data: any) => {
+    setServicesList((state) => [...state, data])
+  }
+
+  const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
+    const componentMap = {
+      services: () => (
+        <SignUpServicesForm
+          onAddGoodItem={onAddService}
+          onAddPersoItem={onAddService}
+        />
+      ),
+      products: () => <SignUpProducts />,
+      volunteer: () => <SignupVolunteering />,
+      others: () => <OtherResourcesForm />,
+      default: () => <OtherResourcesForm />,
+    }
+    return (
+      componentMap[resourceType as keyof typeof componentMap] ||
+      componentMap.default
+    )()
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
@@ -47,9 +63,25 @@ const SignUpResources = ({ type }: { type: string }) => {
       )
   }
 
+  const onSubmit = async (values: any, endpoint: string) => {
+    fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(values),
+    })
+  }
+
   const handleSubmit = () => {
-    setSubmitSuccess(true)
-    setSelectedResourceTypes([])
+    // setSubmitSuccess(true)
+    // setSelectedResourceTypes([])
+    onSubmit(servicesList, endpoints['donate/transport_service'])
   }
 
   return (

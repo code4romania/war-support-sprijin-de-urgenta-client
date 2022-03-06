@@ -45,24 +45,6 @@ const SignupVolunteering: FC = () => {
         />
       ),
     })) || []
-  //
-  // const onSubmit = async (values: any) => {
-  //   fetch(
-  //     `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/volunteering']}`,
-  //     {
-  //       method: 'POST',
-  //       mode: 'cors',
-  //       cache: 'no-cache',
-  //       credentials: 'same-origin',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       redirect: 'follow',
-  //       referrerPolicy: 'no-referrer',
-  //       body: JSON.stringify([values]),
-  //     }
-  //   )
-  // }
 
   return (
     <section
