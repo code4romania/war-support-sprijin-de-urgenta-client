@@ -1,6 +1,6 @@
 import Textarea from '@/components/Form/Textarea'
-import Product from '@/components/SignUpProducts/common/Product'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
+import Product from 'forms/common/Product'
+import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -16,22 +16,24 @@ interface IProps {
   onSubmit: (values: DonateItemRequest) => void
 }
 
-type OthersForm = {
+type OfferProductsOthersForm = {
   county_coverage: string[]
-  has_transportation: boolean;
-  unit_type: string;
-  name: string;
-  description?: string;
+  has_transportation: boolean
+  unit_type: string
+  name: string
+  description?: string
 }
 
-const Others: FC<IProps> = ({ onSubmit }) => {
+export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
   const { t } = useTranslation()
 
-  const othersSchema: SchemaOf<OthersForm> = yup.object().shape({
-    county_coverage: yup.array()
+  const othersSchema: SchemaOf<OfferProductsOthersForm> = yup.object().shape({
+    county_coverage: yup
+      .array()
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
-    has_transportation: yup.boolean()
+    has_transportation: yup
+      .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     name: yup.string().required(t('error.productName.required')),
@@ -43,25 +45,23 @@ const Others: FC<IProps> = ({ onSubmit }) => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<OthersForm>({
+  } = useForm<OfferProductsOthersForm>({
     resolver: yupResolver(othersSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
     defaultValues: {
-      county_coverage: []
-    }
+      county_coverage: [],
+    },
   })
 
   const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values };
-    onSubmit(donateItemRequest);
+    const donateItemRequest: DonateItemRequest = { ...values }
+    onSubmit(donateItemRequest)
   }
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup
-        label={t('services.offerTransport')}
-      >
+      <RadioGroup label={t('services.offerTransport')}>
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -75,7 +75,7 @@ const Others: FC<IProps> = ({ onSubmit }) => {
         register={register}
         errors={errors}
         names={{
-          name: 'name'
+          name: 'name',
         }}
       />
       <Textarea
@@ -86,5 +86,3 @@ const Others: FC<IProps> = ({ onSubmit }) => {
     </ProductTypeWrapper>
   )
 }
-
-export default Others

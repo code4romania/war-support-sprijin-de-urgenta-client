@@ -1,3 +1,4 @@
+import { FormPageProps } from '@/components/FormPage/FormPage'
 import { StepsStore, UserComponentType } from './types'
 
 export enum ActionType {
@@ -12,11 +13,11 @@ export const defaultStepsState: StepsStore = {
     request: [
       {
         label: 'steps.userType',
-        component: UserComponentType.userType
+        component: UserComponentType.userType,
       },
       {
         label: 'steps.userData',
-        component: UserComponentType.userData
+        component: UserComponentType.userData,
       },
       {
         label: 'steps.resources.request',
@@ -26,11 +27,11 @@ export const defaultStepsState: StepsStore = {
     offer: [
       {
         label: 'steps.userType',
-        component: UserComponentType.userType
+        component: UserComponentType.userType,
       },
       {
         label: 'steps.userData',
-        component: UserComponentType.userData
+        component: UserComponentType.userData,
       },
       {
         label: 'steps.resources.offer',
@@ -47,7 +48,10 @@ export const steps = (
 ): StepsStore => {
   switch (action.type) {
     case ActionType.INCREASE: {
-      if (state.activeStep + 1 > state.steps['request'].length - 1) {
+      if (
+        state.activeStep + 1 >
+        state.steps[FormPageProps.Request].length - 1
+      ) {
         return state
       }
       return {

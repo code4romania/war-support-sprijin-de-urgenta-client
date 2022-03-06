@@ -2,6 +2,7 @@ import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import ThankYouMessage from './ThankYouMessage'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export default {
   title: 'ThankYouMessage',
@@ -14,7 +15,7 @@ const Template: ComponentStory<typeof ThankYouMessage> = (args) => (
 
 export const Request = Template.bind({})
 Request.args = {
-  type: 'request',
+  type: FormPageProps.Request,
 }
 
 Request.parameters = {
@@ -26,7 +27,7 @@ Request.parameters = {
 
 export const Offer = Template.bind({})
 Offer.args = {
-  type: 'offer',
+  type: FormPageProps.Offer,
 }
 
 Offer.parameters = {

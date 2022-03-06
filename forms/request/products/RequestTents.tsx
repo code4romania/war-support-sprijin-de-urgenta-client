@@ -1,63 +1,39 @@
 import { Label } from '@/components/Form/common'
 import Input from '@/components/Form/Input'
-import Location from '@/components/SignUpProducts/common/Location'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
+import Location from 'forms/common/Location'
+import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { MultiSelectOption } from '../Form/types'
+import { MultiSelectOption } from '../../../components/Form/types'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
 import clsx from 'clsx'
-import * as yup from 'yup'
-import { SchemaOf } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+
 interface IProps {
   counties?: MultiSelectOption[]
   category: number
   onSubmit: (values: DonateItemRequest) => void
 }
-type TentsForm = {
+type RequestTentsForm = {
   county_coverage: string[]
-  has_transportation: boolean;
-  town?: string;
-  name: string;
-  quantity?: number;
-  tent_capacity: number;
-  unit_type: string;
+  town: string
+  name: string
+  quantity: number
+  tent_capacity: number
+  unit_type: string
+  has_transportation: boolean
 }
 
-const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
+export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
-
-  const tentsSchema: SchemaOf<TentsForm> = yup.object().shape({
-    county_coverage: yup.array()
-      .min(1, t('error.county.minOne'))
-      .of(yup.string().required()),
-    has_transportation: yup.boolean()
-      .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_transportation.required')),
-    town: yup.string(),
-    name: yup.string().required(t('error.productName.required')),
-    quantity: yup.number().typeError(t('error.must.be.number')),
-    tent_capacity: yup.number().required(t('error.tentCapacity.required')),
-    unit_type: yup.string().required(t('error.unitType.required')),
-  })
-
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<TentsForm>({
-    resolver: yupResolver(tentsSchema),
-    reValidateMode: 'onSubmit',
-    mode: 'all',
-    defaultValues: {
-      county_coverage: []
-    }
-  })
+  } = useForm<RequestTentsForm>()
 
   const onFormSubmit = (values: DonateItemRequest) => {
     const donateItemRequest: DonateItemRequest = {
@@ -69,9 +45,7 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup
-        label={t('services.offerTransport')}
-      >
+      <RadioGroup label={t('services.offerTransport')}>
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -114,5 +88,3 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
     </ProductTypeWrapper>
   )
 }
-
-export default Tents

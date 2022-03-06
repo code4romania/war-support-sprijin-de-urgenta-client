@@ -18,25 +18,27 @@ import {
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
+import { FormPageProps } from '../FormPage/FormPage'
 
-const removeItem = (array: any[], index: number) => {
-  const newArray = [...array]
-  newArray.splice(index, 1)
-  return newArray
+export interface ISignUpResources {
+  type: FormPageProps.Offer | FormPageProps.Request
 }
 
-const SignUpResources = ({ type }: { type: string }) => {
+const SignUpResources = ({ type }: ISignUpResources) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
   const [submitSuccess, setSubmitSuccess] = useState(false)
-
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
   )
-
   const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
     []
   )
+  const removeItem = (array: any[], index: number) => {
+    const newArray = [...array]
+    newArray.splice(index, 1)
+    return newArray
+  }
   const onAddService = (data: TransportServicesRequest) => {
     setServicesList((state) => [...state, data])
   }
@@ -45,6 +47,7 @@ const SignUpResources = ({ type }: { type: string }) => {
   }
 
   const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
+
   const onAddProduct = (data: DonateItemRequest) => {
     setProductsList((state) => [...state, data])
   }
@@ -74,6 +77,7 @@ const SignUpResources = ({ type }: { type: string }) => {
     const componentMap = {
       services: () => (
         <SignUpServicesForm
+          type={type}
           items={servicesList}
           onAddItem={onAddService}
           onRemoveItem={onRemoveService}
@@ -81,6 +85,7 @@ const SignUpResources = ({ type }: { type: string }) => {
       ),
       products: () => (
         <SignUpProducts
+          type={type}
           items={productsList}
           onAddItem={onAddProduct}
           onRemoveItem={onRemoveProduct}
@@ -88,6 +93,7 @@ const SignUpResources = ({ type }: { type: string }) => {
       ),
       volunteer: () => (
         <SignupVolunteering
+          type={type}
           items={volunteeringList}
           onAddItem={onAddVolunteeringItem}
           onRemoveItem={onRemoveVolunteeringItem}
@@ -95,6 +101,7 @@ const SignUpResources = ({ type }: { type: string }) => {
       ),
       others: () => (
         <OtherResourcesForm
+          type={type}
           items={othersList}
           onAddItem={onAddOtherItem}
           onRemoveItem={onRemoveOtherItem}
@@ -102,6 +109,7 @@ const SignUpResources = ({ type }: { type: string }) => {
       ),
       default: () => (
         <OtherResourcesForm
+          type={type}
           items={othersList}
           onAddItem={onAddOtherItem}
           onRemoveItem={onRemoveOtherItem}

@@ -2,12 +2,12 @@ import { Label } from '@/components/Form/common'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import { MultiSelectOption, PartialRecord } from '@/components/Form/types'
-import { ResourceType } from '@/components/SignUpProducts/types'
+import { ResourceType } from 'forms/types'
 import clsx from 'clsx'
 import { Control, ErrorOption, Path, UseFormRegister } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 
-type RecordKey = 'county_coverage' | 'town';
+type RecordKey = 'county_coverage' | 'town'
 
 interface IProps<TFormValues> {
   counties?: MultiSelectOption[]
@@ -22,7 +22,7 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   control,
   register,
   errors,
-  names
+  names,
 }: IProps<TFormValues>) => {
   const { t } = useTranslation()
 
@@ -31,8 +31,8 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
       <div className={clsx('flex flex-row')}>
         <DropdownMultiSelect
           label={t('signup.products.county')}
-          labelPosition='horizontal'
-          {...register && register(names.county_coverage)}
+          labelPosition="horizontal"
+          {...(register && register(names.county_coverage))}
           className={clsx('w-full mb-4')}
           options={counties || []}
           errors={errors && errors[names.county_coverage]}

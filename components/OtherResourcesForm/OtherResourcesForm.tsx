@@ -3,12 +3,10 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useOthersForm } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
-import Dialog from './Dialog'
+import { OfferOthersForm, RequestOthersForm } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
-import * as yup from 'yup'
-import { SchemaOf } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export type OtherResourceForm = {
   county_coverage: string[]
@@ -22,26 +20,30 @@ export type OtherResourceForm = {
 interface IOtherResourceFormProps {
   items: DonateOtherRequest[]
   onAddItem: (data: DonateOtherRequest) => void
+  type: string
   onRemoveItem: (index: number) => void
 }
 
-const OtherResourcesForm = ({ items, onAddItem, onRemoveItem }: IOtherResourceFormProps) => {
+const OtherResourcesForm = ({
+  type,
+  items,
+  onAddItem,
+  onRemoveItem,
+}: IOtherResourceFormProps) => {
   const { t } = useTranslation()
-  
+
   const { data: formData } = useOthersForm()
   const { data: categoriesList } = useData(endpoints['categories/other'])
 
   const tableColumns = [t('resources.other')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateOtherRequest[]>([])
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
   const onSubmit = (data: DonateOtherRequest) => {
-    setProductsList((state) => [...state, data])
     onAddItem(data)
     handleDialogDismiss()
   }
@@ -57,13 +59,20 @@ const OtherResourcesForm = ({ items, onAddItem, onRemoveItem }: IOtherResourceFo
     categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
-      children: (
-        <Dialog
-          counties={countyCovarage}
-          onSubmit={onSubmit}
-          category={category.id}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferOthersForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ) : (
+          <RequestOthersForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ),
     })) || []
 
   return (
@@ -83,7 +92,7 @@ const OtherResourcesForm = ({ items, onAddItem, onRemoveItem }: IOtherResourceFo
         tableColumns={tableColumns}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        tableItems={productsList}
+        tableItems={items}
         onRemoveItem={onRemoveItem}
       />
     </section>

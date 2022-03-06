@@ -2,18 +2,22 @@ import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useVolunteeringForm } from '@/hooks/useData'
+
 import endpoints from 'endpoints.json'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateVolunteeringRequest } from '../../api'
-import Dialog from '@/components/SignupVolunteering/Dialog'
+import { OfferVolunteeringForm, RequestVolunteeringForm } from 'forms'
+import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignupVolunteeringProps {
   items: DonateVolunteeringRequest[]
   onAddItem: (data: DonateVolunteeringRequest) => void
+  type: FormPageProps.Offer | FormPageProps.Request
   onRemoveItem: (index: number) => void
 }
 
 const SignupVolunteering = ({
+  type,
   items,
   onAddItem,
   onRemoveItem,
@@ -46,13 +50,20 @@ const SignupVolunteering = ({
     categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
-      children: (
-        <Dialog
-          counties={countyCovarage}
-          onSubmit={onSubmit}
-          category={category.id}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferVolunteeringForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ) : (
+          <RequestVolunteeringForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ),
     })) || []
 
   return (
