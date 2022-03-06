@@ -67,9 +67,7 @@
   "useful.links": "Корисні посилання",
   "legal.info": "Правова інформація",
   "signup.resources.offer": "Наданий ресурс",
-  "signup.resources.offer.thankYouMessage": "Thank you for your generosity. The resources you have provided have been recorded in the system and as soon as we allocate them, we contact you.",
   "signup.resources.request": "Необхідний ресурс:",
-  "signup.resources.request.thankYouMessage": "Thank you for your message. We will process your request as soon as possible.",
   "signup.resources.fillInDetails": "Заповніть деталі нижче для кожного вибраного ресурсу:",
   "signup.resources.gdpr": "Заповнюючи форму, я погоджуюсь з тим, що мої дані обробляються урядом Румунії. Я знаю, що уряд Румунії обробляє мої персональні дані відповідно до положень Регламенту (ЄС) 2016/679.",
   "signup.userType.type": "Тип користувача",
@@ -146,7 +144,6 @@
   "signup.products.others": "інші",
   "signup.products.capacity": "ємкість",
   "signup.products.persons": "люди",
-  "signup.products.pleaseAddProduct": "No products added.",
   "error.availability.minOne": "Виберіть принаймні один варіант",
   "signup.products.unit_type": "одиниця",
   "error.capacity.required": "Введіть ємність",
@@ -219,5 +216,6 @@
   "error.availability.required": "Виберіть значення",
   "resources.product": "Продукт",
   "resources.quantity": "Кількість",
-  "resources.added.products": "Додані продукти"
+  "resources.added.products": "Додані продукти",
+  "services.offerTransport": "Можемо забезпечити транспорт"
 }

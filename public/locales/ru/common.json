@@ -67,11 +67,8 @@
   "useful.links": "Полезные ссылки",
   "legal.info": "Юридическая информация",
   "signup.resources.offer": "Предоставленный ресурс",
-  "signup.resources.offer.thankYouMessage": "Thank you for your generosity. The resources you have provided have been recorded in the system and as soon as we allocate them, we contact you.",
   "signup.resources.request": "Требуемый ресурс:",
-  "signup.resources.request.thankYouMessage": "Thank you for your message. We will process your request as soon as possible.",
   "signup.resources.fillInDetails": "Заполните данные ниже для каждого выбранного ресурса:",
-  "signup.resources.thankYouMessage": "Complete Details Below For Each Selected Resource:",
   "signup.resources.gdpr": "Заполняя форму, я соглашаюсь с тем, что мои данные могут обрабатываться правительством Румынии. Я подтверждаю, что правительство Румынии обрабатывает мои личные данные на основании положений Регламента (ЕС) 2016/679.",
   "signup.userType.type": "Тип пользователя",
   "signup.userType.type.placeholder": "Выберите тип пользователя",
@@ -147,7 +144,6 @@
   "signup.products.others": "разное",
   "signup.products.capacity": "емкость",
   "signup.products.persons": "люди",
-  "signup.products.pleaseAddProduct": "No products added.",
   "error.availability.minOne": "Пожалуйста, выберите хотя бы один вариант",
   "signup.products.unit_type": "Единица измерения",
   "error.capacity.required": "Введите емкость",
@@ -220,5 +216,6 @@
   "error.availability.required": "Выберите значение",
   "resources.product": "Товар",
   "resources.quantity": "Количество",
-  "resources.added.products": "Добавленные товары"
+  "resources.added.products": "Добавленные товары",
+  "services.offerTransport": "Можем обеспечить транспорт"
 }
