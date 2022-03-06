@@ -5,9 +5,9 @@ import {
   OfferTransportGoodsForm,
   RequestTransportGoodsForm,
   RequestTransportPersonsForm,
+  OfferTransportPersonsForm,
 } from 'forms'
-import { OfferTransportPersonsForm } from 'forms'
-import React, { ReactNode, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ResourcesForm, {
   ICategoryProps,
