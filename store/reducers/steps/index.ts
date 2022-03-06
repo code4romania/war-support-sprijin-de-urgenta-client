@@ -1,3 +1,4 @@
+import { FormPageProps } from '@/components/FormPage/FormPage'
 import { StepsStore, UserComponentType } from './types'
 
 export enum ActionType {

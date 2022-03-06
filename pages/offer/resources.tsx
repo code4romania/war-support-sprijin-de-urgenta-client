@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import FormPage from '@/components/FormPage'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 const OfferForm: NextPage = () => {
   return <FormPage type={FormPageProps.Offer} />
