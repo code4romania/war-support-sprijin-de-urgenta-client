@@ -15,24 +15,23 @@ import ResourcesForm, {
 import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignUpServicesFormProps {
+  items: TransportServicesRequest[]
   onAddItem: (data: TransportServicesRequest) => void
   type: FormPageProps.Offer | FormPageProps.Request
+  onRemoveItem: (index: number) => void
 }
 
 export const SignUpServicesForm = ({
   type,
+  items,
   onAddItem,
+  onRemoveItem,
 }: ISignUpServicesFormProps) => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
 
-  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
-    []
-  )
-
   const onAddService = (data: any) => {
-    setServicesList((state) => [...state, data])
     onAddItem(data)
     setShowDialog(false)
   }
@@ -62,11 +61,11 @@ export const SignUpServicesForm = ({
 
   const resourcesTableColumns = [t('services.driver-name')]
   const tableItems = useMemo(() => {
-    return servicesList.map((item) => ({
+    return items.map((item) => ({
       ...item,
       name: item.driver_name,
     }))
-  }, [servicesList])
+  }, [items])
 
   return (
     <section
@@ -82,7 +81,7 @@ export const SignUpServicesForm = ({
         tableTitle={t('resources.services.added')}
         tableColumns={resourcesTableColumns}
         tableItems={tableItems}
-        updateTableItems={setServicesList}
+        onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />

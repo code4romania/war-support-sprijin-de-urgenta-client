@@ -22,7 +22,7 @@ interface IProps {
 
 type VolunteeringResourceForm = {
   name: string
-  type: string
+  category: number
   town?: string
   description?: string
   available_until?: string
@@ -39,9 +39,9 @@ export const OfferVolunteeringForm: FC<IProps> = ({
     .object()
     .shape({
       name: yup.string().required(t('error.name.required')),
-      type: yup
-        .string()
-        .typeError(t('error.must.be.string'))
+      category: yup
+        .number()
+        .typeError(t('error.must.be.number'))
         .required(t('error.type.required')),
       town: yup.string().typeError(t('error.must.be.string')),
       description: yup.string().typeError(t('error.must.be.string')),
@@ -63,13 +63,14 @@ export const OfferVolunteeringForm: FC<IProps> = ({
     mode: 'all',
     defaultValues: {
       county_coverage: [],
+      category,
     },
   })
 
   const onFormSubmit = (values: VolunteeringResourceForm) => {
     const donateOtherRequest: DonateVolunteeringRequest = {
       ...values,
-      category,
+      type: category,
     }
     onSubmit(donateOtherRequest)
   }

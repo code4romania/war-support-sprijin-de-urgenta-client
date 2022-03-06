@@ -19,9 +19,10 @@ import { IResourcesCategoriesProps } from '../../forms/types'
 import { FormPageProps } from '../FormPage/FormPage'
 
 export interface ISignUpProductsProps {
-  defaultProp?: string
+  items: DonateItemRequest[]
   onAddItem: (item: DonateItemRequest) => void
   type: FormPageProps.Offer | FormPageProps.Request
+  onRemoveItem: (index: number) => void
 }
 export interface IProductsProps {
   resourceType: string
@@ -29,7 +30,12 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({ type, onAddItem }: ISignUpProductsProps) => {
+const SignUpProducts = ({
+  type,
+  onAddItem,
+  items,
+  onRemoveItem,
+}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
@@ -186,7 +192,7 @@ const SignUpProducts = ({ type, onAddItem }: ISignUpProductsProps) => {
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}
         tableItems={productsList}
-        updateTableItems={setProductsList}
+        onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />

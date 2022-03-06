@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useVolunteeringForm } from '@/hooks/useData'
@@ -10,11 +10,18 @@ import { OfferVolunteeringForm, RequestVolunteeringForm } from 'forms'
 import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignupVolunteeringProps {
+  items: DonateVolunteeringRequest[]
   onAddItem: (data: DonateVolunteeringRequest) => void
   type: FormPageProps.Offer | FormPageProps.Request
+  onRemoveItem: (index: number) => void
 }
 
-const SignupVolunteering = ({ type, onAddItem }: ISignupVolunteeringProps) => {
+const SignupVolunteering = ({
+  type,
+  items,
+  onAddItem,
+  onRemoveItem,
+}: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
   const { data: formData } = useVolunteeringForm()
   const { data: categoriesList } = useData(endpoints['categories/volunteering'])
@@ -22,16 +29,12 @@ const SignupVolunteering = ({ type, onAddItem }: ISignupVolunteeringProps) => {
   const tableColumns = [t('resources.volunteering')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>(
-    []
-  )
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
   const onSubmit = (data: DonateVolunteeringRequest) => {
-    setProductsList((state) => [...state, data])
     onAddItem(data)
     handleDialogDismiss()
   }
@@ -80,8 +83,8 @@ const SignupVolunteering = ({ type, onAddItem }: ISignupVolunteeringProps) => {
         tableColumns={tableColumns}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        tableItems={productsList}
-        updateTableItems={setProductsList}
+        tableItems={items}
+        onRemoveItem={onRemoveItem}
       />
     </section>
   )
