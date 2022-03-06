@@ -13,6 +13,10 @@ import { useTranslation } from 'react-i18next'
 import { MultiSelectOption } from '../../../components/Form/types'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+
 interface IProps {
   resourceType: ResourceType
   counties?: MultiSelectOption[]
@@ -21,12 +25,12 @@ interface IProps {
 
 type OfferTextileProductForm = {
   county_coverage: string[]
-  town: string
+  town?: string
   name: string
-  quantity: number
+  quantity?: number
   unit_type: string
   packaging_type: string
-  has_transportation: boolean
+  has_transportation?: boolean
 }
 
 export const OfferTextileProduct: FC<IProps> = ({
@@ -35,12 +39,36 @@ export const OfferTextileProduct: FC<IProps> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation()
+
+  const textilesSchema: SchemaOf<OfferTextileProductForm> = yup.object().shape({
+    county_coverage: yup
+      .array()
+      .min(1, t('error.county.minOne'))
+      .of(yup.string().required()),
+    town: yup.string(),
+    name: yup.string().required(t('error.productName.required')),
+    quantity: yup.number().typeError(t('error.must.be.number')),
+    unit_type: yup.string().required(t('error.unitType.required')),
+    packaging_type: yup.string().required(t('error.packagkingType.required')),
+    has_transportation: yup
+      .boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.has_transportation.required')),
+  })
+
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<OfferTextileProductForm>()
+  } = useForm<OfferTextileProductForm>({
+    resolver: yupResolver(textilesSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {
+      county_coverage: [],
+    },
+  })
 
   const onFormSubmit = (values: DonateItemRequest) => {
     const donateItemRequest: DonateItemRequest = { ...values }
@@ -49,7 +77,10 @@ export const OfferTextileProduct: FC<IProps> = ({
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+        errors={errors.has_transportation}
+      >
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}

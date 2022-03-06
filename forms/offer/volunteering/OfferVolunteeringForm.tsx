@@ -17,11 +17,12 @@ import { MultiSelectOption } from '@/components/Form/types'
 interface IProps {
   counties: MultiSelectOption[]
   category: number
-  onSubmit: (values: any) => void
+  onSubmit: (values: DonateVolunteeringRequest) => void
 }
 
 type VolunteeringResourceForm = {
-  type?: string
+  name: string
+  type: string
   town?: string
   description?: string
   available_until?: string
@@ -37,7 +38,11 @@ export const OfferVolunteeringForm: FC<IProps> = ({
   const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup
     .object()
     .shape({
-      type: yup.string().typeError(t('error.must.be.string')),
+      name: yup.string().required(t('error.name.required')),
+      type: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.type.required')),
       town: yup.string().typeError(t('error.must.be.string')),
       description: yup.string().typeError(t('error.must.be.string')),
       available_until: yup.string().typeError(t('error.must.be.string')),
@@ -46,16 +51,22 @@ export const OfferVolunteeringForm: FC<IProps> = ({
         .min(1, t('error.county.minOne'))
         .of(yup.string().required()),
     })
+
   const {
     control,
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
+  } = useForm<VolunteeringResourceForm>({
     resolver: yupResolver(volunteeringResourcesSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {
+      county_coverage: [],
+    },
   })
 
-  const onFormSubmit = (values: any) => {
+  const onFormSubmit = (values: VolunteeringResourceForm) => {
     const donateOtherRequest: DonateVolunteeringRequest = {
       ...values,
       category,
@@ -65,6 +76,11 @@ export const OfferVolunteeringForm: FC<IProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
+      <Input
+        label={t('signup.volunteering.name')}
+        {...register('name')}
+        errors={errors.name}
+      />
       <div className={'flex space-x-4'}>
         <DropdownMultiSelect
           {...register('county_coverage')}

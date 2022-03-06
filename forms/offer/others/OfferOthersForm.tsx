@@ -25,7 +25,7 @@ type Form = {
   description?: string
   available_until?: Date
   county_coverage: string[]
-  town: string
+  town?: string
 }
 
 export const OfferOthersForm: FC<IProps> = ({
@@ -34,11 +34,11 @@ export const OfferOthersForm: FC<IProps> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation()
-  const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(),
-    category: yup.number().typeError(t('error.must.be.number')),
+
+  const otherResourcesSchema: SchemaOf<Form> = yup.object().shape({
+    name: yup.string().typeError(t('error.must.be.string')).required(t('error.name.required')),
     description: yup.string().typeError(t('error.must.be.string')),
-    available_until: yup.string().typeError(t('error.must.be.string')),
+    available_until: yup.mixed().typeError(t('error.must.be.string')),
     county_coverage: yup
       .array()
       .min(1, t('error.county.minOne'))
@@ -50,11 +50,16 @@ export const OfferOthersForm: FC<IProps> = ({
     register,
     formState: { errors },
     control,
-  } = useForm({
+  } = useForm<Form>({
     resolver: yupResolver(otherResourcesSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {
+      county_coverage: [],
+    }
   })
 
-  const onFormSubmit = (values: any) => {
+  const onFormSubmit = (values: Form) => {
     const donateOtherRequest: DonateOtherRequest = { ...values, category }
     onSubmit(donateOtherRequest)
   }

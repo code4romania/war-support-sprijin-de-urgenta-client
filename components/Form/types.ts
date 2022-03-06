@@ -48,6 +48,7 @@ export interface DropdownMultiSelectProps {
   children?: ReactNode
   className?: string
   control: Control<any, any>
+  labelPosition?: 'horizontal' | 'vertical'
 }
 
 export type PartialRecord<K extends keyof any, T> = {
