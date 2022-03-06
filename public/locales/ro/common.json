@@ -227,5 +227,9 @@
   "resources.volunteering.added": "Voluntariate adăugate",
   "resources.services.added": "Servicii adăugate",
   "resources.added.other": "Alte resurse adăugate",
-  "services.offerTransport": "Pot asigura transport"
+  "services.offerTransport": "Pot asigura transport",
+  "error.productName.required": "Introduceți numele produsului",
+  "error.packagkingType.required": "Introduceți tipul de ambalaj",
+  "error.unitType.required": "Introduceți unitatea de măsură",
+  "error.has_transportation.required": "Alegeți o opțiune"
 }
