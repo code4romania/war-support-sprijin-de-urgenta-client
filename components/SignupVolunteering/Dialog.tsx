@@ -16,11 +16,12 @@ import * as yup from 'yup'
 interface IProps {
   counties: MultiSelectOption[]
   category: number
-  onSubmit: (values: any) => void
+  onSubmit: (values: DonateVolunteeringRequest) => void
 }
 
 type VolunteeringResourceForm = {
-  type?: string
+  name: string
+  type: string
   town?: string
   description?: string
   available_until?: string
@@ -29,10 +30,10 @@ type VolunteeringResourceForm = {
 
 const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
-  const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup
-    .object()
+  const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup.object()
     .shape({
-      type: yup.string().typeError(t('error.must.be.string')),
+      name: yup.string().required(t('error.volunteering.required')),
+      type: yup.string().typeError(t('error.must.be.string')).required(t('error.type.required')),
       town: yup.string().typeError(t('error.must.be.string')),
       description: yup.string().typeError(t('error.must.be.string')),
       available_until: yup.string().typeError(t('error.must.be.string')),
@@ -41,22 +42,33 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
         .min(1, t('error.county.minOne'))
         .of(yup.string().required()),
     })
+
   const {
     control,
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({
+  } = useForm<VolunteeringResourceForm>({
     resolver: yupResolver(volunteeringResourcesSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {
+      county_coverage: []
+    }
   })
 
-  const onFormSubmit = (values: any) => {
+  const onFormSubmit = (values: VolunteeringResourceForm) => {
     const donateOtherRequest: DonateVolunteeringRequest = { ...values, category }
     onSubmit(donateOtherRequest)
   }
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
+      <Input
+        label={t('signup.volunteering.name')}
+        {...register('name')}
+        errors={errors.name}
+      />
       <div className={'flex space-x-4'}>
         <DropdownMultiSelect
           {...register('county_coverage')}
@@ -74,6 +86,7 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
       />
       <DateInput
         label={t('signup.volunteering.available_until')}
+
         {...register('available_until')}
       />
       <Button type="submit" text={t('add')} variant="tertiary" size="small" />
