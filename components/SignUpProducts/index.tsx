@@ -12,7 +12,7 @@ import clsx from 'clsx'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
-  onAddItem: (item: any) => void
+  onAddItem: (item: DonateItemRequest) => void
 }
 
 export interface IProductsProps {
