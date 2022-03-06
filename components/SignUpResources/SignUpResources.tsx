@@ -19,6 +19,11 @@ import {
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
 
+const removeItem = (array: any[], index: number) => {
+  let newArray = [...array]
+  return newArray.splice(index, 1)
+}
+
 const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
@@ -35,7 +40,7 @@ const SignUpResources = ({ type }: { type: string }) => {
     setServicesList((state) => [...state, data])
   }
   const onRemoveService = (index: number) => {
-    setServicesList(servicesList.splice(index, 1))
+    setServicesList(removeItem(servicesList, index))
   }
 
   const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
@@ -43,27 +48,27 @@ const SignUpResources = ({ type }: { type: string }) => {
     setProductsList((state) => [...state, data])
   }
   const onRemoveProduct = (index: number) => {
-    setProductsList(productsList.splice(index, 1))
+    setProductsList(removeItem(productsList, index))
   }
 
-  const [volunteeringItemsList, setVolunteeringItemsList] = useState<
+  const [volunteeringList, setVolunteeringList] = useState<
     DonateVolunteeringRequest[]
   >([])
   const onAddVolunteeringItem = (data: DonateVolunteeringRequest) => {
-    setVolunteeringItemsList((state) => [...state, data])
+    setVolunteeringList((state) => [...state, data])
   }
   const onRemoveVolunteeringItem = (index: number) => {
-    setVolunteeringItemsList(volunteeringItemsList.splice(index, 1))
+    setVolunteeringList(removeItem(volunteeringList, index))
   }
 
-  const [othersItemsList, setOtherItemsList] = useState<
-    DonateOtherRequest[]
-  >([])
+  const [othersList, setOthersList] = useState<DonateOtherRequest[]>(
+    []
+  )
   const onAddOtherItem = (data: DonateOtherRequest) => {
-    setOtherItemsList((state) => [...state, data])
+    setOthersList((state) => [...state, data])
   }
   const onRemoveOtherItem = (index: number) => {
-    setOtherItemsList(othersItemsList.splice(index, 1))
+    setOthersList(removeItem(othersList, index))
   }
 
   const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
@@ -171,11 +176,11 @@ const SignUpResources = ({ type }: { type: string }) => {
     if (productsList.length) {
       await onSubmit(productsList, endpoints['donate/item'])
     }
-    if (volunteeringItemsList.length) {
-      await onSubmit(volunteeringItemsList, endpoints['donate/volunteering'])
+    if (volunteeringList.length) {
+      await onSubmit(volunteeringList, endpoints['donate/volunteering'])
     }
-    if (othersItemsList.length) {
-      await onSubmit(othersItemsList, endpoints['donate/other'])
+    if (othersList.length) {
+      await onSubmit(othersList, endpoints['donate/other'])
     }
 
     setSubmitSuccess(true)
