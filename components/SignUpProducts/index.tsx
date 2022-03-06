@@ -8,6 +8,7 @@ import Others from './Others'
 import Tents from './Tents'
 import TextileProduct from './TextileProduct'
 import ResourcesForm from '@/components/ResourcesForm'
+import clsx from 'clsx'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
@@ -114,15 +115,24 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
   ]
 
   return (
-    <ResourcesForm
-      categories={PRODUCTS}
-      tableTitle={t('resources.added.products')}
-      tableColumns={resourcesTableColumns}
-      tableItems={productsList}
-      updateTableItems={setProductsList}
-      showDialog={showDialog}
-      setShowDialog={setShowDialog}
-    />
+    <section
+      className={clsx(
+        'container grid place-items-start',
+        'bg-blue-50 rounded',
+        'px-8 py-7 w-full'
+      )}
+    >
+      <h3 className="mb-8 text-xl font-semibold">{t('products')}</h3>
+      <ResourcesForm
+        categories={PRODUCTS}
+        tableTitle={t('resources.added.products')}
+        tableColumns={resourcesTableColumns}
+        tableItems={productsList}
+        updateTableItems={setProductsList}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+      />
+    </section>
   )
 }
 

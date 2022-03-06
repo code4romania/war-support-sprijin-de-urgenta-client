@@ -11,9 +11,9 @@ const ProductTypeWrapper: FC<IProps> = ({ children, onSubmit }) => {
   const { t } = useTranslation()
 
   return (
-    <form className="ml-5" onSubmit={onSubmit}>
+    <form className="flex flex-col h-full" onSubmit={onSubmit}>
       {children}
-      <Button type="submit" text={t('add')} variant="tertiary" size="small" />
+      <Button type="submit" className="mt-auto" text={t('add')} variant="tertiary" size="small" />
     </form>
   )
 }
