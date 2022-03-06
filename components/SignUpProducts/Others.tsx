@@ -5,6 +5,9 @@ import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
+import clsx from 'clsx'
 
 interface IProps {
   onSubmit: (values: DonateItemRequest) => void
@@ -15,6 +18,7 @@ type OthersForm = {
   unit_type: string;
   name: string;
   description: string;
+  offer_transport: boolean;
 }
 
 const Others: FC<IProps> = ({ onSubmit }) => {
@@ -32,6 +36,18 @@ const Others: FC<IProps> = ({ onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+      >
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('offer_transport')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('offer_transport')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Product
         register={register}
         errors={errors}

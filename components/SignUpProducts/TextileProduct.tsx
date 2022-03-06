@@ -11,7 +11,8 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelectOption } from '../Form/types'
-
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
 interface IProps {
   resourceType: ResourceType
   counties?: MultiSelectOption[]
@@ -25,6 +26,7 @@ type TextileProductForm = {
   quantity: number;
   unit_type: string;
   packaging_type: string;
+  offer_transport: boolean;
 }
 
 const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
@@ -43,6 +45,18 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+      >
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('offer_transport')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('offer_transport')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Checkbox name={`products_${resourceType}_clothing`}>
         {t('signup.products.clothing')}
       </Checkbox>

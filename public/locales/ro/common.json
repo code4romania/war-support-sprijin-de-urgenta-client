@@ -223,6 +223,6 @@
   "resources.quantity": "Cantitate",
   "resources.other": "Resurse",
   "resources.added.products": "Produse adăugate",
-  "resources.added.other": "Alte resurse adăugate",
-  "services.driver-name": "Nume șofer"
+  "services.offerTransport": "Pot asigura transport",
+  "resources.added.other": "Alte resurse adăugate"
 }

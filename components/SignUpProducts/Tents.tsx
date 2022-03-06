@@ -7,6 +7,9 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelectOption } from '../Form/types'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
+import clsx from 'clsx'
 
 interface IProps {
   counties?: MultiSelectOption[]
@@ -15,11 +18,12 @@ interface IProps {
 }
 type TentsForm = {
   county_coverage: string[]
-  town: string
-  name: string
-  quantity: number
-  tent_capacity: number
-  unit_type: string
+  town: string;
+  name: string;
+  quantity: number;
+  tent_capacity: number;
+  unit_type: string;
+  offer_transport: boolean;
 }
 
 const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
@@ -41,6 +45,18 @@ const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+      >
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('offer_transport')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('offer_transport')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Input
         type="number"
         {...register('quantity')}
