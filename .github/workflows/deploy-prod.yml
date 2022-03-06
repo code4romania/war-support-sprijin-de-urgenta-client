@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production    
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -21,6 +23,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
+      - run: aws s3 sync ./out s3://sprijindeurgenta.ro --delete 
           
       - uses: awact/cloudfront-action@master
         env:
