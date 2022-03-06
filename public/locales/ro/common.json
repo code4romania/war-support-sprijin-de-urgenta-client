@@ -221,8 +221,10 @@
   "error.availability.required": "Trebuie să selectați o valoare",
   "resources.product": "Produs",
   "resources.quantity": "Cantitate",
+  "resources.volunteering": "Voluntariat",
   "resources.other": "Resurse",
   "resources.added.products": "Produse adăugate",
-  "services.offerTransport": "Pot asigura transport",
-  "resources.added.other": "Alte resurse adăugate"
+  "resources.volunteering.added": "Voluntariate adăugate",
+  "resources.added.other": "Alte resurse adăugate",
+  "services.offerTransport": "Pot asigura transport"
 }
