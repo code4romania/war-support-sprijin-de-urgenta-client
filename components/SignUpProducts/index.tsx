@@ -21,7 +21,7 @@ import { FormPageProps } from '../FormPage/FormPage'
 export interface ISignUpProductsProps {
   items: DonateItemRequest[]
   onAddItem: (item: DonateItemRequest) => void
-  type: FormPageProps.Offer | FormPageProps.Request
+  type: FormPageProps
   onRemoveItem: (index: number) => void
 }
 export interface IProductsProps {
@@ -37,7 +37,7 @@ const SignUpProducts = ({
   onRemoveItem,
 }: ISignUpProductsProps) => {
   const { t } = useTranslation()
-  const { data } = useProductsForm()
+  const { data } = useProductsForm(FormPageProps.Offer)
 
   const [showDialog, setShowDialog] = useState(false)
 
@@ -186,6 +186,7 @@ const SignUpProducts = ({
     >
       <h3 className="mb-8 text-xl font-semibold">{t('products')}</h3>
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}

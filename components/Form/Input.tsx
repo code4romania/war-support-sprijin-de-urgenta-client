@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
-import { ElementWrapper, Label } from "@/components/Form/common";
+import { ElementWrapper, Label, Required } from "@/components/Form/common";
 import { InputElementProps } from "@/components/Form/types";
 import { ErrorLabel } from "./ErrorLabel";
 
@@ -14,6 +14,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
   value,
   name,
   type = 'text',
+  required,
   errors,
   className,
   ...rest
@@ -30,7 +31,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
             hasError={!!errors}
             className={clsx({ 'flex-[1_0_50%]': labelPosition === 'horizontal' })}
           >
-            {label}
+            {label} {required && <Required /> }
           </Label>
         )}
 
@@ -40,6 +41,7 @@ const Element = forwardRef<HTMLInputElement, IProps>(({
           id={name}
           value={value}
           ref={ref}
+          required={required}
           className={clsx(
             'block w-full h-10 mt-1',
             'px-3 py-2',

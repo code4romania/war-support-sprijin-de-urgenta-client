@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelect } from 'react-multi-select-component'
-import { Label } from './common'
+import { Label, Required } from './common'
 import { ErrorLabel } from './ErrorLabel'
 import { DropdownMultiSelectProps } from './types'
 
@@ -21,6 +21,7 @@ const Component = React.forwardRef<
       className,
       control,
       errors,
+      required,
       children,
       labelPosition
     },
@@ -50,7 +51,7 @@ const Component = React.forwardRef<
               hasError={!!errors}
               className={clsx({ 'flex-[1_0_50%]': labelPosition === 'horizontal' })}
             >
-              {label}
+              {label}{required && <Required /> }
             </Label>
           )}
           <div ref={ref} className={'flex flex-[1_0_50%] flex-col mt-1'}>

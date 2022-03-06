@@ -2,9 +2,10 @@ import clsx from 'clsx'
 import { forwardRef } from 'react'
 import { InputElementProps } from '@/components/Form/types'
 import { ErrorLabel } from './ErrorLabel'
+import { Required } from './common'
 
 const Element = forwardRef<HTMLInputElement, InputElementProps>(
-  ({ name, children, value, className, errors, ...rest }, ref) => {
+  ({ name, children, value, required, className, errors, ...rest }, ref) => {
     return (
       <div className={clsx('flex items-center mb-4', className)}>
         <input
@@ -13,6 +14,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
           id={`${name}_${value}`}
           value={value}
           ref={ref}
+          required={required}
           className={clsx(
             'appearance-none mr-2',
             'cursor-pointer',
@@ -25,7 +27,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
           {...rest}
         />
         <label htmlFor={`${name}_${value}`} className="text-sm cursor-pointer">
-          {children}
+          {children} {required && <Required /> }
         </label>
         <ErrorLabel errors={errors} />
       </div>

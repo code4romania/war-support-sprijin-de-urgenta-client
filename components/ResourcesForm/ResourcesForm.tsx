@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ResourcesTableList from '@/components/ResourcesTableList'
 import Button from '@/components/Button'
 import Dialog from '@/components/Dialog'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 export interface ICategoryProps {
   resourceType: string
@@ -12,6 +13,7 @@ export interface ICategoryProps {
 }
 
 export interface IResourcesFormProps {
+  type: FormPageProps
   categories: ICategoryProps[]
   tableTitle: string
   tableColumns: string[]
@@ -22,6 +24,7 @@ export interface IResourcesFormProps {
 }
 
 const ResourcesForm = ({
+  type,
   categories,
   tableTitle,
   tableColumns,
@@ -69,26 +72,25 @@ const ResourcesForm = ({
             </React.Fragment>
           ))}
         </div>
-        <div className="w-full md:flex-[1_0_50%]">
-          {tableItems.length > 0 && (
-            <ResourcesTableList
-              title={tableTitle}
-              columns={tableColumns}
-              list={tableItems.map((t) => ({
-                id: t.name,
-                name: t.name,
-                quantity: t.quantity,
-                um: t.unit_type,
-              }))}
-              onItemRemoved={onItemRemoved}
-            />
-          )}
-        </div>
+        {type === FormPageProps.Offer && (
+          <div className="w-full md:flex-[1_0_50%]">
+            {tableItems.length > 0 && (
+              <ResourcesTableList
+                title={tableTitle}
+                columns={tableColumns}
+                list={tableItems.map((t) => ({
+                  id: t.name,
+                  name: t.name,
+                  quantity: t.quantity,
+                  um: t.unit_type,
+                }))}
+                onItemRemoved={onItemRemoved}
+              />
+            )}
+          </div>
+        )}
       </div>
-      <Dialog
-        isOpen={showDialog}
-        onDismiss={handleDialogDismiss}
-      >
+      <Dialog isOpen={showDialog} onDismiss={handleDialogDismiss}>
         {
           <>
             <Dialog.Header

@@ -12,7 +12,7 @@ import { FormPageProps } from '../FormPage/FormPage'
 interface ISignupVolunteeringProps {
   items: DonateVolunteeringRequest[]
   onAddItem: (data: DonateVolunteeringRequest) => void
-  type: FormPageProps.Offer | FormPageProps.Request
+  type: FormPageProps
   onRemoveItem: (index: number) => void
 }
 
@@ -23,7 +23,7 @@ const SignupVolunteering = ({
   onRemoveItem,
 }: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
-  const { data: formData } = useVolunteeringForm()
+  const { data: formData } = useVolunteeringForm(FormPageProps.Offer)
   const { data: categoriesList } = useData(endpoints['categories/volunteering'])
 
   const tableColumns = [t('resources.volunteering')]
@@ -78,6 +78,7 @@ const SignupVolunteering = ({
         'signup.volunteering.header'
       )}:`}</h3>
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.volunteering.added')}
         tableColumns={tableColumns}

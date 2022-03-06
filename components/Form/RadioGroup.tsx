@@ -1,14 +1,14 @@
 import { FC } from 'react'
-import { ElementWrapper } from '@/components/Form/common'
+import { ElementWrapper, Required } from '@/components/Form/common'
 import { GroupElementProps } from '@/components/Form/types'
 import { ErrorLabel } from './ErrorLabel'
 
-const RadioGroup: FC<GroupElementProps> = ({ children, errors, label }) => {
+const RadioGroup: FC<GroupElementProps> = ({ children, errors, label, required }) => {
   return (
     <ElementWrapper hasError={!!errors}>
       {label && (
-        <h3 className="mb-4 block text-base font-semibold text-gray-700">
-          {label}
+        <h3 className="block mb-4 text-base font-semibold text-gray-700">
+          {label}{required && <Required /> }
         </h3>
       )}
       {children}

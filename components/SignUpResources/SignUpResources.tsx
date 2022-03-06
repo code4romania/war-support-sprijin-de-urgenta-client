@@ -22,6 +22,7 @@ import endpoints from 'endpoints.json'
 import i18n from 'i18next'
 import { FormPageProps } from '../FormPage/FormPage'
 import ServerErrorsMessage from '../ServerErrorsMessage'
+import { Required } from '../Form/common'
 
 export interface ISignUpResources {
   type: FormPageProps.Offer | FormPageProps.Request
@@ -252,7 +253,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     <div className="space-y-4">
       <div className="flex flex-col px-8 rounded-md py-7 bg-blue-50">
         <h3 className="mb-4 text-xl font-semibold">
-          {t(`signup.resources.${type}`)} *
+          {t(`signup.resources.${type}`)}<Required /> 
         </h3>
         {categories.map(({ slug }) => (
           <div key={slug}>

@@ -87,7 +87,8 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
           {form.inputs.map((item: IInputProps) => (
             <Input
               key={item.name}
-              label={`${t(item.label)}: *`}
+              required
+              label={`${t(item.label)}:`}
               errors={errors[item.name]}
               {...register(item.name)}
             />
