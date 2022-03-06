@@ -1,5 +1,5 @@
 import { State } from '@/store/types/state.type'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Checkbox from '../Form/Checkbox'
@@ -10,29 +10,55 @@ import SignupVolunteering from '../SignupVolunteering'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import Spacer from '@/components/Spacer'
 import ThankYouMessage from '../ThankYouMessage'
-
-const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
-  const componentMap = {
-    services: () => <SignUpServicesForm />,
-    products: () => <SignUpProducts />,
-    volunteer: () => <SignupVolunteering />,
-    others: () => <OtherResourcesForm />,
-    default: () => <OtherResourcesForm />,
-  }
-  return (
-    componentMap[resourceType as keyof typeof componentMap] ||
-    componentMap.default
-  )()
-}
+import { DonateItemRequest, DonateOtherRequest, DonateVolunteeringRequest, TransportServicesRequest } from 'api'
+import endpoints from 'endpoints.json'
+import i18n from 'i18next'
 
 const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
-  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
-    []
-  )
+  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>([])
+  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>([])
+  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
+  const [volunteeringItemsList, setVolunteeringItemsList] = useState<DonateVolunteeringRequest[]>([])
+  const [donateOtherItemsList, setDonateOtherItemsList] = useState<DonateOtherRequest[]>([])
+
+  const onAddService = (data: TransportServicesRequest) => {
+    setServicesList((state) => [...state, data])
+  }
+
+  const onAddProduct = (data: DonateItemRequest) => {
+    setProductsList((state) => [...state, data])
+  }
+
+  const onAddVolunteeringItem = (data: DonateVolunteeringRequest) => {
+    setVolunteeringItemsList((state) => [...state, data])
+  }
+
+  const onAddOtherItem = (data: DonateOtherRequest) => {
+    setDonateOtherItemsList((state) => [...state, data])
+  }
+
+  const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
+    const componentMap = {
+      services: () => (
+        <SignUpServicesForm
+          onAddGoodItem={onAddService}
+          onAddPersonItem={onAddService}
+        />
+      ),
+      products: () => <SignUpProducts onAddItem={onAddProduct} />,
+      volunteer: () => <SignupVolunteering onAddItem={onAddVolunteeringItem} />,
+      others: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
+      default: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
+    }
+    return (
+      componentMap[resourceType as keyof typeof componentMap] ||
+      componentMap.default
+    )()
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
@@ -47,7 +73,56 @@ const SignUpResources = ({ type }: { type: string }) => {
       )
   }
 
-  const handleSubmit = () => {
+  const onSubmit = async (
+    values: TransportServicesRequest[] | DonateItemRequest[] | DonateVolunteeringRequest[] | DonateOtherRequest[],
+    endpoint: string
+  ) => {
+    try {
+      return await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(values),
+      }).then(async (response) => {
+        if (response.status >= 400 && response.status < 600) {
+          const responseJson = await response.json();
+          const error = Object.assign({}, {
+            error: responseJson,
+            status: response.status,
+            statusText: response.statusText
+          });
+          return Promise.reject(error);
+        }
+        return Promise.resolve(response);
+      });
+    }
+    catch (e: any) {
+      const requestError: Record<string, any> = {};
+      requestError[endpoint] = e;
+      Promise.reject(requestError);
+    }
+  }
+
+  const handleSubmit = async () => {
+    if (servicesList.length) {
+      await onSubmit(servicesList, endpoints['donate/transport_service'])
+    }
+    if (productsList.length) {
+      await onSubmit(productsList, endpoints['donate/item'])
+    }
+    if (volunteeringItemsList.length) {
+      await onSubmit(volunteeringItemsList, endpoints['donate/volunteering'])
+    }
+    if (donateOtherItemsList.length) {
+      await onSubmit(donateOtherItemsList, endpoints['donate/other'])
+    }
+
     setSubmitSuccess(true)
     setSelectedResourceTypes([])
   }

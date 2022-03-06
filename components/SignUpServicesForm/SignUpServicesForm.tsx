@@ -8,7 +8,12 @@ import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
 import ResourcesTableList from '../ResourcesTableList'
 
-export const SignUpServicesForm = () => {
+interface ISignUpServicesFormProps {
+  onAddGoodItem: (data: TransportServicesRequest) => void
+  onAddPersonItem: (data: TransportServicesRequest) => void
+}
+
+export const SignUpServicesForm = ({ onAddGoodItem, onAddPersonItem }: ISignUpServicesFormProps) => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
@@ -23,11 +28,13 @@ export const SignUpServicesForm = () => {
 
   const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
     setGoodsList((state) => [...state, data])
+    onAddGoodItem(data)
     handleDialogDismiss()
   }
 
   const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
     setPersonsTransportList((state) => [...state, data])
+    onAddPersonItem(data)
     handleDialogDismiss()
   }
 
