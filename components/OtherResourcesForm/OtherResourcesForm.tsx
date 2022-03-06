@@ -32,7 +32,7 @@ const OtherResourcesForm = ({
 }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
 
-  const { data: formData } = useOthersForm()
+  const { data: formData } = useOthersForm(FormPageProps.Offer)
   const { data: categoriesList } = useData(endpoints['categories/other'])
 
   const tableColumns = [t('resources.other')]

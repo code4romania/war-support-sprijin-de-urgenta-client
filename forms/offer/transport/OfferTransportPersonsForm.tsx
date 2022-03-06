@@ -25,6 +25,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   available_seats: number
@@ -51,7 +52,7 @@ export const OfferTransportPersonsForm = ({
   onSubmit,
 }: IOfferTransportPersonsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm()
+  const { data } = useServicesForm(FormPageProps.Offer)
 
   const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     available_seats: yup
