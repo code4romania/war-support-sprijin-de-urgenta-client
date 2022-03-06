@@ -10,7 +10,12 @@ import SignupVolunteering from '../SignupVolunteering'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import Spacer from '@/components/Spacer'
 import ThankYouMessage from '../ThankYouMessage'
-import { DonateItemRequest, DonateOtherRequest, DonateVolunteeringRequest, TransportServicesRequest } from 'api'
+import {
+  DonateItemRequest,
+  DonateOtherRequest,
+  DonateVolunteeringRequest,
+  TransportServicesRequest,
+} from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
 
@@ -19,11 +24,19 @@ const SignUpResources = ({ type }: { type: string }) => {
   const { categories } = useSelector((state: State) => state)
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
-  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>([])
-  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>([])
+  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
+    []
+  )
+  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
+    []
+  )
   const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
-  const [volunteeringItemsList, setVolunteeringItemsList] = useState<DonateVolunteeringRequest[]>([])
-  const [donateOtherItemsList, setDonateOtherItemsList] = useState<DonateOtherRequest[]>([])
+  const [volunteeringItemsList, setVolunteeringItemsList] = useState<
+    DonateVolunteeringRequest[]
+  >([])
+  const [donateOtherItemsList, setDonateOtherItemsList] = useState<
+    DonateOtherRequest[]
+  >([])
 
   const onAddService = (data: TransportServicesRequest) => {
     setServicesList((state) => [...state, data])
@@ -43,12 +56,7 @@ const SignUpResources = ({ type }: { type: string }) => {
 
   const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
     const componentMap = {
-      services: () => (
-        <SignUpServicesForm
-          onAddGoodItem={onAddService}
-          onAddPersonItem={onAddService}
-        />
-      ),
+      services: () => <SignUpServicesForm onAddItem={onAddService} />,
       products: () => <SignUpProducts onAddItem={onAddProduct} />,
       volunteer: () => <SignupVolunteering onAddItem={onAddVolunteeringItem} />,
       others: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
@@ -74,38 +82,47 @@ const SignUpResources = ({ type }: { type: string }) => {
   }
 
   const onSubmit = async (
-    values: TransportServicesRequest[] | DonateItemRequest[] | DonateVolunteeringRequest[] | DonateOtherRequest[],
+    values:
+      | TransportServicesRequest[]
+      | DonateItemRequest[]
+      | DonateVolunteeringRequest[]
+      | DonateOtherRequest[],
     endpoint: string
   ) => {
     try {
-      return await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(values),
-      }).then(async (response) => {
-        if (response.status >= 400 && response.status < 600) {
-          const responseJson = await response.json();
-          const error = Object.assign({}, {
-            error: responseJson,
-            status: response.status,
-            statusText: response.statusText
-          });
-          return Promise.reject(error);
+      return await fetch(
+        `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`,
+        {
+          method: 'POST',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
+          body: JSON.stringify(values),
         }
-        return Promise.resolve(response);
-      });
-    }
-    catch (e: any) {
-      const requestError: Record<string, any> = {};
-      requestError[endpoint] = e;
-      Promise.reject(requestError);
+      ).then(async (response) => {
+        if (response.status >= 400 && response.status < 600) {
+          const responseJson = await response.json()
+          const error = Object.assign(
+            {},
+            {
+              error: responseJson,
+              status: response.status,
+              statusText: response.statusText,
+            }
+          )
+          return Promise.reject(error)
+        }
+        return Promise.resolve(response)
+      })
+    } catch (e: any) {
+      const requestError: Record<string, any> = {}
+      requestError[endpoint] = e
+      Promise.reject(requestError)
     }
   }
 
