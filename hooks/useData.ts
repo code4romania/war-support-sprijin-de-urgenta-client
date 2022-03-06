@@ -1,7 +1,6 @@
 import useSwr from 'swr'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
-import { FormPageProps } from '@/components/FormPage/FormPage'
 
 const baseUrl = process.env.NEXT_PUBLIC_PUBLIC_API
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
@@ -37,7 +36,7 @@ export const useFormSchema = (path: string) => {
   return { data: data?.actions?.POST, error }
 }
 
-export const useDataWithToken = (path: FormPageProps, token: string) => {
+export const useDataWithToken = (path: string, token: string) => {
   const { data, error } = useFetchData(path, authFetcher, token)
 
   return { data, error }
