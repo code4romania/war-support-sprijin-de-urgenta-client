@@ -8,8 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: production    
+   # env:
+      #NODE_ENV: production    
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
