@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import clsx from 'clsx'
-import { ElementWrapper, Label } from '@/components/Form/common'
+import { ElementWrapper, Label, Required } from '@/components/Form/common'
 import { DropdownElementProps } from '@/components/Form/types'
 
 /**
@@ -25,13 +25,14 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
     className,
     noValidations,
     placeholder,
+    required,
     ...rest
   }, ref) => {
     return (
       <ElementWrapper hasError={!!errors} className={className} noValidations={noValidations}>
         {label && !hideLabel && (
           <Label name={name} hasError={!!errors}>
-            {label}
+            {label} {required && <Required /> }
           </Label>
         )}
 
@@ -39,6 +40,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
           <select
             name={name}
             ref={ref}
+            required={required}
             className={clsx(
               'block w-full h-10 mt-1',
               'border border-gray-200 rounded-md',
