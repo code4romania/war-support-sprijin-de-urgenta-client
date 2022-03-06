@@ -7,38 +7,55 @@ import OtherResourcesForm from '../OtherResourcesForm'
 import SignUpProducts from '../SignUpProducts'
 import { SignUpServicesForm } from '../SignUpServicesForm'
 import SignupVolunteering from '../SignupVolunteering'
+import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
+import Spacer from '@/components/Spacer'
+import ThankYouMessage from '../ThankYouMessage'
 
-const resourceTypeBuilder = (id: string) => {
-  const dictionary = {
+const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
+  const componentMap = {
     services: () => <SignUpServicesForm />,
     products: () => <SignUpProducts />,
     volunteer: () => <SignupVolunteering />,
     others: () => <OtherResourcesForm />,
     default: () => <OtherResourcesForm />,
   }
-  return (dictionary[id as keyof typeof dictionary] || dictionary.default)()
+  return (
+    componentMap[resourceType as keyof typeof componentMap] ||
+    componentMap.default
+  )()
 }
 
 const SignUpResources = ({ type }: { type: string }) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
-  const [selectedResourceIds, setSelectedResourceIds] = useState<string[]>([])
+  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
+    []
+  )
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.target.checked
     const value = event.target.value
+    setSubmitSuccess(false)
 
-    if (isChecked && !selectedResourceIds.includes(value))
-      setSelectedResourceIds([...selectedResourceIds, value])
-    else if (!isChecked && selectedResourceIds.includes(value))
-      setSelectedResourceIds(selectedResourceIds.filter((id) => id !== value))
+    if (isChecked && !selectedResourceTypes.includes(value))
+      setSelectedResourceTypes([...selectedResourceTypes, value])
+    else if (!isChecked && selectedResourceTypes.includes(value))
+      setSelectedResourceTypes(
+        selectedResourceTypes.filter((id) => id !== value)
+      )
+  }
+
+  const handleSubmit = () => {
+    setSubmitSuccess(true)
+    setSelectedResourceTypes([])
   }
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col px-8 rounded-md py-7 bg-blue-50">
-        <h3 className="mb-4 text-lg font-semibold">
+        <h3 className="mb-4 text-xl font-semibold">
           {t(`signup.resources.${type}`)} *
         </h3>
         {categories.map(({ slug }) => (
@@ -47,9 +64,9 @@ const SignUpResources = ({ type }: { type: string }) => {
               onChange={(event) => handleChange(event)}
               name="resource"
               value={slug}
-              checked={selectedResourceIds.includes(slug)}
+              checked={selectedResourceTypes.includes(slug)}
             >
-              {t(slug)}
+              <span className="text-base">{t(slug)}</span>
             </Checkbox>
           </div>
         ))}
@@ -57,12 +74,24 @@ const SignUpResources = ({ type }: { type: string }) => {
           {t('signup.resources.fillInDetails')}
         </p>
       </div>
-      {selectedResourceIds.length > 0 &&
-        selectedResourceIds.map((id) => (
-          <div key={id} className="w-full">
-            {resourceTypeBuilder(id)}
+      {selectedResourceTypes.length > 0 &&
+        selectedResourceTypes.map((resourceType) => (
+          <div key={resourceType} className="w-full">
+            {resourceTypeBuilder({ resourceType })}
           </div>
         ))}
+      {submitSuccess && <ThankYouMessage type={type} />}
+      <Spacer size={'1em'} />
+      <StepperButtonGroup
+        steps={[
+          { disabled: true, direction: 'backward' },
+          {
+            disabled: selectedResourceTypes.length === 0,
+            direction: 'forward',
+            onClick: handleSubmit,
+          },
+        ]}
+      />
     </div>
   )
 }

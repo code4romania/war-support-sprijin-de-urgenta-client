@@ -1,13 +1,13 @@
-import type { NextPage } from 'next'
 import Button from '@/components/Button'
-import { useTranslation } from 'react-i18next'
 import Input from '@/components/Form/Input'
-import { useForm } from 'react-hook-form'
-import { useMemo, useState } from 'react'
-import { authenticate } from '@/store/reducers/auth'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { useRouter } from 'next/router'
+import { authenticate } from '@/store/reducers/auth'
+import type { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useMemo, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 const LoginPage: NextPage = () => {
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
@@ -76,7 +76,7 @@ const LoginPage: NextPage = () => {
               size="medium"
               variant="primary"
             />
-            <Link href={'/sign-up/offer'}>
+            <Link href={'/sign-up/offer'} passHref>
               <Button
                 text={t('login.signUp')}
                 size="medium"

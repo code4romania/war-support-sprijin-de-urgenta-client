@@ -1,23 +1,30 @@
 import Input from "@/components/Form/Input";
+import { PartialRecord } from "@/components/Form/types";
+import { ErrorOption, Path, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { FC } from "react";
-import { ResourceType } from "@/components/SignUpProducts/types";
 
-interface IProps {
-  resourceType: ResourceType;
+type RecordKey = 'name';
+
+interface IProps<TFormValues> {
+  errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
+  register: UseFormRegister<TFormValues>
+  names: Record<RecordKey, Path<TFormValues>>
 }
 
-const Product: FC<IProps> = ({
-  resourceType,
-}) => {
+const Product = <TFormValues extends PartialRecord<RecordKey, unknown>>({
+  errors,
+  register,
+  names
+}: IProps<TFormValues>) => {
   const { t } = useTranslation();
 
   return (
     <div>
       <Input
-        name={`products_${resourceType}_name`}
         label={t('signup.products.product')}
         labelPosition="horizontal"
+        errors={errors && errors[names.name]}
+        {...register(names.name)}
       />
     </div>
   )

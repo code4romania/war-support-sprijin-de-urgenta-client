@@ -27,7 +27,7 @@ const HomePage: NextPage = () => {
       <Spacer size="6.5rem" />
       <section className="">
         <div
-          className={clsx('flex flex-col gap-3 justify-center ', 'lg:flex-row')}
+          className={clsx('flex flex-col md:gap-3 gap-6 justify-center ', 'lg:flex-row')}
         >
           <div
             className={clsx(

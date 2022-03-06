@@ -12,11 +12,13 @@ const PARTNERSHIPS = [
     id: 1,
     src: '/gov_ro.svg',
     alt: 'Romanian GOV Logo',
+    url: 'https://gov.ro/',
   },
   {
     id: 2,
     src: '/dsu_logo.svg',
     alt: 'DSU Logo',
+    url: 'http://www.dsu.mai.gov.ro/',
   },
 ]
 
@@ -39,13 +41,12 @@ const Header = () => {
       <div className="bg-gray-50">
         <div
           className={`${flexItemsCenter} 
-          ${clsx('py-1 md:py-3')} 
-          ${clsx('container mx-auto')}`}
+          ${clsx('py-3 px-2', 'container mx-auto')}`}
         >
           <div className="max-w-[90px]">
             <Image src="/code_logo.svg" alt="Code 4 Romania logo" />
           </div>
-          <div className="ml-6 text-sm font-medium text-gray-700">
+          <div className="flex flex-col ml-6 text-sm font-medium text-gray-700 md:flex-row md:gap-1">
             <span>{`${t('solution.by')} `}</span>
             <a
               href="https://www.code4.ro/"
@@ -92,24 +93,28 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3`}
+        className={`${flexItemsCenter} w-full max-w-[1350px] mx-auto justify-end py-3 pr-4`}
       >
         <span className={smallBoldTextWithGrayAndMarginAside}>
           {t('partenership.with')}
         </span>
         <div className="flex items-center gap-2">
-          {PARTNERSHIPS.map(({ id, src, alt }) => (
-            <Image key={id} src={src} alt={alt} className="h-[38px]" />
+          {PARTNERSHIPS.map(({ id, src, alt, url }) => (
+            <a key={id} href={url} rel="noreferrer" target="_blank">
+              <Image src={src} alt={alt} className="h-[38px]" />
+            </a>
           ))}
         </div>
         <span className={`${smallBoldTextWithGrayAndMarginAside} lowercase`}>
           {t('created.by')}
         </span>
-        <Image
-          src="/code4romania.svg"
-          alt="Code 4 Romania logo"
-          className="h-[34px]"
-        />
+        <a href="https://www.code4.ro/" rel="noreferrer" target="_blank">
+          <Image
+            src="/code4romania.svg"
+            alt="Code 4 Romania logo"
+            className="h-[34px]"
+          />
+        </a>
       </div>
     </div>
   )

@@ -1,18 +1,14 @@
-import clsx from 'clsx'
-import { useTranslation } from 'react-i18next'
-import React, { ReactNode, useState, useMemo } from 'react'
-
-import Button from '../Button'
-import Form from '@/components/SignUpProducts/Form'
 import { useProductsForm } from '@/hooks/useData'
-import { TransportServicesRequest } from 'api'
-import Dialog from '../Dialog'
-import Others from './Others'
-import { TransportPersonsForm } from 'forms'
-import GenericProduct from './GenericProduct'
-import TextileProduct from './TextileProduct'
+import { DonateItemRequest } from 'api'
+import React, { ReactNode, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import BuildingMaterials from './BuildingMaterials'
+import GenericProduct from './GenericProduct'
+import Others from './Others'
 import Tents from './Tents'
+import TextileProduct from './TextileProduct'
+import ResourcesForm from '@/components/ResourcesForm'
+import clsx from 'clsx'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
@@ -28,6 +24,14 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
+  const [showDialog, setShowDialog] = useState(false)
+  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
+
+  const onProductAdd = (data: DonateItemRequest) => {
+    setProductsList((state) => [...state, data])
+    handleDialogDismiss()
+  }
+
   const countyChoices = useMemo(() => {
     return data?.county_coverage?.choices.map((c: any) => ({
       value: c.value,
@@ -39,15 +43,22 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     {
       resourceType: 'food',
       label: 'signup.products.food',
-      children: <GenericProduct resourceType="food" counties={countyChoices} />,
+      children: (
+        <GenericProduct
+          onSubmit={onProductAdd}
+          counties={countyChoices}
+          category={1}
+        />
+      ),
     },
     {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
       children: (
         <GenericProduct
-          resourceType="generalHygiene"
+          onSubmit={onProductAdd}
           counties={countyChoices}
+          category={2}
         />
       ),
     },
@@ -56,8 +67,9 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       label: 'signup.products.feminineHygiene',
       children: (
         <GenericProduct
-          resourceType="feminineHygiene"
+          onSubmit={onProductAdd}
           counties={countyChoices}
+          category={3}
         />
       ),
     },
@@ -65,94 +77,62 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       resourceType: 'textile',
       label: 'signup.products.textile',
       children: (
-        <TextileProduct resourceType="textile" counties={countyChoices} />
+        <TextileProduct
+          onSubmit={onProductAdd}
+          resourceType="textile"
+          counties={countyChoices}
+        />
       ),
     },
     {
       resourceType: 'buildingMaterials',
       label: 'signup.products.buildingMaterials',
       children: (
-        <BuildingMaterials
-          resourceType="buildingMaterials"
-          counties={countyChoices}
-        />
+        <BuildingMaterials onSubmit={onProductAdd} counties={countyChoices} />
       ),
     },
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: <Tents resourceType="tents" counties={countyChoices} />,
+      children: (
+        <Tents onSubmit={onProductAdd} counties={countyChoices} category={6} />
+      ),
     },
     {
       resourceType: 'others',
       label: 'Others',
-      children: <Others />,
+      children: <Others onSubmit={onProductAdd} />,
     },
   ]
-
-  const [showDialog, setShowDialog] = useState(false)
-  const [dialogProductResourceType, setDialogProductResourceType] =
-    useState('others')
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
-  const renderDialog = (resourceType: string) => {
-    const { label, children } = PRODUCTS.find(
-      (aProduct) => aProduct.resourceType === resourceType
-    ) || {
-      resourceType: 'others',
-      label: 'Others',
-      children: <Others />,
-    }
-
-    return (
-      <Dialog
-        key={`${resourceType}_${label}`}
-        isOpen={showDialog}
-        onDismiss={handleDialogDismiss}
-      >
-        {
-          <>
-            <Dialog.Header title={t(label)} onDismiss={handleDialogDismiss} />
-            {children}
-          </>
-        }
-      </Dialog>
-    )
-  }
+  const resourcesTableColumns = [
+    t('resources.product'),
+    t('resources.quantity'),
+  ]
 
   return (
-    <main
+    <section
       className={clsx(
         'container grid place-items-start',
         'bg-blue-50 rounded',
-        'px-8 py-7 md:w-1/2'
+        'px-8 py-7 w-full'
       )}
     >
-      {PRODUCTS.length > 0 &&
-        PRODUCTS.map(
-          ({ resourceType, label }: IProductsProps, index: number) => (
-            <React.Fragment key={`${resourceType}_${label}_${index}`}>
-              <div className="flex items-center gap-4 mb-8 w-full">
-                <h3 className="min-w-fit flex-1">{t(label)}</h3>
-                <Button
-                  text={t('add')}
-                  size="small"
-                  className="flex-1"
-                  variant="tertiary"
-                  onClick={() => {
-                    setShowDialog(true)
-                    setDialogProductResourceType(resourceType)
-                  }}
-                />
-              </div>
-            </React.Fragment>
-          )
-        )}
-      {!!dialogProductResourceType && renderDialog(dialogProductResourceType)}
-    </main>
+      <h3 className="mb-8 text-xl font-semibold">{t('products')}</h3>
+      <ResourcesForm
+        categories={PRODUCTS}
+        tableTitle={t('resources.added.products')}
+        tableColumns={resourcesTableColumns}
+        tableItems={productsList}
+        updateTableItems={setProductsList}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+      />
+    </section>
   )
 }
 

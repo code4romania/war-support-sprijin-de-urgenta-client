@@ -1,38 +1,67 @@
 import Location from '@/components/SignUpProducts/common/Location'
-import { FC } from 'react'
-import Quantity from '@/components/SignUpProducts/common/Quantity'
 import Product from '@/components/SignUpProducts/common/Product'
-import { ResourceType } from '@/components/SignUpProducts/types'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import { County } from '@/components/SignUpProducts/types'
+import Quantity from '@/components/SignUpProducts/common/Quantity'
+import { DonateItemRequest } from 'api'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
-  resourceType: ResourceType
-  counties: County[]
+  counties: MultiSelectOption[]
+  onSubmit: (values: DonateItemRequest) => void
 }
 
-const BuildingMaterials: FC<IProps> = ({ resourceType, counties }) => {
+type BuildingMaterialsForm = {
+  county_coverage: string[]
+  town: string;
+  name: string;
+  quantity: number;
+  unit_type: string;
+  packaging_type: string;
+  expiration_date: string;
+}
+
+const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm()
+  } = useForm<BuildingMaterialsForm>()
+
+  const onFormSubmit = (values: DonateItemRequest) => {
+    const donateItemRequest: DonateItemRequest = { ...values };
+    onSubmit(donateItemRequest)
+  }
 
   return (
-    <ProductTypeWrapper>
-      <Product resourceType={resourceType} />
-
-      <Quantity resourceType={resourceType} />
-
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Location
-        resourceType={resourceType}
         counties={counties}
         register={register}
         control={control}
         errors={errors}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town'
+        }}
       />
+      <Product
+        errors={errors}
+        register={register}
+        names={{ name: 'name' }}
+      />
+
+      <Quantity
+        errors={errors}
+        register={register}
+        names={{
+          quantity: 'quantity',
+          packaging_type: 'packaging_type',
+          unit_type: 'unit_type'
+        }} />
+
     </ProductTypeWrapper>
   )
 }

@@ -23,21 +23,27 @@ const Footer = () => {
       </div>
       <div className="grid py-12 layout gap-y-10 gap-x-6 lg:py-24 lg:grid-cols-2">
         <nav className="flex flex-wrap">
-          <ul className="w-full md:w-1/2 md:px-3 md:py-0">
+          <ul className="w-full space-y-1 md:w-1/2 md:px-3 md:py-0">
             <li className="mb-4 font-bold tracking-wide">
               {t('useful.links')}
             </li>
 
             <li>
-              <Link href="/despre-proiect" passHref>
+              <Link href="/about-project" passHref>
                 <a>{t('about.project')}</a>
               </Link>
             </li>
             <li>
-              <a href="https://dopomoha.ro/">Dopomoha.ro</a>
+              <a rel="noreferrer" target="_blank" href="https://dopomoha.ro/">
+                Dopomoha.ro
+              </a>
             </li>
             <li>
-              <a href="https://github.com/code4romania/war-support-sprijin-de-urgenta-client">
+              <a
+                rel="noreferrer"
+                target="_blank"
+                href="https://github.com/code4romania/war-support-sprijin-de-urgenta-client"
+              >
                 {t('source.code')}
               </a>
             </li>
@@ -45,14 +51,14 @@ const Footer = () => {
           <ul className="w-full py-5 md:w-1/2 md:px-3 md:py-0">
             <li className="mb-4 font-bold tracking-wide">{t('legal.info')}</li>
 
-            <ul>
+            <ul className="space-y-1">
               <li>
-                <Link href="/politica-de-confidentialitate" passHref>
+                <Link href="/confidentiality-policy" passHref>
                   <a>{t('confidentiality.policy')}</a>
                 </Link>
               </li>
               <li>
-                <Link href="/politica-de-confidentialitate" passHref>
+                <Link href="/confidentiality-policy" passHref>
                   <a>{t('terms.and.conditions')}</a>
                 </Link>
               </li>
@@ -60,9 +66,9 @@ const Footer = () => {
           </ul>
         </nav>
 
-        <div className="tracking-wide lg:text-right">
+        <div className="space-y-4 tracking-wide lg:text-right">
           <p>&copy; {new Date().getFullYear()} Code for Romania.</p>
-          <p>{t('code4ro.description')}</p>
+          <p className="max-w-[45ch] lg:ml-auto md">{t('code4ro.description')}</p>
         </div>
       </div>
     </footer>

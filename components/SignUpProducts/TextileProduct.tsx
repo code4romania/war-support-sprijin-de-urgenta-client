@@ -1,32 +1,48 @@
-import { FC } from 'react'
 import Checkbox from '@/components/Form/Checkbox'
-import { useTranslation } from 'react-i18next'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 import Location from '@/components/SignUpProducts/common/Location'
-import clsx from 'clsx'
+import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
 import Quantity from '@/components/SignUpProducts/common/Quantity'
 import { ResourceType } from '@/components/SignUpProducts/types'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import { County } from '@/components/SignUpProducts/types'
+import { DonateItemRequest } from 'api'
+import clsx from 'clsx'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
   resourceType: ResourceType
-  counties?: County[]
+  counties?: MultiSelectOption[]
+  onSubmit: (values: DonateItemRequest) => void
 }
 
-const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
+type TextileProductForm = {
+  county_coverage: string[]
+  town: string;
+  name: string;
+  quantity: number;
+  unit_type: string;
+  packaging_type: string;
+}
+
+const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm()
+  } = useForm<TextileProductForm>()
+
+  const onFormSubmit = (values: DonateItemRequest) => {
+    const donateItemRequest: DonateItemRequest = { ...values };
+    onSubmit(donateItemRequest)
+  }
 
   return (
-    <ProductTypeWrapper>
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Checkbox name={`products_${resourceType}_clothing`}>
         {t('signup.products.clothing')}
       </Checkbox>
@@ -68,9 +84,26 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties }) => {
         </div>
       </div>
 
-      <Quantity resourceType="textile" />
+      <Quantity
+        register={register}
+        errors={errors}
+        names={{
+          quantity: 'quantity',
+          packaging_type: 'packaging_type',
+          unit_type: 'unit_type'
+        }}
+      />
 
-      <Location resourceType="textile" counties={counties} control={control} register={register} errors={errors}  />
+      <Location
+        counties={counties}
+        control={control}
+        register={register}
+        errors={errors}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town'
+        }}
+      />
     </ProductTypeWrapper>
   )
 }

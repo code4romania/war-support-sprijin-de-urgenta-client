@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { ElementWrapper } from '@/components/Form/common'
 import { GroupElementProps } from '@/components/Form/types'
+import { ErrorLabel } from './ErrorLabel'
 
 const RadioGroup: FC<GroupElementProps> = ({ children, errors, label }) => {
   return (
@@ -11,9 +12,7 @@ const RadioGroup: FC<GroupElementProps> = ({ children, errors, label }) => {
         </h3>
       )}
       {children}
-      {!Array.isArray(errors) && (
-        <p className="text-sm pl-1 pr-1 text-red-50">{errors?.message}</p>
-      )}
+      <ErrorLabel errors={errors} />
     </ElementWrapper>
   )
 }

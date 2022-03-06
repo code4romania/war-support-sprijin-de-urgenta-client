@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { forwardRef } from 'react'
 import { InputElementProps } from '@/components/Form/types'
+import { ErrorLabel } from './ErrorLabel'
 
 const Element = forwardRef<HTMLInputElement, InputElementProps>(
   ({ name, children, value, className, errors, ...rest }, ref) => {
@@ -26,9 +27,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
         <label htmlFor={`${name}_${value}`} className="text-sm cursor-pointer">
           {children}
         </label>
-        {errors && (
-          <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>
-        )}
+        <ErrorLabel errors={errors} />
       </div>
     )
   }

@@ -1,52 +1,75 @@
-import { ResourceType } from '@/components/SignUpProducts/types'
-import { FC } from 'react'
-import Location from '@/components/SignUpProducts/common/Location'
-import Input from '@/components/Form/Input'
-import { useTranslation } from 'react-i18next'
 import { Label } from '@/components/Form/common'
+import Input from '@/components/Form/Input'
+import Location from '@/components/SignUpProducts/common/Location'
 import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import { County } from '@/components/SignUpProducts/types'
+import { DonateItemRequest } from 'api'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { MultiSelectOption } from '../Form/types'
 
 interface IProps {
-  resourceType: ResourceType
-  counties?: County[]
+  counties?: MultiSelectOption[]
+  category: number
+  onSubmit: (values: DonateItemRequest) => void
+}
+type TentsForm = {
+  county_coverage: string[]
+  town: string
+  name: string
+  quantity: number
+  tent_capacity: number
+  unit_type: string
 }
 
-const Tents: FC<IProps> = ({ resourceType, counties }) => {
+const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm()
+  } = useForm<TentsForm>()
+
+  const onFormSubmit = (values: DonateItemRequest) => {
+    const donateItemRequest: DonateItemRequest = {
+      ...values,
+      unit_type: 'tent',
+    }
+    onSubmit(donateItemRequest)
+  }
 
   return (
-    <ProductTypeWrapper>
+    <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Input
         type="number"
-        name={`products_${resourceType}_qty`}
+        {...register('quantity')}
         label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
-      <div className="flex">
+      <div className="flex gap-4">
         <Input
           type="number"
           label={t('signup.products.capacity')}
-          name={`products_${resourceType}_capacity`}
+          {...register('tent_capacity')}
           labelPosition="horizontal"
         />
-        <Label name={t('signup.products.persons')} className={'ml-3 mt-3'}>
+        <Label
+          name={t('signup.products.persons')}
+          className={'translate-y-[10px] flex-[1_0_25%]'}
+        >
           {t('signup.products.persons')}
         </Label>
       </div>
       <Location
-        resourceType="tents"
         counties={counties}
         control={control}
         errors={errors}
         register={register}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town',
+        }}
       />
     </ProductTypeWrapper>
   )

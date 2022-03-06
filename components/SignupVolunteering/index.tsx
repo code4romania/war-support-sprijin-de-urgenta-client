@@ -80,7 +80,7 @@ const SignupVolunteering: FC = () => {
         'mx-auto px-8 py-7'
       )}
     >
-      <h3 className="text-lg font-semibold">
+      <h3 className="text-xl font-semibold">
         {t('signup.volunteering.header')}
       </h3>
       <form onSubmit={handleSubmit(onSubmit)}>
