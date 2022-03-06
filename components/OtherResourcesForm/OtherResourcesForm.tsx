@@ -31,8 +31,8 @@ const OtherResourcesForm = ({}) => {
   }
 
   const onAddItem = (data: DonateOtherRequest) => {
-    setProductsList((state) => [...state, data])
     handleDialogDismiss()
+    setProductsList((state) => [...state, data])
   }
 
   const countyCovarage = useMemo(() => {
