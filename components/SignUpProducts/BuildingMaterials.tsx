@@ -24,7 +24,7 @@ type BuildingMaterialsForm = {
   unit_type: string;
   packaging_type: string;
   expiration_date: string;
-  offer_transport: boolean;
+  has_transportation: boolean;
 }
 
 const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
@@ -48,10 +48,10 @@ const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
         label={t('services.offerTransport')}
       >
         <div className={clsx('flex flex-row gap-6')}>
-          <Radio value="true" {...register('offer_transport')}>
+          <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
           </Radio>
-          <Radio value="false" {...register('offer_transport')}>
+          <Radio value="false" {...register('has_transportation')}>
             {t('no')}
           </Radio>
         </div>
