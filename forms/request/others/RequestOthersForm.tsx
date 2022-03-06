@@ -13,6 +13,8 @@ import { SchemaOf } from 'yup'
 import * as yup from 'yup'
 import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
 import Dropdown from '@/components/Form/Dropdown'
+import { FormPageProps } from '@/components/FormPage/FormPage'
+import { useOthersForm } from '@/hooks/useData'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -34,6 +36,7 @@ export const RequestOthersForm: FC<IProps> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation()
+
   const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
     name: yup.string().typeError(t('error.must.be.string')).required(),
     category: yup.number().typeError(t('error.must.be.number')),
@@ -65,7 +68,7 @@ export const RequestOthersForm: FC<IProps> = ({
         {...register('name')}
         errors={errors['name']}
       />
-      <div className={'flex space-x-4'}>
+      <div className={'flex flex-col space-x-4'}>
         <Dropdown
           {...register('county_coverage')}
           className={clsx('w-1/2 mb-4')}
