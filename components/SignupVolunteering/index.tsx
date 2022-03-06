@@ -7,7 +7,11 @@ import ResourcesForm from '@/components/ResourcesForm'
 import { DonateVolunteeringRequest } from '../../api'
 import Dialog from '@/components/SignupVolunteering/Dialog'
 
-const SignupVolunteering: FC = () => {
+interface ISignupVolunteeringProps {
+  onAddItem: (data: DonateVolunteeringRequest) => void
+}
+
+const SignupVolunteering = ({ onAddItem }: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
   const { data: formData } = useVolunteeringForm()
   const { data: categoriesList } = useData(endpoints['categories/volunteering'])
@@ -21,8 +25,9 @@ const SignupVolunteering: FC = () => {
     setShowDialog(false)
   }
 
-  const onAddItem = (data: DonateVolunteeringRequest) => {
+  const onSubmit = (data: DonateVolunteeringRequest) => {
     setProductsList((state) => [...state, data])
+    onAddItem(data)
     handleDialogDismiss()
   }
 
@@ -40,7 +45,7 @@ const SignupVolunteering: FC = () => {
       children: (
         <Dialog
           counties={countyCovarage}
-          onSubmit={onAddItem}
+          onSubmit={onSubmit}
           category={category.id}
         />
       ),
