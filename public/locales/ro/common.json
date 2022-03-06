@@ -231,5 +231,6 @@
   "error.productName.required": "Introduceți numele produsului",
   "error.packagkingType.required": "Introduceți tipul de ambalaj",
   "error.unitType.required": "Introduceți unitatea de măsură",
-  "error.has_transportation.required": "Alegeți o opțiune"
+  "error.has_transportation.required": "Alegeți o opțiune",
+  "error.tentCapacity.required": "Introduceți numărul de corturi"
 }

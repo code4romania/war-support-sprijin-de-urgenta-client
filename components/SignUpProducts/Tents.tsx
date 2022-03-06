@@ -10,7 +10,9 @@ import { MultiSelectOption } from '../Form/types'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
 import clsx from 'clsx'
-
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 interface IProps {
   counties?: MultiSelectOption[]
   category: number
@@ -18,22 +20,44 @@ interface IProps {
 }
 type TentsForm = {
   county_coverage: string[]
-  town: string;
+  has_transportation: boolean;
+  town?: string;
   name: string;
-  quantity: number;
+  quantity?: number;
   tent_capacity: number;
   unit_type: string;
-  has_transportation: boolean;
 }
 
 const Tents: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
+
+  const tentsSchema: SchemaOf<TentsForm> = yup.object().shape({
+    county_coverage: yup.array()
+      .min(1, t('error.county.minOne'))
+      .of(yup.string().required()),
+    has_transportation: yup.boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.has_transportation.required')),
+    town: yup.string(),
+    name: yup.string().required(t('error.productName.required')),
+    quantity: yup.number().typeError(t('error.must.be.number')),
+    tent_capacity: yup.number().required(t('error.tentCapacity.required')),
+    unit_type: yup.string().required(t('error.unitType.required')),
+  })
+
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<TentsForm>()
+  } = useForm<TentsForm>({
+    resolver: yupResolver(tentsSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {
+      county_coverage: []
+    }
+  })
 
   const onFormSubmit = (values: DonateItemRequest) => {
     const donateItemRequest: DonateItemRequest = {

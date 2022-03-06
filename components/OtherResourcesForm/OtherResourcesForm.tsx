@@ -6,14 +6,17 @@ import endpoints from 'endpoints.json'
 import Dialog from './Dialog'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export type OtherResourceForm = {
-  name: string
   county_coverage: string[]
+  town?: string
+  name: string
   category?: number
   description?: string
   available_until?: string
-  town?: string
 }
 
 interface IOtherResourceFormProps {
@@ -22,6 +25,7 @@ interface IOtherResourceFormProps {
 
 const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
+  
   const { data: formData } = useOthersForm()
   const { data: categoriesList } = useData(endpoints['categories/other'])
 
