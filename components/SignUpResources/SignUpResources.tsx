@@ -42,7 +42,7 @@ const SignUpResources = ({ type }: { type: string }) => {
       services: () => (
         <SignUpServicesForm
           onAddGoodItem={onAddService}
-          onAddPersoItem={onAddService}
+          onAddPersonItem={onAddService}
         />
       ),
       products: () => <SignUpProducts onAddItem={onAddProduct}/>,
