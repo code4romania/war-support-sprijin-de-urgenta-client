@@ -113,21 +113,23 @@ export const RequestTransportGoodsForm = ({
     mode: 'all',
   })
 
-  const showCountyCoverageDropdown = watch('type') === TransportType.County
-  const countyCoverage = watch('county_coverage')
-  console.log(countyCoverage)
-  const showAvailabilityIntervals =
-    watch('availability') === AvailabilityType.FixedIntervals
+  const countiesFromOptions = useMemo(() => {
+    return (
+      data?.from_county?.choices.map((c: any) => ({
+        value: c.value,
+        label: c.display_name,
+      })) || []
+    )
+  }, [data?.from_county?.choices])
 
-  const countiesOptions = useMemo(() => {
-    return data?.county_coverage?.choices.map((c: any) => ({
-      value: c.value,
-      label: c.display_name,
-    }))
-  }, [data?.county_coverage?.choices])
-
-  const typeOptions: { value: number; display_name: string }[] =
-    data?.type?.choices
+  const countiesToOptions = useMemo(() => {
+    return (
+      data?.to_county?.choices.map((c: any) => ({
+        value: c.value,
+        label: c.display_name,
+      })) || []
+    )
+  }, [data?.to_county?.choices])
 
   const onAdd = async (data: ServicesForm) => {
     console.log('onAdd', data)
@@ -182,6 +184,10 @@ export const RequestTransportGoodsForm = ({
     <div>
       <form aria-label="form" className="w-full" onSubmit={handleSubmit(onAdd)}>
         <section className="w-full">
+          <Textarea
+            label={t('services.description')}
+            {...register('description')}
+          />
           <div className={clsx('flex flex-row items-center space-x-2')}>
             <Input
               type="number"
@@ -221,106 +227,43 @@ export const RequestTransportGoodsForm = ({
               </Radio>
             </div>
           </RadioGroup>
-          <RadioGroup
-            errors={
-              serverErrors['type']
-                ? { message: serverErrors['type'].join('\n') }
-                : errors['type']
-            }
-            label={t('services.transport')}
-          >
-            <Radio
-              value={typeOptions && typeOptions[0].value}
-              {...register('type')}
-            >
-              {typeOptions && typeOptions[0].display_name}
-            </Radio>
-            <Radio
-              value={typeOptions && typeOptions[1]?.value}
-              {...register('type')}
-              className={clsx('!mb-0')}
-            >
-              {typeOptions && typeOptions[1].display_name}
-            </Radio>
-            {showCountyCoverageDropdown && (
-              <DropdownMultiSelect
-                {...register('county_coverage')}
-                className={clsx('mb-4')}
-                disabled={!showCountyCoverageDropdown}
-                control={control}
-                options={countiesOptions || []}
-                errors={errors.county_coverage}
-              />
-            )}
-          </RadioGroup>
-          <Input
-            labelPosition="horizontal"
-            type="text"
-            errors={errors.driver_name}
-            label={`${t('services.driver-name')}:`}
-            {...register('driver_name')}
-          />
-          <Input
-            labelPosition="horizontal"
-            type="text"
-            errors={errors.driver_id}
-            label={t('services.driver-ci')}
-            {...register('driver_id')}
-          />
-          <Input
-            labelPosition="horizontal"
-            type="text"
-            errors={errors.car_registration_number}
-            label={t('services.car-plate')}
-            {...register('car_registration_number')}
-          />
-          <Input
-            labelPosition="horizontal"
-            type="text"
-            errors={errors.driver_contact}
-            label={t('services.driverContact')}
-            {...register('driver_contact')}
-          />
           <Dropdown
-            label={t('services.availability')}
-            errors={errors.availability}
-            {...register('availability')}
+            {...register('county_coverage')}
+            className={clsx('w-1/2 mb-4')}
+            label={t('signup.other.county_coverage')}
           >
-            {data?.availability?.choices.map(
-              ({
-                display_name,
-                value,
-              }: {
-                display_name: string
-                value: string
-              }) => {
-                return (
-                  <option key={value} value={value}>
-                    {display_name}
+            {countiesFromOptions.length > 0 &&
+              countiesFromOptions.map(
+                ({ value, label }: { value: string; label: string }) => (
+                  <option key={`${value}_${label}`} value={value}>
+                    {label}
                   </option>
                 )
-              }
-            )}
+              )}
           </Dropdown>
-          {showAvailabilityIntervals && (
-            <div className="flex space-x-2">
-              <Date
-                type={'time'}
-                label={t('services.availability_interval_from')}
-                errors={errors['availability_interval_from']}
-                {...register('availability_interval_from')}
-              />
-              <Date
-                type={'time'}
-                label={t('services.availability_interval_to')}
-                errors={errors['availability_interval_to']}
-                {...register('availability_interval_to')}
-              />
-            </div>
-          )}
-          <Textarea
-            label={t('services.description')}
-            {...register('description')}
+          <Input
+            name="town"
+            className={'w-1/2'}
+            label={t('signup.other.town')}
+          />
+          <Dropdown
+            {...register('county_coverage')}
+            className={clsx('w-1/2 mb-4')}
+            label={t('signup.other.county_coverage')}
+          >
+            {countiesToOptions.length > 0 &&
+              countiesToOptions.map(
+                ({ value, label }: { value: string; label: string }) => (
+                  <option key={`${value}_${label}`} value={value}>
+                    {label}
+                  </option>
+                )
+              )}
+          </Dropdown>
+          <Input
+            name="town"
+            className={'w-1/2'}
+            label={t('signup.other.town')}
           />
         </section>
         <Button type="submit" text={t('add')} variant="tertiary" size="small" />
