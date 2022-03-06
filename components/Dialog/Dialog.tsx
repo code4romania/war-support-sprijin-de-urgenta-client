@@ -12,6 +12,7 @@ export interface IDialogProps {
   isOpen: boolean
   title?: string
   onDismiss: () => void
+  isBlocking?: boolean
   children: ReactNode
 }
 
@@ -26,14 +27,26 @@ export interface IDialogProps {
 //      <YourAmazingComponent/>
 //    </Dialog>
 
-const Dialog = ({ isOpen, onDismiss, children }: IDialogProps) => {
+const Dialog = ({
+  isOpen,
+  onDismiss,
+  isBlocking = true,
+  children,
+}: IDialogProps) => {
   const isLarge = useMediaQuery(QUERIES.md)
   const MotionDialogOverlay = motion(DialogOverlay)
   const MotionDialogContent = motion(DialogContent)
+  const handleBackDropClick = () => {
+    if (isBlocking) return
+    onDismiss()
+  }
   return (
     <AnimatePresence initial={false} exitBeforeEnter={true}>
       {isOpen && (
-        <MotionDialogOverlay className={styles.wrapper} onClick={onDismiss}>
+        <MotionDialogOverlay
+          className={styles.wrapper}
+          onClick={handleBackDropClick}
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.4 } }}
