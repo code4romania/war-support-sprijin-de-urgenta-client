@@ -12,7 +12,7 @@ import { FormPageProps } from '../FormPage/FormPage'
 interface ISignupVolunteeringProps {
   items: DonateVolunteeringRequest[]
   onAddItem: (data: DonateVolunteeringRequest) => void
-  type: FormPageProps.Offer | FormPageProps.Request
+  type: FormPageProps
   onRemoveItem: (index: number) => void
 }
 
@@ -78,6 +78,7 @@ const SignupVolunteering = ({
         'signup.volunteering.header'
       )}:`}</h3>
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.volunteering.added')}
         tableColumns={tableColumns}

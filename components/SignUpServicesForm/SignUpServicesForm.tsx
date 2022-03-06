@@ -17,7 +17,7 @@ import { FormPageProps } from '../FormPage/FormPage'
 interface ISignUpServicesFormProps {
   items: TransportServicesRequest[]
   onAddItem: (data: TransportServicesRequest) => void
-  type: FormPageProps.Offer | FormPageProps.Request
+  type: FormPageProps
   onRemoveItem: (index: number) => void
 }
 
@@ -78,6 +78,7 @@ export const SignUpServicesForm = ({
       <h3 className="mb-8 text-xl font-semibold">{t('services')}</h3>
 
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.services.added')}
         tableColumns={resourcesTableColumns}
