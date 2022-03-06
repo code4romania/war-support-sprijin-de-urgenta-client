@@ -106,7 +106,6 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     reValidateMode: 'onSubmit',
     mode: 'all',
   })
-  console.log(errors)
 
   const showCountyCoverageDropdown = watch('type') === TransportType.County
   const countyCoverage = watch('county_coverage')

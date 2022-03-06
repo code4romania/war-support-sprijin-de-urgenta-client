@@ -234,5 +234,5 @@
   "error.has_transportation.required": "Alegeți o opțiune",
   "error.tentCapacity.required": "Introduceți numărul de corturi",
   "signup.volunteering.name": "Nume",
-  "error.volunteering.required": "Introduceți numele"
+  "error.name.required": "Introduceți numele"
 }

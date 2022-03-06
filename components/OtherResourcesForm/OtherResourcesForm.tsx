@@ -63,37 +63,6 @@ const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
         />
       ),
     })) || []
-  //
-  // const onSubmit = async (values: any) => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/other']}`,
-  //       {
-  //         method: 'POST',
-  //         mode: 'cors',
-  //         cache: 'no-cache',
-  //         credentials: 'same-origin',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         redirect: 'follow',
-  //         referrerPolicy: 'no-referrer',
-  //         body: JSON.stringify([values]),
-  //       }
-  //     )
-  //
-  //     if (res.ok) {
-  //       setServerErrors({})
-  //       const [data] = await res.json()
-  //       console.log('data', data)
-  //     } else {
-  //       const [data] = await res.json()
-  //       setServerErrors(data)
-  //     }
-  //   } catch (e) {
-  //     console.log('e', e)
-  //   }
-  // }
 
   return (
     <section

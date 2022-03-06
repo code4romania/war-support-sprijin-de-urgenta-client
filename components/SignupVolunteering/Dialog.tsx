@@ -32,7 +32,7 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
   const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup.object()
     .shape({
-      name: yup.string().required(t('error.volunteering.required')),
+      name: yup.string().required(t('error.name.required')),
       type: yup.string().typeError(t('error.must.be.string')).required(t('error.type.required')),
       town: yup.string().typeError(t('error.must.be.string')),
       description: yup.string().typeError(t('error.must.be.string')),
