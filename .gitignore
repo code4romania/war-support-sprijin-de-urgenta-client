@@ -1,3 +1,6 @@
+# ignore the .env file
+.env
+
 .idea
 .vscode
 # dependencies
