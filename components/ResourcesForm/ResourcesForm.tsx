@@ -5,18 +5,18 @@ import ResourcesTableList from '@/components/ResourcesTableList'
 import Button from '@/components/Button'
 import Dialog from '@/components/Dialog'
 
-export interface IProductsProps {
+export interface ICategoryProps {
   resourceType: string
   label: string
   children: ReactNode
 }
 
 export interface IResourcesFormProps {
-  categories: IProductsProps[]
+  categories: ICategoryProps[]
   tableTitle: string
   tableColumns: string[]
   tableItems: any[]
-  updateTableItems: (items: any[]) => void
+  updateTableItems: (data: any[]) => void
   showDialog: boolean
   setShowDialog: (showDialog: boolean) => void
 }
