@@ -60,11 +60,13 @@ export type DonateItemRequest = {
 }
 
 export type DonateVolunteeringRequest = {
-  type?: string
+  type: string
   town?: string
+  name: string;
   description?: string
   available_until?: string
-  county_coverage: string[]
+  county_coverage: string[],
+  category: number
 }
 
 
