@@ -162,7 +162,7 @@ const SignUpProducts = ({
     },
     {
       resourceType: 'others',
-      label: 'OfferProductsOthers',
+      label: 'signup.products.others',
       children: <OfferProductsOthers onSubmit={onProductAdd} />,
     },
   ]
