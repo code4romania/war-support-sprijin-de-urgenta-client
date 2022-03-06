@@ -25,10 +25,16 @@ const SignUpResources = ({ type }: { type: string }) => {
   const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
     []
   )
-  console.log('servicesList', servicesList)
+  const [productsList, setProductsList] = useState<TransportServicesRequest[]>(
+    []
+  )
 
   const onAddService = (data: any) => {
     setServicesList((state) => [...state, data])
+  }
+
+  const onAddProduct = (data: any) => {
+    setProductsList((state) => [...state, data])
   }
 
   const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
@@ -39,7 +45,7 @@ const SignUpResources = ({ type }: { type: string }) => {
           onAddPersoItem={onAddService}
         />
       ),
-      products: () => <SignUpProducts />,
+      products: () => <SignUpProducts onAddItem={onAddProduct}/>,
       volunteer: () => <SignupVolunteering />,
       others: () => <OtherResourcesForm />,
       default: () => <OtherResourcesForm />,
@@ -81,7 +87,12 @@ const SignUpResources = ({ type }: { type: string }) => {
   const handleSubmit = () => {
     // setSubmitSuccess(true)
     // setSelectedResourceTypes([])
-    onSubmit(servicesList, endpoints['donate/transport_service'])
+    if(servicesList.length){
+      onSubmit(servicesList, endpoints['donate/transport_service'])
+    }
+    if(productsList.length){
+      onSubmit(servicesList, endpoints['donate/item'])
+    }
   }
 
   return (

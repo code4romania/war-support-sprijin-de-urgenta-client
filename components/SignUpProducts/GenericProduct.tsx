@@ -29,7 +29,7 @@ type GenericProductForm = {
   has_transportation: boolean;
 }
 
-const GenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
+const GenericProduct: FC<IProps> = ({ counties, category, onSubmit }) => {
   const {
     handleSubmit,
     register,
@@ -38,7 +38,7 @@ const GenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
   } = useForm<GenericProductForm>()
 
   const onFormSubmit = (values: GenericProductForm) => {
-    const donateItemRequest: DonateItemRequest = { ...values };
+    const donateItemRequest: DonateItemRequest = { ...values, category };
     onSubmit(donateItemRequest);
   }
 

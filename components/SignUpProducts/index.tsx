@@ -12,6 +12,7 @@ import clsx from 'clsx'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
+  onAddItem: (item: any) => void
 }
 
 export interface IProductsProps {
@@ -20,7 +21,7 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({}: ISignUpProductsProps) => {
+const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
@@ -29,6 +30,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
 
   const onProductAdd = (data: DonateItemRequest) => {
     setProductsList((state) => [...state, data])
+    onAddItem(data)
     handleDialogDismiss()
   }
 
