@@ -2,10 +2,11 @@ import React, { FC, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useVolunteeringForm } from '@/hooks/useData'
+
 import endpoints from 'endpoints.json'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateVolunteeringRequest } from '../../api'
-import Dialog from '@/components/SignupVolunteering/Dialog'
+import { OfferVolunteeringForm } from 'forms'
 
 const SignupVolunteering: FC = () => {
   const { t } = useTranslation()
@@ -15,7 +16,9 @@ const SignupVolunteering: FC = () => {
   const tableColumns = [t('resources.volunteering')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>([])
+  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>(
+    []
+  )
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
@@ -38,7 +41,7 @@ const SignupVolunteering: FC = () => {
       resourceType: category.id,
       label: category.name,
       children: (
-        <Dialog
+        <OfferVolunteeringForm
           counties={countyCovarage}
           onSubmit={onAddItem}
           category={category.id}

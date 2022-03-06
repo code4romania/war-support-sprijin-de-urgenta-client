@@ -2,22 +2,19 @@ import { useProductsForm } from '@/hooks/useData'
 import { DonateItemRequest } from 'api'
 import React, { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import BuildingMaterials from './BuildingMaterials'
-import GenericProduct from './GenericProduct'
-import Others from './Others'
-import Tents from './Tents'
-import TextileProduct from './TextileProduct'
+import {
+  OfferBuildingMaterials,
+  OfferGenericProduct,
+  OfferProductsOthers,
+  OfferTents,
+  OfferTextileProduct,
+} from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import clsx from 'clsx'
+import { IResourcesCategoriesProps } from '../../forms/types'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
-}
-
-export interface IProductsProps {
-  resourceType: string
-  label: string
-  children: ReactNode
 }
 
 const SignUpProducts = ({}: ISignUpProductsProps) => {
@@ -39,12 +36,12 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     }))
   }, [data?.county_coverage?.choices])
 
-  const PRODUCTS: IProductsProps[] = [
+  const PRODUCTS: IResourcesCategoriesProps[] = [
     {
       resourceType: 'food',
       label: 'signup.products.food',
       children: (
-        <GenericProduct
+        <OfferGenericProduct
           onSubmit={onProductAdd}
           counties={countyChoices}
           category={1}
@@ -55,7 +52,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
       children: (
-        <GenericProduct
+        <OfferGenericProduct
           onSubmit={onProductAdd}
           counties={countyChoices}
           category={2}
@@ -66,7 +63,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       resourceType: 'feminineHygiene',
       label: 'signup.products.feminineHygiene',
       children: (
-        <GenericProduct
+        <OfferGenericProduct
           onSubmit={onProductAdd}
           counties={countyChoices}
           category={3}
@@ -77,7 +74,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       resourceType: 'textile',
       label: 'signup.products.textile',
       children: (
-        <TextileProduct
+        <OfferTextileProduct
           onSubmit={onProductAdd}
           resourceType="textile"
           counties={countyChoices}
@@ -88,20 +85,27 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
       resourceType: 'buildingMaterials',
       label: 'signup.products.buildingMaterials',
       children: (
-        <BuildingMaterials onSubmit={onProductAdd} counties={countyChoices} />
+        <OfferBuildingMaterials
+          onSubmit={onProductAdd}
+          counties={countyChoices}
+        />
       ),
     },
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
       children: (
-        <Tents onSubmit={onProductAdd} counties={countyChoices} category={6} />
+        <OfferTents
+          onSubmit={onProductAdd}
+          counties={countyChoices}
+          category={6}
+        />
       ),
     },
     {
       resourceType: 'others',
-      label: 'Others',
-      children: <Others onSubmit={onProductAdd} />,
+      label: 'OfferProductsOthers',
+      children: <OfferProductsOthers onSubmit={onProductAdd} />,
     },
   ]
 

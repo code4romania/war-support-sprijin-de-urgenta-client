@@ -1,8 +1,8 @@
 import Button from '@/components/Button'
 import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
-import { TransportGoodsForm } from 'forms'
-import { TransportPersonsForm } from 'forms/TransportPersonsForm'
+import { OfferTransportGoodsForm } from 'forms'
+import { OfferTransportPersonsForm } from 'forms'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Dialog from '../Dialog'
@@ -130,7 +130,7 @@ export const SignUpServicesForm = () => {
               title={t('services.transport-goods')}
               onDismiss={handleDialogDismiss}
             />
-            <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
+            <OfferTransportGoodsForm onSubmit={onTransportGoodsSubmit} />
           </>
         )}
         {showForm === 'transportPersons' && (
@@ -139,7 +139,7 @@ export const SignUpServicesForm = () => {
               title={t('services.transport-people')}
               onDismiss={handleDialogDismiss}
             />
-            <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
+            <OfferTransportPersonsForm onSubmit={onTransporPersonsSubmit} />
           </>
         )}
       </Dialog>

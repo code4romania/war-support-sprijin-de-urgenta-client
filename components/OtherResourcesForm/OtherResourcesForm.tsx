@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useOthersForm } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
-import Dialog from './Dialog'
+import { OfferOthersForm } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
 
@@ -47,7 +47,7 @@ const OtherResourcesForm = ({}) => {
       resourceType: category.id,
       label: category.name,
       children: (
-        <Dialog
+        <OfferOthersForm
           counties={countyCovarage}
           onSubmit={onAddItem}
           category={category.id}

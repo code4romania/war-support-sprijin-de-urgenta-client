@@ -1,7 +1,7 @@
 import { DonateOtherRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { MultiSelectOption } from '../Form/types'
+import { MultiSelectOption } from '../../../components/Form/types'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 import clsx from 'clsx'
@@ -12,7 +12,7 @@ import Button from '@/components/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SchemaOf } from 'yup'
 import * as yup from 'yup'
-import { OtherResourceForm } from './OtherResourcesForm'
+import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -28,7 +28,11 @@ type Form = {
   town: string
 }
 
-const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
+export const OfferOthersForm: FC<IProps> = ({
+  counties,
+  category,
+  onSubmit,
+}) => {
   const { t } = useTranslation()
   const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
     name: yup.string().typeError(t('error.must.be.string')).required(),
@@ -94,5 +98,3 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
     </form>
   )
 }
-
-export default Dialog

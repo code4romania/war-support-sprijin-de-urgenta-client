@@ -1,11 +1,12 @@
-import Location from '@/components/SignUpProducts/common/Location'
-import Product from '@/components/SignUpProducts/common/Product'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import Quantity from '@/components/SignUpProducts/common/Quantity'
+import ExpireDate from 'forms/common/ExpireDate'
+import Location from 'forms/common/Location'
+import Product from 'forms/common/Product'
+import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
+import Quantity from 'forms/common/Quantity'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { MultiSelectOption } from '../Form/types'
+import { MultiSelectOption } from '../../../components/Form/types'
 import { useTranslation } from 'react-i18next'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
@@ -13,30 +14,31 @@ import clsx from 'clsx'
 
 interface IProps {
   counties: MultiSelectOption[]
+  category: number
   onSubmit: (values: DonateItemRequest) => void
 }
 
-type BuildingMaterialsForm = {
+type RequestGenericProductForm = {
   county_coverage: string[]
-  town: string;
-  name: string;
-  quantity: number;
-  unit_type: string;
-  packaging_type: string;
-  expiration_date: string;
-  has_transportation: boolean;
+  town: string
+  name: string
+  quantity: number
+  unit_type: string
+  packaging_type: string
+  expiration_date: string
+  has_transportation: boolean
 }
 
-const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
+export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<BuildingMaterialsForm>()
+  } = useForm<RequestGenericProductForm>()
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values };
+  const onFormSubmit = (values: RequestGenericProductForm) => {
+    const donateItemRequest: DonateItemRequest = { ...values }
     onSubmit(donateItemRequest)
   }
 
@@ -44,9 +46,7 @@ const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup
-        label={t('services.offerTransport')}
-      >
+      <RadioGroup label={t('services.offerTransport')}>
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -58,30 +58,34 @@ const BuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
       </RadioGroup>
       <Location
         counties={counties}
-        register={register}
         control={control}
+        register={register}
         errors={errors}
         names={{
           county_coverage: 'county_coverage',
-          town: 'town'
+          town: 'town',
         }}
       />
-      <Product
-        errors={errors}
-        register={register}
-        names={{ name: 'name' }}
-      />
+
+      <Product register={register} errors={errors} names={{ name: 'name' }} />
 
       <Quantity
-        errors={errors}
         register={register}
+        errors={errors}
         names={{
           quantity: 'quantity',
           packaging_type: 'packaging_type',
-          unit_type: 'unit_type'
-        }} />
+          unit_type: 'unit_type',
+        }}
+      />
 
+      <ExpireDate
+        register={register}
+        errors={errors}
+        names={{
+          expiration_date: 'expiration_date',
+        }}
+      />
     </ProductTypeWrapper>
   )
 }
-export default BuildingMaterials

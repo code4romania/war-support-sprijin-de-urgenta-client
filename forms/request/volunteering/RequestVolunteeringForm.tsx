@@ -1,17 +1,18 @@
+import * as yup from 'yup'
+import clsx from 'clsx'
 import { DonateVolunteeringRequest } from 'api'
 import { FC } from 'react'
+import { SchemaOf } from 'yup'
 import { useForm } from 'react-hook-form'
-import { MultiSelectOption } from '../Form/types'
-import Input from '@/components/Form/Input'
-import Textarea from '@/components/Form/Textarea'
-import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import Button from '@/components/Button'
 import DateInput from '@/components/Form/Date'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
-import { useTranslation } from 'react-i18next'
-import Button from '@/components/Button'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { SchemaOf } from 'yup'
-import * as yup from 'yup'
+import Input from '@/components/Form/Input'
+import Textarea from '@/components/Form/Textarea'
+import { MultiSelectOption } from '@/components/Form/types'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -27,7 +28,11 @@ type VolunteeringResourceForm = {
   county_coverage: string[]
 }
 
-const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
+export const RequestVolunteeringForm: FC<IProps> = ({
+  counties,
+  category,
+  onSubmit,
+}) => {
   const { t } = useTranslation()
   const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup
     .object()
@@ -51,7 +56,10 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
   })
 
   const onFormSubmit = (values: any) => {
-    const donateOtherRequest: DonateVolunteeringRequest = { ...values, category }
+    const donateOtherRequest: DonateVolunteeringRequest = {
+      ...values,
+      category,
+    }
     onSubmit(donateOtherRequest)
   }
 
@@ -80,5 +88,3 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
     </form>
   )
 }
-
-export default Dialog
