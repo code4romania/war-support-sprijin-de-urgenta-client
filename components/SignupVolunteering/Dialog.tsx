@@ -21,7 +21,7 @@ interface IProps {
 
 type VolunteeringResourceForm = {
   name: string
-  type: string
+  category: number
   town?: string
   description?: string
   available_until?: string
@@ -33,7 +33,7 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
   const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup.object()
     .shape({
       name: yup.string().required(t('error.name.required')),
-      type: yup.string().typeError(t('error.must.be.string')).required(t('error.type.required')),
+      category: yup.number().typeError(t('error.must.be.number')).required(t('error.type.required')),
       town: yup.string().typeError(t('error.must.be.string')),
       description: yup.string().typeError(t('error.must.be.string')),
       available_until: yup.string().typeError(t('error.must.be.string')),
@@ -53,12 +53,13 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
     reValidateMode: 'onSubmit',
     mode: 'all',
     defaultValues: {
-      county_coverage: []
+      county_coverage: [],
+      category
     }
   })
 
   const onFormSubmit = (values: VolunteeringResourceForm) => {
-    const donateOtherRequest: DonateVolunteeringRequest = { ...values, category }
+    const donateOtherRequest: DonateVolunteeringRequest = { ...values, type: category }
     onSubmit(donateOtherRequest)
   }
 
