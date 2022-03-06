@@ -37,7 +37,7 @@ const SignUpProducts = ({
   onRemoveItem,
 }: ISignUpProductsProps) => {
   const { t } = useTranslation()
-  const { data } = useProductsForm()
+  const { data } = useProductsForm(FormPageProps.Offer)
 
   const [showDialog, setShowDialog] = useState(false)
 
