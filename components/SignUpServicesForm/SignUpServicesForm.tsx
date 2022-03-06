@@ -76,6 +76,7 @@ export const SignUpServicesForm = ({
       )}
     >
       <h3 className="mb-8 text-xl font-semibold">{t('services')}</h3>
+
       <ResourcesForm
         categories={categories}
         tableTitle={t('resources.services.added')}

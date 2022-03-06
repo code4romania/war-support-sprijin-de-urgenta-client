@@ -42,8 +42,8 @@ const SignUpProducts = ({
   const [showDialog, setShowDialog] = useState(false)
 
   const onProductAdd = (data: DonateItemRequest) => {
-    onAddItem(data)
     handleDialogDismiss()
+    onAddItem(data)
   }
 
   const countyChoices = useMemo(() => {
