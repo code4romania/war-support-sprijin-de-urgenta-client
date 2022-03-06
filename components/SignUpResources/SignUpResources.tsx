@@ -176,6 +176,8 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   }
 
   const handleSubmit = async () => {
+    setServerErrors({});
+
     const serverErrors: ServerErrorByEndpoint = {};
 
     if (servicesList.length) {
@@ -183,6 +185,13 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         await onSubmit(servicesList, endpoints['donate/transport_service'])
       }
       catch (e: any) {
+        const error: any[] = e.error;
+        error.forEach((err, index) => {
+          if (Object.keys(err).length > 0) {
+            servicesList.splice(index, 1)
+            setServicesList([...servicesList])
+          }
+        })
         serverErrors[e.endpoint] = e.error
       }
     }
@@ -191,6 +200,13 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         await onSubmit(productsList, endpoints['donate/item'])
       }
       catch (e: any) {
+        const error: any[] = e.error;
+        error.forEach((err, index) => {
+          if (Object.keys(err).length > 0) {
+            productsList.splice(index, 1)
+            setProductsList([...productsList])
+          }
+        })
         serverErrors[e.endpoint] = e.error
       }
     }
@@ -198,8 +214,14 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       try {
         await onSubmit(volunteeringList, endpoints['donate/volunteering'])
       } catch (e: any) {
+        const error: any[] = e.error;
+        error.forEach((err, index) => {
+          if (Object.keys(err).length > 0) {
+            volunteeringList.splice(index, 1)
+            setVolunteeringList([...volunteeringList])
+          }
+        })
         serverErrors[e.endpoint] = e.error
-        console.log(serverErrors)
       }
     }
     if (othersList.length) {
@@ -207,6 +229,13 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         await onSubmit(othersList, endpoints['donate/other'])
       }
       catch (e: any) {
+        const error: any[] = e.error;
+        error.forEach((err, index) => {
+          if (Object.keys(err).length > 0) {
+            othersList.splice(index, 1)
+            setOthersList([...othersList])
+          }
+        })
         serverErrors[e.endpoint] = e.error
       }
     }
@@ -248,8 +277,8 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           </div>
         ))}
       {submitSuccess && <ThankYouMessage type={type} />}
-      <Spacer size={'1em'} />
       {Object.keys(serverErrors).length > 0 && <ServerErrorsMessage errors={serverErrors} />}
+      <Spacer size={'1em'} />
       <StepperButtonGroup
         steps={[
           { disabled: true, direction: 'backward' },

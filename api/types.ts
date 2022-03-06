@@ -77,3 +77,13 @@ export type DonateOtherRequest = {
   county_coverage?: string[]
   town?: string
 }
+
+
+export type ServerError = {
+  endpoint: string,
+  error: Record<string, string[]>[],
+  status: number,
+  statusText: string
+}
+
+export type ServerErrorByEndpoint = Record<string, Record<string, string[]>[]>

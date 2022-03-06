@@ -63,6 +63,7 @@ export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
     mode: 'all',
     defaultValues: {
       county_coverage: [],
+      expiration_date: (new Date()).toISOString().split('T')[0]
     },
   })
 
