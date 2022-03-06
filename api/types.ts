@@ -73,7 +73,7 @@ export type DonateOtherRequest = {
   name: string,
   category: number
   description?: string,
-  available_until?: Date,
+  available_until?: string,
   county_coverage?: string[]
   town?: string
 }

@@ -23,7 +23,7 @@ interface IProps {
 type Form = {
   name: string
   description?: string
-  available_until?: Date
+  available_until?: string
   county_coverage: string[]
   town?: string
 }
@@ -56,6 +56,7 @@ export const OfferOthersForm: FC<IProps> = ({
     mode: 'all',
     defaultValues: {
       county_coverage: [],
+      available_until: (new Date()).toISOString().split('T')[0]
     }
   })
 
