@@ -18,8 +18,13 @@ import {
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
+import { FormPageProps } from '../FormPage/FormPage'
 
-const SignUpResources = ({ type }: { type: string }) => {
+const SignUpResources = ({
+  type,
+}: {
+  type: FormPageProps.Offer | FormPageProps.Request
+}) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
   const [submitSuccess, setSubmitSuccess] = useState(false)
@@ -56,11 +61,19 @@ const SignUpResources = ({ type }: { type: string }) => {
 
   const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
     const componentMap = {
-      services: () => <SignUpServicesForm onAddItem={onAddService} />,
-      products: () => <SignUpProducts onAddItem={onAddProduct} />,
-      volunteer: () => <SignupVolunteering onAddItem={onAddVolunteeringItem} />,
-      others: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
-      default: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
+      services: () => (
+        <SignUpServicesForm type={type} onAddItem={onAddService} />
+      ),
+      products: () => <SignUpProducts type={type} onAddItem={onAddProduct} />,
+      volunteer: () => (
+        <SignupVolunteering type={type} onAddItem={onAddVolunteeringItem} />
+      ),
+      others: () => (
+        <OtherResourcesForm type={type} onAddItem={onAddOtherItem} />
+      ),
+      default: () => (
+        <OtherResourcesForm type={type} onAddItem={onAddOtherItem} />
+      ),
     }
     return (
       componentMap[resourceType as keyof typeof componentMap] ||

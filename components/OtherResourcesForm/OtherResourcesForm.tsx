@@ -3,9 +3,10 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useOthersForm } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
-import { OfferOthersForm } from 'forms'
+import { OfferOthersForm, RequestOthersForm } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export type OtherResourceForm = {
   name: string
@@ -18,9 +19,10 @@ export type OtherResourceForm = {
 
 interface IOtherResourceFormProps {
   onAddItem: (data: DonateOtherRequest) => void
+  type: string
 }
 
-const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
+const OtherResourcesForm = ({ type, onAddItem }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
   const { data: formData } = useOthersForm()
   const { data: categoriesList } = useData(endpoints['categories/other'])
@@ -51,13 +53,20 @@ const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
     categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
-      children: (
-        <OfferOthersForm
-          counties={countyCovarage}
-          onSubmit={onSubmit}
-          category={category.id}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferOthersForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ) : (
+          <RequestOthersForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ),
     })) || []
   //
   // const onSubmit = async (values: any) => {

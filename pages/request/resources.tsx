@@ -2,14 +2,14 @@ import { NextPage } from 'next'
 import FormPage from '@/components/FormPage'
 
 const RequestForm: NextPage = () => {
-  return <FormPage type={'request'} />
+  return <FormPage type={FormPageProps.Request} />
 }
 
 export async function getStaticProps() {
   return {
     props: {
       protected: true,
-      redirectTo: '/sign-up/request'
+      redirectTo: '/sign-up/request',
     },
   }
 }

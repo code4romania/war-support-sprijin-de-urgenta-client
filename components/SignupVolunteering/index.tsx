@@ -6,13 +6,15 @@ import { useData, useVolunteeringForm } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateVolunteeringRequest } from '../../api'
-import { OfferVolunteeringForm } from 'forms'
+import { OfferVolunteeringForm, RequestVolunteeringForm } from 'forms'
+import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignupVolunteeringProps {
   onAddItem: (data: DonateVolunteeringRequest) => void
+  type: FormPageProps.Offer | FormPageProps.Request
 }
 
-const SignupVolunteering = ({ onAddItem }: ISignupVolunteeringProps) => {
+const SignupVolunteering = ({ type, onAddItem }: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
   const { data: formData } = useVolunteeringForm()
   const { data: categoriesList } = useData(endpoints['categories/volunteering'])
@@ -45,13 +47,20 @@ const SignupVolunteering = ({ onAddItem }: ISignupVolunteeringProps) => {
     categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
-      children: (
-        <OfferVolunteeringForm
-          counties={countyCovarage}
-          onSubmit={onSubmit}
-          category={category.id}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferVolunteeringForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ) : (
+          <RequestVolunteeringForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ),
     })) || []
 
   return (

@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof ThankYouMessage> = (args) => (
 
 export const Request = Template.bind({})
 Request.args = {
-  type: 'request',
+  type: FormPageProps.Request,
 }
 
 Request.parameters = {
@@ -26,7 +26,7 @@ Request.parameters = {
 
 export const Offer = Template.bind({})
 Offer.args = {
-  type: 'offer',
+  type: FormPageProps.Offer,
 }
 
 Offer.parameters = {

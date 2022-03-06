@@ -1,19 +1,28 @@
 import { useMemo } from 'react'
 import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
-import { OfferTransportGoodsForm } from 'forms'
+import {
+  OfferTransportGoodsForm,
+  RequestTransportGoodsForm,
+  RequestTransportPersonsForm,
+} from 'forms'
 import { OfferTransportPersonsForm } from 'forms'
 import React, { ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ResourcesForm, {
   ICategoryProps,
 } from '@/components/ResourcesForm/ResourcesForm'
+import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignUpServicesFormProps {
   onAddItem: (data: TransportServicesRequest) => void
+  type: FormPageProps.Offer | FormPageProps.Request
 }
 
-export const SignUpServicesForm = ({ onAddItem }: ISignUpServicesFormProps) => {
+export const SignUpServicesForm = ({
+  type,
+  onAddItem,
+}: ISignUpServicesFormProps) => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
@@ -32,12 +41,22 @@ export const SignUpServicesForm = ({ onAddItem }: ISignUpServicesFormProps) => {
     {
       resourceType: 'goods',
       label: t('services.transport-goods'),
-      children: <OfferTransportGoodsForm onSubmit={onAddService} />,
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTransportGoodsForm onSubmit={onAddService} />
+        ) : (
+          <RequestTransportGoodsForm onSubmit={onAddService} />
+        ),
     },
     {
       resourceType: 'people',
       label: t('services.transport-people'),
-      children: <OfferTransportPersonsForm onSubmit={onAddService} />,
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTransportPersonsForm onSubmit={onAddService} />
+        ) : (
+          <RequestTransportPersonsForm onSubmit={onAddService} />
+        ),
     },
   ]
 

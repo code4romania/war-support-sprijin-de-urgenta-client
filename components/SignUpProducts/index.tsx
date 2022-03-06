@@ -8,14 +8,20 @@ import {
   OfferProductsOthers,
   OfferTents,
   OfferTextileProduct,
+  RequestBuildingMaterials,
+  RequestGenericProduct,
+  RequestTents,
+  RequestTextileProduct,
 } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import clsx from 'clsx'
 import { IResourcesCategoriesProps } from '../../forms/types'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
   onAddItem: (item: DonateItemRequest) => void
+  type: FormPageProps.Offer | FormPageProps.Request
 }
 export interface IProductsProps {
   resourceType: string
@@ -23,7 +29,7 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
+const SignUpProducts = ({ type, onAddItem }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
@@ -43,71 +49,112 @@ const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
     }))
   }, [data?.county_coverage?.choices])
 
-  const PRODUCTS: IResourcesCategoriesProps[] = [
+  const categories: IResourcesCategoriesProps[] = [
     {
       resourceType: 'food',
       label: 'signup.products.food',
-      children: (
-        <OfferGenericProduct
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={1}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ),
     },
     {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
-      children: (
-        <OfferGenericProduct
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={2}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ),
     },
     {
       resourceType: 'feminineHygiene',
       label: 'signup.products.feminineHygiene',
-      children: (
-        <OfferGenericProduct
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={3}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ),
     },
     {
       resourceType: 'textile',
       label: 'signup.products.textile',
-      children: (
-        <OfferTextileProduct
-          onSubmit={onProductAdd}
-          resourceType="textile"
-          counties={countyChoices}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTextileProduct
+            onSubmit={onProductAdd}
+            resourceType="textile"
+            counties={countyChoices}
+          />
+        ) : (
+          <RequestTextileProduct
+            onSubmit={onProductAdd}
+            resourceType="textile"
+            counties={countyChoices}
+          />
+        ),
     },
     {
       resourceType: 'buildingMaterials',
       label: 'signup.products.buildingMaterials',
-      children: (
-        <OfferBuildingMaterials
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferBuildingMaterials
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+          />
+        ) : (
+          <RequestBuildingMaterials
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+          />
+        ),
     },
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: (
-        <OfferTents
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={6}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTents
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={6}
+          />
+        ) : (
+          <RequestTents
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={6}
+          />
+        ),
     },
     {
       resourceType: 'others',
@@ -135,7 +182,7 @@ const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
     >
       <h3 className="mb-8 text-xl font-semibold">{t('products')}</h3>
       <ResourcesForm
-        categories={PRODUCTS}
+        categories={categories}
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}
         tableItems={productsList}
