@@ -1,29 +1,37 @@
 import { useMemo } from 'react'
 import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
-import { TransportGoodsForm } from 'forms'
-import { TransportPersonsForm } from 'forms/TransportPersonsForm'
-import React, { ReactNode, useState } from 'react'
+import {
+  OfferTransportGoodsForm,
+  RequestTransportGoodsForm,
+  RequestTransportPersonsForm,
+  OfferTransportPersonsForm,
+} from 'forms'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ResourcesForm, {
   ICategoryProps,
 } from '@/components/ResourcesForm/ResourcesForm'
+import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignUpServicesFormProps {
+  items: TransportServicesRequest[]
   onAddItem: (data: TransportServicesRequest) => void
+  type: FormPageProps.Offer | FormPageProps.Request
+  onRemoveItem: (index: number) => void
 }
 
-export const SignUpServicesForm = ({ onAddItem }: ISignUpServicesFormProps) => {
+export const SignUpServicesForm = ({
+  type,
+  items,
+  onAddItem,
+  onRemoveItem,
+}: ISignUpServicesFormProps) => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
 
-  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
-    []
-  )
-
   const onAddService = (data: any) => {
-    setServicesList((state) => [...state, data])
     onAddItem(data)
     setShowDialog(false)
   }
@@ -32,22 +40,32 @@ export const SignUpServicesForm = ({ onAddItem }: ISignUpServicesFormProps) => {
     {
       resourceType: 'goods',
       label: t('services.transport-goods'),
-      children: <TransportGoodsForm onSubmit={onAddService} />,
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTransportGoodsForm onSubmit={onAddService} />
+        ) : (
+          <RequestTransportGoodsForm onSubmit={onAddService} />
+        ),
     },
     {
       resourceType: 'people',
       label: t('services.transport-people'),
-      children: <TransportPersonsForm onSubmit={onAddService} />,
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTransportPersonsForm onSubmit={onAddService} />
+        ) : (
+          <RequestTransportPersonsForm onSubmit={onAddService} />
+        ),
     },
   ]
 
   const resourcesTableColumns = [t('services.driver-name')]
   const tableItems = useMemo(() => {
-    return servicesList.map((item) => ({
+    return items.map((item) => ({
       ...item,
       name: item.driver_name,
     }))
-  }, [servicesList])
+  }, [items])
 
   return (
     <section
@@ -58,12 +76,13 @@ export const SignUpServicesForm = ({ onAddItem }: ISignUpServicesFormProps) => {
       )}
     >
       <h3 className="mb-8 text-xl font-semibold">{t('services')}</h3>
+
       <ResourcesForm
         categories={categories}
         tableTitle={t('resources.services.added')}
         tableColumns={resourcesTableColumns}
         tableItems={tableItems}
-        updateTableItems={setServicesList}
+        onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />

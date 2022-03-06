@@ -21,7 +21,7 @@ export const useFetchData = (
   if (!path) {
     throw new Error('Path is required')
   }
-  const currentLocale = i18n.language;
+  const currentLocale = i18n.language
   const url = `${baseUrl}/${currentLocale}${path}`
   const key = token ? [url, token] : url
   const { data, error } = useSwr(key, fetcher)
@@ -48,5 +48,4 @@ export const useServicesForm = () =>
   useFormSchema(endpoints['donate/transport_service'])
 export const useVolunteeringForm = () =>
   useFormSchema(endpoints['donate/volunteering'])
-export const useOthersForm = () =>
-  useFormSchema(endpoints['donate/other'])
+export const useOthersForm = () => useFormSchema(endpoints['donate/other'])

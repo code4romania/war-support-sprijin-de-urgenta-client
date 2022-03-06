@@ -1,12 +1,13 @@
 import clsx from "clsx";
 import { forwardRef } from "react";
-import { ElementWrapper, Label } from "@/components/Form/common";
+import { ElementWrapper, Label, Required } from "@/components/Form/common";
 import { TextareaElementProps } from "@/components/Form/types";
 
 const Element = forwardRef<HTMLTextAreaElement, TextareaElementProps>(({
     name,
     label,
     errors,
+    required,
     rows = 3,
     className,
     ...rest
@@ -15,13 +16,14 @@ const Element = forwardRef<HTMLTextAreaElement, TextareaElementProps>(({
       <ElementWrapper hasError={!!errors} className={className}>
         {label && (
           <Label name={name} hasError={!!errors}>
-            {label}
+            {label}{required && <Required /> }
           </Label>
         )}
         <textarea
           name={name}
           id={name}
           rows={rows}
+          required={required}
           className={clsx(
             'block w-full mt-1',
             'px-3 py-2',
@@ -34,7 +36,7 @@ const Element = forwardRef<HTMLTextAreaElement, TextareaElementProps>(({
           {...rest}
         />
 
-        {errors && <p className="text-sm pl-1 pr-1 text-red-50">{errors.message}</p>}
+        {errors && <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>}
       </ElementWrapper>
     )
   }
