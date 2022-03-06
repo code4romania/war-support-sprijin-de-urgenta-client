@@ -3,9 +3,7 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../../../components/Form/types'
 import Input from '@/components/Form/Input'
-import Textarea from '@/components/Form/Textarea'
 import clsx from 'clsx'
-import DateInput from '@/components/Form/Date'
 import { useTranslation } from 'react-i18next'
 import Button from '@/components/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,8 +11,6 @@ import { SchemaOf } from 'yup'
 import * as yup from 'yup'
 import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
 import Dropdown from '@/components/Form/Dropdown'
-import { FormPageProps } from '@/components/FormPage/FormPage'
-import { useOthersForm } from '@/hooks/useData'
 
 interface IProps {
   counties: MultiSelectOption[]
