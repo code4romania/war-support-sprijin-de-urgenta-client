@@ -51,7 +51,6 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
   } else {
     if (clientOnly) {
       if (data) {
-        dispatch(deauthenticate())
         dispatch(verificationFailed())
       }
       if (pageProps.protected && pageProps.redirectTo) {
