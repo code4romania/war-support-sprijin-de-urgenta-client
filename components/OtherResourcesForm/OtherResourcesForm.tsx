@@ -20,7 +20,7 @@ export type OtherResourceForm = {
 interface IOtherResourceFormProps {
   items: DonateOtherRequest[]
   onAddItem: (data: DonateOtherRequest) => void
-  type: string
+  type: FormPageProps
   onRemoveItem: (index: number) => void
 }
 
@@ -87,6 +87,7 @@ const OtherResourcesForm = ({
         'signup.other.header'
       )}:`}</h3>
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.added.other')}
         tableColumns={tableColumns}
