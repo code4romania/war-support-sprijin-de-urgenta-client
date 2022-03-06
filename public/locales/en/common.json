@@ -219,5 +219,6 @@
   "error.availability.required": "Select a value",
   "resources.product": "Product",
   "resources.quantity": "Quantity",
-  "resources.added.products": "Added products"
+  "resources.added.products": "Added products",
+  "services.offerTransport": "I have transportation"
 }

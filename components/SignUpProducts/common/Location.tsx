@@ -29,10 +29,11 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   return (
     <>
       <div className={clsx('flex flex-row')}>
-        <Label className={'pt-3 flex-1'}>{t('signup.products.county')}</Label>
         <DropdownMultiSelect
+          label={t('signup.products.county')}
+          labelPosition='horizontal'
           {...register && register(names.county_coverage)}
-          className={clsx('w-1/2 mb-4')}
+          className={clsx('w-full mb-4')}
           options={counties || []}
           errors={errors && errors[names.county_coverage]}
           control={control}

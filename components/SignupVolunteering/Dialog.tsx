@@ -1,4 +1,4 @@
-import { DonateOtherRequest } from 'api'
+import { DonateVolunteeringRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../Form/types'
@@ -12,60 +12,62 @@ import Button from '@/components/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SchemaOf } from 'yup'
 import * as yup from 'yup'
-import { OtherResourceForm } from './OtherResourcesForm'
 
 interface IProps {
   counties: MultiSelectOption[]
   category: number
-  onSubmit: (values: any) => void
+  onSubmit: (values: DonateVolunteeringRequest) => void
 }
 
-type Form = {
+type VolunteeringResourceForm = {
   name: string
-  description?: string
-  available_until?: Date
-  county_coverage: string[]
+  type: string
   town?: string
+  description?: string
+  available_until?: string
+  county_coverage: string[]
 }
 
 const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
+  const volunteeringResourcesSchema: SchemaOf<VolunteeringResourceForm> = yup.object()
+    .shape({
+      name: yup.string().required(t('error.name.required')),
+      type: yup.string().typeError(t('error.must.be.string')).required(t('error.type.required')),
+      town: yup.string().typeError(t('error.must.be.string')),
+      description: yup.string().typeError(t('error.must.be.string')),
+      available_until: yup.string().typeError(t('error.must.be.string')),
+      county_coverage: yup
+        .array()
+        .min(1, t('error.county.minOne'))
+        .of(yup.string().required()),
+    })
 
-  const otherResourcesSchema: SchemaOf<Form> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(t('error.name.required')),
-    description: yup.string().typeError(t('error.must.be.string')),
-    available_until: yup.mixed().typeError(t('error.must.be.string')),
-    county_coverage: yup
-      .array()
-      .min(1, t('error.county.minOne'))
-      .of(yup.string().required()),
-    town: yup.string().typeError(t('error.must.be.string')),
-  })
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors },
-    control,
-  } = useForm<Form>({
-    resolver: yupResolver(otherResourcesSchema),
+  } = useForm<VolunteeringResourceForm>({
+    resolver: yupResolver(volunteeringResourcesSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
     defaultValues: {
-      county_coverage: [],
+      county_coverage: []
     }
   })
 
-  const onFormSubmit = (values: Form) => {
-    const donateOtherRequest: DonateOtherRequest = { ...values, category }
+  const onFormSubmit = (values: VolunteeringResourceForm) => {
+    const donateOtherRequest: DonateVolunteeringRequest = { ...values, category }
     onSubmit(donateOtherRequest)
   }
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
       <Input
-        label={t('signup.other.name')}
+        label={t('signup.volunteering.name')}
         {...register('name')}
-        errors={errors['name']}
+        errors={errors.name}
       />
       <div className={'flex space-x-4'}>
         <DropdownMultiSelect
@@ -76,23 +78,15 @@ const Dialog: FC<IProps> = ({ counties, category, onSubmit }) => {
           control={control}
           label={t('signup.other.county_coverage')}
         />
-        <Input
-          className={'w-1/2'}
-          label={t('signup.other.town')}
-          errors={errors['town']}
-          {...register('town')}
-        />
+        <Input label={t('signup.volunteering.town')} {...register('town')} />
       </div>
       <Textarea
-        label={t('signup.other.description')}
-        className={clsx('w-full')}
-        errors={errors['description']}
+        label={t('signup.volunteering.description')}
         {...register('description')}
       />
       <DateInput
-        label={t('signup.other.available_until')}
-        helpText={t('signup.other.available_until.help')}
-        errors={errors['available_until']}
+        label={t('signup.volunteering.available_until')}
+
         {...register('available_until')}
       />
       <Button type="submit" text={t('add')} variant="tertiary" size="small" />

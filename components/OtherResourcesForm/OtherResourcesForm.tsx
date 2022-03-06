@@ -6,18 +6,26 @@ import endpoints from 'endpoints.json'
 import Dialog from './Dialog'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export type OtherResourceForm = {
-  name: string
   county_coverage: string[]
+  town?: string
+  name: string
   category?: number
   description?: string
   available_until?: string
-  town?: string
 }
 
-const OtherResourcesForm = ({}) => {
+interface IOtherResourceFormProps {
+  onAddItem: (data: DonateOtherRequest) => void
+}
+
+const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
+  
   const { data: formData } = useOthersForm()
   const { data: categoriesList } = useData(endpoints['categories/other'])
 
@@ -30,8 +38,9 @@ const OtherResourcesForm = ({}) => {
     setShowDialog(false)
   }
 
-  const onAddItem = (data: DonateOtherRequest) => {
+  const onSubmit = (data: DonateOtherRequest) => {
     setProductsList((state) => [...state, data])
+    onAddItem(data)
     handleDialogDismiss()
   }
 
@@ -49,42 +58,11 @@ const OtherResourcesForm = ({}) => {
       children: (
         <Dialog
           counties={countyCovarage}
-          onSubmit={onAddItem}
+          onSubmit={onSubmit}
           category={category.id}
         />
       ),
     })) || []
-  //
-  // const onSubmit = async (values: any) => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/other']}`,
-  //       {
-  //         method: 'POST',
-  //         mode: 'cors',
-  //         cache: 'no-cache',
-  //         credentials: 'same-origin',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         redirect: 'follow',
-  //         referrerPolicy: 'no-referrer',
-  //         body: JSON.stringify([values]),
-  //       }
-  //     )
-  //
-  //     if (res.ok) {
-  //       setServerErrors({})
-  //       const [data] = await res.json()
-  //       console.log('data', data)
-  //     } else {
-  //       const [data] = await res.json()
-  //       setServerErrors(data)
-  //     }
-  //   } catch (e) {
-  //     console.log('e', e)
-  //   }
-  // }
 
   return (
     <section

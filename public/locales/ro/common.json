@@ -221,8 +221,18 @@
   "error.availability.required": "Trebuie să selectați o valoare",
   "resources.product": "Produs",
   "resources.quantity": "Cantitate",
+  "resources.volunteering": "Voluntariat",
   "resources.other": "Resurse",
   "resources.added.products": "Produse adăugate",
+  "resources.volunteering.added": "Voluntariate adăugate",
+  "resources.services.added": "Servicii adăugate",
   "resources.added.other": "Alte resurse adăugate",
-  "services.driver-name": "Nume șofer"
+  "services.offerTransport": "Pot asigura transport",
+  "error.productName.required": "Introduceți numele produsului",
+  "error.packagkingType.required": "Introduceți tipul de ambalaj",
+  "error.unitType.required": "Introduceți unitatea de măsură",
+  "error.has_transportation.required": "Alegeți o opțiune",
+  "error.tentCapacity.required": "Introduceți numărul de corturi",
+  "signup.volunteering.name": "Nume",
+  "error.name.required": "Introduceți numele"
 }

@@ -119,7 +119,6 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       label: c.display_name,
     }))
   }, [data?.county_coverage?.choices])
-
   const typeOptions: { value: number; display_name: string }[] =
     data?.type?.choices
 
@@ -145,31 +144,6 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
 
     onSubmit(goodsTransportRequest);
     return false;
-
-    //TODO: below call is a working post to transport_service, need a hook to POST data
-    //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
-    //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([goodsTransportRequest]),
-      }
-    )
-    if (response.ok) {
-      setServerErrors({})
-      const data = await response.json()
-      console.log('data', data)
-      onSubmit(goodsTransportRequest)
-    } else {
-      const data = await response.json()
-      setServerErrors(data)
-      console.log('data', data)
-    }
   }
 
   return (
