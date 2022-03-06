@@ -21,7 +21,8 @@ import i18n from 'i18next'
 
 const removeItem = (array: any[], index: number) => {
   const newArray = [...array]
-  return newArray.splice(index, 1)
+  newArray.splice(index, 1)
+  return newArray
 }
 
 const SignUpResources = ({ type }: { type: string }) => {
