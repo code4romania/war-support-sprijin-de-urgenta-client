@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useVolunteeringForm } from '@/hooks/useData'
@@ -8,11 +8,13 @@ import { DonateVolunteeringRequest } from '../../api'
 import Dialog from '@/components/SignupVolunteering/Dialog'
 
 interface ISignupVolunteeringProps {
+  items: DonateVolunteeringRequest[]
   onAddItem: (data: DonateVolunteeringRequest) => void
   onRemoveItem: (index: number) => void
 }
 
 const SignupVolunteering = ({
+  items,
   onAddItem,
   onRemoveItem,
 }: ISignupVolunteeringProps) => {
@@ -23,16 +25,12 @@ const SignupVolunteering = ({
   const tableColumns = [t('resources.volunteering')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>(
-    []
-  )
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
   const onSubmit = (data: DonateVolunteeringRequest) => {
-    setProductsList((state) => [...state, data])
     onAddItem(data)
     handleDialogDismiss()
   }
@@ -74,7 +72,7 @@ const SignupVolunteering = ({
         tableColumns={tableColumns}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        tableItems={productsList}
+        tableItems={items}
         onRemoveItem={onRemoveItem}
       />
     </section>

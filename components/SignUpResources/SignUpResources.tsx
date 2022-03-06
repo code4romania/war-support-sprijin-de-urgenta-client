@@ -20,7 +20,7 @@ import endpoints from 'endpoints.json'
 import i18n from 'i18next'
 
 const removeItem = (array: any[], index: number) => {
-  let newArray = [...array]
+  const newArray = [...array]
   return newArray.splice(index, 1)
 }
 
@@ -61,9 +61,7 @@ const SignUpResources = ({ type }: { type: string }) => {
     setVolunteeringList(removeItem(volunteeringList, index))
   }
 
-  const [othersList, setOthersList] = useState<DonateOtherRequest[]>(
-    []
-  )
+  const [othersList, setOthersList] = useState<DonateOtherRequest[]>([])
   const onAddOtherItem = (data: DonateOtherRequest) => {
     setOthersList((state) => [...state, data])
   }
@@ -82,24 +80,28 @@ const SignUpResources = ({ type }: { type: string }) => {
       ),
       products: () => (
         <SignUpProducts
+          items={productsList}
           onAddItem={onAddProduct}
           onRemoveItem={onRemoveProduct}
         />
       ),
       volunteer: () => (
         <SignupVolunteering
+          items={volunteeringList}
           onAddItem={onAddVolunteeringItem}
           onRemoveItem={onRemoveVolunteeringItem}
         />
       ),
       others: () => (
         <OtherResourcesForm
+          items={othersList}
           onAddItem={onAddOtherItem}
           onRemoveItem={onRemoveOtherItem}
         />
       ),
       default: () => (
         <OtherResourcesForm
+          items={othersList}
           onAddItem={onAddOtherItem}
           onRemoveItem={onRemoveOtherItem}
         />

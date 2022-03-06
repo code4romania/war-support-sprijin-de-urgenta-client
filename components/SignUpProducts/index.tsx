@@ -11,7 +11,7 @@ import ResourcesForm from '@/components/ResourcesForm'
 import clsx from 'clsx'
 
 export interface ISignUpProductsProps {
-  defaultProp?: string
+  items: DonateItemRequest[]
   onAddItem: (item: DonateItemRequest) => void
   onRemoveItem: (index: number) => void
 }
@@ -22,7 +22,7 @@ export interface IProductsProps {
   children: ReactNode
 }
 
-const SignUpProducts = ({ onAddItem, onRemoveItem }: ISignUpProductsProps) => {
+const SignUpProducts = ({ items, onAddItem, onRemoveItem }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 

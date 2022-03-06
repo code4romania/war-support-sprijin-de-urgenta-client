@@ -20,11 +20,12 @@ export type OtherResourceForm = {
 }
 
 interface IOtherResourceFormProps {
+  items: DonateOtherRequest[]
   onAddItem: (data: DonateOtherRequest) => void
   onRemoveItem: (index: number) => void
 }
 
-const OtherResourcesForm = ({ onAddItem, onRemoveItem }: IOtherResourceFormProps) => {
+const OtherResourcesForm = ({ items, onAddItem, onRemoveItem }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
   
   const { data: formData } = useOthersForm()
