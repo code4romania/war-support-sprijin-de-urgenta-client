@@ -122,7 +122,6 @@ export const SignUpServicesForm = () => {
           </div>
         </div>
       </div>
-      {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
       <Dialog isOpen={showDialog} onDismiss={handleDialogDismiss}>
         {showForm === 'transportGoods' && (
           <>
