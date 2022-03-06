@@ -28,6 +28,7 @@ import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import i18n from 'i18next'
 import endpoints from 'endpoints.json'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   available_seats: number
@@ -54,7 +55,7 @@ export const RequestTransportPersonsForm = ({
   onSubmit,
 }: IRequestTransportPersonsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm()
+  const { data } = useServicesForm(FormPageProps.Offer)
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
