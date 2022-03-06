@@ -38,14 +38,12 @@ const OtherResourcesForm = ({
   const tableColumns = [t('resources.other')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateOtherRequest[]>([])
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
   const onSubmit = (data: DonateOtherRequest) => {
-    setProductsList((state) => [...state, data])
     onAddItem(data)
     handleDialogDismiss()
   }
@@ -94,7 +92,7 @@ const OtherResourcesForm = ({
         tableColumns={tableColumns}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        tableItems={productsList}
+        tableItems={items}
         onRemoveItem={onRemoveItem}
       />
     </section>
