@@ -4,14 +4,19 @@ import { useTranslation } from 'react-i18next'
 import ResourcesTableList from '@/components/ResourcesTableList'
 import Button from '@/components/Button'
 import Dialog from '@/components/Dialog'
-import { IResourcesCategoriesProps } from '../../forms/types'
+
+export interface ICategoryProps {
+  resourceType: string
+  label: string
+  children: ReactNode
+}
 
 export interface IResourcesFormProps {
-  categories: IResourcesCategoriesProps[]
+  categories: ICategoryProps[]
   tableTitle: string
   tableColumns: string[]
   tableItems: any[]
-  updateTableItems: (items: any[]) => void
+  updateTableItems: (data: any[]) => void
   showDialog: boolean
   setShowDialog: (showDialog: boolean) => void
 }

@@ -6,7 +6,6 @@ import Radio from '@/components/Form/Radio'
 import Date from '@/components/Form/Date'
 import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
-import { MultiSelectOption } from '@/components/Form/types'
 import { useServicesForm } from '@/hooks/useData'
 import {
   roIdentityCardRegex,
@@ -26,8 +25,6 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import i18n from 'i18next'
-import endpoints from 'endpoints.json'
 
 type ServicesForm = {
   available_seats: number
@@ -55,9 +52,6 @@ export const OfferTransportPersonsForm = ({
 }: IOfferTransportPersonsFormProps) => {
   const { t } = useTranslation()
   const { data } = useServicesForm()
-  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
-    {}
-  )
 
   const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     available_seats: yup
@@ -129,7 +123,6 @@ export const OfferTransportPersonsForm = ({
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    //Preparing object for mutation. The api seems incomplete
     const personsTransportRequest: TransportServicesRequest = {
       available_seats: data.available_seats,
       availability: data.availability,
@@ -148,32 +141,6 @@ export const OfferTransportPersonsForm = ({
     }
 
     onSubmit(personsTransportRequest)
-    return false
-
-    //TODO: below call is a working post to transport_service, need a hook to POST data
-    //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
-    //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([personsTransportRequest]),
-      }
-    )
-    if (response.ok) {
-      setServerErrors({})
-      const data = await response.json()
-      console.log('data', data)
-      onSubmit(personsTransportRequest)
-    } else {
-      const data = await response.json()
-      setServerErrors(data)
-      console.log('data', data)
-    }
   }
 
   return (
@@ -184,21 +151,13 @@ export const OfferTransportPersonsForm = ({
             <Input
               type="number"
               label={t('services.available_seats')}
-              errors={
-                serverErrors['available_seats']
-                  ? { message: serverErrors['available_seats'].join('\n') }
-                  : errors['available_seats']
-              }
+              errors={errors['available_seats']}
               step="any"
               {...register('available_seats')}
             />
           </div>
           <RadioGroup
-            errors={
-              serverErrors['has_disabled_access']
-                ? { message: serverErrors['has_disabled_access'].join('\n') }
-                : errors['has_disabled_access']
-            }
+            errors={errors['has_disabled_access']}
             label={t('services.has_disabled_access')}
           >
             <div className={clsx('flex flex-row gap-6')}>
@@ -211,11 +170,7 @@ export const OfferTransportPersonsForm = ({
             </div>
           </RadioGroup>
           <RadioGroup
-            errors={
-              serverErrors['pets_allowed']
-                ? { message: serverErrors['pets_allowed'].join('\n') }
-                : errors['pets_allowed']
-            }
+            errors={errors['pets_allowed']}
             label={t('services.pets_allowed')}
           >
             <div className={clsx('flex flex-row gap-6')}>
@@ -227,14 +182,7 @@ export const OfferTransportPersonsForm = ({
               </Radio>
             </div>
           </RadioGroup>
-          <RadioGroup
-            errors={
-              serverErrors['type']
-                ? { message: serverErrors['type'].join('\n') }
-                : errors['type']
-            }
-            label={t('services.transport')}
-          >
+          <RadioGroup errors={errors['type']} label={t('services.transport')}>
             <Radio
               value={typeOptions && typeOptions[0].value}
               {...register('type')}

@@ -15,9 +15,15 @@ import { IResourcesCategoriesProps } from '../../forms/types'
 
 export interface ISignUpProductsProps {
   defaultProp?: string
+  onAddItem: (item: DonateItemRequest) => void
+}
+export interface IProductsProps {
+  resourceType: string
+  label: string
+  children: ReactNode
 }
 
-const SignUpProducts = ({}: ISignUpProductsProps) => {
+const SignUpProducts = ({ onAddItem }: ISignUpProductsProps) => {
   const { t } = useTranslation()
   const { data } = useProductsForm()
 
@@ -26,6 +32,7 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
 
   const onProductAdd = (data: DonateItemRequest) => {
     setProductsList((state) => [...state, data])
+    onAddItem(data)
     handleDialogDismiss()
   }
 

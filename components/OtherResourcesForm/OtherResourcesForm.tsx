@@ -16,7 +16,11 @@ export type OtherResourceForm = {
   town?: string
 }
 
-const OtherResourcesForm = ({}) => {
+interface IOtherResourceFormProps {
+  onAddItem: (data: DonateOtherRequest) => void
+}
+
+const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
   const { data: formData } = useOthersForm()
   const { data: categoriesList } = useData(endpoints['categories/other'])
@@ -30,9 +34,10 @@ const OtherResourcesForm = ({}) => {
     setShowDialog(false)
   }
 
-  const onAddItem = (data: DonateOtherRequest) => {
-    handleDialogDismiss()
+  const onSubmit = (data: DonateOtherRequest) => {
     setProductsList((state) => [...state, data])
+    onAddItem(data)
+    handleDialogDismiss()
   }
 
   const countyCovarage = useMemo(() => {
@@ -49,7 +54,7 @@ const OtherResourcesForm = ({}) => {
       children: (
         <OfferOthersForm
           counties={countyCovarage}
-          onSubmit={onAddItem}
+          onSubmit={onSubmit}
           category={category.id}
         />
       ),
