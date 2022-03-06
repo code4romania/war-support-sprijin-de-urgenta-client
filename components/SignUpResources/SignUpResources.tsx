@@ -1,5 +1,5 @@
 import { State } from '@/store/types/state.type'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Checkbox from '../Form/Checkbox'
@@ -27,40 +27,78 @@ const SignUpResources = ({ type }: { type: string }) => {
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
   )
+
   const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
     []
   )
-  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
-  const [volunteeringItemsList, setVolunteeringItemsList] = useState<
-    DonateVolunteeringRequest[]
-  >([])
-  const [donateOtherItemsList, setDonateOtherItemsList] = useState<
-    DonateOtherRequest[]
-  >([])
-
   const onAddService = (data: TransportServicesRequest) => {
     setServicesList((state) => [...state, data])
   }
+  const onRemoveService = (index: number) => {
+    setServicesList(servicesList.splice(index, 1))
+  }
 
+  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
   const onAddProduct = (data: DonateItemRequest) => {
     setProductsList((state) => [...state, data])
   }
+  const onRemoveProduct = (index: number) => {
+    setProductsList(productsList.splice(index, 1))
+  }
 
+  const [volunteeringItemsList, setVolunteeringItemsList] = useState<
+    DonateVolunteeringRequest[]
+  >([])
   const onAddVolunteeringItem = (data: DonateVolunteeringRequest) => {
     setVolunteeringItemsList((state) => [...state, data])
   }
+  const onRemoveVolunteeringItem = (index: number) => {
+    setVolunteeringItemsList(volunteeringItemsList.splice(index, 1))
+  }
 
+  const [othersItemsList, setOtherItemsList] = useState<
+    DonateOtherRequest[]
+  >([])
   const onAddOtherItem = (data: DonateOtherRequest) => {
-    setDonateOtherItemsList((state) => [...state, data])
+    setOtherItemsList((state) => [...state, data])
+  }
+  const onRemoveOtherItem = (index: number) => {
+    setOtherItemsList(othersItemsList.splice(index, 1))
   }
 
   const resourceTypeBuilder = ({ resourceType }: { resourceType: string }) => {
     const componentMap = {
-      services: () => <SignUpServicesForm onAddItem={onAddService} />,
-      products: () => <SignUpProducts onAddItem={onAddProduct} />,
-      volunteer: () => <SignupVolunteering onAddItem={onAddVolunteeringItem} />,
-      others: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
-      default: () => <OtherResourcesForm onAddItem={onAddOtherItem} />,
+      services: () => (
+        <SignUpServicesForm
+          items={servicesList}
+          onAddItem={onAddService}
+          onRemoveItem={onRemoveService}
+        />
+      ),
+      products: () => (
+        <SignUpProducts
+          onAddItem={onAddProduct}
+          onRemoveItem={onRemoveProduct}
+        />
+      ),
+      volunteer: () => (
+        <SignupVolunteering
+          onAddItem={onAddVolunteeringItem}
+          onRemoveItem={onRemoveVolunteeringItem}
+        />
+      ),
+      others: () => (
+        <OtherResourcesForm
+          onAddItem={onAddOtherItem}
+          onRemoveItem={onRemoveOtherItem}
+        />
+      ),
+      default: () => (
+        <OtherResourcesForm
+          onAddItem={onAddOtherItem}
+          onRemoveItem={onRemoveOtherItem}
+        />
+      ),
     }
     return (
       componentMap[resourceType as keyof typeof componentMap] ||
@@ -136,8 +174,8 @@ const SignUpResources = ({ type }: { type: string }) => {
     if (volunteeringItemsList.length) {
       await onSubmit(volunteeringItemsList, endpoints['donate/volunteering'])
     }
-    if (donateOtherItemsList.length) {
-      await onSubmit(donateOtherItemsList, endpoints['donate/other'])
+    if (othersItemsList.length) {
+      await onSubmit(othersItemsList, endpoints['donate/other'])
     }
 
     setSubmitSuccess(true)

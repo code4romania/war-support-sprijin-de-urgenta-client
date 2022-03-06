@@ -21,9 +21,10 @@ export type OtherResourceForm = {
 
 interface IOtherResourceFormProps {
   onAddItem: (data: DonateOtherRequest) => void
+  onRemoveItem: (index: number) => void
 }
 
-const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
+const OtherResourcesForm = ({ onAddItem, onRemoveItem }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
   
   const { data: formData } = useOthersForm()
@@ -82,7 +83,7 @@ const OtherResourcesForm = ({ onAddItem }: IOtherResourceFormProps) => {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         tableItems={productsList}
-        updateTableItems={setProductsList}
+        onRemoveItem={onRemoveItem}
       />
     </section>
   )

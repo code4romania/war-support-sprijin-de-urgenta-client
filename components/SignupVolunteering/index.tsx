@@ -9,9 +9,13 @@ import Dialog from '@/components/SignupVolunteering/Dialog'
 
 interface ISignupVolunteeringProps {
   onAddItem: (data: DonateVolunteeringRequest) => void
+  onRemoveItem: (index: number) => void
 }
 
-const SignupVolunteering = ({ onAddItem }: ISignupVolunteeringProps) => {
+const SignupVolunteering = ({
+  onAddItem,
+  onRemoveItem,
+}: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
   const { data: formData } = useVolunteeringForm()
   const { data: categoriesList } = useData(endpoints['categories/volunteering'])
@@ -19,7 +23,9 @@ const SignupVolunteering = ({ onAddItem }: ISignupVolunteeringProps) => {
   const tableColumns = [t('resources.volunteering')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>([])
+  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>(
+    []
+  )
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
@@ -69,7 +75,7 @@ const SignupVolunteering = ({ onAddItem }: ISignupVolunteeringProps) => {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         tableItems={productsList}
-        updateTableItems={setProductsList}
+        onRemoveItem={onRemoveItem}
       />
     </section>
   )

@@ -16,7 +16,7 @@ export interface IResourcesFormProps {
   tableTitle: string
   tableColumns: string[]
   tableItems: any[]
-  updateTableItems: (data: any[]) => void
+  onRemoveItem: (index: number) => void
   showDialog: boolean
   setShowDialog: (showDialog: boolean) => void
 }
@@ -26,7 +26,7 @@ const ResourcesForm = ({
   tableTitle,
   tableColumns,
   tableItems,
-  updateTableItems,
+  onRemoveItem,
   showDialog,
   setShowDialog,
 }: IResourcesFormProps) => {
@@ -61,9 +61,7 @@ const ResourcesForm = ({
 
   const onItemRemoved = (itemId: string) => {
     const index = tableItems.findIndex((p) => p.name === itemId)
-    if (index > -1) {
-      updateTableItems(tableItems.splice(index, 1))
-    }
+    onRemoveItem(index)
   }
 
   return (
