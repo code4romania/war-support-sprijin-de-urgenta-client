@@ -27,6 +27,7 @@ import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import i18n from 'i18next'
 import endpoints from 'endpoints.json'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   driver_contact: string
@@ -53,7 +54,7 @@ export const RequestTransportGoodsForm = ({
   onSubmit,
 }: IRequestTransportGoodsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm()
+  const { data } = useServicesForm(FormPageProps.Request)
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )

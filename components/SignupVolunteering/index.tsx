@@ -23,7 +23,7 @@ const SignupVolunteering = ({
   onRemoveItem,
 }: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
-  const { data: formData } = useVolunteeringForm()
+  const { data: formData } = useVolunteeringForm(FormPageProps.Offer)
   const { data: categoriesList } = useData(endpoints['categories/volunteering'])
 
   const tableColumns = [t('resources.volunteering')]
