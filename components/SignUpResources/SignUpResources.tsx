@@ -6,7 +6,7 @@ import {
   DonateItemRequestWithoutName,
   DonateOtherRequest,
   DonateVolunteeringRequest, ServerError,
-  ServerErrorByEndpoint, TransportServicesRequest, TransportServicesRequestBase
+  ServerErrorByEndpoint, TransportServicesRequest
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
@@ -39,7 +39,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
 
   const [serverErrors, setServerErrors] = useState<ServerErrorByEndpoint>({})
 
-  const removeItem = (array: any, index: number) => {
+  const removeItem = (array: any[], index: number) => {
     const newArray = [...array]
     newArray.splice(index, 1)
     return newArray
@@ -164,7 +164,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
 
   const onSubmit = async (
     values:
-      | TransportServicesRequestBase[]
+      | TransportServicesRequest[]
       | DonateItemRequest[]
       | DonateItemRequestWithoutName[]
       | DonateVolunteeringRequest[]

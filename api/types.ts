@@ -1,16 +1,4 @@
-
-export type TransportServicesRequestBase = {
-  weight_capacity?: number
-  weight_unit?: string
-  has_refrigeration?: boolean
-  available_seats?: number
-  has_disabled_access?: boolean
-  pets_allowed?: boolean
-  status?: number
-  donor?: string
-  category?: number
-  description?: string
-}
+import { FormPageProps } from "@/components/FormPage/FormPage"
 
 export type OfferTransportServicesRequest = {
   weight_capacity?: number
@@ -32,7 +20,7 @@ export type OfferTransportServicesRequest = {
   donor?: string
   category?: number
   description?: string
-  kind: 'offer'
+  kind: FormPageProps.Offer
 }
 
 
@@ -51,18 +39,10 @@ export type RequestTransportServicesRequest = {
   donor?: string
   category?: number
   description?: string
-  kind: 'request'
+  kind: FormPageProps.Request
 }
 
 export type TransportServicesRequest = OfferTransportServicesRequest | RequestTransportServicesRequest
-
-export type TransportServiceRequestDefinition = ({
-  type: 'offer',
-  requestObjects: OfferTransportServicesRequest[]
-} | {
-  type: 'request',
-  requestObjects: RequestTransportServicesRequest[]
-})
 
 export enum TransportType {
   National = '1',

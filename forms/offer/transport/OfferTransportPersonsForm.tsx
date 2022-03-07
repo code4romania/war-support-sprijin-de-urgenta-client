@@ -125,7 +125,7 @@ export const OfferTransportPersonsForm = ({
 
   const onAdd = async (data: ServicesForm) => {
     const personsTransportRequest: OfferTransportServicesRequest = {
-      kind: 'offer',
+      kind: FormPageProps.Offer,
       available_seats: data.available_seats,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,

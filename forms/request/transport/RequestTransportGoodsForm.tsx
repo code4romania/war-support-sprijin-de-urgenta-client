@@ -97,7 +97,7 @@ export const RequestTransportGoodsForm = ({
 
   const onAdd = async (data: ServicesForm) => {
     const goodsTransportRequest: RequestTransportServicesRequest = {
-      kind: 'request',
+      kind: FormPageProps.Request,
       weight_capacity: data.weight_capacity,
       weight_unit: data.weight_unit,
       has_refrigeration: !!data.has_refrigeration,

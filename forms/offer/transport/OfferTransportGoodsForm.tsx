@@ -123,7 +123,7 @@ export const OfferTransportGoodsForm = ({
 
   const onAdd = async (data: ServicesForm) => {
     const goodsTransportRequest: OfferTransportServicesRequest = {
-      kind: 'offer',
+      kind: FormPageProps.Offer,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
       availability_interval_to: data.availability_interval_to,
