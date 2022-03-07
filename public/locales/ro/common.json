@@ -109,6 +109,8 @@
   "services.available_seats": "Număr de locuri in mașină",
   "services.has_disabled_access": "Transport persoane cu dizabilități",
   "services.pets_allowed": "Transport cu animale de companie",
+  "services.from_county": "De la judetul",
+  "services.to_county": "Pana in judetul",
   "yes": "Da",
   "no": "Nu",
   "add": "Adaugă",

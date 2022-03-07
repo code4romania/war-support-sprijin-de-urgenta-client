@@ -16,6 +16,7 @@ import {
   TransportServicesRequest,
   TransportType,
   TransportCategories,
+  RequestTransportServicesRequest,
 } from 'api'
 import clsx from 'clsx'
 import { useMemo, useState } from 'react'
@@ -37,7 +38,10 @@ type ServicesForm = {
   availability_interval_to?: Date
   car_registration_number: string
   category?: string
-  county_coverage?: string[]
+  from_county: string
+  from_city: string
+  to_county: string
+  to_city: string
   description?: string
   has_disabled_access?: boolean
   pets_allowed: boolean
@@ -70,13 +74,22 @@ export const RequestTransportPersonsForm = ({
       .required(t('error.carRegistration.required'))
       .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.array().when('type', {
-      is: TransportType.County,
-      then: yup
-        .array()
-        .min(1, t('error.county.minOne'))
-        .of(yup.string().required()),
-    }),
+    from_county: yup
+      .string()
+      .required('error.county.required')
+      .typeError(t('error.must.be.string')),
+    from_city: yup
+      .string()
+      .required('error.town.required')
+      .typeError(t('error.must.be.string')),
+    to_county: yup
+      .string()
+      .required('error.county.required')
+      .typeError(t('error.must.be.string')),
+    to_city: yup
+      .string()
+      .required('error.town.required')
+      .typeError(t('error.must.be.string')),
     description: yup.string().typeError(t('error.must.be.string')),
     driver_name: yup.string().required(t('error.driverName.required')),
     driver_id: yup
@@ -130,7 +143,7 @@ export const RequestTransportPersonsForm = ({
 
   const onAdd = async (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
-    const personsTransportRequest: TransportServicesRequest = {
+    const personsTransportRequest: RequestTransportServicesRequest = {
       available_seats: data.available_seats,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
@@ -138,7 +151,10 @@ export const RequestTransportPersonsForm = ({
       has_disabled_access: !!data.has_disabled_access,
       pets_allowed: !!data.pets_allowed,
       type: data.type,
-      county_coverage: data.county_coverage,
+      from_county: data.from_county,
+      from_city: data.from_city,
+      to_county: data.to_county,
+      to_city: data.to_city,
       driver_name: data.driver_name,
       driver_id: data.driver_id,
       car_registration_number: data.car_registration_number,
@@ -219,9 +235,9 @@ export const RequestTransportPersonsForm = ({
             </div>
           </RadioGroup>
           <Dropdown
-            {...register('county_coverage')}
+            {...register('from_county')}
             className={clsx('w-1/2 mb-4')}
-            label={t('signup.other.county_coverage')}
+            label={t('services.from_county')}
           >
             {countiesFromOptions.length > 0 &&
               countiesFromOptions.map(
@@ -238,9 +254,9 @@ export const RequestTransportPersonsForm = ({
             label={t('signup.other.town')}
           />
           <Dropdown
-            {...register('county_coverage')}
+            {...register('to_county')}
             className={clsx('w-1/2 mb-4')}
-            label={t('signup.other.county_coverage')}
+            label={t('services.to_county')}
           >
             {countiesToOptions.length > 0 &&
               countiesToOptions.map(
