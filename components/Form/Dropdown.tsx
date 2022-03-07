@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import clsx from 'clsx'
 import { ElementWrapper, Label, Required } from '@/components/Form/common'
 import { DropdownElementProps } from '@/components/Form/types'
+import { ErrorLabel } from '@/components/Form/ErrorLabel'
 
 /**
  * Use as a regular <select> tag, pass <option> elements as children
@@ -56,9 +57,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
           </select>
         </div>
 
-        {errors && (
-          <p className="pl-1 pr-1 text-sm text-red-50">{errors.message}</p>
-        )}
+        <ErrorLabel errors={errors} />
       </ElementWrapper>
     )
   }

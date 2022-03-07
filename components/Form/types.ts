@@ -20,7 +20,7 @@ export interface DropdownElementProps
   extends InputHTMLAttributes<HTMLSelectElement> {
   name: string
   label?: string
-  errors?: ErrorOption
+  errors?: ErrorOption | ErrorOption[]
   hideLabel?: boolean
   noValidations?: boolean
   placeholder?: string

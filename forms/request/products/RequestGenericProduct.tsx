@@ -1,5 +1,4 @@
-import ExpireDate from 'forms/common/ExpireDate'
-import Location from 'forms/common/Location'
+import Location from 'forms/request/products/RequestLocation'
 import Product from 'forms/common/Product'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
@@ -8,9 +7,7 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../../../components/Form/types'
 import { useTranslation } from 'react-i18next'
-import RadioGroup from '@/components/Form/RadioGroup'
-import Radio from '@/components/Form/Radio'
-import clsx from 'clsx'
+import Textarea from '@/components/Form/Textarea'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -22,6 +19,7 @@ type RequestGenericProductForm = {
   county_coverage: string[]
   town: string
   name: string
+  description: string
   quantity: number
   unit_type: string
   packaging_type: string
@@ -46,28 +44,9 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
-        <div className={clsx('flex flex-row gap-6')}>
-          <Radio value="true" {...register('has_transportation')}>
-            {t('yes')}
-          </Radio>
-          <Radio value="false" {...register('has_transportation')}>
-            {t('no')}
-          </Radio>
-        </div>
-      </RadioGroup>
-      <Location
-        counties={counties}
-        control={control}
-        register={register}
-        errors={errors}
-        names={{
-          county_coverage: 'county_coverage',
-          town: 'town',
-        }}
-      />
-
       <Product register={register} errors={errors} names={{ name: 'name' }} />
+
+      <Textarea {...register('description')} label={t('signup.products.description')}/>
 
       <Quantity
         register={register}
@@ -79,11 +58,14 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
         }}
       />
 
-      <ExpireDate
+      <Location
+        counties={counties}
+        control={control}
         register={register}
         errors={errors}
         names={{
-          expiration_date: 'expiration_date',
+          county_coverage: 'county_coverage',
+          town: 'town',
         }}
       />
     </ProductTypeWrapper>
