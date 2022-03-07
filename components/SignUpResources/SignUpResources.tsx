@@ -1,26 +1,24 @@
-import { useState, useCallback, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import Checkbox from '../Form/Checkbox'
-import OtherResourcesForm from '../OtherResourcesForm'
-import SignUpProducts from '../SignUpProducts'
-import { SignUpServicesForm } from '../SignUpServicesForm'
-import SignupVolunteering from '../SignupVolunteering'
-import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import Spacer from '@/components/Spacer'
+import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import { State } from '@/store/types/state.type'
 import {
-  DonateItemRequest,
-  DonateItemRequestWithoutName,
-  DonateOtherRequest,
+  DonateItemRequestUnion, DonateOtherRequest,
   DonateVolunteeringRequest, ServerError,
   ServerErrorByEndpoint, TransportServicesRequest
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
+import { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import Checkbox from '../Form/Checkbox'
 import { Required } from '../Form/common'
 import { FormPageProps } from '../FormPage/FormPage'
+import OtherResourcesForm from '../OtherResourcesForm'
 import ServerErrorsMessage from '../ServerErrorsMessage'
+import SignUpProducts from '../SignUpProducts'
+import { SignUpServicesForm } from '../SignUpServicesForm'
+import SignupVolunteering from '../SignupVolunteering'
 import ThankYouMessage from '../ThankYouMessage'
 
 export interface ISignUpResources {
@@ -61,12 +59,10 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     setServicesList(removeItem(servicesList, index))
   }
 
-  const [productsList, setProductsList] = useState<
-    DonateItemRequest[] | DonateItemRequestWithoutName[]
-  >([])
+  const [productsList, setProductsList] = useState<DonateItemRequestUnion[]>([])
 
   const onAddProduct = (
-    data: DonateItemRequest | DonateItemRequestWithoutName
+    data: DonateItemRequestUnion
   ) => {
     if (type === FormPageProps.Offer) {
       setProductsList((state) => [...state, { ...data, donor }])
@@ -172,8 +168,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   const onSubmit = async (
     values:
       | TransportServicesRequest[]
-      | DonateItemRequest[]
-      | DonateItemRequestWithoutName[]
+      | DonateItemRequestUnion[]
       | DonateVolunteeringRequest[]
       | DonateOtherRequest[],
     endpoint: string

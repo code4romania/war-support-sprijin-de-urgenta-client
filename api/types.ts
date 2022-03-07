@@ -81,10 +81,12 @@ export type DonateItemRequest = {
   donor?: number
   category?: number
   textile_category?: number
+  kind: 'withName'
 }
 
 //New type for OfferTents and OfferTextileProduct
 export type DonateItemRequestWithoutName = {
+  kind: 'noName',
   county_coverage: string[]
   has_transportation?: boolean
   town?: string
@@ -97,6 +99,8 @@ export type DonateItemRequestWithoutName = {
   category?: number
   textile_category?: number
 }
+
+export type DonateItemRequestUnion = DonateItemRequest | DonateItemRequestWithoutName
 
 export type DonateVolunteeringRequest = {
   type: number
