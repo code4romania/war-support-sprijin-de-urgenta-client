@@ -15,19 +15,52 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="ro">
         <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            href="/fonts/titillium-web-v14-latin-ext_latin-regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/titillium-web-v14-latin-ext_latin-regular.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/titillium-web-v14-latin-ext_latin-600.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/titillium-web-v14-latin-ext_latin-600.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/titillium-web-v14-latin-ext_latin-700.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/titillium-web-v14-latin-ext_latin-700.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
           />
 
-          <meta
-            name="description"
-            content="Sprijin de urgență."
-          />
+          <meta name="description" content="Sprijin de urgență." />
 
           <link
             rel="apple-touch-icon"
@@ -57,18 +90,12 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
           <link rel="icon" href="/favicon/favicon.ico" />
 
-          <meta
-            property="og:image"
-            content="TBD"
-          />
+          <meta property="og:image" content="TBD" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="TBD" />
           <meta property="og:site_name" content="TBD" />
           <meta property="og:title" content="TBD" />
-          <meta
-            property="og:description"
-            content="TBD"
-          />
+          <meta property="og:description" content="TBD" />
         </Head>
         <body>
           <Main />
