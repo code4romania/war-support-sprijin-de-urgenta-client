@@ -1,6 +1,5 @@
 import Button from '@/components/Button'
 import Dropdown from '@/components/Form/Dropdown'
-import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import Date from '@/components/Form/Date'
@@ -13,20 +12,13 @@ import {
   roIdentityCardRegex,
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
-import {
-  AvailabilityType,
-  TransportServicesRequest,
-  TransportType,
-  TransportCategories,
-} from 'api'
+import { RequestTransportServicesRequest, TransportCategories } from 'api'
 import clsx from 'clsx'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import i18n from 'i18next'
-import endpoints from 'endpoints.json'
 import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
@@ -38,7 +30,10 @@ type ServicesForm = {
   availability_interval_to?: Date
   car_registration_number: string
   category?: string
-  county_coverage?: string[]
+  from_county: string
+  from_city: string
+  to_county: string
+  to_city: string
   description?: string
   has_refrigeration?: boolean
   type?: string
@@ -47,7 +42,7 @@ type ServicesForm = {
 }
 
 interface IRequestTransportGoodsFormProps {
-  onSubmit: (data: TransportServicesRequest) => void
+  onSubmit: (data: RequestTransportServicesRequest) => void
 }
 
 export const RequestTransportGoodsForm = ({
@@ -55,9 +50,6 @@ export const RequestTransportGoodsForm = ({
 }: IRequestTransportGoodsFormProps) => {
   const { t } = useTranslation()
   const { data } = useServicesForm(FormPageProps.Request)
-  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
-    {}
-  )
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     availability: yup
@@ -71,13 +63,22 @@ export const RequestTransportGoodsForm = ({
       .required(t('error.carRegistration.required'))
       .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.array().when('type', {
-      is: TransportType.County,
-      then: yup
-        .array()
-        .min(1, t('error.county.minOne'))
-        .of(yup.string().required()),
-    }),
+    from_county: yup
+      .string()
+      .required('error.county.required')
+      .typeError(t('error.must.be.string')),
+    from_city: yup
+      .string()
+      .required('error.town.required')
+      .typeError(t('error.must.be.string')),
+    to_county: yup
+      .string()
+      .required('error.county.required')
+      .typeError(t('error.must.be.string')),
+    to_city: yup
+      .string()
+      .required('error.town.required')
+      .typeError(t('error.must.be.string')),
     description: yup.string().typeError(t('error.must.be.string')),
     driver_name: yup.string().required(t('error.driverName.required')),
     driver_id: yup
@@ -106,7 +107,6 @@ export const RequestTransportGoodsForm = ({
   } = useForm<ServicesForm>({
     defaultValues: {
       weight_capacity: 0,
-      county_coverage: [],
     },
     resolver: yupResolver(transportGoodsSchema),
     reValidateMode: 'onSubmit',
@@ -132,9 +132,7 @@ export const RequestTransportGoodsForm = ({
   }, [data?.to_county?.choices])
 
   const onAdd = async (data: ServicesForm) => {
-    console.log('onAdd', data)
-    //Preparing object for mutation. The api seems incomplete
-    const goodsTransportRequest: TransportServicesRequest = {
+    const goodsTransportRequest: RequestTransportServicesRequest = {
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
       availability_interval_to: data.availability_interval_to,
@@ -142,7 +140,10 @@ export const RequestTransportGoodsForm = ({
       weight_unit: data.weight_unit,
       has_refrigeration: !!data.has_refrigeration,
       type: data.type,
-      county_coverage: data.county_coverage,
+      from_county: data.from_county,
+      from_city: data.from_city,
+      to_county: data.to_county,
+      to_city: data.to_city,
       driver_name: data.driver_name,
       driver_id: data.driver_id,
       car_registration_number: data.car_registration_number,
@@ -152,32 +153,6 @@ export const RequestTransportGoodsForm = ({
     }
 
     onSubmit(goodsTransportRequest)
-    return false
-
-    //TODO: below call is a working post to transport_service, need a hook to POST data
-    //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
-    //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([goodsTransportRequest]),
-      }
-    )
-    if (response.ok) {
-      setServerErrors({})
-      const data = await response.json()
-      console.log('data', data)
-      onSubmit(goodsTransportRequest)
-    } else {
-      const data = await response.json()
-      setServerErrors(data)
-      console.log('data', data)
-    }
   }
 
   return (
@@ -192,30 +167,18 @@ export const RequestTransportGoodsForm = ({
             <Input
               type="number"
               label={t('services.capacity')}
-              errors={
-                serverErrors['weight_capacity']
-                  ? { message: serverErrors['weight_capacity'].join('\n') }
-                  : errors['weight_capacity']
-              }
+              errors={errors['weight_capacity']}
               step="any"
               {...register('weight_capacity')}
             />
             <Input
               label={t('services.weight_unit')}
-              errors={
-                serverErrors['weight_unit']
-                  ? { message: serverErrors['weight_unit'].join('\n') }
-                  : errors['weight_unit']
-              }
+              errors={errors['weight_unit']}
               {...register('weight_unit')}
             />
           </div>
           <RadioGroup
-            errors={
-              serverErrors['has_refrigeration']
-                ? { message: serverErrors['has_refrigeration'].join('\n') }
-                : errors['has_refrigeration']
-            }
+            errors={errors['has_refrigeration']}
             label={t('services.cooling')}
           >
             <div className={clsx('flex flex-row gap-6')}>
@@ -228,9 +191,9 @@ export const RequestTransportGoodsForm = ({
             </div>
           </RadioGroup>
           <Dropdown
-            {...register('county_coverage')}
+            {...register('from_county')}
             className={clsx('w-1/2 mb-4')}
-            label={t('signup.other.county_coverage')}
+            label={t('services.from_county')}
           >
             {countiesFromOptions.length > 0 &&
               countiesFromOptions.map(
@@ -247,9 +210,9 @@ export const RequestTransportGoodsForm = ({
             label={t('signup.other.town')}
           />
           <Dropdown
-            {...register('county_coverage')}
+            {...register('to_county')}
             className={clsx('w-1/2 mb-4')}
-            label={t('signup.other.county_coverage')}
+            label={t('services.to_county')}
           >
             {countiesToOptions.length > 0 &&
               countiesToOptions.map(
