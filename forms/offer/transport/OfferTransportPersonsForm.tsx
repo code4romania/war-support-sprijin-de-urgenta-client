@@ -104,6 +104,9 @@ export const OfferTransportPersonsForm = ({
     watch,
     control,
   } = useForm<ServicesForm>({
+    defaultValues: {
+      county_coverage: [],
+    },
     resolver: yupResolver(transportPersonsSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
