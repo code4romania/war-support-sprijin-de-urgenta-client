@@ -1,5 +1,5 @@
 import { useProductsForm } from '@/hooks/useData'
-import { DonateItemRequest } from 'api'
+import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
 import React, { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -19,8 +19,8 @@ import { IResourcesCategoriesProps } from '../../forms/types'
 import { FormPageProps } from '../FormPage/FormPage'
 
 export interface ISignUpProductsProps {
-  items: DonateItemRequest[]
-  onAddItem: (item: DonateItemRequest) => void
+  items: DonateItemRequest[] | DonateItemRequestWithoutName[]
+  onAddItem: (item: DonateItemRequest | DonateItemRequestWithoutName) => void
   type: FormPageProps
   onRemoveItem: (index: number) => void
 }
@@ -41,7 +41,7 @@ const SignUpProducts = ({
 
   const [showDialog, setShowDialog] = useState(false)
 
-  const onProductAdd = (data: DonateItemRequest) => {
+  const onProductAdd = (data: DonateItemRequest | DonateItemRequestWithoutName) => {
     handleDialogDismiss()
     onAddItem(data)
   }
