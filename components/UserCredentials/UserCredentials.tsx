@@ -118,7 +118,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       }
     } catch (e) {
       setServerErrors({
-        general: ['Failed to create a new account. Try later'],
+        general: [t('register.genericError')],
       })
     }
   }
@@ -142,6 +142,13 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
             />
           ))}
         </div>
+        {serverErrors['non_field_errors']?.map(
+            (error: string, index: number) => (
+              <div key={index} className={'bg-red-50 p-1 px-2 text-white'}>
+                {error}
+              </div>
+            )
+          )}
       </div>
 
       <div className={`bg-blue-50 px-4 py-4 rounded-md mt-4`}>
