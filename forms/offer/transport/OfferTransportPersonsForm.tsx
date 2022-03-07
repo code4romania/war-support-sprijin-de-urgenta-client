@@ -67,7 +67,7 @@ export const OfferTransportPersonsForm = ({
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
-      .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
+      .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
     county_coverage: yup.array().when('type', {
       is: TransportType.County,
