@@ -92,7 +92,7 @@ export const OfferTransportPersonsForm = ({
       .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.boolean.required')),
-    type: yup.string(),
+    type: yup.string().typeError(t('validation.required')),
     weight_unit: yup.string().typeError(t('error.must.be.string')),
     weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })
