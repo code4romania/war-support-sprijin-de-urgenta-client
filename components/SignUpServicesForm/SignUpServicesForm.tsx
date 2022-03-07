@@ -65,7 +65,7 @@ export const SignUpServicesForm = ({
           name: item.driver_name,
         }
       }
-    })
+    }).filter(item => item)
   }, [items])
 
   return (
