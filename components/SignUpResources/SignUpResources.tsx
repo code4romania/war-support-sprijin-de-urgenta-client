@@ -59,7 +59,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
 
   const onAddProduct = (data: DonateItemRequest) => {
-    setProductsList((state) => [...state, data])
+    if (type === FormPageProps.Offer) {
+      setProductsList((state) => [...state, data])
+    } else {
+      setProductsList([data])
+    }
   }
   const onRemoveProduct = (index: number) => {
     setProductsList(removeItem(productsList, index))
@@ -69,7 +73,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     DonateVolunteeringRequest[]
   >([])
   const onAddVolunteeringItem = (data: DonateVolunteeringRequest) => {
-    setVolunteeringList((state) => [...state, data])
+    if (type === FormPageProps.Offer) {
+      setVolunteeringList((state) => [...state, data])
+    } else {
+      setVolunteeringList([data])
+    }
   }
   const onRemoveVolunteeringItem = (index: number) => {
     setVolunteeringList(removeItem(volunteeringList, index))
@@ -77,7 +85,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
 
   const [othersList, setOthersList] = useState<DonateOtherRequest[]>([])
   const onAddOtherItem = (data: DonateOtherRequest) => {
-    setOthersList((state) => [...state, data])
+    if (type === FormPageProps.Offer) {
+      setOthersList((state) => [...state, data])
+    } else {
+      setOthersList([data])
+    }
   }
   const onRemoveOtherItem = (index: number) => {
     setOthersList(removeItem(othersList, index))
@@ -212,7 +224,12 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     }
     if (productsList.length) {
       try {
-        await onSubmit(productsList, endpoints['donate/item'])
+        await onSubmit(
+          productsList,
+          type === FormPageProps.Offer
+            ? endpoints['donate/item']
+            : endpoints['request/item']
+        )
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -226,7 +243,12 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     }
     if (volunteeringList.length) {
       try {
-        await onSubmit(volunteeringList, endpoints['donate/volunteering'])
+        await onSubmit(
+          volunteeringList,
+          type === FormPageProps.Offer
+            ? endpoints['donate/volunteering']
+            : endpoints['request/volunteering']
+        )
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -240,7 +262,12 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     }
     if (othersList.length) {
       try {
-        await onSubmit(othersList, endpoints['donate/other'])
+        await onSubmit(
+          othersList,
+          type === FormPageProps.Offer
+            ? endpoints['donate/other']
+            : endpoints['request/other']
+        )
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
