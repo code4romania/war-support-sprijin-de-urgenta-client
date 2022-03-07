@@ -2,15 +2,9 @@ import Button from '@/components/Button'
 import Dropdown from '@/components/Form/Dropdown'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
-import Date from '@/components/Form/Date'
 import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
-import {
-  phoneNumberRegex,
-  roCarRegistrationNumber,
-  roIdentityCardRegex,
-} from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { RequestTransportServicesRequest, TransportCategories } from 'api'
 import clsx from 'clsx'
@@ -22,13 +16,6 @@ import { SchemaOf } from 'yup'
 import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
-  driver_contact: string
-  driver_id: string
-  driver_name: string
-  availability?: string
-  availability_interval_from?: Date
-  availability_interval_to?: Date
-  car_registration_number: string
   category?: string
   from_county: string
   from_city: string
@@ -36,7 +23,6 @@ type ServicesForm = {
   to_city: string
   description?: string
   has_refrigeration?: boolean
-  type?: string
   weight_capacity?: number
   weight_unit?: string
 }
@@ -52,16 +38,6 @@ export const RequestTransportGoodsForm = ({
   const { data } = useServicesForm(FormPageProps.Request)
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    availability: yup
-      .string()
-      .required('error.availability.required')
-      .typeError(t('error.must.be.string')),
-    availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
-    car_registration_number: yup
-      .string()
-      .required(t('error.carRegistration.required'))
-      .matches(roCarRegistrationNumber, t('error.carRegistation.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
     from_county: yup
       .string()
@@ -80,20 +56,10 @@ export const RequestTransportGoodsForm = ({
       .required('error.town.required')
       .typeError(t('error.must.be.string')),
     description: yup.string().typeError(t('error.must.be.string')),
-    driver_name: yup.string().required(t('error.driverName.required')),
-    driver_id: yup
-      .string()
-      .required(t('error.driverCI.required'))
-      .matches(roIdentityCardRegex, t('error.driverCI.invalid')),
-    driver_contact: yup
-      .string()
-      .required(t('error.driverContact.required'))
-      .matches(phoneNumberRegex, t('error.driverContact.invalid')),
     has_refrigeration: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_refrigeration.required')),
-    type: yup.string(),
     weight_unit: yup.string().typeError(t('error.must.be.string')),
     weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })
@@ -102,8 +68,6 @@ export const RequestTransportGoodsForm = ({
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    control,
   } = useForm<ServicesForm>({
     defaultValues: {
       weight_capacity: 0,
@@ -133,21 +97,13 @@ export const RequestTransportGoodsForm = ({
 
   const onAdd = async (data: ServicesForm) => {
     const goodsTransportRequest: RequestTransportServicesRequest = {
-      availability: data.availability,
-      availability_interval_from: data.availability_interval_from,
-      availability_interval_to: data.availability_interval_to,
       weight_capacity: data.weight_capacity,
       weight_unit: data.weight_unit,
       has_refrigeration: !!data.has_refrigeration,
-      type: data.type,
       from_county: data.from_county,
       from_city: data.from_city,
       to_county: data.to_county,
       to_city: data.to_city,
-      driver_name: data.driver_name,
-      driver_id: data.driver_id,
-      car_registration_number: data.car_registration_number,
-      driver_contact: data.driver_contact,
       description: data.description,
       category: TransportCategories.Goods,
     }
@@ -205,7 +161,7 @@ export const RequestTransportGoodsForm = ({
               )}
           </Dropdown>
           <Input
-            name="town"
+            {...register('from_city')}
             className={'w-1/2'}
             label={t('signup.other.town')}
           />
@@ -224,7 +180,7 @@ export const RequestTransportGoodsForm = ({
               )}
           </Dropdown>
           <Input
-            name="town"
+            {...register('to_city')}
             className={'w-1/2'}
             label={t('signup.other.town')}
           />

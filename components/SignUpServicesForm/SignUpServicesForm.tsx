@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { TransportServicesRequest } from 'api/types'
+import { RequestTransportServicesRequest, TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
 import {
   OfferTransportGoodsForm,
@@ -15,8 +15,8 @@ import ResourcesForm, {
 import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignUpServicesFormProps {
-  items: TransportServicesRequest[]
-  onAddItem: (data: TransportServicesRequest) => void
+  items: any
+  onAddItem: (data: TransportServicesRequest | RequestTransportServicesRequest) => void
   type: FormPageProps
   onRemoveItem: (index: number) => void
 }
@@ -61,7 +61,7 @@ export const SignUpServicesForm = ({
 
   const resourcesTableColumns = [t('services.driver-name')]
   const tableItems = useMemo(() => {
-    return items.map((item) => ({
+    return items.map((item: any) => ({
       ...item,
       name: item.driver_name,
     }))

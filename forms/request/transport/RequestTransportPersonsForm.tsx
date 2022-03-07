@@ -2,19 +2,11 @@ import Button from '@/components/Button'
 import Dropdown from '@/components/Form/Dropdown'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
-import Date from '@/components/Form/Date'
 import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
 import { useServicesForm } from '@/hooks/useData'
-import {
-  roIdentityCardRegex,
-  phoneNumberRegex,
-  roCarRegistrationNumber,
-} from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  TransportServicesRequest,
-  TransportType,
   TransportCategories,
   RequestTransportServicesRequest,
 } from 'api'
@@ -24,19 +16,10 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import i18n from 'i18next'
-import endpoints from 'endpoints.json'
 import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   available_seats: number
-  driver_contact: string
-  driver_id: string
-  driver_name: string
-  availability?: string
-  availability_interval_from?: Date
-  availability_interval_to?: Date
-  car_registration_number: string
   category?: string
   from_county: string
   from_city: string
@@ -49,7 +32,7 @@ type ServicesForm = {
 }
 
 interface IRequestTransportPersonsFormProps {
-  onSubmit: (data: TransportServicesRequest) => void
+  onSubmit: (data: RequestTransportServicesRequest) => void
 }
 
 export const RequestTransportPersonsForm = ({
@@ -66,13 +49,6 @@ export const RequestTransportPersonsForm = ({
       .number()
       .typeError(t('error.must.be.number'))
       .required(),
-    availability: yup.string().typeError(t('error.must.be.string')),
-    availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
-    car_registration_number: yup
-      .string()
-      .required(t('error.carRegistration.required'))
-      .matches(roCarRegistrationNumber, t('error.driverCI.invalid')),
     category: yup.string().typeError(t('error.must.be.string')),
     from_county: yup
       .string()
@@ -91,15 +67,6 @@ export const RequestTransportPersonsForm = ({
       .required('error.town.required')
       .typeError(t('error.must.be.string')),
     description: yup.string().typeError(t('error.must.be.string')),
-    driver_name: yup.string().required(t('error.driverName.required')),
-    driver_id: yup
-      .string()
-      .required(t('error.driverCI.required'))
-      .matches(roIdentityCardRegex, t('error.driverCI.invalid')),
-    driver_contact: yup
-      .string()
-      .required(t('error.driverContact.required'))
-      .matches(phoneNumberRegex, t('error.driverContact.invalid')),
     has_disabled_access: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
@@ -109,8 +76,6 @@ export const RequestTransportPersonsForm = ({
       .typeError(t('error.must.be.boolean'))
       .required(t('error.boolean.required')),
     type: yup.string(),
-    weight_unit: yup.string().typeError(t('error.must.be.string')),
-    weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })
 
   const {
@@ -145,57 +110,28 @@ export const RequestTransportPersonsForm = ({
     //Preparing object for mutation. The api seems incomplete
     const personsTransportRequest: RequestTransportServicesRequest = {
       available_seats: data.available_seats,
-      availability: data.availability,
-      availability_interval_from: data.availability_interval_from,
-      availability_interval_to: data.availability_interval_to,
       has_disabled_access: !!data.has_disabled_access,
       pets_allowed: !!data.pets_allowed,
-      type: data.type,
       from_county: data.from_county,
       from_city: data.from_city,
       to_county: data.to_county,
       to_city: data.to_city,
-      driver_name: data.driver_name,
-      driver_id: data.driver_id,
-      car_registration_number: data.car_registration_number,
-      driver_contact: data.driver_contact,
       description: data.description,
       category: TransportCategories.People,
     }
 
     onSubmit(personsTransportRequest)
-    return false
-
-    //TODO: below call is a working post to transport_service, need a hook to POST data
-    //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
-    //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([personsTransportRequest]),
-      }
-    )
-    if (response.ok) {
-      setServerErrors({})
-      const data = await response.json()
-      console.log('data', data)
-      onSubmit(personsTransportRequest)
-    } else {
-      const data = await response.json()
-      setServerErrors(data)
-      console.log('data', data)
-    }
   }
 
   return (
     <div>
       <form aria-label="form" className="w-full" onSubmit={handleSubmit(onAdd)}>
         <section className="w-full">
+          <Input
+            label={t('services.available_seats')}
+            type={'number'}
+            {...register('available_seats')}
+          />
           <Textarea
             label={t('services.description')}
             {...register('description')}
@@ -249,9 +185,9 @@ export const RequestTransportPersonsForm = ({
               )}
           </Dropdown>
           <Input
-            name="town"
             className={'w-1/2'}
             label={t('signup.other.town')}
+            {...register('from_city')}
           />
           <Dropdown
             {...register('to_county')}
@@ -268,9 +204,9 @@ export const RequestTransportPersonsForm = ({
               )}
           </Dropdown>
           <Input
-            name="town"
             className={'w-1/2'}
             label={t('signup.other.town')}
+            {...register('to_city')}
           />
         </section>
         <Button type="submit" text={t('add')} variant="tertiary" size="small" />

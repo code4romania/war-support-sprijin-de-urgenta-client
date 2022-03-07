@@ -14,6 +14,7 @@ import {
   DonateItemRequest,
   DonateOtherRequest,
   DonateVolunteeringRequest,
+  RequestTransportServicesRequest,
   ServerError,
   ServerErrorByEndpoint,
   TransportServicesRequest,
@@ -35,19 +36,21 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
   )
-  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
-    []
-  )
+  const [servicesList, setServicesList] = useState<any>([])
 
-  const [serverErrors, setServerErrors] = useState<ServerErrorByEndpoint>({});
+  const [serverErrors, setServerErrors] = useState<ServerErrorByEndpoint>({})
 
   const removeItem = (array: any[], index: number) => {
     const newArray = [...array]
     newArray.splice(index, 1)
     return newArray
   }
-  const onAddService = (data: TransportServicesRequest) => {
-    setServicesList((state) => [...state, data])
+  const onAddService = async (data: any) => {
+    if (type === FormPageProps.Offer) {
+      setServicesList((state: any) => [...state, data])
+    } else {
+      setServicesList([data])
+    }
   }
   const onRemoveService = (index: number) => {
     setServicesList(removeItem(servicesList, index))
@@ -145,48 +148,59 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   const onSubmit = async (
     values:
       | TransportServicesRequest[]
+      | RequestTransportServicesRequest[]
       | DonateItemRequest[]
       | DonateVolunteeringRequest[]
       | DonateOtherRequest[],
     endpoint: string
   ) => {
-    return await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(values),
-    }).then(async (response) => {
-      if (!response.ok) {
-        const responseJson = await response.json();
-        const error: ServerError = Object.assign({}, {
-          endpoint,
-          error: responseJson,
-          status: response.status,
-          statusText: response.statusText
-        });
-        return Promise.reject(error);
+    return await fetch(
+      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoint}`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(values),
       }
-      return Promise.resolve(response);
-    });
+    ).then(async (response) => {
+      if (!response.ok) {
+        const responseJson = await response.json()
+        const error: ServerError = Object.assign(
+          {},
+          {
+            endpoint,
+            error: responseJson,
+            status: response.status,
+            statusText: response.statusText,
+          }
+        )
+        return Promise.reject(error)
+      }
+      return Promise.resolve(response)
+    })
   }
 
   const handleSubmit = async () => {
-    setServerErrors({});
+    setServerErrors({})
 
-    const serverErrors: ServerErrorByEndpoint = {};
+    const serverErrors: ServerErrorByEndpoint = {}
 
     if (servicesList.length) {
       try {
-        await onSubmit(servicesList, endpoints['donate/transport_service'])
-      }
-      catch (e: any) {
-        const error: any[] = e.error;
+        await onSubmit(
+          servicesList,
+          type === FormPageProps.Offer
+            ? endpoints['donate/transport_service']
+            : endpoints['request/transport_service']
+        )
+      } catch (e: any) {
+        const error: any[] = e.error
         error.forEach((err, index) => {
           if (Object.keys(err).length > 0) {
             servicesList.splice(index, 1)
@@ -199,9 +213,8 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (productsList.length) {
       try {
         await onSubmit(productsList, endpoints['donate/item'])
-      }
-      catch (e: any) {
-        const error: any[] = e.error;
+      } catch (e: any) {
+        const error: any[] = e.error
         error.forEach((err, index) => {
           if (Object.keys(err).length > 0) {
             productsList.splice(index, 1)
@@ -215,7 +228,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       try {
         await onSubmit(volunteeringList, endpoints['donate/volunteering'])
       } catch (e: any) {
-        const error: any[] = e.error;
+        const error: any[] = e.error
         error.forEach((err, index) => {
           if (Object.keys(err).length > 0) {
             volunteeringList.splice(index, 1)
@@ -228,9 +241,8 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (othersList.length) {
       try {
         await onSubmit(othersList, endpoints['donate/other'])
-      }
-      catch (e: any) {
-        const error: any[] = e.error;
+      } catch (e: any) {
+        const error: any[] = e.error
         error.forEach((err, index) => {
           if (Object.keys(err).length > 0) {
             othersList.splice(index, 1)
@@ -245,7 +257,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setSubmitSuccess(true)
       setSelectedResourceTypes([])
     } else {
-      setServerErrors(serverErrors);
+      setServerErrors(serverErrors)
     }
   }
 
@@ -253,7 +265,8 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     <div className="space-y-4">
       <div className="flex flex-col px-8 rounded-md py-7 bg-blue-50">
         <h3 className="mb-4 text-xl font-semibold">
-          {t(`signup.resources.${type}`)}<Required /> 
+          {t(`signup.resources.${type}`)}
+          <Required />
         </h3>
         {categories.map(({ slug }) => (
           <div key={slug}>
@@ -278,7 +291,9 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           </div>
         ))}
       {submitSuccess && <ThankYouMessage type={type} />}
-      {Object.keys(serverErrors).length > 0 && <ServerErrorsMessage errors={serverErrors} />}
+      {Object.keys(serverErrors).length > 0 && (
+        <ServerErrorsMessage errors={serverErrors} />
+      )}
       <Spacer size={'1em'} />
       <StepperButtonGroup
         steps={[
