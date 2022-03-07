@@ -80,7 +80,7 @@ const ResourcesForm = ({
                 columns={tableColumns}
                 list={tableItems.map((t) => ({
                   id: t.name,
-                  name: t.name,
+                  name: t.name || t.unit_type,
                   quantity: t.quantity,
                   um: t.unit_type,
                 }))}
