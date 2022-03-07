@@ -5,7 +5,7 @@ import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
 import { ResourceType } from 'forms/types'
-import { DonateItemRequest } from 'api'
+import { DonateItemRequestWithoutName } from 'api'
 import clsx from 'clsx'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -20,13 +20,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 interface IProps {
   resourceType: ResourceType
   counties?: MultiSelectOption[]
-  onSubmit: (values: DonateItemRequest) => void
+  onSubmit: (values: DonateItemRequestWithoutName) => void
 }
 
 type OfferTextileProductForm = {
   county_coverage: string[]
   town?: string
-  name: string
   quantity?: number
   unit_type: string
   packaging_type: string
@@ -46,7 +45,6 @@ export const OfferTextileProduct: FC<IProps> = ({
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
     town: yup.string(),
-    name: yup.string().required(t('error.productName.required')),
     quantity: yup.number().typeError(t('error.must.be.number')),
     unit_type: yup.string().required(t('error.unitType.required')),
     packaging_type: yup.string().required(t('error.packagkingType.required')),
@@ -70,11 +68,11 @@ export const OfferTextileProduct: FC<IProps> = ({
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+  const onFormSubmit = (values: DonateItemRequestWithoutName) => {
+    const donateItemRequest: DonateItemRequestWithoutName = { ...values }
     onSubmit(donateItemRequest)
   }
-
+  
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
