@@ -1,17 +1,14 @@
-import { useMemo } from 'react'
-import { RequestTransportServicesRequest, OfferTransportServicesRequest, TransportServicesRequestBase, TransportServicesRequest } from 'api/types'
+import ResourcesForm, {
+  ICategoryProps
+} from '@/components/ResourcesForm/ResourcesForm'
+import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
 import {
-  OfferTransportGoodsForm,
-  RequestTransportGoodsForm,
-  RequestTransportPersonsForm,
-  OfferTransportPersonsForm,
+  OfferTransportGoodsForm, OfferTransportPersonsForm, RequestTransportGoodsForm,
+  RequestTransportPersonsForm
 } from 'forms'
-import React, { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ResourcesForm, {
-  ICategoryProps,
-} from '@/components/ResourcesForm/ResourcesForm'
 import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignUpServicesFormProps {
