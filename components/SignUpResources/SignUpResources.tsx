@@ -1,5 +1,13 @@
-import Spacer from '@/components/Spacer'
+import { useState, useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import Checkbox from '../Form/Checkbox'
+import OtherResourcesForm from '../OtherResourcesForm'
+import SignUpProducts from '../SignUpProducts'
+import { SignUpServicesForm } from '../SignUpServicesForm'
+import SignupVolunteering from '../SignupVolunteering'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
+import Spacer from '@/components/Spacer'
 import { State } from '@/store/types/state.type'
 import {
   DonateItemRequest,
@@ -10,22 +18,16 @@ import {
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import Checkbox from '../Form/Checkbox'
 import { Required } from '../Form/common'
 import { FormPageProps } from '../FormPage/FormPage'
-import OtherResourcesForm from '../OtherResourcesForm'
 import ServerErrorsMessage from '../ServerErrorsMessage'
-import SignUpProducts from '../SignUpProducts'
-import { SignUpServicesForm } from '../SignUpServicesForm'
-import SignupVolunteering from '../SignupVolunteering'
 import ThankYouMessage from '../ThankYouMessage'
 
 export interface ISignUpResources {
   type: FormPageProps.Offer | FormPageProps.Request
 }
+
+const isEmpty = (array: any[]) => array.length === 0
 
 const SignUpResources = ({ type }: ISignUpResources) => {
   const { t } = useTranslation()
@@ -36,6 +38,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     []
   )
   const [servicesList, setServicesList] = useState<TransportServicesRequest[]>([])
+  const [shouldSubmit, setShouldSubmit] = useState(false)
 
   const [serverErrors, setServerErrors] = useState<ServerErrorByEndpoint>({})
 
@@ -50,6 +53,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setServicesList((state) => [...state, { ...data, donor }])
     } else if (data.kind === FormPageProps.Request) {
       setServicesList([data])
+      setShouldSubmit(true)
     }
   }
 
@@ -68,6 +72,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setProductsList((state) => [...state, { ...data, donor }])
     } else {
       setProductsList([data])
+      setShouldSubmit(true)
     }
   }
   const onRemoveProduct = (index: number) => {
@@ -82,6 +87,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setVolunteeringList((state) => [...state, { ...data, donor }])
     } else {
       setVolunteeringList([data])
+      setShouldSubmit(true)
     }
   }
   const onRemoveVolunteeringItem = (index: number) => {
@@ -94,6 +100,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setOthersList((state) => [...state, { ...data, donor }])
     } else {
       setOthersList([data])
+      setShouldSubmit(true)
     }
   }
   const onRemoveOtherItem = (index: number) => {
@@ -203,12 +210,12 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     })
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     setServerErrors({})
 
     const serverErrors: ServerErrorByEndpoint = {}
 
-    if (servicesList.length) {
+    if (!isEmpty(servicesList)) {
       try {
         await onSubmit(
           servicesList,
@@ -220,7 +227,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
-          if (Object.keys(err).length > 0) {
+          if (!isEmpty(Object.keys(err))) {
             servicesList.splice(index, 1)
             setServicesList([...servicesList])
           }
@@ -228,7 +235,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         serverErrors[e.endpoint] = e.error
       }
     }
-    if (productsList.length) {
+    if (!isEmpty(productsList)) {
       try {
         await onSubmit(
           productsList,
@@ -240,7 +247,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
-          if (Object.keys(err).length > 0) {
+          if (!isEmpty(Object.keys(err))) {
             productsList.splice(index, 1)
             setProductsList([...productsList])
           }
@@ -248,7 +255,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         serverErrors[e.endpoint] = e.error
       }
     }
-    if (volunteeringList.length) {
+    if (!isEmpty(volunteeringList)) {
       try {
         await onSubmit(
           volunteeringList,
@@ -260,7 +267,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
-          if (Object.keys(err).length > 0) {
+          if (!isEmpty(Object.keys(err))) {
             volunteeringList.splice(index, 1)
             setVolunteeringList([...volunteeringList])
           }
@@ -268,7 +275,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         serverErrors[e.endpoint] = e.error
       }
     }
-    if (othersList.length) {
+    if (!isEmpty(othersList)) {
       try {
         await onSubmit(
           othersList,
@@ -280,7 +287,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
-          if (Object.keys(err).length > 0) {
+          if (!isEmpty(Object.keys(err))) {
             othersList.splice(index, 1)
             setOthersList([...othersList])
           }
@@ -289,13 +296,36 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       }
     }
 
-    if (Object.keys(serverErrors).length === 0) {
+    if (isEmpty(Object.keys(serverErrors))) {
       setSubmitSuccess(true)
       setSelectedResourceTypes([])
     } else {
       setServerErrors(serverErrors)
     }
-  }
+  }, [othersList, productsList, servicesList, type, volunteeringList])
+
+  useEffect(() => {
+    const update = async () => {
+      await handleSubmit()
+      setShouldSubmit(false)
+    }
+    if (
+      shouldSubmit &&
+      (!isEmpty(servicesList) ||
+        !isEmpty(othersList) ||
+        !isEmpty(volunteeringList) ||
+        !isEmpty(productsList))
+    ) {
+      update()
+    }
+  }, [
+    shouldSubmit,
+    othersList,
+    productsList,
+    servicesList,
+    volunteeringList,
+    handleSubmit,
+  ])
 
   return (
     <div className="space-y-4">
@@ -320,14 +350,14 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           {t('signup.resources.fillInDetails')}
         </p>
       </div>
-      {selectedResourceTypes.length > 0 &&
+      {!isEmpty(selectedResourceTypes) &&
         selectedResourceTypes.map((resourceType) => (
           <div key={resourceType} className="w-full">
             {resourceTypeBuilder({ resourceType })}
           </div>
         ))}
       {submitSuccess && <ThankYouMessage type={type} />}
-      {Object.keys(serverErrors).length > 0 && (
+      {!isEmpty(Object.keys(serverErrors)) && (
         <ServerErrorsMessage errors={serverErrors} />
       )}
       <Spacer size={'1em'} />
@@ -335,7 +365,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         steps={[
           { disabled: true, direction: 'backward' },
           {
-            disabled: selectedResourceTypes.length === 0,
+            disabled: isEmpty(selectedResourceTypes),
             direction: 'forward',
             onClick: handleSubmit,
           },
