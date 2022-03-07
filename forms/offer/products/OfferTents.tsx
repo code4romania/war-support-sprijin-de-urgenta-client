@@ -2,7 +2,7 @@ import { Label } from '@/components/Form/common'
 import Input from '@/components/Form/Input'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
-import { DonateItemRequestWithoutName } from 'api'
+import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -60,13 +60,14 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
   })
 
   const onFormSubmit = (values: DonateItemRequestWithoutName) => {
-    const donateItemRequest: DonateItemRequestWithoutName = {
+    const donateItemRequest: DonateItemRequest = {
       ...values,
+      name: t('signup.products.tents'),
       unit_type: 'tent',
     }
     onSubmit(donateItemRequest)
   }
-  
+
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup label={t('services.offerTransport')}>

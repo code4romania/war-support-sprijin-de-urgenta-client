@@ -36,7 +36,10 @@ export const OfferOthersForm: FC<IProps> = ({
   const { t } = useTranslation()
 
   const otherResourcesSchema: SchemaOf<Form> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(t('error.name.required')),
+    name: yup
+      .string()
+      .typeError(t('error.must.be.string'))
+      .required(t('error.name.required')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.mixed().typeError(t('error.must.be.string')),
     county_coverage: yup
@@ -56,8 +59,8 @@ export const OfferOthersForm: FC<IProps> = ({
     mode: 'all',
     defaultValues: {
       county_coverage: [],
-      available_until: (new Date()).toISOString().split('T')[0]
-    }
+      available_until: new Date().toISOString().split('T')[0],
+    },
   })
 
   const onFormSubmit = (values: Form) => {
@@ -72,22 +75,20 @@ export const OfferOthersForm: FC<IProps> = ({
         {...register('name')}
         errors={errors['name']}
       />
-      <div className={'flex space-x-4'}>
-        <DropdownMultiSelect
-          {...register('county_coverage')}
-          className={clsx('w-1/2 mb-4')}
-          options={counties || []}
-          errors={errors['county_coverage']}
-          control={control}
-          label={t('signup.other.county_coverage')}
-        />
-        <Input
-          className={'w-1/2'}
-          label={t('signup.other.town')}
-          errors={errors['town']}
-          {...register('town')}
-        />
-      </div>
+      <DropdownMultiSelect
+        {...register('county_coverage')}
+        className={clsx('w-1/2 mb-4')}
+        options={counties || []}
+        errors={errors['county_coverage']}
+        control={control}
+        label={t('signup.other.county_coverage')}
+      />
+      <Input
+        className={'w-1/2'}
+        label={t('signup.other.town')}
+        errors={errors['town']}
+        {...register('town')}
+      />
       <Textarea
         label={t('signup.other.description')}
         className={clsx('w-full')}

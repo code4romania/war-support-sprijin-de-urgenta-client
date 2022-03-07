@@ -5,7 +5,7 @@ import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
 import { ResourceType } from 'forms/types'
-import { DonateItemRequestWithoutName } from 'api'
+import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
 import clsx from 'clsx'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -69,10 +69,13 @@ export const OfferTextileProduct: FC<IProps> = ({
   })
 
   const onFormSubmit = (values: DonateItemRequestWithoutName) => {
-    const donateItemRequest: DonateItemRequestWithoutName = { ...values }
+    const donateItemRequest: DonateItemRequest = {
+      ...values,
+      name: t('signup.products.textile'),
+    }
     onSubmit(donateItemRequest)
   }
-  
+
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
