@@ -67,7 +67,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     }
     onSubmit(donateItemRequest)
   }
-
+  
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup label={t('services.offerTransport')}>

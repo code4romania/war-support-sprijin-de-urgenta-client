@@ -74,7 +74,7 @@ export const OfferTextileProduct: FC<IProps> = ({
     const donateItemRequest: DonateItemRequestWithoutName = { ...values, category }
     onSubmit(donateItemRequest)
   }
-
+  
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
