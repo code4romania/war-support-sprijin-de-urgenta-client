@@ -109,6 +109,7 @@ export const RequestTransportPersonsForm = ({
   const onAdd = async (data: ServicesForm) => {
     //Preparing object for mutation. The api seems incomplete
     const personsTransportRequest: RequestTransportServicesRequest = {
+      kind: 'request',
       available_seats: data.available_seats,
       has_disabled_access: !!data.has_disabled_access,
       pets_allowed: !!data.pets_allowed,

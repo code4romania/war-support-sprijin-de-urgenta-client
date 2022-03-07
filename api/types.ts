@@ -1,4 +1,18 @@
-export type TransportServicesRequest = {
+
+export type TransportServicesRequestBase = {
+  weight_capacity?: number
+  weight_unit?: string
+  has_refrigeration?: boolean
+  available_seats?: number
+  has_disabled_access?: boolean
+  pets_allowed?: boolean
+  status?: number
+  donor?: string
+  category?: number
+  description?: string
+}
+
+export type OfferTransportServicesRequest = {
   weight_capacity?: number
   weight_unit?: string
   has_refrigeration?: boolean
@@ -18,7 +32,9 @@ export type TransportServicesRequest = {
   donor?: string
   category?: number
   description?: string
+  kind: 'offer'
 }
+
 
 export type RequestTransportServicesRequest = {
   weight_capacity?: number
@@ -35,7 +51,18 @@ export type RequestTransportServicesRequest = {
   donor?: string
   category?: number
   description?: string
+  kind: 'request'
 }
+
+export type TransportServicesRequest = OfferTransportServicesRequest | RequestTransportServicesRequest
+
+export type TransportServiceRequestDefinition = ({
+  type: 'offer',
+  requestObjects: OfferTransportServicesRequest[]
+} | {
+  type: 'request',
+  requestObjects: RequestTransportServicesRequest[]
+})
 
 export enum TransportType {
   National = '1',

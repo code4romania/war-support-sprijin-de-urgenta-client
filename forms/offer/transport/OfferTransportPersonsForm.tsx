@@ -1,31 +1,28 @@
 import Button from '@/components/Button'
+import Date from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
-import Date from '@/components/Form/Date'
-import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
+import Textarea from '@/components/Form/Textarea'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 import { useServicesForm } from '@/hooks/useData'
 import {
-  roIdentityCardRegex,
   phoneNumberRegex,
-  roCarRegistrationNumber,
+  roCarRegistrationNumber, roIdentityCardRegex
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   AvailabilityType,
-  TransportServicesRequest,
-  TransportType,
-  TransportCategories,
+  OfferTransportServicesRequest, TransportCategories, TransportType
 } from 'api'
 import clsx from 'clsx'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   available_seats: number
@@ -45,7 +42,7 @@ type ServicesForm = {
 }
 
 interface IOfferTransportPersonsFormProps {
-  onSubmit: (data: TransportServicesRequest) => void
+  onSubmit: (data: OfferTransportServicesRequest) => void
 }
 
 export const OfferTransportPersonsForm = ({
@@ -127,7 +124,8 @@ export const OfferTransportPersonsForm = ({
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    const personsTransportRequest: TransportServicesRequest = {
+    const personsTransportRequest: OfferTransportServicesRequest = {
+      kind: 'offer',
       available_seats: data.available_seats,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
