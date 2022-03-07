@@ -1,8 +1,6 @@
-import { Label } from '@/components/Form/common'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import { MultiSelectOption, PartialRecord } from '@/components/Form/types'
-import { ResourceType } from 'forms/types'
 import clsx from 'clsx'
 import { Control, ErrorOption, Path, UseFormRegister } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'

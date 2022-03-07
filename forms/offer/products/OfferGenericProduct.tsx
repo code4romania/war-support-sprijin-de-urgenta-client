@@ -31,7 +31,7 @@ type OfferGenericProductForm = {
   expiration_date?: string
 }
 
-export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
+export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation('common')
   const genericProductSchema: SchemaOf<OfferGenericProductForm> = yup
     .object()
@@ -68,7 +68,7 @@ export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit }) => {
   })
 
   const onFormSubmit = (values: OfferGenericProductForm) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+    const donateItemRequest: DonateItemRequest = { ...values, category }
     onSubmit(donateItemRequest)
   }
 

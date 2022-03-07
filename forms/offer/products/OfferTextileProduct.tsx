@@ -21,6 +21,7 @@ interface IProps {
   resourceType: ResourceType
   counties?: MultiSelectOption[]
   onSubmit: (values: DonateItemRequestWithoutName) => void
+  category: number
 }
 
 type OfferTextileProductForm = {
@@ -36,6 +37,7 @@ export const OfferTextileProduct: FC<IProps> = ({
   resourceType,
   counties,
   onSubmit,
+  category
 }) => {
   const { t } = useTranslation()
 
@@ -69,10 +71,10 @@ export const OfferTextileProduct: FC<IProps> = ({
   })
 
   const onFormSubmit = (values: DonateItemRequestWithoutName) => {
-    const donateItemRequest: DonateItemRequestWithoutName = { ...values }
+    const donateItemRequest: DonateItemRequestWithoutName = { ...values, category }
     onSubmit(donateItemRequest)
   }
-  
+
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup

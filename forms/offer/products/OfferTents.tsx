@@ -63,10 +63,11 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
       unit_type: 'tent',
+      category
     }
     onSubmit(donateItemRequest)
   }
-  
+
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup label={t('services.offerTransport')}>

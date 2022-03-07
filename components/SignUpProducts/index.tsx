@@ -82,13 +82,13 @@ const SignUpProducts = ({
           <OfferGenericProduct
             onSubmit={onProductAdd}
             counties={countyChoices}
-            category={1}
+            category={2}
           />
         ) : (
           <RequestGenericProduct
             onSubmit={onProductAdd}
             counties={countyChoices}
-            category={1}
+            category={2}
           />
         ),
     },
@@ -100,13 +100,13 @@ const SignUpProducts = ({
           <OfferGenericProduct
             onSubmit={onProductAdd}
             counties={countyChoices}
-            category={1}
+            category={3}
           />
         ) : (
           <RequestGenericProduct
             onSubmit={onProductAdd}
             counties={countyChoices}
-            category={1}
+            category={3}
           />
         ),
     },
@@ -119,6 +119,7 @@ const SignUpProducts = ({
             onSubmit={onProductAdd}
             resourceType="textile"
             counties={countyChoices}
+            category={4}
           />
         ) : (
           <RequestGenericProduct
@@ -136,6 +137,7 @@ const SignUpProducts = ({
           <OfferBuildingMaterials
             onSubmit={onProductAdd}
             counties={countyChoices}
+            category={5}
           />
         ) : (
           <RequestGenericProduct
