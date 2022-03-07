@@ -32,7 +32,7 @@ type OfferProductsOthersForm = {
   town?: string
 }
 
-export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit }) => {
+export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation()
 
   const othersSchema: SchemaOf<OfferProductsOthersForm> = yup.object().shape({
@@ -67,7 +67,7 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit }) => {
   })
 
   const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+    const donateItemRequest: DonateItemRequest = { ...values, category }
     onSubmit(donateItemRequest)
   }
 
