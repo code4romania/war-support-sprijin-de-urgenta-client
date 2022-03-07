@@ -118,7 +118,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       }
     } catch (e) {
       setServerErrors({
-        general: [t('register.genericError')],
+        'non_field_errors': [t('register.genericError')],
       })
     }
   }
