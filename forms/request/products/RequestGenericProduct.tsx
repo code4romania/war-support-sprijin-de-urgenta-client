@@ -36,7 +36,7 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
   } = useForm<RequestGenericProductForm>()
 
   const onFormSubmit = (values: RequestGenericProductForm) => {
-    const donateItemRequest: DonateItemRequest = { ...values, category }
+    const donateItemRequest: DonateItemRequest = { ...values, category, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 
@@ -46,7 +46,7 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <Product register={register} errors={errors} names={{ name: 'name' }} />
 
-      <Textarea {...register('description')} label={t('signup.products.description')}/>
+      <Textarea {...register('description')} label={t('signup.products.description')} />
 
       <Quantity
         register={register}

@@ -29,8 +29,8 @@ export const RequestOthers: FC<IProps> = ({ onSubmit }) => {
     formState: { errors },
   } = useForm<RequestOthersForm>()
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+  const onFormSubmit = (values: RequestOthersForm) => {
+    const donateItemRequest: DonateItemRequest = { ...values, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 

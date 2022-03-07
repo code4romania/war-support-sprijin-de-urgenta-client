@@ -66,8 +66,8 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit, category }
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values, category }
+  const onFormSubmit = (values: OfferProductsOthersForm) => {
+    const donateItemRequest: DonateItemRequest = { ...values, category, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 

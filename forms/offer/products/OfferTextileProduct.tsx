@@ -70,8 +70,12 @@ export const OfferTextileProduct: FC<IProps> = ({
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequestWithoutName) => {
-    const donateItemRequest: DonateItemRequestWithoutName = { ...values, category }
+  const onFormSubmit = (values: OfferTextileProductForm) => {
+    const donateItemRequest: DonateItemRequestWithoutName = {
+      ...values,
+      category,
+      kind: 'noName'
+    }
     onSubmit(donateItemRequest)
   }
 

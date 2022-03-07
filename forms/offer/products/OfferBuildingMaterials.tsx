@@ -68,14 +68,17 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, categor
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values, category }
+  const onFormSubmit = (values: OfferBuildingMaterialsForm) => {
+    const donateItemRequest: DonateItemRequest = { ...values, category, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+        errors={errors.has_transportation}
+      >
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}

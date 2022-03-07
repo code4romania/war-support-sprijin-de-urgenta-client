@@ -63,12 +63,12 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequestWithoutName) => {
-    const donateItemRequest: DonateItemRequest = {
+  const onFormSubmit = (values: OfferTentsForm) => {
+    const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
-      name: t('signup.products.tents'),
       unit_type: 'tent',
       category,
+      kind: 'noName'
     }
     onSubmit(donateItemRequest)
   }
