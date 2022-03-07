@@ -59,7 +59,9 @@ export const OfferTransportPersonsForm = ({
       .number()
       .typeError(t('error.must.be.number'))
       .required(),
-    availability: yup.string().typeError(t('error.must.be.string')),
+    availability: yup.string()
+    .required(t('error.availability.required'))
+      .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
     car_registration_number: yup
@@ -241,6 +243,7 @@ export const OfferTransportPersonsForm = ({
           />
           <Dropdown
             label={t('services.availability')}
+            errors={errors.availability}
             {...register('availability')}
           >
             {data?.availability?.choices.map(

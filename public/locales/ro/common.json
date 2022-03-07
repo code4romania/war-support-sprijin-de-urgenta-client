@@ -105,7 +105,6 @@
   "services.driver-name": "Nume șofer",
   "services.driver-ci": "Serie și nr. buletin:",
   "services.car-plate": "Număr mașină:",
-  "services.transport-persons": "Transport persoane",
   "services.available_seats": "Număr de locuri in mașină",
   "services.has_disabled_access": "Transport persoane cu dizabilități",
   "services.pets_allowed": "Transport cu animale de companie",

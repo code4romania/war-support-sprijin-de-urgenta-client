@@ -104,7 +104,6 @@
   "services.driver-name": "Имя водителя",
   "services.driver-ci": "Серія і номер документа",
   "services.car-plate": "Номер автомобіля",
-  "services.transport-persons": "Пасажирські перевезення",
   "services.available_seats": "Кількість місць у машині",
   "services.has_disabled_access": "Перевезення людей з обмеженими можливостями",
   "services.pets_allowed": "Перевезення з домашніми тваринами",
