@@ -1,22 +1,19 @@
-import { useMemo } from 'react'
-import { RequestTransportServicesRequest, TransportServicesRequest } from 'api/types'
+import ResourcesForm, {
+  ICategoryProps
+} from '@/components/ResourcesForm/ResourcesForm'
+import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
 import {
-  OfferTransportGoodsForm,
-  RequestTransportGoodsForm,
-  RequestTransportPersonsForm,
-  OfferTransportPersonsForm,
+  OfferTransportGoodsForm, OfferTransportPersonsForm, RequestTransportGoodsForm,
+  RequestTransportPersonsForm
 } from 'forms'
-import React, { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ResourcesForm, {
-  ICategoryProps,
-} from '@/components/ResourcesForm/ResourcesForm'
 import { FormPageProps } from '../FormPage/FormPage'
 
 interface ISignUpServicesFormProps {
-  items: any
-  onAddItem: (data: TransportServicesRequest | RequestTransportServicesRequest) => void
+  items: TransportServicesRequest[]
+  onAddItem: (data: TransportServicesRequest) => void
   type: FormPageProps
   onRemoveItem: (index: number) => void
 }
@@ -31,7 +28,7 @@ export const SignUpServicesForm = ({
 
   const [showDialog, setShowDialog] = useState(false)
 
-  const onAddService = (data: any) => {
+  const onAddService = (data: TransportServicesRequest) => {
     onAddItem(data)
     setShowDialog(false)
   }
@@ -61,10 +58,14 @@ export const SignUpServicesForm = ({
 
   const resourcesTableColumns = [t('services.driver-name')]
   const tableItems = useMemo(() => {
-    return items.map((item: any) => ({
-      ...item,
-      name: item.driver_name,
-    }))
+    return items.map((item) => {
+      if (item.kind === FormPageProps.Offer) {
+        return {
+          ...item,
+          name: item.driver_name,
+        }
+      }
+    }).filter(item => item)
   }, [items])
 
   return (

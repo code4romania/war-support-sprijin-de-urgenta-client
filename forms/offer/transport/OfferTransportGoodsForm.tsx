@@ -1,33 +1,29 @@
 import Button from '@/components/Button'
+import Date from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
-import Date from '@/components/Form/Date'
-import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
+import Textarea from '@/components/Form/Textarea'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 import { useServicesForm } from '@/hooks/useData'
 import {
   phoneNumberRegex,
   roCarRegistrationNumber,
-  roIdentityCardRegex,
+  roIdentityCardRegex
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   AvailabilityType,
-  TransportServicesRequest,
-  TransportType,
-  TransportCategories,
+  OfferTransportServicesRequest, TransportCategories, TransportType
 } from 'api'
 import clsx from 'clsx'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import i18n from 'i18next'
-import endpoints from 'endpoints.json'
-import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   driver_contact: string
@@ -47,7 +43,7 @@ type ServicesForm = {
 }
 
 interface IOfferTransportGoodsFormProps {
-  onSubmit: (data: TransportServicesRequest) => void
+  onSubmit: (data: OfferTransportServicesRequest) => void
 }
 
 export const OfferTransportGoodsForm = ({
@@ -126,7 +122,8 @@ export const OfferTransportGoodsForm = ({
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    const goodsTransportRequest: TransportServicesRequest = {
+    const goodsTransportRequest: OfferTransportServicesRequest = {
+      kind: FormPageProps.Offer,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
       availability_interval_to: data.availability_interval_to,

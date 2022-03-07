@@ -1,4 +1,6 @@
-export type TransportServicesRequest = {
+import { FormPageProps } from "@/components/FormPage/FormPage"
+
+export type OfferTransportServicesRequest = {
   weight_capacity?: number
   weight_unit?: string
   has_refrigeration?: boolean
@@ -18,7 +20,9 @@ export type TransportServicesRequest = {
   donor?: string
   category?: number
   description?: string
+  kind: FormPageProps.Offer
 }
+
 
 export type RequestTransportServicesRequest = {
   weight_capacity?: number
@@ -35,7 +39,10 @@ export type RequestTransportServicesRequest = {
   donor?: string
   category?: number
   description?: string
+  kind: FormPageProps.Request
 }
+
+export type TransportServicesRequest = OfferTransportServicesRequest | RequestTransportServicesRequest
 
 export enum TransportType {
   National = '1',
