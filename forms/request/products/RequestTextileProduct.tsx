@@ -1,16 +1,16 @@
 import Checkbox from '@/components/Form/Checkbox'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
-import Location from '@/components/SignUpProducts/common/Location'
-import ProductTypeWrapper from '@/components/SignUpProducts/common/ProductTypeWrapper'
-import Quantity from '@/components/SignUpProducts/common/Quantity'
-import { ResourceType } from '@/components/SignUpProducts/types'
+import Location from 'forms/common/Location'
+import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
+import Quantity from 'forms/common/Quantity'
+import { ResourceType } from 'forms/types'
 import { DonateItemRequest } from 'api'
 import clsx from 'clsx'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { MultiSelectOption } from '../Form/types'
+import { MultiSelectOption } from '../../../components/Form/types'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
 interface IProps {
@@ -19,35 +19,37 @@ interface IProps {
   onSubmit: (values: DonateItemRequest) => void
 }
 
-type TextileProductForm = {
+type RequestTextileProductForm = {
   county_coverage: string[]
-  town: string;
-  name: string;
-  quantity: number;
-  unit_type: string;
-  packaging_type: string;
-  has_transportation: boolean;
+  town: string
+  name: string
+  quantity: number
+  unit_type: string
+  packaging_type: string
+  has_transportation: boolean
 }
 
-const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
+export const RequestTextileProduct: FC<IProps> = ({
+  resourceType,
+  counties,
+  onSubmit,
+}) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<TextileProductForm>()
+  } = useForm<RequestTextileProductForm>()
 
   const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values };
+    const donateItemRequest: DonateItemRequest = { ...values }
     onSubmit(donateItemRequest)
   }
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup
-        label={t('services.offerTransport')}
-      >
+      <RadioGroup label={t('services.offerTransport')}>
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -104,7 +106,7 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
         names={{
           quantity: 'quantity',
           packaging_type: 'packaging_type',
-          unit_type: 'unit_type'
+          unit_type: 'unit_type',
         }}
       />
 
@@ -115,11 +117,9 @@ const TextileProduct: FC<IProps> = ({ resourceType, counties, onSubmit }) => {
         errors={errors}
         names={{
           county_coverage: 'county_coverage',
-          town: 'town'
+          town: 'town',
         }}
       />
     </ProductTypeWrapper>
   )
 }
-
-export default TextileProduct

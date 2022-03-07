@@ -33,7 +33,8 @@ const UserTypeForm = () => {
         <div className="max-w-sm">
           <Dropdown
             name="userType"
-            label={`${t('signup.userType.type')}: *`}
+            required
+            label={`${t('signup.userType.type')}:`}
             onChange={handleChange}
             placeholder={t('signup.userType.type.placeholder')}
           >

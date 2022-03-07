@@ -27,6 +27,7 @@ import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import i18n from 'i18next'
 import endpoints from 'endpoints.json'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 type ServicesForm = {
   driver_contact: string
@@ -45,19 +46,24 @@ type ServicesForm = {
   weight_unit?: string
 }
 
-interface ITransportGoodsFormProps {
+interface IOfferTransportGoodsFormProps {
   onSubmit: (data: TransportServicesRequest) => void
 }
 
-export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
+export const OfferTransportGoodsForm = ({
+  onSubmit,
+}: IOfferTransportGoodsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm()
+  const { data } = useServicesForm(FormPageProps.Offer)
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    availability: yup.string().required('error.availability.required').typeError(t('error.must.be.string')),
+    availability: yup
+      .string()
+      .required('error.availability.required')
+      .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
     car_registration_number: yup
@@ -119,7 +125,6 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       label: c.display_name,
     }))
   }, [data?.county_coverage?.choices])
-
   const typeOptions: { value: number; display_name: string }[] =
     data?.type?.choices
 
@@ -143,33 +148,8 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       category: TransportCategories.Goods,
     }
 
-    onSubmit(goodsTransportRequest);
-    return false;
-
-    //TODO: below call is a working post to transport_service, need a hook to POST data
-    //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
-    //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([goodsTransportRequest]),
-      }
-    )
-    if (response.ok) {
-      setServerErrors({})
-      const data = await response.json()
-      console.log('data', data)
-      onSubmit(goodsTransportRequest)
-    } else {
-      const data = await response.json()
-      setServerErrors(data)
-      console.log('data', data)
-    }
+    onSubmit(goodsTransportRequest)
+    return false
   }
 
   return (

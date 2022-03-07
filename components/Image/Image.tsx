@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 /* eslint-disable @next/next/no-img-element */
 export interface IImageProps {
   src: string
@@ -7,8 +9,8 @@ export interface IImageProps {
 
 const Image = ({ src, alt, className = '' }: IImageProps) => {
   return (
-    <div className="leading-none">
-      <img className={`${className} object-contain`} src={src} alt={alt} />
+    <div className={clsx("leading-none", className)}>
+      <img className="object-contain w-full h-full" src={src} alt={alt} height={'100%'} width={'100%'}/>
     </div>
   )
 }

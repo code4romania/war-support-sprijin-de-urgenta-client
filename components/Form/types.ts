@@ -20,7 +20,7 @@ export interface DropdownElementProps
   extends InputHTMLAttributes<HTMLSelectElement> {
   name: string
   label?: string
-  errors?: ErrorOption
+  errors?: ErrorOption | ErrorOption[]
   hideLabel?: boolean
   noValidations?: boolean
   placeholder?: string
@@ -29,6 +29,7 @@ export interface DropdownElementProps
 export interface GroupElementProps {
   className?: string
   label?: string
+  required?: boolean
   errors?: ErrorOption | ErrorOption[]
 }
 
@@ -45,9 +46,11 @@ export interface DropdownMultiSelectProps {
   label?: string
   hideLabel?: boolean
   errors?: ErrorOption | ErrorOption[]
+  required?: boolean,
   children?: ReactNode
   className?: string
   control: Control<any, any>
+  labelPosition?: 'horizontal' | 'vertical'
 }
 
 export type PartialRecord<K extends keyof any, T> = {

@@ -20,6 +20,23 @@ export type TransportServicesRequest = {
   description?: string
 }
 
+export type RequestTransportServicesRequest = {
+  weight_capacity?: number
+  weight_unit?: string
+  has_refrigeration?: boolean
+  from_county: string
+  from_city: string
+  to_county: string
+  to_city: string
+  available_seats?: number
+  has_disabled_access?: boolean
+  pets_allowed?: boolean
+  status?: number
+  donor?: string
+  category?: number
+  description?: string
+}
+
 export enum TransportType {
   National = '1',
   County = '2',
@@ -59,11 +76,31 @@ export type DonateItemRequest = {
   textile_category?: number
 }
 
+export type DonateVolunteeringRequest = {
+  type: number
+  town?: string
+  name: string;
+  description?: string
+  available_until?: string
+  county_coverage: string[],
+}
+
+
 export type DonateOtherRequest = {
   name: string,
   category: number
   description?: string,
-  available_until?: Date,
+  available_until?: string,
   county_coverage?: string[]
   town?: string
 }
+
+
+export type ServerError = {
+  endpoint: string,
+  error: Record<string, string[]>[],
+  status: number,
+  statusText: string
+}
+
+export type ServerErrorByEndpoint = Record<string, Record<string, string[]>[]>

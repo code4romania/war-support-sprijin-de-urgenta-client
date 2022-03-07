@@ -2,9 +2,10 @@ import { forwardRef } from 'react'
 import clsx from 'clsx'
 import { InputElementProps } from '@/components/Form/types'
 import { ErrorLabel } from './ErrorLabel'
+import { Required } from './common'
 
 const Element = forwardRef<HTMLInputElement, InputElementProps>(
-  ({ name, children, value, checked, className, errors, ...rest }, ref) => {
+  ({ name, children, value, checked, required, className, errors, ...rest }, ref) => {
     return (
       <div className={clsx('flex flex-col mb-4', className)}>
         <div className={clsx('flex items-center')}>
@@ -15,6 +16,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
             value={value}
             ref={ref}
             checked={checked}
+            required={required}
             className={clsx(
               'appearance-none mr-2 bg-white',
               'before:content-[" "] before:block',
@@ -27,7 +29,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
             {...rest}
           />
           <label htmlFor={`${name}_${value}`} className="text-sm cursor-pointer">
-            {children}
+            {children} {required && (<Required />) }
           </label>
         </div>
         <ErrorLabel errors={errors} />
