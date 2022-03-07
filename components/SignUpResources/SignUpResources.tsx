@@ -57,9 +57,13 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     setServicesList(removeItem(servicesList, index))
   }
 
-  const [productsList, setProductsList] = useState<DonateItemRequest[] | DonateItemRequestWithoutName[]>([])
+  const [productsList, setProductsList] = useState<
+    DonateItemRequest[] | DonateItemRequestWithoutName[]
+  >([])
 
-  const onAddProduct = (data: DonateItemRequest | DonateItemRequestWithoutName) => {
+  const onAddProduct = (
+    data: DonateItemRequest | DonateItemRequestWithoutName
+  ) => {
     if (type === FormPageProps.Offer) {
       setProductsList((state) => [...state, data])
     } else {
@@ -213,6 +217,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
             ? endpoints['donate/transport_service']
             : endpoints['request/transport_service']
         )
+        setServicesList([])
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -232,6 +237,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
             ? endpoints['donate/item']
             : endpoints['request/item']
         )
+        setProductsList([])
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -251,6 +257,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
             ? endpoints['donate/volunteering']
             : endpoints['request/volunteering']
         )
+        setVolunteeringList([])
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -270,6 +277,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
             ? endpoints['donate/other']
             : endpoints['request/other']
         )
+        setOthersList([])
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
