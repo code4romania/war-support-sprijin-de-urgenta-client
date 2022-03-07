@@ -27,6 +27,9 @@ type OfferProductsOthersForm = {
   unit_type: string
   name: string
   description?: string
+  quantity?: number
+  packaging_type?: string
+  town?: string
 }
 
 export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit }) => {
@@ -44,7 +47,9 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit }) => {
       .required(t('error.has_transportation.required')),
     name: yup.string().required(t('error.productName.required')),
     unit_type: yup.string().required(t('error.unitType.required')),
-    description: yup.string(),
+    description: yup.string().typeError(t('error.must.be.string')),
+    quantity: yup.number().typeError(t('error.must.be.number')),
+    packaging_type: yup.string().typeError(t('error.must.be.string')),
   })
 
   const {
@@ -60,8 +65,6 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit }) => {
       county_coverage: [],
     },
   })
-
-  console.log('errors', errors)
 
   const onFormSubmit = (values: DonateItemRequest) => {
     const donateItemRequest: DonateItemRequest = { ...values }
