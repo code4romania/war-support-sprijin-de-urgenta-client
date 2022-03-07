@@ -55,9 +55,6 @@ export const OfferTransportGoodsForm = ({
 }: IOfferTransportGoodsFormProps) => {
   const { t } = useTranslation()
   const { data } = useServicesForm(FormPageProps.Offer)
-  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
-    {}
-  )
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     availability: yup
@@ -76,7 +73,7 @@ export const OfferTransportGoodsForm = ({
       then: yup
         .array()
         .min(1, t('error.county.minOne'))
-        .of(yup.string().required())
+        .of(yup.string().required()),
     }),
     description: yup.string().typeError(t('error.must.be.string')),
     driver_name: yup.string().required(t('error.driverName.required')),
@@ -129,8 +126,6 @@ export const OfferTransportGoodsForm = ({
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    console.log('onAdd', data)
-    //Preparing object for mutation. The api seems incomplete
     const goodsTransportRequest: TransportServicesRequest = {
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
@@ -160,30 +155,18 @@ export const OfferTransportGoodsForm = ({
             <Input
               type="number"
               label={t('services.capacity')}
-              errors={
-                serverErrors['weight_capacity']
-                  ? { message: serverErrors['weight_capacity'].join('\n') }
-                  : errors['weight_capacity']
-              }
+              errors={errors['weight_capacity']}
               step="any"
               {...register('weight_capacity')}
             />
             <Input
               label={t('services.weight_unit')}
-              errors={
-                serverErrors['weight_unit']
-                  ? { message: serverErrors['weight_unit'].join('\n') }
-                  : errors['weight_unit']
-              }
+              errors={errors['weight_unit']}
               {...register('weight_unit')}
             />
           </div>
           <RadioGroup
-            errors={
-              serverErrors['has_refrigeration']
-                ? { message: serverErrors['has_refrigeration'].join('\n') }
-                : errors['has_refrigeration']
-            }
+            errors={errors['has_refrigeration']}
             label={t('services.cooling')}
           >
             <div className={clsx('flex flex-row gap-6')}>
@@ -195,14 +178,7 @@ export const OfferTransportGoodsForm = ({
               </Radio>
             </div>
           </RadioGroup>
-          <RadioGroup
-            errors={
-              serverErrors['type']
-                ? { message: serverErrors['type'].join('\n') }
-                : errors['type']
-            }
-            label={t('services.transport')}
-          >
+          <RadioGroup errors={errors['type']} label={t('services.transport')}>
             <Radio
               value={typeOptions && typeOptions[0].value}
               {...register('type')}
