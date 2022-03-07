@@ -13,6 +13,8 @@ import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 import { DonateVolunteeringRequest } from 'api'
 import { MultiSelectOption } from '@/components/Form/types'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -27,6 +29,7 @@ type OfferVolunteeringResourceForm = {
   description?: string
   available_until?: string
   county_coverage: string[]
+  has_transportation?: boolean
 }
 
 export const OfferVolunteeringForm: FC<IProps> = ({
@@ -49,6 +52,10 @@ export const OfferVolunteeringForm: FC<IProps> = ({
         .array()
         .min(1, t('error.county.minOne'))
         .of(yup.string().required()),
+      has_transportation: yup
+        .boolean()
+        .typeError(t('error.must.be.boolean'))
+        .required(t('error.has_transportation.required')),
     })
 
   const {
@@ -82,6 +89,16 @@ export const OfferVolunteeringForm: FC<IProps> = ({
         {...register('name')}
         errors={errors.name}
       />
+      <RadioGroup label={t('services.offerTransport')}>
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('has_transportation')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('has_transportation')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <div className={'flex space-x-4'}>
         <DropdownMultiSelect
           {...register('county_coverage')}
