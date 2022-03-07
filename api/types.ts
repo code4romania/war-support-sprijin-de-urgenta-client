@@ -98,6 +98,7 @@ export type DonateItemRequestWithoutName = {
   tent_capacity?: number
   category?: number
   textile_category?: number
+  donor?: string
 }
 
 export type DonateItemRequestUnion = DonateItemRequest | DonateItemRequestWithoutName

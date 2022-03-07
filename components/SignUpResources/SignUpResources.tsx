@@ -47,7 +47,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   }
 
   const onAddService = async (data: TransportServicesRequest) => {
-    if (type === FormPageProps.Offer && data.kind === FormPageProps.Offer) {
+    if (data.kind === FormPageProps.Offer) {
       setServicesList((state) => [...state, { ...data, donor }])
     } else if (data.kind === FormPageProps.Request) {
       setServicesList([data])
@@ -71,6 +71,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setShouldSubmit(true)
     }
   }
+  
   const onRemoveProduct = (index: number) => {
     setProductsList(removeItem(productsList, index))
   }
