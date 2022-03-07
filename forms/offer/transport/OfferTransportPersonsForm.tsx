@@ -54,8 +54,9 @@ export const OfferTransportPersonsForm = ({
   const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     available_seats: yup
       .number()
-      .typeError(t('error.must.be.number'))
-      .required(),
+      .typeError(t('validation.required'))
+      .min(1, t('error.quantity.minOne'))
+      .required(t('validation.required')),
     availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
@@ -89,9 +90,10 @@ export const OfferTransportPersonsForm = ({
       .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.boolean.required')),
-    type: yup.string().typeError(t('validation.required')),
-    weight_unit: yup.string().typeError(t('error.must.be.string')),
-    weight_capacity: yup.number().typeError(t('error.must.be.number')),
+    type: yup
+      .string()
+      .required(t('validation.required'))
+      .typeError(t('validation.required'))
   })
 
   const {
@@ -102,6 +104,7 @@ export const OfferTransportPersonsForm = ({
     control,
   } = useForm<ServicesForm>({
     defaultValues: {
+      available_seats: 1,
       county_coverage: [],
     },
     resolver: yupResolver(transportPersonsSchema),

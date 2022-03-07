@@ -86,8 +86,15 @@ export const OfferTransportGoodsForm = ({
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_refrigeration.required')),
     type: yup.string().typeError(t('validation.required')),
-    weight_unit: yup.string().typeError(t('error.must.be.string')),
-    weight_capacity: yup.number().typeError(t('error.must.be.number')),
+    weight_unit: yup
+      .string()
+      .required(t('validation.required'))
+      .typeError(t('error.must.be.string')),
+    weight_capacity: yup
+      .number()
+      .min(1, t('error.quantity.minOne'))
+      .required(t('validation.required'))
+      .typeError(t('error.must.be.number'))
   })
 
   const {
@@ -98,7 +105,7 @@ export const OfferTransportGoodsForm = ({
     control,
   } = useForm<ServicesForm>({
     defaultValues: {
-      weight_capacity: 0,
+      weight_capacity: 1,
       county_coverage: [],
     },
     resolver: yupResolver(transportGoodsSchema),
