@@ -119,10 +119,10 @@ const SignUpProducts = ({
             counties={countyChoices}
           />
         ) : (
-          <RequestTextileProduct
+          <RequestGenericProduct
             onSubmit={onProductAdd}
-            resourceType="textile"
             counties={countyChoices}
+            category={4}
           />
         ),
     },
@@ -136,9 +136,10 @@ const SignUpProducts = ({
             counties={countyChoices}
           />
         ) : (
-          <RequestBuildingMaterials
+          <RequestGenericProduct
             onSubmit={onProductAdd}
             counties={countyChoices}
+            category={5}
           />
         ),
     },
@@ -153,7 +154,7 @@ const SignUpProducts = ({
             category={6}
           />
         ) : (
-          <RequestTents
+          <RequestGenericProduct
             onSubmit={onProductAdd}
             counties={countyChoices}
             category={6}
@@ -163,7 +164,16 @@ const SignUpProducts = ({
     {
       resourceType: 'others',
       label: 'signup.products.others',
-      children: <OfferProductsOthers onSubmit={onProductAdd} />,
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferProductsOthers onSubmit={onProductAdd} />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={7}
+          />
+        ),
     },
   ]
 
