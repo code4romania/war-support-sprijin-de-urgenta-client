@@ -76,7 +76,7 @@ export const OfferTransportGoodsForm = ({
       then: yup
         .array()
         .min(1, t('error.county.minOne'))
-        .of(yup.string().required()),
+        .of(yup.string().required())
     }),
     description: yup.string().typeError(t('error.must.be.string')),
     driver_name: yup.string().required(t('error.driverName.required')),
@@ -92,7 +92,7 @@ export const OfferTransportGoodsForm = ({
       .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_refrigeration.required')),
-    type: yup.string(),
+    type: yup.string().typeError(t('validation.required')),
     weight_unit: yup.string().typeError(t('error.must.be.string')),
     weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })
