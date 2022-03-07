@@ -40,7 +40,10 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     town: yup.string(),
-    quantity: yup.number().moreThan(0).typeError(t('error.must.be.number')),
+    quantity: yup
+      .number()
+      .moreThan(0, t('error.capacity.moreThanZero'))
+      .typeError(t('error.must.be.number')),
     tent_capacity: yup
       .number()
       .moreThan(0, t('error.capacity.moreThanZero'))
@@ -88,6 +91,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         {...register('quantity')}
         label={t('signup.products.qty')}
         labelPosition="horizontal"
+        errors={errors && errors['quantity']}
       />
       <div className="flex gap-4">
         <Input
@@ -95,6 +99,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
           label={t('signup.products.capacity')}
           {...register('tent_capacity')}
           labelPosition="horizontal"
+          errors={errors && errors['tent_capacity']}
         />
         <Label
           name={t('signup.products.persons')}
