@@ -151,6 +151,7 @@
   "error.availability.minOne": "Пожалуйста, выберите хотя бы один вариант",
   "signup.products.unit_type": "Единица измерения",
   "error.capacity.required": "Введите емкость",
+  "error.capacity.moreThanZero": "Минимальная принимаемая сумма 1",
   "error.refrigeration.required": "Выберите, можно ли охлаждать",
   "error.transportType.required": "Выберите вид транспорта",
   "error.county.required": "Выберите округ",

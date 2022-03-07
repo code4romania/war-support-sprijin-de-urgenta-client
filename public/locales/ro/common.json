@@ -154,6 +154,7 @@
   "error.availability.minOne": "Trebuie să selectați minim o opțiune",
   "signup.products.unit_type": "Unitate de măsură:",
   "error.capacity.required": "Introduceți capacitatea",
+  "error.capacity.moreThanZero": "Cantitatea minimă acceptată este 1",
   "error.refrigeration.required": "Selectați dacă aveți posibilitatea de refrigerare",
   "error.transportType.required": "Selectați tipul de transport",
   "error.county.required": "Selectați un județ",

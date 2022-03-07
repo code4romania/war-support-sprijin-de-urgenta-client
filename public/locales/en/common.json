@@ -150,6 +150,7 @@
   "error.availability.minOne": "Please select at least one option",
   "signup.products.unit_type": "Unit",
   "error.capacity.required": "Enter the capacity",
+  "error.capacity.moreThanZero": "Minimum amount accepted is 1",
   "error.refrigeration.required": "Select if you can refrigerate",
   "error.transportType.required": "Select the type of transport\n",
   "error.county.required": "Select a county",

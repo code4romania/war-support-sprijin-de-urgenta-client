@@ -37,7 +37,7 @@ export const OfferTextileProduct: FC<IProps> = ({
   resourceType,
   counties,
   onSubmit,
-  category
+  category,
 }) => {
   const { t } = useTranslation()
 
@@ -47,7 +47,10 @@ export const OfferTextileProduct: FC<IProps> = ({
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
     town: yup.string(),
-    quantity: yup.number().typeError(t('error.must.be.number')),
+    quantity: yup
+      .number()
+      .moreThan(0, t('error.capacity.moreThanZero'))
+      .typeError(t('error.must.be.number')),
     unit_type: yup.string().required(t('error.unitType.required')),
     packaging_type: yup.string().required(t('error.packagkingType.required')),
     has_transportation: yup
@@ -71,7 +74,10 @@ export const OfferTextileProduct: FC<IProps> = ({
   })
 
   const onFormSubmit = (values: DonateItemRequestWithoutName) => {
-    const donateItemRequest: DonateItemRequestWithoutName = { ...values, category }
+    const donateItemRequest: DonateItemRequestWithoutName = {
+      ...values,
+      category,
+    }
     onSubmit(donateItemRequest)
   }
 

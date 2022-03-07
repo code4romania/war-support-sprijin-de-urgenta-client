@@ -32,7 +32,11 @@ type OfferBuildingMaterialsForm = {
   expiration_date?: string
 }
 
-export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, category }) => {
+export const OfferBuildingMaterials: FC<IProps> = ({
+  counties,
+  onSubmit,
+  category,
+}) => {
   const { t } = useTranslation()
 
   const buildingMaterialsSchema: SchemaOf<OfferBuildingMaterialsForm> = yup
@@ -48,7 +52,10 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, categor
         .required(t('error.has_transportation.required')),
       town: yup.string(),
       name: yup.string().required(t('error.productName.required')),
-      quantity: yup.number().typeError(t('error.must.be.number')),
+      quantity: yup
+        .number()
+        .moreThan(0, t('error.capacity.moreThanZero'))
+        .typeError(t('error.must.be.number')),
       unit_type: yup.string().required(t('error.unitType.required')),
       packaging_type: yup.string().required(t('error.packagkingType.required')),
       expiration_date: yup.mixed().typeError(t('error.must.be.date')),

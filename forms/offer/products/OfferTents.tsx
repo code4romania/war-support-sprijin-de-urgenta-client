@@ -40,8 +40,11 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     town: yup.string(),
-    quantity: yup.number().typeError(t('error.must.be.number')),
-    tent_capacity: yup.number().required(t('error.tentCapacity.required')),
+    quantity: yup.number().moreThan(0).typeError(t('error.must.be.number')),
+    tent_capacity: yup
+      .number()
+      .moreThan(0, t('error.capacity.moreThanZero'))
+      .required(t('error.tentCapacity.required')),
     unit_type: yup.string(),
   })
 
@@ -63,7 +66,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
       unit_type: 'tent',
-      category
+      category,
     }
     onSubmit(donateItemRequest)
   }

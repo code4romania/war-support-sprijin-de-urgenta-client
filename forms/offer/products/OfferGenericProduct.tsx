@@ -31,7 +31,11 @@ type OfferGenericProductForm = {
   expiration_date?: string
 }
 
-export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }) => {
+export const OfferGenericProduct: FC<IProps> = ({
+  counties,
+  onSubmit,
+  category,
+}) => {
   const { t } = useTranslation('common')
   const genericProductSchema: SchemaOf<OfferGenericProductForm> = yup
     .object()
@@ -46,7 +50,10 @@ export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }
         .required(t('error.has_transportation.required')),
       town: yup.string(),
       name: yup.string().required(t('error.productName.required')),
-      quantity: yup.number().typeError(t('error.must.be.number')),
+      quantity: yup
+        .number()
+        .moreThan(0, t('error.capacity.moreThanZero'))
+        .typeError(t('error.must.be.number')),
       unit_type: yup.string().required(t('error.unitType.required')),
       packaging_type: yup.string().required(t('error.packagkingType.required')),
       expiration_date: yup.mixed().typeError(t('error.must.be.date')),
@@ -63,7 +70,7 @@ export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }
     mode: 'all',
     defaultValues: {
       county_coverage: [],
-      expiration_date: (new Date()).toISOString().split('T')[0]
+      expiration_date: new Date().toISOString().split('T')[0],
     },
   })
 

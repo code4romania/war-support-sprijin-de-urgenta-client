@@ -150,6 +150,7 @@
   "error.availability.minOne": "Виберіть принаймні один варіант",
   "signup.products.unit_type": "одиниця",
   "error.capacity.required": "Введіть ємність",
+  "error.capacity.moreThanZero": "Мінімальна прийнята сума – 1",
   "error.refrigeration.required": "Виберіть, чи можна охолодити",
   "error.transportType.required": "Виберіть вид транспорту",
   "error.county.required": "Виберіть повіт",

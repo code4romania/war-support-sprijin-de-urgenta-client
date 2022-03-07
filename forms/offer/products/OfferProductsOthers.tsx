@@ -32,7 +32,11 @@ type OfferProductsOthersForm = {
   town?: string
 }
 
-export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit, category }) => {
+export const OfferProductsOthers: FC<IProps> = ({
+  counties,
+  onSubmit,
+  category,
+}) => {
   const { t } = useTranslation()
 
   const othersSchema: SchemaOf<OfferProductsOthersForm> = yup.object().shape({
@@ -48,7 +52,10 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit, category }
     name: yup.string().required(t('error.productName.required')),
     unit_type: yup.string().required(t('error.unitType.required')),
     description: yup.string().typeError(t('error.must.be.string')),
-    quantity: yup.number().typeError(t('error.must.be.number')),
+    quantity: yup
+      .number()
+      .moreThan(0, t('error.capacity.moreThanZero'))
+      .typeError(t('error.must.be.number')),
     packaging_type: yup.string().typeError(t('error.must.be.string')),
   })
 
