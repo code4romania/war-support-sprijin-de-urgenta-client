@@ -1,5 +1,6 @@
 import Textarea from '@/components/Form/Textarea'
 import Product from 'forms/common/Product'
+import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import { DonateItemRequest } from 'api'
 import { FC } from 'react'
@@ -11,8 +12,12 @@ import clsx from 'clsx'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { MultiSelectOption } from '@/components/Form/types'
+import Quantity from '../../common/Quantity'
 
 interface IProps {
+  counties: MultiSelectOption[]
+  category: number
   onSubmit: (values: DonateItemRequest) => void
 }
 
@@ -24,7 +29,7 @@ type OfferProductsOthersForm = {
   description?: string
 }
 
-export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
+export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit }) => {
   const { t } = useTranslation()
 
   const othersSchema: SchemaOf<OfferProductsOthersForm> = yup.object().shape({
@@ -32,6 +37,7 @@ export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
       .array()
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
+    town: yup.string().typeError(t('error.must.be.string')),
     has_transportation: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
@@ -45,6 +51,7 @@ export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
     handleSubmit,
     register,
     formState: { errors },
+    control,
   } = useForm<OfferProductsOthersForm>({
     resolver: yupResolver(othersSchema),
     reValidateMode: 'onSubmit',
@@ -54,6 +61,8 @@ export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
     },
   })
 
+  console.log('errors', errors)
+
   const onFormSubmit = (values: DonateItemRequest) => {
     const donateItemRequest: DonateItemRequest = { ...values }
     onSubmit(donateItemRequest)
@@ -61,7 +70,10 @@ export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+        errors={errors['has_transportation']}
+      >
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -71,6 +83,16 @@ export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
           </Radio>
         </div>
       </RadioGroup>
+      <Location
+        counties={counties}
+        control={control}
+        register={register}
+        errors={errors}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town',
+        }}
+      />
       <Product
         register={register}
         errors={errors}
@@ -82,6 +104,15 @@ export const OfferProductsOthers: FC<IProps> = ({ onSubmit }) => {
         {...register('description')}
         label={t('signup.products.description')}
         errors={errors['description']}
+      />
+      <Quantity
+        register={register}
+        errors={errors}
+        names={{
+          quantity: 'quantity',
+          packaging_type: 'packaging_type',
+          unit_type: 'unit_type',
+        }}
       />
     </ProductTypeWrapper>
   )

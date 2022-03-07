@@ -44,6 +44,7 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
         label={t('signup.products.town')}
         labelPosition="horizontal"
         errors={errors && errors[names.town]}
+        className={clsx('w-full mb-4')}
         {...register(names.town)}
       />
     </>

@@ -41,7 +41,9 @@ const SignUpProducts = ({
 
   const [showDialog, setShowDialog] = useState(false)
 
-  const onProductAdd = (data: DonateItemRequest | DonateItemRequestWithoutName) => {
+  const onProductAdd = (
+    data: DonateItemRequest | DonateItemRequestWithoutName
+  ) => {
     handleDialogDismiss()
     onAddItem(data)
   }
@@ -166,7 +168,11 @@ const SignUpProducts = ({
       label: 'signup.products.others',
       children:
         type === FormPageProps.Offer ? (
-          <OfferProductsOthers onSubmit={onProductAdd} />
+          <OfferProductsOthers
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={7}
+          />
         ) : (
           <RequestGenericProduct
             onSubmit={onProductAdd}
