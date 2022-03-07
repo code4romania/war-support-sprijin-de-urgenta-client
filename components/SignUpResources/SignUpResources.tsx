@@ -33,6 +33,7 @@ export interface ISignUpResources {
 const SignUpResources = ({ type }: ISignUpResources) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
+  const { userPk: donor } = useSelector((state: State) => state.auth)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
@@ -48,7 +49,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   }
   const onAddService = async (data: any) => {
     if (type === FormPageProps.Offer) {
-      setServicesList((state: any) => [...state, data])
+      setServicesList((state: any) => [...state, { ...data, donor }])
     } else {
       setServicesList([data])
     }
@@ -65,7 +66,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     data: DonateItemRequest | DonateItemRequestWithoutName
   ) => {
     if (type === FormPageProps.Offer) {
-      setProductsList((state) => [...state, data])
+      setProductsList((state) => [...state, { ...data, donor }])
     } else {
       setProductsList([data])
     }
@@ -79,7 +80,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   >([])
   const onAddVolunteeringItem = (data: DonateVolunteeringRequest) => {
     if (type === FormPageProps.Offer) {
-      setVolunteeringList((state) => [...state, data])
+      setVolunteeringList((state) => [...state, { ...data, donor }])
     } else {
       setVolunteeringList([data])
     }
@@ -91,7 +92,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   const [othersList, setOthersList] = useState<DonateOtherRequest[]>([])
   const onAddOtherItem = (data: DonateOtherRequest) => {
     if (type === FormPageProps.Offer) {
-      setOthersList((state) => [...state, data])
+      setOthersList((state) => [...state, { ...data, donor }])
     } else {
       setOthersList([data])
     }
