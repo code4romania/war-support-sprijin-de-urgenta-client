@@ -18,6 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 interface IProps {
   counties: MultiSelectOption[]
   onSubmit: (values: DonateItemRequest) => void
+  category: number
 }
 
 type OfferBuildingMaterialsForm = {
@@ -31,7 +32,7 @@ type OfferBuildingMaterialsForm = {
   expiration_date?: string
 }
 
-export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
+export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation()
 
   const buildingMaterialsSchema: SchemaOf<OfferBuildingMaterialsForm> = yup
@@ -68,7 +69,7 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit }) => {
   })
 
   const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+    const donateItemRequest: DonateItemRequest = { ...values, category }
     onSubmit(donateItemRequest)
   }
 
