@@ -76,6 +76,21 @@ export type DonateItemRequest = {
   textile_category?: number
 }
 
+//New type for OfferTents and OfferTextileProduct
+export type DonateItemRequestWithoutName = {
+  county_coverage: string[]
+  has_transportation?: boolean
+  town?: string,
+  quantity?: number
+  packaging_type?: string,
+  unit_type?: string,
+  kids_age?: string,
+  other_textiles?: string,
+  tent_capacity?: number
+  category?: number
+  textile_category?: number
+}
+
 export type DonateVolunteeringRequest = {
   type: number
   town?: string

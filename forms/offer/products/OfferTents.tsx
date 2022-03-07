@@ -2,7 +2,7 @@ import { Label } from '@/components/Form/common'
 import Input from '@/components/Form/Input'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
-import { DonateItemRequest } from 'api'
+import { DonateItemRequestWithoutName } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -16,16 +16,15 @@ import { yupResolver } from '@hookform/resolvers/yup'
 interface IProps {
   counties?: MultiSelectOption[]
   category: number
-  onSubmit: (values: DonateItemRequest) => void
+  onSubmit: (values: DonateItemRequestWithoutName) => void
 }
 type OfferTentsForm = {
   county_coverage: string[]
   has_transportation: boolean
   town?: string
-  name: string
   quantity?: number
   tent_capacity: number
-  unit_type: string
+  unit_type?: string
 }
 
 export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
@@ -41,10 +40,9 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     town: yup.string(),
-    name: yup.string().required(t('error.productName.required')),
     quantity: yup.number().typeError(t('error.must.be.number')),
     tent_capacity: yup.number().required(t('error.tentCapacity.required')),
-    unit_type: yup.string().required(t('error.unitType.required')),
+    unit_type: yup.string(),
   })
 
   const {
@@ -61,14 +59,14 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = {
+  const onFormSubmit = (values: DonateItemRequestWithoutName) => {
+    const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
       unit_type: 'tent',
     }
     onSubmit(donateItemRequest)
   }
-
+  
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup label={t('services.offerTransport')}>

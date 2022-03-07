@@ -12,6 +12,7 @@ import Spacer from '@/components/Spacer'
 import ThankYouMessage from '../ThankYouMessage'
 import {
   DonateItemRequest,
+  DonateItemRequestWithoutName,
   DonateOtherRequest,
   DonateVolunteeringRequest,
   RequestTransportServicesRequest,
@@ -56,9 +57,9 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     setServicesList(removeItem(servicesList, index))
   }
 
-  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
+  const [productsList, setProductsList] = useState<DonateItemRequest[] | DonateItemRequestWithoutName[]>([])
 
-  const onAddProduct = (data: DonateItemRequest) => {
+  const onAddProduct = (data: DonateItemRequest | DonateItemRequestWithoutName) => {
     if (type === FormPageProps.Offer) {
       setProductsList((state) => [...state, data])
     } else {
@@ -162,6 +163,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       | TransportServicesRequest[]
       | RequestTransportServicesRequest[]
       | DonateItemRequest[]
+      | DonateItemRequestWithoutName[]
       | DonateVolunteeringRequest[]
       | DonateOtherRequest[],
     endpoint: string
