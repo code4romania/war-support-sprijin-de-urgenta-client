@@ -210,7 +210,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     })
   }
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async () => {
     setServerErrors({})
 
     const serverErrors: ServerErrorByEndpoint = {}
@@ -222,8 +222,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/transport_service']
             : endpoints['request/transport_service']
-        )
-        setServicesList([])
+        ).then(() => {
+            if(FormPageProps.Request){
+              setServicesList([])
+            }
+          })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -242,8 +245,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/item']
             : endpoints['request/item']
-        )
-        setProductsList([])
+        ).then(() => {
+          if(FormPageProps.Request){
+            setProductsList([])
+          }
+        })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -262,8 +268,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/volunteering']
             : endpoints['request/volunteering']
-        )
-        setVolunteeringList([])
+        ).then(() => {
+          if(FormPageProps.Request){
+            setVolunteeringList([])
+          }
+        })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -282,8 +291,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/other']
             : endpoints['request/other']
-        )
-        setOthersList([])
+        ).then(() => {
+          if(FormPageProps.Request){
+            setOthersList([])
+          }
+        })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -302,30 +314,13 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     } else {
       setServerErrors(serverErrors)
     }
-  }, [othersList, productsList, servicesList, type, volunteeringList])
-
-  useEffect(() => {
-    const update = async () => {
-      await handleSubmit()
-      setShouldSubmit(false)
+  }
+  // Submit request form when press Add from modal
+  useEffect(()=> {
+    if(FormPageProps.Request && (productsList.length || servicesList.length || volunteeringList.length || othersList.length)){
+      handleSubmit();
     }
-    if (
-      shouldSubmit &&
-      (!isEmpty(servicesList) ||
-        !isEmpty(othersList) ||
-        !isEmpty(volunteeringList) ||
-        !isEmpty(productsList))
-    ) {
-      update()
-    }
-  }, [
-    shouldSubmit,
-    othersList,
-    productsList,
-    servicesList,
-    volunteeringList,
-    handleSubmit,
-  ])
+  },[servicesList, productsList, volunteeringList, othersList])
 
   return (
     <div className="space-y-4">
