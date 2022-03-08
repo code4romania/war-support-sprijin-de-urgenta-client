@@ -14,7 +14,7 @@ export interface IButtonProps {
   size?: 'small' | 'medium' | 'large'
   className?: string
   onClick?: MouseEventHandler<HTMLButtonElement>
-  target: AnchorHTMLAttributes<HTMLAnchorElement>['target']
+  target?: AnchorHTMLAttributes<HTMLAnchorElement>['target']
 }
 
 const ButtonInner = ({
