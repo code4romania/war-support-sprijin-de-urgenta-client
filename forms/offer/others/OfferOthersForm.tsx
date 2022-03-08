@@ -13,6 +13,7 @@ import { SchemaOf } from 'yup'
 import * as yup from 'yup'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
+import { dateInTheFutureValidator, dateStringValidator } from 'forms/validators'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -34,7 +35,7 @@ export const OfferOthersForm: FC<IProps> = ({
   category,
   onSubmit,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const otherResourcesSchema: SchemaOf<Form> = yup.object().shape({
     name: yup
@@ -42,7 +43,11 @@ export const OfferOthersForm: FC<IProps> = ({
       .typeError(t('error.must.be.string'))
       .required(t('error.name.required')),
     description: yup.string().typeError(t('error.must.be.string')),
-    available_until: yup.mixed().typeError(t('error.must.be.string')),
+    available_until: yup
+      .string()
+      .required(t('validation.required'))
+      .test(dateStringValidator.name, t('validation.date.invalid'), dateStringValidator.test)
+      .test(dateInTheFutureValidator.name, t('validation.date.must.be.in.future'), dateInTheFutureValidator.test),
     county_coverage: yup
       .array()
       .min(1, t('error.county.minOne'))

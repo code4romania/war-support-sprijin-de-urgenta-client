@@ -1,7 +1,7 @@
 import Input from '@/components/Form/Input'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
-import { DonateItemRequestWithoutName } from 'api'
+import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -63,11 +63,12 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     },
   })
 
-  const onFormSubmit = (values: DonateItemRequestWithoutName) => {
+  const onFormSubmit = (values: OfferTentsForm) => {
     const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
       unit_type: 'tent',
       category,
+      kind: 'noName'
     }
     onSubmit(donateItemRequest)
   }

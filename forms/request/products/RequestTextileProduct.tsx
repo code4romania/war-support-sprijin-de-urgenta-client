@@ -5,7 +5,7 @@ import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
 import { ResourceType } from 'forms/types'
-import { DonateItemRequest } from 'api'
+import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
 import clsx from 'clsx'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -16,13 +16,12 @@ import Radio from '@/components/Form/Radio'
 interface IProps {
   resourceType: ResourceType
   counties?: MultiSelectOption[]
-  onSubmit: (values: DonateItemRequest) => void
+  onSubmit: (values: DonateItemRequestWithoutName) => void
 }
 
 type RequestTextileProductForm = {
   county_coverage: string[]
   town: string
-  name: string
   quantity: number
   unit_type: string
   packaging_type: string
@@ -42,8 +41,8 @@ export const RequestTextileProduct: FC<IProps> = ({
     control,
   } = useForm<RequestTextileProductForm>()
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+  const onFormSubmit = (values: RequestTextileProductForm) => {
+    const donateItemRequest: DonateItemRequestWithoutName = { ...values, kind: 'noName' }
     onSubmit(donateItemRequest)
   }
 
