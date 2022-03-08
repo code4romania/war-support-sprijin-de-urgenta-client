@@ -8,7 +8,9 @@ export default {
   component: UserTypeForm,
 } as ComponentMeta<typeof UserTypeForm>
 
-const Template: ComponentStory<typeof UserTypeForm> = () => <UserTypeForm />
+const Template: ComponentStory<typeof UserTypeForm> = (args) => (
+  <UserTypeForm {...args} />
+)
 
 export const Default = Template.bind({})
 

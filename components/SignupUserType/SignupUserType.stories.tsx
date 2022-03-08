@@ -2,14 +2,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import SignupOffer from './SignupOffer';
+import SignupUserType from './SignupUserType';
 
 export default {
-  title: 'SignupOffer',
-  component: SignupOffer
-} as ComponentMeta<typeof SignupOffer>;
+  title: 'SignupUserType',
+  component: SignupUserType
+} as ComponentMeta<typeof SignupUserType>;
 
-const Template: ComponentStory<typeof SignupOffer> = (args) => <SignupOffer {...args} />;
+const Template: ComponentStory<typeof SignupUserType> = (args) => <SignupUserType {...args} />;
 
 export const Default = Template.bind({});
 Default.parameters = {

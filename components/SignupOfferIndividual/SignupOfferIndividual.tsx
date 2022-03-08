@@ -1,9 +1,7 @@
 import Button from '@/components/Button'
 import { useTranslation } from 'react-i18next'
 
-export interface ISignupOfferIndividualProps {}
-
-const SignupOfferIndividual = ({}: ISignupOfferIndividualProps) => {
+const SignupOfferIndividual = () => {
   const { t } = useTranslation('common')
 
   return (

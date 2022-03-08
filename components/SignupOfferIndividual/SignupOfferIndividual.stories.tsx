@@ -1,19 +1,20 @@
+import React from 'react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import SignupOfferIndividual from './SignupOfferIndividual';
+import SignupOfferIndividual from './SignupOfferIndividual'
 
 export default {
   title: 'SignupOfferIndividual',
-  component: SignupOfferIndividual
-} as ComponentMeta<typeof SignupOfferIndividual>;
+  component: SignupOfferIndividual,
+} as ComponentMeta<typeof SignupOfferIndividual>
 
-const Template: ComponentStory<typeof SignupOfferIndividual> = (args) => <SignupOfferIndividual {...args} />;
+const Template: ComponentStory<typeof SignupOfferIndividual> = () => (
+  <SignupOfferIndividual />
+)
 
-export const Default = Template.bind({});
+export const Default = Template.bind({})
 Default.args = {
-  defaultProps: 'SignupOfferIndividual default props'
+  defaultProps: 'SignupOfferIndividual default props',
 }
 Default.parameters = {
   design: {
