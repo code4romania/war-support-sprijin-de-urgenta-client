@@ -55,7 +55,7 @@ export const OfferTransportGoodsForm = ({
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     availability: yup
       .string()
-      .required('error.availability.required')
+      .required(t('error.availability.required'))
       .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),

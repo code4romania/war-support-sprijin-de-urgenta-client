@@ -104,7 +104,6 @@
   "services.driver-name": "Driver Name",
   "services.driver-ci": "Series And ID No:",
   "services.car-plate": "Car Number:",
-  "services.transport-persons": "Passenger transportation",
   "services.available_seats": "No of seats in the car",
   "services.has_disabled_access": "Transport of people with disabilities",
   "services.pets_allowed": "Transportation with pets",
