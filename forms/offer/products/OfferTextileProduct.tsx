@@ -47,7 +47,7 @@ export const OfferTextileProduct: FC<IProps> = ({
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
     town: yup.string(),
-    quantity: yup.number().typeError(t('error.must.be.number')),
+    quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
     unit_type: yup.string().required(t('error.unitType.required')),
     packaging_type: yup.string().required(t('error.packagkingType.required')),
     has_transportation: yup

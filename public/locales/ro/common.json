@@ -169,6 +169,7 @@
   "error.must.be.boolean": "Alegeți o opțiune",
   "services.driverContact": "Număr de telefon",
   "error.county.minOne": "Trebuie să selectați minim un județ",
+  "error.quantity.minOne": "Cantitatea trebuie sa fie mai mare sau egala cu 1",
   "controls.counties.selected": "județe selectate",
   "gdpr.consent": "Prin completarea formularului accept ca datele mele să fie procesate de Departamentul pentru Situații de Urgență. Cunosc faptul că Departamentul pentru Situații de Urgență prelucrează datele mele cu caracter personal în baza prevederilor Regulamentului (UE) 2016/679.",
   "signup.error.gdpr.required": "Pentru a merge mai departe trebuie să vă dați acordul cu privire la procesarea datelor cu caracter personal",

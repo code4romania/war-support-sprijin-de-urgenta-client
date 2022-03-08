@@ -40,7 +40,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     town: yup.string(),
-    quantity: yup.number().typeError(t('error.must.be.number')),
+    quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
     tent_capacity: yup.number().required(t('error.tentCapacity.required')),
     unit_type: yup.string(),
   })
@@ -85,6 +85,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         {...register('quantity')}
         label={t('signup.products.qty')}
         labelPosition="horizontal"
+        errors={errors && errors['quantity']}
       />
       <div className="flex gap-4">
         <Input

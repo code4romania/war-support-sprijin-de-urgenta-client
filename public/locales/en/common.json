@@ -165,6 +165,7 @@
   "error.must.be.boolean": "Choose an option",
   "services.driverContact": "Phone number",
   "error.county.minOne": "You must select at least one county",
+  "error.quantity.minOne": "Quantity must be greater than or equal to 1",
   "controls.counties.selected": "selected counties",
   "gdpr.consent": "By completing the Form I consent that my personal data may be processed by The Department for Emergency Situations. I acknowledge that the Department for Emergency Situations processes my personal data based on the provisions Of Regulation (EU) 2016/679",
   "signup.error.gdpr.required": "To proceed, you must agree to the processing of your personal data",

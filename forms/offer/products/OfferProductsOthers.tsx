@@ -48,7 +48,7 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit, category }
     name: yup.string().required(t('error.productName.required')),
     unit_type: yup.string().required(t('error.unitType.required')),
     description: yup.string().typeError(t('error.must.be.string')),
-    quantity: yup.number().typeError(t('error.must.be.number')),
+    quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
     packaging_type: yup.string().typeError(t('error.must.be.string')),
   })
 
