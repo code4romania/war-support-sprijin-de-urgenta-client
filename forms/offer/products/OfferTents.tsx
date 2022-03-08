@@ -1,4 +1,3 @@
-import { Label } from '@/components/Form/common'
 import Input from '@/components/Form/Input'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
@@ -41,7 +40,12 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       .required(t('error.has_transportation.required')),
     town: yup.string(),
     quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
-    tent_capacity: yup.number().required(t('error.tentCapacity.required')),
+    tent_capacity: yup
+      .number()
+      .min(1, t('error.quantity.minOne'))
+      .integer()
+      .typeError(t('error.must.be.number'))
+      .required(t('error.tentCapacity.required')),
     unit_type: yup.string(),
   })
 
@@ -63,7 +67,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
       unit_type: 'tent',
-      category
+      category,
     }
     onSubmit(donateItemRequest)
   }
@@ -87,20 +91,13 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         labelPosition="horizontal"
         errors={errors && errors['quantity']}
       />
-      <div className="flex gap-4">
-        <Input
-          type="number"
-          label={t('signup.products.capacity')}
-          {...register('tent_capacity')}
-          labelPosition="horizontal"
-        />
-        <Label
-          name={t('signup.products.persons')}
-          className={'translate-y-[10px] flex-[1_0_25%]'}
-        >
-          {t('signup.products.persons')}
-        </Label>
-      </div>
+      <Input
+        type="number"
+        label={t('signup.products.capacity')}
+        {...register('tent_capacity')}
+        labelPosition="horizontal"
+        placeholder={t('signup.products.persons')}
+      />
       <Location
         counties={counties}
         control={control}
