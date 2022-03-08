@@ -23,7 +23,7 @@ const Component = React.forwardRef<
       errors,
       required,
       children,
-      labelPosition
+      labelPosition,
     },
     ref
   ) => {
@@ -42,16 +42,21 @@ const Component = React.forwardRef<
     return (
       <div className={clsx(className)}>
         {children}
-        <div className={clsx({
-          'flex flex-row items-center horizontal-label': labelPosition === 'horizontal',
-        })}>
+        <div
+          className={clsx({
+            'flex flex-row items-center horizontal-label':
+              labelPosition === 'horizontal',
+          })}
+        >
           {label && !hideLabel && (
             <Label
               name={name}
-              hasError={!!errors}
-              className={clsx({ 'flex-[1_0_50%]': labelPosition === 'horizontal' })}
+              className={clsx({
+                'flex-[1_0_50%]': labelPosition === 'horizontal',
+              })}
             >
-              {label}{required && <Required /> }
+              {label}
+              {required && <Required />}
             </Label>
           )}
           <div ref={ref} className={'flex flex-[1_0_50%] flex-col mt-1'}>

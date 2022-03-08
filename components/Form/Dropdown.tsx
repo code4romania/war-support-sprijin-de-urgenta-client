@@ -17,23 +17,31 @@ import { ErrorLabel } from '@/components/Form/ErrorLabel'
  */
 
 // eslint-disable-next-line react/display-name
-const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
-    name,
-    errors,
-    label,
-    children,
-    hideLabel = false,
-    className,
-    noValidations,
-    placeholder,
-    required,
-    ...rest
-  }, ref) => {
+const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(
+  (
+    {
+      name,
+      errors,
+      label,
+      children,
+      hideLabel = false,
+      className,
+      noValidations,
+      placeholder,
+      required,
+      ...rest
+    },
+    ref
+  ) => {
     return (
-      <ElementWrapper hasError={!!errors} className={className} noValidations={noValidations}>
+      <ElementWrapper
+        hasError={!!errors}
+        className={className}
+        noValidations={noValidations}
+      >
         {label && !hideLabel && (
-          <Label name={name} hasError={!!errors}>
-            {label} {required && <Required /> }
+          <Label name={name}>
+            {label} {required && <Required />}
           </Label>
         )}
 
@@ -46,7 +54,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
               'block w-full h-10 mt-1',
               'border border-gray-200 rounded-md',
               'px-2 py-1.5',
-              {'border-red-50 border-2': errors}
+              { 'border-red-50 border-2': errors }
             )}
             {...rest}
           >
