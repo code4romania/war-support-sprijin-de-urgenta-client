@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-
 import Location from 'forms/common/Location'
 import Product from 'forms/common/Product'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
@@ -14,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { dateInTheFutureValidator, validDateValidator } from 'forms/validators'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -34,7 +34,9 @@ type OfferBuildingMaterialsForm = {
 
 export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation()
-
+  const { name: dateInFutureTestName, test: dateInFutureTest } = dateInTheFutureValidator;
+  const { name: validDateTestName, test: validDateTest } = validDateValidator;
+  
   const buildingMaterialsSchema: SchemaOf<OfferBuildingMaterialsForm> = yup
     .object()
     .shape({
@@ -51,7 +53,11 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, categor
       quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
       unit_type: yup.string().required(t('error.unitType.required')),
       packaging_type: yup.string().required(t('error.packagkingType.required')),
-      expiration_date: yup.mixed().typeError(t('error.must.be.date')),
+      expiration_date: yup
+        .string()
+        .required(t('validation.required'))
+        .test(validDateTestName, t('validation.date.invalid'), validDateTest)
+        .test(dateInFutureTestName, t('validation.date.must.be.in.future'), dateInFutureTest)
     })
 
   const {
