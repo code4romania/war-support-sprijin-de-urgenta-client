@@ -240,5 +240,6 @@
   "endpoints./api/v1/donate/item/": "Produse",
   "endpoints./api/v1/donate/other": "Altele",
   "endpoints./api/v1/donate/transport_service": "Servicii",
-  "endpoints./api/v1/donate/volunteering": "Voluntariat"
+  "endpoints./api/v1/donate/volunteering": "Voluntariat",
+  "error.value.must.be.non.zero": "Valoarea trebuie sa fie mai mare ca 0"
 }

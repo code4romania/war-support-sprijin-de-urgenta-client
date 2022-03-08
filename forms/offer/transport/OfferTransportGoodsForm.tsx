@@ -92,7 +92,7 @@ export const OfferTransportGoodsForm = ({
       .typeError(t('error.must.be.string')),
     weight_capacity: yup
       .number()
-      .min(1, t('error.quantity.minOne'))
+      .moreThan(0, t('error.value.must.be.non.zero'))
       .required(t('validation.required'))
       .typeError(t('error.must.be.number'))
   })
