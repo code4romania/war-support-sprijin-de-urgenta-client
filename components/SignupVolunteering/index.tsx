@@ -24,7 +24,9 @@ const SignupVolunteering = ({
 }: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
   const { data: formData } = useVolunteeringForm(FormPageProps.Offer)
-  const { data: categoriesList } = useData(endpoints['categories/volunteering'])
+  const { data: volunteeringCategoriesList } = useData(endpoints['categories/volunteering'])
+  
+  const categoriesList = volunteeringCategoriesList?.map((category: any) => ({ name: t(category.name), ...category }));
 
   const tableColumns = [t('resources.volunteering')]
 

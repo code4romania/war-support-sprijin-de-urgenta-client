@@ -37,13 +37,18 @@ const translate = async () => {
   const langJsonArray = await csv().fromFile(csvFilePath)
 
   for (const [key, value] of Object.entries(localesMap)) {
+    const langJson = JSON.parse(fs.readFileSync(`${localesFolderPath}/${key}/common.json`, 'utf8'));
+
     const languagesMapped = langJsonArray.reduce(
-      (acc, cur) => ({ ...acc, [cur[identifier]]: cur[value] }),
+      (acc, cur) => ({ ...acc, [cur[identifier]]: cur[value]?.trim() }),
       {},
     )
-
+    
+    // add file translations so we won't loose them
+    // If both objects have a property with the same name, then the second object property overwrites the first
+    var data =  {...langJson, ...languagesMapped }
     await mkdirp(`${localesFolderPath}/${key}`)
-    fs.writeFileSync(`${localesFolderPath}/${key}/common.json`, JSON.stringify(languagesMapped, null, "  "))
+    fs.writeFileSync(`${localesFolderPath}/${key}/common.json`, JSON.stringify(data, null, "  "))
   }
 }
 

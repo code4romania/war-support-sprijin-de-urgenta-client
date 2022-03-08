@@ -43,7 +43,7 @@ export const OfferVolunteeringForm: FC<IProps> = ({
       category: yup
         .number()
         .typeError(t('error.must.be.number'))
-        .required(t('error.type.required')),
+        .required(t('validation.required')),
       town: yup.string().typeError(t('error.must.be.string')),
       description: yup.string().typeError(t('error.must.be.string')),
       available_until: yup.string().typeError(t('error.must.be.string')),

@@ -221,5 +221,9 @@
   "error.availability.required": "Выберите значение",
   "resources.product": "Товар",
   "resources.quantity": "Количество",
-  "resources.added.products": "Добавленные товары"
+  "resources.added.products": "Добавленные товары",
+  "services.transport-persons": "Пассажирские перевозки",
+  "services.offerTransport": "Можем обеспечить транспорт",
+  "error.value.must.be.non.zero": "",
+  "validation.date.must.be.in.future": ""
 }

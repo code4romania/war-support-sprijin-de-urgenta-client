@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "gc": "node ./scripts/generate_component/index.js",
-    "translate": "node ./scripts/translate",
+    "translate": "node ./scripts/translate/populate-locales.js",
+    "generate-translations-csv": "node ./scripts/translate/generate-translations-csv.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -62,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
+    "csv-stringify": "^6.0.5",
     "csvtojson": "^2.0.10",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
