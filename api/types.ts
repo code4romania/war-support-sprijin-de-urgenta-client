@@ -66,62 +66,65 @@ export enum TransportCategories {
 export type DonateItemRequest = {
   county_coverage: string[]
   has_transportation?: boolean
-  town?: string,
-  description?: string,
-  status?: string,
-  name: string,
+  town?: string
+  description?: string
+  status?: string
+  name: string
   quantity?: number
-  packaging_type?: string,
-  unit_type: string,
-  expiration_date?: string,
+  packaging_type?: string
+  unit_type?: string
+  expiration_date?: string
   stock?: number
-  kids_age?: string,
-  other_textiles?: string,
+  kids_age?: string
+  other_textiles?: string
   tent_capacity?: number
   donor?: number
   category?: number
   textile_category?: number
+  kind: 'withName'
 }
 
 //New type for OfferTents and OfferTextileProduct
 export type DonateItemRequestWithoutName = {
+  kind: 'noName',
   county_coverage: string[]
   has_transportation?: boolean
-  town?: string,
+  town?: string
   quantity?: number
-  packaging_type?: string,
-  unit_type?: string,
-  kids_age?: string,
-  other_textiles?: string,
+  packaging_type?: string
+  unit_type?: string
+  kids_age?: string
+  other_textiles?: string
   tent_capacity?: number
   category?: number
   textile_category?: number
+  donor?: string
 }
+
+export type DonateItemRequestUnion = DonateItemRequest | DonateItemRequestWithoutName
 
 export type DonateVolunteeringRequest = {
   type: number
   town?: string
-  name: string;
+  name: string
   description?: string
   available_until?: string
-  county_coverage: string[],
+  county_coverage: string[]
 }
 
-
 export type DonateOtherRequest = {
-  name: string,
+  name: string
   category: number
-  description?: string,
-  available_until?: string,
+  description?: string
+  available_until?: string
   county_coverage?: string[]
   town?: string
 }
 
-
 export type ServerError = {
-  endpoint: string,
-  error: Record<string, string[]>[],
-  status: number,
+  endpoint: string
+  error: Record<string, string[]>[]
+  status: number
   statusText: string
 }
 

@@ -1,24 +1,23 @@
 import Input from '@/components/Form/Input'
+import Radio from '@/components/Form/Radio'
+import RadioGroup from '@/components/Form/RadioGroup'
+import { DonateItemRequestWithoutName } from 'api'
+import clsx from 'clsx'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
-import { DonateItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelectOption } from '../../../components/Form/types'
-import RadioGroup from '@/components/Form/RadioGroup'
-import Radio from '@/components/Form/Radio'
-import clsx from 'clsx'
 
 interface IProps {
   counties?: MultiSelectOption[]
   category: number
-  onSubmit: (values: DonateItemRequest) => void
+  onSubmit: (values: DonateItemRequestWithoutName) => void
 }
 type RequestTentsForm = {
   county_coverage: string[]
   town: string
-  name: string
   quantity: number
   tent_capacity: number
   unit_type: string
@@ -34,10 +33,11 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     control,
   } = useForm<RequestTentsForm>()
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = {
+  const onFormSubmit = (values: RequestTentsForm) => {
+    const donateItemRequest: DonateItemRequestWithoutName = {
       ...values,
       unit_type: 'tent',
+      kind: 'noName'
     }
     onSubmit(donateItemRequest)
   }

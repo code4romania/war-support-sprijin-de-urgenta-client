@@ -39,8 +39,8 @@ export const RequestBuildingMaterials: FC<IProps> = ({
     control,
   } = useForm<RequestBuildingMaterialsForm>()
 
-  const onFormSubmit = (values: DonateItemRequest) => {
-    const donateItemRequest: DonateItemRequest = { ...values }
+  const onFormSubmit = (values: RequestBuildingMaterialsForm) => {
+    const donateItemRequest: DonateItemRequest = { ...values, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 

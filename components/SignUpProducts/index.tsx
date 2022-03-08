@@ -1,26 +1,22 @@
+import ResourcesForm from '@/components/ResourcesForm'
 import { useProductsForm } from '@/hooks/useData'
-import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
-import React, { ReactNode, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { DonateItemRequest, DonateItemRequestUnion, DonateItemRequestWithoutName } from 'api'
+import clsx from 'clsx'
 import {
   OfferBuildingMaterials,
   OfferGenericProduct,
   OfferProductsOthers,
   OfferTents,
-  OfferTextileProduct,
-  RequestBuildingMaterials,
-  RequestGenericProduct,
-  RequestTents,
-  RequestTextileProduct,
+  OfferTextileProduct, RequestBuildingMaterials, RequestGenericProduct, RequestTents, RequestTextileProduct
 } from 'forms'
-import ResourcesForm from '@/components/ResourcesForm'
-import clsx from 'clsx'
+import { ReactNode, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IResourcesCategoriesProps } from '../../forms/types'
 import { FormPageProps } from '../FormPage/FormPage'
 
 export interface ISignUpProductsProps {
-  items: DonateItemRequest[] | DonateItemRequestWithoutName[]
-  onAddItem: (item: DonateItemRequest | DonateItemRequestWithoutName) => void
+  items: DonateItemRequestUnion[]
+  onAddItem: (item: DonateItemRequestUnion) => void
   type: FormPageProps
   onRemoveItem: (index: number) => void
 }
@@ -122,10 +118,10 @@ const SignUpProducts = ({
             category={4}
           />
         ) : (
-          <RequestGenericProduct
+          <RequestTextileProduct
             onSubmit={onProductAdd}
+            resourceType="textile"
             counties={countyChoices}
-            category={4}
           />
         ),
     },
@@ -140,10 +136,9 @@ const SignUpProducts = ({
             category={5}
           />
         ) : (
-          <RequestGenericProduct
+          <RequestBuildingMaterials
             onSubmit={onProductAdd}
             counties={countyChoices}
-            category={5}
           />
         ),
     },
@@ -158,7 +153,7 @@ const SignUpProducts = ({
             category={6}
           />
         ) : (
-          <RequestGenericProduct
+          <RequestTents
             onSubmit={onProductAdd}
             counties={countyChoices}
             category={6}
@@ -208,7 +203,12 @@ const SignUpProducts = ({
         categories={categories}
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}
-        tableItems={items}
+        tableItems={items.map(item => {
+          if (item.kind === 'noName')
+            return { ...item, name: item.unit_type === 'tent' ? t('signup.products.tents') : t('signup.products.textile') }
+          else
+            return item;
+        })}
         onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}

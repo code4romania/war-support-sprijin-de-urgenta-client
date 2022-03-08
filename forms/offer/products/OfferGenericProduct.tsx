@@ -75,7 +75,7 @@ export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }
   })
 
   const onFormSubmit = (values: OfferGenericProductForm) => {
-    const donateItemRequest: DonateItemRequest = { ...values, category }
+    const donateItemRequest: DonateItemRequest = { ...values, category, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 
