@@ -1,4 +1,3 @@
-import { Label } from '@/components/Form/common'
 import Input from '@/components/Form/Input'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
@@ -61,20 +60,13 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
-      <div className="flex gap-4">
-        <Input
-          type="number"
-          label={t('signup.products.capacity')}
-          {...register('tent_capacity')}
-          labelPosition="horizontal"
-        />
-        <Label
-          name={t('signup.products.persons')}
-          className={'translate-y-[10px] flex-[1_0_25%]'}
-        >
-          {t('signup.products.persons')}
-        </Label>
-      </div>
+      <Input
+        type="number"
+        label={t('signup.products.capacity')}
+        labelPosition="horizontal"
+        placeholder={t('signup.products.persons')}
+        {...register('tent_capacity')}
+      />
       <Location
         counties={counties}
         control={control}

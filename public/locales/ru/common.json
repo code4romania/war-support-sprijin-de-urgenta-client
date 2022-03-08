@@ -163,6 +163,7 @@
   "services.availability": "Сколько времени вы можете потратить на эти занятия?",
   "services.county.placeholder": "Выберите округ",
   "error.must.be.number": "Значение должно быть числом",
+  "error.integer": "The value must be an integer",
   "error.must.be.boolean": "Выберите вариант",
   "services.driverContact": "Номер телефона",
   "error.county.minOne": "Вы должны выбрать хотя бы один округ",
