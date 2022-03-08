@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import clsx from 'clsx'
 import { FC } from 'react'
 import { SchemaOf } from 'yup'
 import { useForm } from 'react-hook-form'
@@ -90,7 +89,7 @@ export const OfferVolunteeringForm: FC<IProps> = ({
         errors={errors.name}
       />
       <RadioGroup label={t('services.offerTransport')}>
-        <div className={clsx('flex flex-row gap-6')}>
+        <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
           </Radio>
@@ -99,10 +98,10 @@ export const OfferVolunteeringForm: FC<IProps> = ({
           </Radio>
         </div>
       </RadioGroup>
-      <div className={'flex space-x-4'}>
+      <div className="flex gap-4">
         <DropdownMultiSelect
           {...register('county_coverage')}
-          className={clsx('w-1/2 mb-4')}
+          className="w-1/2 mb-4"
           options={counties || []}
           errors={errors['county_coverage']}
           control={control}

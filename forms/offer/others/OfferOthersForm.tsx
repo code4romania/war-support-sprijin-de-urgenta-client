@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../../../components/Form/types'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
-import clsx from 'clsx'
 import DateInput from '@/components/Form/Date'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import { useTranslation } from 'react-i18next'
@@ -38,7 +37,10 @@ export const OfferOthersForm: FC<IProps> = ({
   const { t } = useTranslation()
 
   const otherResourcesSchema: SchemaOf<Form> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(t('error.name.required')),
+    name: yup
+      .string()
+      .typeError(t('error.must.be.string'))
+      .required(t('error.name.required')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.mixed().typeError(t('error.must.be.string')),
     county_coverage: yup
@@ -62,8 +64,8 @@ export const OfferOthersForm: FC<IProps> = ({
     mode: 'all',
     defaultValues: {
       county_coverage: [],
-      available_until: (new Date()).toISOString().split('T')[0]
-    }
+      available_until: new Date().toISOString().split('T')[0],
+    },
   })
 
   const onFormSubmit = (values: Form) => {
@@ -74,7 +76,7 @@ export const OfferOthersForm: FC<IProps> = ({
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup label={t('services.offerTransport')}>
-        <div className={clsx('flex flex-row gap-6')}>
+        <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
           </Radio>
@@ -88,10 +90,10 @@ export const OfferOthersForm: FC<IProps> = ({
         {...register('name')}
         errors={errors['name']}
       />
-      <div className={'flex space-x-4'}>
+      <div className="flex gap-4">
         <DropdownMultiSelect
           {...register('county_coverage')}
-          className={clsx('w-1/2 mb-4')}
+          className="w-1/2 mb-4"
           options={counties || []}
           errors={errors['county_coverage']}
           control={control}
@@ -106,7 +108,7 @@ export const OfferOthersForm: FC<IProps> = ({
       </div>
       <Textarea
         label={t('signup.other.description')}
-        className={clsx('w-full')}
+        className="w-full"
         errors={errors['description']}
         {...register('description')}
       />
