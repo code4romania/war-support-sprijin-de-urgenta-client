@@ -1,5 +1,5 @@
 import { State } from '@/store/types/state.type'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Checkbox from '../Form/Checkbox'
@@ -212,7 +212,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/transport_service']
             : endpoints['request/transport_service']
-        )
+        ).then(() => {
+            if(FormPageProps.Request){
+              setServicesList([])
+            }
+          })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -231,7 +235,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/item']
             : endpoints['request/item']
-        )
+        ).then(() => {
+          if(FormPageProps.Request){
+            setProductsList([])
+          }
+        })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -250,7 +258,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/volunteering']
             : endpoints['request/volunteering']
-        )
+        ).then(() => {
+          if(FormPageProps.Request){
+            setVolunteeringList([])
+          }
+        })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -269,7 +281,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
           type === FormPageProps.Offer
             ? endpoints['donate/other']
             : endpoints['request/other']
-        )
+        ).then(() => {
+          if(FormPageProps.Request){
+            setOthersList([])
+          }
+        })
       } catch (e: any) {
         const error: any[] = e.error
         error.forEach((err, index) => {
@@ -289,6 +305,14 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       setServerErrors(serverErrors)
     }
   }
+  // Submit request form when press Add from modal
+  useEffect(()=> {
+    if(FormPageProps.Request && (productsList.length || servicesList.length || volunteeringList.length || othersList.length)){
+      console.log("useEFFECT")
+      console.log("productsList in useEffect: ", productsList);
+      handleSubmit();
+    }
+  },[servicesList, productsList, volunteeringList, othersList])
 
   return (
     <div className="space-y-4">
