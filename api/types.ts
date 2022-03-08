@@ -25,6 +25,7 @@ export type OfferTransportServicesRequest = {
 
 
 export type RequestTransportServicesRequest = {
+  made_by?: string
   weight_capacity?: number
   weight_unit?: string
   has_refrigeration?: boolean
@@ -79,6 +80,7 @@ export type DonateItemRequest = {
   other_textiles?: string
   tent_capacity?: number
   donor?: number
+  made_by?: number
   category?: number
   textile_category?: number
   kind: 'withName'
@@ -99,6 +101,7 @@ export type DonateItemRequestWithoutName = {
   category?: number
   textile_category?: number
   donor?: string
+  made_by?: number
 }
 
 export type DonateItemRequestUnion = DonateItemRequest | DonateItemRequestWithoutName
@@ -110,6 +113,7 @@ export type DonateVolunteeringRequest = {
   description?: string
   available_until?: string
   county_coverage: string[]
+  made_by?: string
 }
 
 export type DonateOtherRequest = {
@@ -119,6 +123,7 @@ export type DonateOtherRequest = {
   available_until?: string
   county_coverage?: string[]
   town?: string
+  made_by?: string
 }
 
 export type ServerError = {

@@ -30,7 +30,9 @@ const isEmpty = (array: any[]) => array.length === 0
 const SignUpResources = ({ type }: ISignUpResources) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
-  const { userPk: donor } = useSelector((state: State) => state.auth)
+  const { userPk } = useSelector((state: State) => state.auth)
+  const donor = userPk;
+  const made_by = userPk;
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
@@ -50,7 +52,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (data.kind === FormPageProps.Offer) {
       setServicesList((state) => [...state, { ...data, donor }])
     } else if (data.kind === FormPageProps.Request) {
-      setServicesList([data])
+      setServicesList([{...data, made_by}])
       setShouldSubmit(true)
     }
   }
@@ -67,11 +69,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (type === FormPageProps.Offer) {
       setProductsList((state) => [...state, { ...data, donor }])
     } else {
-      setProductsList([data])
+      setProductsList([{...data, made_by}])
       setShouldSubmit(true)
     }
   }
-  
+
   const onRemoveProduct = (index: number) => {
     setProductsList(removeItem(productsList, index))
   }
@@ -83,7 +85,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (type === FormPageProps.Offer) {
       setVolunteeringList((state) => [...state, { ...data, donor }])
     } else {
-      setVolunteeringList([data])
+      setVolunteeringList([{...data, made_by}])
       setShouldSubmit(true)
     }
   }
@@ -96,7 +98,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (type === FormPageProps.Offer) {
       setOthersList((state) => [...state, { ...data, donor }])
     } else {
-      setOthersList([data])
+      setOthersList([{...data, made_by}])
       setShouldSubmit(true)
     }
   }
