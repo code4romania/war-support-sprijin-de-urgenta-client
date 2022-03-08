@@ -32,7 +32,7 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
     return (
       <ElementWrapper hasError={!!errors} className={className} noValidations={noValidations}>
         {label && !hideLabel && (
-          <Label name={name} hasError={!!errors}>
+          <Label name={name}>
             {label} {required && <Required /> }
           </Label>
         )}

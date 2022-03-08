@@ -15,7 +15,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   return (
     <ElementWrapper hasError={!!errors}>
       {label && (
-        <Label name={name} hasError={!!errors}>
+        <Label name={name}>
           {label}{required && <Required /> }
         </Label>
       )}

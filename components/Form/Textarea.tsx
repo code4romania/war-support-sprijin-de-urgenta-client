@@ -15,7 +15,7 @@ const Element = forwardRef<HTMLTextAreaElement, TextareaElementProps>(({
     return (
       <ElementWrapper hasError={!!errors} className={className}>
         {label && (
-          <Label name={name} hasError={!!errors}>
+          <Label name={name}>
             {label}{required && <Required /> }
           </Label>
         )}

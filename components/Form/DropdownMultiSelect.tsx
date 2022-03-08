@@ -48,7 +48,6 @@ const Component = React.forwardRef<
           {label && !hideLabel && (
             <Label
               name={name}
-              hasError={!!errors}
               className={clsx({ 'flex-[1_0_50%]': labelPosition === 'horizontal' })}
             >
               {label}{required && <Required /> }
