@@ -12,7 +12,8 @@ import Button from '@/components/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SchemaOf } from 'yup'
 import * as yup from 'yup'
-import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -26,6 +27,7 @@ type Form = {
   available_until?: string
   county_coverage: string[]
   town?: string
+  has_transportation?: boolean
 }
 
 export const OfferOthersForm: FC<IProps> = ({
@@ -44,6 +46,10 @@ export const OfferOthersForm: FC<IProps> = ({
       .min(1, t('error.county.minOne'))
       .of(yup.string().required()),
     town: yup.string().typeError(t('error.must.be.string')),
+    has_transportation: yup
+      .boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.has_transportation.required')),
   })
   const {
     handleSubmit,
@@ -67,6 +73,16 @@ export const OfferOthersForm: FC<IProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup label={t('services.offerTransport')}>
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('has_transportation')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('has_transportation')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Input
         label={t('signup.other.name')}
         {...register('name')}
