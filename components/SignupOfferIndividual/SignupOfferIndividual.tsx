@@ -14,6 +14,7 @@ const SignupOfferIndividual = () => {
       </div>
       <div className={'max-w-[30ch]'}>
         <Button
+          target={"_blank"}
           text={t('signup.offer.individualCard.ctaButton')}
           route={'https://harta.sprijindeurgenta.ro'}
           size={'medium'}
