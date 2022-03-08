@@ -162,6 +162,7 @@
   "services.availability": "Скільки часу ви можете витратити на ці дії?",
   "services.county.placeholder": "Виберіть округ",
   "error.must.be.number": "Значення має бути числом",
+  "error.integer": "The value must be an integer",
   "error.must.be.boolean": "Виберіть варіант",
   "services.driverContact": "номер телефону",
   "error.county.minOne": "Ви повинні вибрати принаймні однин округ",

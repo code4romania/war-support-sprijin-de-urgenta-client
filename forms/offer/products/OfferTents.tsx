@@ -42,8 +42,8 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
     tent_capacity: yup
       .number()
+      .integer(t('error.integer'))
       .min(1, t('error.quantity.minOne'))
-      .integer()
       .typeError(t('error.must.be.number'))
       .required(t('error.tentCapacity.required')),
     unit_type: yup.string(),
@@ -97,6 +97,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         {...register('tent_capacity')}
         labelPosition="horizontal"
         placeholder={t('signup.products.persons')}
+        errors={errors && errors['tent_capacity']}
       />
       <Location
         counties={counties}
