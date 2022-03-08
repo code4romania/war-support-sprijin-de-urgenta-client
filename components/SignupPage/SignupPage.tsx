@@ -40,7 +40,6 @@ const SignupPage = ({ resourceType }: ISignupPageProps) => {
                 <SignupOffer>
                   <UserTypeForm
                     resourceType="offer"
-                    userType={userType}
                     updateUserType={setUserType}
                   />
                 </SignupOffer>
@@ -48,7 +47,6 @@ const SignupPage = ({ resourceType }: ISignupPageProps) => {
                 <div className="px-3 ">
                   <UserTypeForm
                     resourceType="request"
-                    userType={userType}
                     updateUserType={setUserType}
                   />
                 </div>
