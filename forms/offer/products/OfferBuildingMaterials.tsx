@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { dateInTheFutureValidator, validDateValidator } from 'forms/validators'
+import { dateInTheFutureValidator, dateStringValidator } from 'forms/validators'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -34,8 +34,6 @@ type OfferBuildingMaterialsForm = {
 
 export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation()
-  const { name: dateInFutureTestName, test: dateInFutureTest } = dateInTheFutureValidator;
-  const { name: validDateTestName, test: validDateTest } = validDateValidator;
   
   const buildingMaterialsSchema: SchemaOf<OfferBuildingMaterialsForm> = yup
     .object()
@@ -56,8 +54,8 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, categor
       expiration_date: yup
         .string()
         .required(t('validation.required'))
-        .test(validDateTestName, t('validation.date.invalid'), validDateTest)
-        .test(dateInFutureTestName, t('validation.date.must.be.in.future'), dateInFutureTest)
+        .test(dateStringValidator.name, t('validation.date.invalid'), dateStringValidator.test)
+        .test(dateInTheFutureValidator.name, t('validation.date.must.be.in.future'), dateInTheFutureValidator.test)
     })
 
   const {

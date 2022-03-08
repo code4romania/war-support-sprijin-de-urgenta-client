@@ -14,7 +14,7 @@ import clsx from 'clsx'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { dateInTheFutureValidator, validDateValidator } from 'forms/validators'
+import { dateInTheFutureValidator, dateStringValidator } from 'forms/validators'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -35,8 +35,6 @@ type OfferGenericProductForm = {
 
 export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation('common');
-  const { name: dateInFutureTestName, test: dateInFutureTest } = dateInTheFutureValidator;
-  const { name: validDateTestName, test: validDateTest } = validDateValidator;
 
   const genericProductSchema: SchemaOf<OfferGenericProductForm> = yup
     .object()
@@ -57,8 +55,8 @@ export const OfferGenericProduct: FC<IProps> = ({ counties, onSubmit, category }
       expiration_date: yup
         .string()
         .required(t('validation.required'))
-        .test(validDateTestName, t('validation.date.invalid'), validDateTest)
-        .test(dateInFutureTestName, t('validation.date.must.be.in.future'), dateInFutureTest)
+        .test(dateStringValidator.name, t('validation.date.invalid'), dateStringValidator.test)
+        .test(dateInTheFutureValidator.name, t('validation.date.must.be.in.future'), dateInTheFutureValidator.test)
     })
 
   const {

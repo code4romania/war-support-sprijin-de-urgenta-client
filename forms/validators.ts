@@ -17,7 +17,8 @@ export const dateInTheFutureValidator: IYupTest<string | undefined, AnyObject> =
     return false;
   }
 };
-export const validDateValidator: IYupTest<string | undefined, AnyObject> = {
+
+export const dateStringValidator: IYupTest<string | undefined, AnyObject> = {
   name: 'ensure_date_valid',
   test: (date) => {
     if (date === '' || date === null || date === undefined) return false;
