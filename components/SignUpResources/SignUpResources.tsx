@@ -308,8 +308,6 @@ const SignUpResources = ({ type }: ISignUpResources) => {
   // Submit request form when press Add from modal
   useEffect(()=> {
     if(FormPageProps.Request && (productsList.length || servicesList.length || volunteeringList.length || othersList.length)){
-      console.log("useEFFECT")
-      console.log("productsList in useEffect: ", productsList);
       handleSubmit();
     }
   },[servicesList, productsList, volunteeringList, othersList])
