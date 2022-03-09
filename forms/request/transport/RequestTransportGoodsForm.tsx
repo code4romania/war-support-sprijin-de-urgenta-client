@@ -59,7 +59,7 @@ export const RequestTransportGoodsForm = ({
     has_refrigeration: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_refrigeration.required')),
+      .required(t('validation.required')),
     weight_unit: yup.string().typeError(t('error.must.be.string')),
     weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })

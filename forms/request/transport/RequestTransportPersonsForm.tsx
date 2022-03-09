@@ -70,11 +70,11 @@ export const RequestTransportPersonsForm = ({
     has_disabled_access: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.boolean.required')),
+      .required(t('validation.required')),
     pets_allowed: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.boolean.required')),
+      .required(t('validation.required')),
     type: yup.string(),
   })
 

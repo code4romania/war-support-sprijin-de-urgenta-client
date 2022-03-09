@@ -1,7 +1,7 @@
 {
   "en": "Англійська",
   "ro": "Румунська",
-  "ua": "Українська",
+  "uk": "Українська",
   "ru": "Російська",
   "source.code": "Вихідний код",
   "homepage.option_one": "Я хочу допомогти",
@@ -155,7 +155,7 @@
   "error.driverName.required": "Введіть ім'я водія",
   "error.driverCI.required": "Введіть серію та номер «внутрішнього» паспорта",
   "error.driverContact.required": "Введіть свій номер телефону",
-  "error.driverContact.invalid": "\nЦей номер телефону недійсний",
+  "error.driverContact.invalid": "Цей номер телефону недійсний",
   "error.carRegistration.required": "Введіть реєстраційний номер автомобіля",
   "error.carRegistation.invalid": "Реєстраційний номер має бути у формі B22BOM",
   "error.driverCI.invalid": "Серійний номер і номер повинні бути у формі XT555222",
@@ -219,5 +219,10 @@
   "error.availability.required": "Виберіть значення",
   "resources.product": "Продукт",
   "resources.quantity": "Кількість",
-  "resources.added.products": "Додані продукти"
+  "resources.added.products": "Додані продукти",
+  "services.transport-persons": "Пасажирські перевезення",
+  "services.offerTransport": "Можемо забезпечити транспорт",
+  "error.quantity.minOne": "",
+  "error.value.must.be.non.zero": "",
+  "validation.date.must.be.in.future": ""
 }
