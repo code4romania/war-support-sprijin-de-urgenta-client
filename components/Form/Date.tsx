@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
-import { ElementWrapper, Label } from "@/components/Form/common";
+import { ElementWrapper, Label, Required } from "@/components/Form/common";
 import { InputElementProps } from "@/components/Form/types";
 import { ErrorLabel } from "./ErrorLabel";
 
@@ -10,12 +10,13 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
   errors,
   value,
   helpText,
+  required,
   ...rest
 }, ref) => {
   return (
     <ElementWrapper hasError={!!errors}>
       {label && (
-        <Label name={name} hasError={!!errors}>{label}</Label>
+        <Label name={name}>{label} {required && <Required /> }</Label>
       )}
 
       {helpText}
@@ -26,6 +27,7 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
         value={value}
         type="date"
         ref={ref}
+        required={required}
         className={clsx(
           'block w-full h-10 mt-1',
           'px-3 py-2',

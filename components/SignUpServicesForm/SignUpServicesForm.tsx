@@ -1,148 +1,93 @@
-import Button from '@/components/Button'
+import ResourcesForm, {
+  ICategoryProps
+} from '@/components/ResourcesForm/ResourcesForm'
 import { TransportServicesRequest } from 'api/types'
 import clsx from 'clsx'
-import { TransportGoodsForm } from 'forms'
-import { TransportPersonsForm } from 'forms/TransportPersonsForm'
-import { useState } from 'react'
+import {
+  OfferTransportGoodsForm, OfferTransportPersonsForm, RequestTransportGoodsForm,
+  RequestTransportPersonsForm
+} from 'forms'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Dialog from '../Dialog'
-import ResourcesTableList from '../ResourcesTableList'
+import { FormPageProps } from '../FormPage/FormPage'
 
-export const SignUpServicesForm = () => {
+interface ISignUpServicesFormProps {
+  items: TransportServicesRequest[]
+  onAddItem: (data: TransportServicesRequest) => void
+  type: FormPageProps
+  onRemoveItem: (index: number) => void
+}
+
+export const SignUpServicesForm = ({
+  type,
+  items,
+  onAddItem,
+  onRemoveItem,
+}: ISignUpServicesFormProps) => {
   const { t } = useTranslation()
 
   const [showDialog, setShowDialog] = useState(false)
-  const [showForm, setShowForm] = useState<
-    'transportGoods' | 'transportPersons'
-  >()
 
-  const [goodsList, setGoodsList] = useState<TransportServicesRequest[]>([])
-  const [personsTransportList, setPersonsTransportList] = useState<
-    TransportServicesRequest[]
-  >([])
-
-  const onTransportGoodsSubmit = (data: TransportServicesRequest) => {
-    setGoodsList((state) => [...state, data])
-    handleDialogDismiss()
-  }
-
-  const onTransporPersonsSubmit = (data: TransportServicesRequest) => {
-    setPersonsTransportList((state) => [...state, data])
-    handleDialogDismiss()
-  }
-
-  const onGoodsRemoved = (itemName: string) => {
-    const index = goodsList.findIndex((t) => t.driver_name === itemName)
-    if (index > -1) {
-      goodsList.splice(index, 1)
-      setGoodsList(goodsList)
-    }
-  }
-  const handleDialogDismiss = () => {
+  const onAddService = (data: TransportServicesRequest) => {
+    onAddItem(data)
     setShowDialog(false)
-    setShowForm(undefined)
   }
+
+  const categories: ICategoryProps[] = [
+    {
+      resourceType: 'goods',
+      label: 'services.transport-goods',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTransportGoodsForm onSubmit={onAddService} />
+        ) : (
+          <RequestTransportGoodsForm onSubmit={onAddService} />
+        ),
+    },
+    {
+      resourceType: 'people',
+      label: 'services.transport-people',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTransportPersonsForm onSubmit={onAddService} />
+        ) : (
+          <RequestTransportPersonsForm onSubmit={onAddService} />
+        ),
+    },
+  ]
+
+  const resourcesTableColumns = [t('services.driver-name')]
+  const tableItems = useMemo(() => {
+    return items.map((item) => {
+      if (item.kind === FormPageProps.Offer) {
+        return {
+          ...item,
+          name: item.driver_name,
+        }
+      }
+    }).filter(item => item)
+  }, [items])
 
   return (
     <section
       className={clsx(
         'container grid place-items-start',
         'bg-blue-50 rounded',
-        'px-8 py-7'
+        'px-8 py-7 w-full'
       )}
     >
       <h3 className="mb-8 text-xl font-semibold">{t('services')}</h3>
-      <div className={clsx('w-full')}>
-        <div
-          className={clsx(
-            'flex flex-col items-center w-full gap-4 mb-6 ',
-            'md:flex-row md:items-start'
-          )}
-        >
-          <div className="flex items-center w-full gap-4">
-            <h4 className="flex-1 min-w-fit">
-              {t('services.transport-goods')}
-            </h4>
-            <Button
-              text={t('add')}
-              size="small"
-              className="flex-1"
-              variant="tertiary"
-              onClick={() => {
-                setShowForm('transportGoods')
-                setShowDialog(true)
-              }}
-            />
-          </div>
-          <div className="w-full md:flex-[1_0_50%]">
-            {goodsList.length > 0 && (
-              <ResourcesTableList
-                columns={[t('services.driver-name')]}
-                list={goodsList.map((t) => ({
-                  id: t.driver_name,
-                  name: t.driver_name,
-                }))}
-                onItemRemoved={onGoodsRemoved}
-              />
-            )}
-          </div>
-        </div>
-        <div
-          className={clsx(
-            'flex flex-col items-center w-full gap-4 ',
-            'md:flex-row md:items-start'
-          )}
-        >
-          <div className="flex items-center w-full gap-4">
-            <h4 className="flex-1 min-w-fit">
-              {t('services.transport-people')}
-            </h4>
-            <Button
-              text={t('add')}
-              className="flex-1"
-              size="small"
-              variant="tertiary"
-              onClick={() => {
-                setShowForm('transportPersons')
-                setShowDialog(true)
-              }}
-            />
-          </div>
-          <div className="w-full md:flex-[1_0_50%]">
-            {personsTransportList.length > 0 && (
-              <ResourcesTableList
-                columns={[t('services.driver-name')]}
-                list={personsTransportList.map((t) => ({
-                  id: t.driver_name,
-                  name: t.driver_name,
-                }))}
-                onItemRemoved={onGoodsRemoved}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      {/* TODO: The content of the dialog should be dynamically set based on the type of service selected via button  */}
-      <Dialog isOpen={showDialog} onDismiss={handleDialogDismiss}>
-        {showForm === 'transportGoods' && (
-          <>
-            <Dialog.Header
-              title={t('services.transport-goods')}
-              onDismiss={handleDialogDismiss}
-            />
-            <TransportGoodsForm onSubmit={onTransportGoodsSubmit} />
-          </>
-        )}
-        {showForm === 'transportPersons' && (
-          <>
-            <Dialog.Header
-              title={t('services.transport-people')}
-              onDismiss={handleDialogDismiss}
-            />
-            <TransportPersonsForm onSubmit={onTransporPersonsSubmit} />
-          </>
-        )}
-      </Dialog>
+
+      <ResourcesForm
+        type={type}
+        categories={categories}
+        tableTitle={t('resources.services.added')}
+        tableColumns={resourcesTableColumns}
+        tableItems={tableItems}
+        onRemoveItem={onRemoveItem}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+      />
     </section>
   )
 }

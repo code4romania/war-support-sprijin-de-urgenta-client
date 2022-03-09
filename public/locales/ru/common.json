@@ -1,7 +1,7 @@
 {
   "en": "Английский",
   "ro": "Румынский",
-  "ua": "Украинский",
+  "uk": "Украинский",
   "ru": "Русский",
   "source.code": "Исходный код",
   "homepage.option_one": "Я хочу помочь",
@@ -105,7 +105,6 @@
   "services.driver-name": "Имя водителя",
   "services.driver-ci": "Серия и номер документа",
   "services.car-plate": "Номер автомобиля",
-  "services.transport-persons": "Пассажирские перевозки",
   "services.available_seats": "Количество мест в машине",
   "services.has_disabled_access": "Перевозка людей с ограниченными возможностями",
   "services.pets_allowed": "Перевозка с домашними животными",
@@ -164,9 +163,11 @@
   "services.availability": "Сколько времени вы можете потратить на эти занятия?",
   "services.county.placeholder": "Выберите округ",
   "error.must.be.number": "Значение должно быть числом",
+  "error.integer": "The value must be an integer",
   "error.must.be.boolean": "Выберите вариант",
   "services.driverContact": "Номер телефона",
   "error.county.minOne": "Вы должны выбрать хотя бы один округ",
+  "error.quantity.minOne": "Количество должно быть больше или равно 1",
   "controls.counties.selected": "выбранные округа",
   "gdpr.consent": "Заполняя форму, я даю согласие на обработку моих персональных данных Департаментом по чрезвычайным ситуациям. Я подтверждаю, что Департамент по чрезвычайным ситуациям обрабатывает мои персональные данные на основании положений Регламента (ЕС) 2016/679.",
   "signup.error.gdpr.required": "Чтобы продолжить, дайте согласие на обработку ваших персональных данных",
@@ -220,5 +221,9 @@
   "error.availability.required": "Выберите значение",
   "resources.product": "Товар",
   "resources.quantity": "Количество",
-  "resources.added.products": "Добавленные товары"
+  "resources.added.products": "Добавленные товары",
+  "services.transport-persons": "Пассажирские перевозки",
+  "services.offerTransport": "Можем обеспечить транспорт",
+  "error.value.must.be.non.zero": "",
+  "validation.date.must.be.in.future": ""
 }

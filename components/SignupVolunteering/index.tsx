@@ -1,28 +1,43 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useVolunteeringForm } from '@/hooks/useData'
+
 import endpoints from 'endpoints.json'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateVolunteeringRequest } from '../../api'
-import Dialog from '@/components/SignupVolunteering/Dialog'
+import { OfferVolunteeringForm, RequestVolunteeringForm } from 'forms'
+import { FormPageProps } from '../FormPage/FormPage'
 
-const SignupVolunteering: FC = () => {
+interface ISignupVolunteeringProps {
+  items: DonateVolunteeringRequest[]
+  onAddItem: (data: DonateVolunteeringRequest) => void
+  type: FormPageProps
+  onRemoveItem: (index: number) => void
+}
+
+const SignupVolunteering = ({
+  type,
+  items,
+  onAddItem,
+  onRemoveItem,
+}: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
-  const { data: formData } = useVolunteeringForm()
-  const { data: categoriesList } = useData(endpoints['categories/volunteering'])
+  const { data: formData } = useVolunteeringForm(FormPageProps.Offer)
+  const { data: volunteeringCategoriesList } = useData(endpoints['categories/volunteering'])
+  
+  const categoriesList = volunteeringCategoriesList?.map((category: any) => ({ name: t(category.name), ...category }));
 
   const tableColumns = [t('resources.volunteering')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateVolunteeringRequest[]>([])
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
-  const onAddItem = (data: DonateVolunteeringRequest) => {
-    setProductsList((state) => [...state, data])
+  const onSubmit = (data: DonateVolunteeringRequest) => {
+    onAddItem(data)
     handleDialogDismiss()
   }
 
@@ -37,32 +52,21 @@ const SignupVolunteering: FC = () => {
     categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
-      children: (
-        <Dialog
-          counties={countyCovarage}
-          onSubmit={onAddItem}
-          category={category.id}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferVolunteeringForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ) : (
+          <RequestVolunteeringForm
+            counties={countyCovarage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ),
     })) || []
-  //
-  // const onSubmit = async (values: any) => {
-  //   fetch(
-  //     `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/volunteering']}`,
-  //     {
-  //       method: 'POST',
-  //       mode: 'cors',
-  //       cache: 'no-cache',
-  //       credentials: 'same-origin',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       redirect: 'follow',
-  //       referrerPolicy: 'no-referrer',
-  //       body: JSON.stringify([values]),
-  //     }
-  //   )
-  // }
 
   return (
     <section
@@ -76,13 +80,14 @@ const SignupVolunteering: FC = () => {
         'signup.volunteering.header'
       )}:`}</h3>
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.volunteering.added')}
         tableColumns={tableColumns}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        tableItems={productsList}
-        updateTableItems={setProductsList}
+        tableItems={items}
+        onRemoveItem={onRemoveItem}
       />
     </section>
   )

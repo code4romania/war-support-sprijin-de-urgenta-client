@@ -3,39 +3,54 @@ import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useData, useOthersForm } from '@/hooks/useData'
 import endpoints from 'endpoints.json'
-import Dialog from './Dialog'
+import { OfferOthersForm, RequestOthersForm } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export type OtherResourceForm = {
-  name: string
   county_coverage: string[]
+  town?: string
+  name: string
   category?: number
   description?: string
   available_until?: string
-  town?: string
 }
 
-const OtherResourcesForm = ({}) => {
+interface IOtherResourceFormProps {
+  items: DonateOtherRequest[]
+  onAddItem: (data: DonateOtherRequest) => void
+  type: FormPageProps
+  onRemoveItem: (index: number) => void
+}
+
+const OtherResourcesForm = ({
+  type,
+  items,
+  onAddItem,
+  onRemoveItem,
+}: IOtherResourceFormProps) => {
   const { t } = useTranslation()
-  const { data: formData } = useOthersForm()
-  const { data: categoriesList } = useData(endpoints['categories/other'])
+
+  const { data: formData } = useOthersForm(FormPageProps.Offer)
+  const { data: otherCategoriesList } = useData(endpoints['categories/other'])
+
+  const categoriesList = otherCategoriesList?.map((category: any) => ({ name: t(category.name), ...category }));
 
   const tableColumns = [t('resources.other')]
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateOtherRequest[]>([])
 
   const handleDialogDismiss = () => {
     setShowDialog(false)
   }
 
-  const onAddItem = (data: DonateOtherRequest) => {
+  const onSubmit = (data: DonateOtherRequest) => {
+    onAddItem(data)
     handleDialogDismiss()
-    setProductsList((state) => [...state, data])
   }
 
-  const countyCovarage = useMemo(() => {
+  const countyCoverage = useMemo(() => {
     return formData?.county_coverage?.choices.map((c: any) => ({
       value: c.value,
       label: c.display_name,
@@ -46,45 +61,21 @@ const OtherResourcesForm = ({}) => {
     categoriesList?.map((category: { id: number; name: string }) => ({
       resourceType: category.id,
       label: category.name,
-      children: (
-        <Dialog
-          counties={countyCovarage}
-          onSubmit={onAddItem}
-          category={category.id}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferOthersForm
+            counties={countyCoverage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ) : (
+          <RequestOthersForm
+            counties={countyCoverage}
+            onSubmit={onSubmit}
+            category={category.id}
+          />
+        ),
     })) || []
-  //
-  // const onSubmit = async (values: any) => {
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/other']}`,
-  //       {
-  //         method: 'POST',
-  //         mode: 'cors',
-  //         cache: 'no-cache',
-  //         credentials: 'same-origin',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         redirect: 'follow',
-  //         referrerPolicy: 'no-referrer',
-  //         body: JSON.stringify([values]),
-  //       }
-  //     )
-  //
-  //     if (res.ok) {
-  //       setServerErrors({})
-  //       const [data] = await res.json()
-  //       console.log('data', data)
-  //     } else {
-  //       const [data] = await res.json()
-  //       setServerErrors(data)
-  //     }
-  //   } catch (e) {
-  //     console.log('e', e)
-  //   }
-  // }
 
   return (
     <section
@@ -98,13 +89,14 @@ const OtherResourcesForm = ({}) => {
         'signup.other.header'
       )}:`}</h3>
       <ResourcesForm
+        type={type}
         categories={categories}
         tableTitle={t('resources.added.other')}
         tableColumns={tableColumns}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        tableItems={productsList}
-        updateTableItems={setProductsList}
+        tableItems={items}
+        onRemoveItem={onRemoveItem}
       />
     </section>
   )

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { ReactNode } from 'react'
 
 import Footer from '../Footer'
@@ -9,11 +10,16 @@ export interface ILayoutProps {
 
 const Layout = ({ children }: ILayoutProps) => {
   return (
-    <div className="flex flex-col min-h-full">
-      <Header />
-      {children}
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <title>Sprijin de Urgență</title>
+      </Head>
+      <div className="flex flex-col min-h-full">
+        <Header />
+        {children}
+        <Footer />
+      </div>
+    </>
   )
 }
 

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { ErrorOption, Path, UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Checkbox from "../Form/Checkbox";
+import { Required } from '../Form/common';
 import { InputElementProps } from "../Form/types";
 
 export type IConsentProps<TFormValues> = {
@@ -22,7 +23,7 @@ const Consent = <TFormValues extends Record<string, unknown>>({
   const { t } = useTranslation();
   return (
     <div className={clsx(className)}>
-      <p className={clsx('mb-4')}>{text}</p>
+      <p className={clsx('mb-4')}>{text}<Required/></p>
       <Checkbox name={name} {...register && register(name)} {...rest}>{t('yes')}</Checkbox>
     </div>
   )

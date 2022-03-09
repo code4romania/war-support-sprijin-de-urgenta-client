@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelect } from 'react-multi-select-component'
-import { Label } from './common'
+import { Label, Required } from './common'
 import { ErrorLabel } from './ErrorLabel'
 import { DropdownMultiSelectProps } from './types'
 
@@ -21,7 +21,9 @@ const Component = React.forwardRef<
       className,
       control,
       errors,
+      required,
       children,
+      labelPosition
     },
     ref
   ) => {
@@ -40,33 +42,40 @@ const Component = React.forwardRef<
     return (
       <div className={clsx(className)}>
         {children}
-        {label && !hideLabel && (
-          <Label name={name} hasError={!!errors}>
-            {label}
-          </Label>
-        )}
-        <div ref={ref} className={'flex flex-col mt-1'}>
-          <Controller
-            name={name}
-            control={control}
-            render={({ field: { onChange } }) => (
-              <div>
-                <MultiSelect
-                  options={options}
-                  value={selected}
-                  onChange={(props: any) => {
-                    onChange(props.map((p: any) => p.value))
-                    setSelected(props)
-                  }}
-                  labelledBy={clsx('labelledBy', 'Code 4 Romania')}
-                  disabled={disabled}
-                  valueRenderer={valueRenderer}
-                />
-                <ErrorLabel errors={errors} />
-              </div>
-            )}
-          />
+        <div className={clsx({
+          'flex flex-row items-center horizontal-label': labelPosition === 'horizontal',
+        })}>
+          {label && !hideLabel && (
+            <Label
+              name={name}
+              className={clsx({ 'flex-[1_0_50%]': labelPosition === 'horizontal' })}
+            >
+              {label}{required && <Required /> }
+            </Label>
+          )}
+          <div ref={ref} className={'flex flex-[1_0_50%] flex-col mt-1'}>
+            <Controller
+              name={name}
+              control={control}
+              render={({ field: { onChange } }) => (
+                <div>
+                  <MultiSelect
+                    options={options}
+                    value={selected}
+                    onChange={(props: any) => {
+                      onChange(props.map((p: any) => p.value))
+                      setSelected(props)
+                    }}
+                    labelledBy={clsx('labelledBy', 'Code 4 Romania')}
+                    disabled={disabled}
+                    valueRenderer={valueRenderer}
+                  />
+                </div>
+              )}
+            />
+          </div>
         </div>
+        <ErrorLabel errors={errors} />
       </div>
     )
   }

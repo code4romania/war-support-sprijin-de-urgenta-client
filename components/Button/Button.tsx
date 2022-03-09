@@ -1,6 +1,10 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { ButtonHTMLAttributes, MouseEventHandler } from 'react'
+import {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  MouseEventHandler,
+} from 'react'
 
 export interface IButtonProps {
   text: string
@@ -10,6 +14,7 @@ export interface IButtonProps {
   size?: 'small' | 'medium' | 'large'
   className?: string
   onClick?: MouseEventHandler<HTMLButtonElement>
+  target?: AnchorHTMLAttributes<HTMLAnchorElement>['target']
 }
 
 const ButtonInner = ({
@@ -61,19 +66,20 @@ const Button = ({
   className,
   onClick,
   type = 'button',
+  target,
   ...rest
 }: IButtonProps) => {
   if (route) {
     return (
       <Link href={route} passHref>
-        <a className={clsx("w-full", className)}>
+        <a className={clsx('w-full', className)} target={target}>
           <ButtonInner text={text} variant={variant} size={size} {...rest} />
         </a>
       </Link>
     )
   }
   return (
-    <button onClick={onClick} type={type} className={clsx("w-full", className)}>
+    <button onClick={onClick} type={type} className={clsx('w-full', className)}>
       <ButtonInner text={text} variant={variant} size={size} {...rest} />
     </button>
   )

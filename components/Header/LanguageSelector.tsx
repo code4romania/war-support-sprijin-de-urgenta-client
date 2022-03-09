@@ -33,7 +33,7 @@ const LanguageSelector: FC = () => {
     >
       <option value="ro">RO</option>
       <option value="en">EN</option>
-      <option value="ua">UA</option>
+      <option value="uk">UK</option>
       <option value="ru">RU</option>
     </Dropdown>
   )
