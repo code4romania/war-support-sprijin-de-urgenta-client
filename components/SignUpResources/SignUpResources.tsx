@@ -2,9 +2,12 @@ import Spacer from '@/components/Spacer'
 import StepperButtonGroup from '@/components/StepperButton/StepperButtonGroup'
 import { State } from '@/store/types/state.type'
 import {
-  DonateItemRequestUnion, DonateOtherRequest,
-  DonateVolunteeringRequest, ServerError,
-  ServerErrorByEndpoint, TransportServicesRequest
+  DonateItemRequestUnion,
+  DonateOtherRequest,
+  DonateVolunteeringRequest,
+  ServerError,
+  ServerErrorByEndpoint,
+  TransportServicesRequest,
 } from 'api'
 import endpoints from 'endpoints.json'
 import i18n from 'i18next'
@@ -30,14 +33,16 @@ const isEmpty = (array: any[]) => array.length === 0
 const SignUpResources = ({ type }: ISignUpResources) => {
   const { t } = useTranslation()
   const { categories } = useSelector((state: State) => state)
-  const { userPk } = useSelector((state: State) => state.auth)
-  const donor = userPk;
-  const made_by = userPk;
+  const { userPk, token } = useSelector((state: State) => state.auth)
+  const donor = userPk
+  const made_by = userPk
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(
     []
   )
-  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>([])
+  const [servicesList, setServicesList] = useState<TransportServicesRequest[]>(
+    []
+  )
   const [shouldSubmit, setShouldSubmit] = useState(false)
 
   const [serverErrors, setServerErrors] = useState<ServerErrorByEndpoint>({})
@@ -52,7 +57,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (data.kind === FormPageProps.Offer) {
       setServicesList((state) => [...state, { ...data, donor }])
     } else if (data.kind === FormPageProps.Request) {
-      setServicesList([{...data, made_by}])
+      setServicesList([{ ...data, made_by }])
       setShouldSubmit(true)
     }
   }
@@ -63,13 +68,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
 
   const [productsList, setProductsList] = useState<DonateItemRequestUnion[]>([])
 
-  const onAddProduct = (
-    data: DonateItemRequestUnion
-  ) => {
+  const onAddProduct = (data: DonateItemRequestUnion) => {
     if (type === FormPageProps.Offer) {
       setProductsList((state) => [...state, { ...data, donor }])
     } else {
-      setProductsList([{...data, made_by}])
+      setProductsList([{ ...data, made_by }])
       setShouldSubmit(true)
     }
   }
@@ -85,7 +88,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (type === FormPageProps.Offer) {
       setVolunteeringList((state) => [...state, { ...data, donor }])
     } else {
-      setVolunteeringList([{...data, made_by}])
+      setVolunteeringList([{ ...data, made_by }])
       setShouldSubmit(true)
     }
   }
@@ -98,7 +101,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     if (type === FormPageProps.Offer) {
       setOthersList((state) => [...state, { ...data, donor }])
     } else {
-      setOthersList([{...data, made_by}])
+      setOthersList([{ ...data, made_by }])
       setShouldSubmit(true)
     }
   }
@@ -185,6 +188,7 @@ const SignUpResources = ({ type }: ISignUpResources) => {
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
