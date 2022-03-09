@@ -135,6 +135,7 @@ export const RequestTransportGoodsForm = ({
             />
           </div>
           <RadioGroup
+            required
             errors={errors['has_refrigeration']}
             label={t('services.cooling')}
           >
@@ -148,6 +149,7 @@ export const RequestTransportGoodsForm = ({
             </div>
           </RadioGroup>
           <Dropdown
+            required
             {...register('from_county')}
             className={clsx('w-1/2 mb-4')}
             label={t('services.from_county')}
@@ -162,11 +164,13 @@ export const RequestTransportGoodsForm = ({
               )}
           </Dropdown>
           <Input
+            required
             {...register('from_city')}
             className={'w-1/2'}
             label={t('signup.other.town')}
           />
           <Dropdown
+            required
             {...register('to_county')}
             className={clsx('w-1/2 mb-4')}
             label={t('services.to_county')}
@@ -181,6 +185,7 @@ export const RequestTransportGoodsForm = ({
               )}
           </Dropdown>
           <Input
+            required
             {...register('to_city')}
             className={'w-1/2'}
             label={t('signup.other.town')}

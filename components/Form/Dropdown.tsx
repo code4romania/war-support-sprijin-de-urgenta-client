@@ -41,7 +41,6 @@ const Dropdown = forwardRef<HTMLSelectElement, DropdownElementProps>(({
           <select
             name={name}
             ref={ref}
-            required={required}
             className={clsx(
               'block w-full h-10 mt-1',
               'border border-gray-200 rounded-md',

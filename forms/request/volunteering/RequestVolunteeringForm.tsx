@@ -55,6 +55,7 @@ export const RequestVolunteeringForm: FC<IProps> = ({
     <form onSubmit={handleSubmit(onFormSubmit)}>
       <div className={'flex space-x-2'}>
         <Dropdown
+          required
           label={t('signup.other.county_coverage')}
           className={'w-full'}
           errors={errors['county_coverage']}

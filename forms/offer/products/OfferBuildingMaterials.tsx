@@ -80,6 +80,7 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, categor
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
+        required
         label={t('services.offerTransport')}
         errors={errors.has_transportation}
       >

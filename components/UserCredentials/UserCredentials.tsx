@@ -164,7 +164,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
 
       <div className={`bg-blue-50 px-4 py-4 rounded-md mt-4`}>
         <div className="md:w-2/3 max-w-small">
-          <Consent name={'gdpr_consent'}
+          <Consent required name={'gdpr_consent'}
             register={register}
             text={`${t('gdpr.consent')}`}
             errors={errors.gdpr_consent} />

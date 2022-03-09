@@ -154,6 +154,7 @@ export const OfferTransportPersonsForm = ({
         <section className="w-full">
           <div className={clsx('flex flex-row items-center space-x-2')}>
             <Input
+              required
               type="number"
               label={t('services.available_seats')}
               errors={errors['available_seats']}
@@ -162,6 +163,7 @@ export const OfferTransportPersonsForm = ({
             />
           </div>
           <RadioGroup
+            required
             errors={errors['has_disabled_access']}
             label={t('services.has_disabled_access')}
           >
@@ -175,6 +177,7 @@ export const OfferTransportPersonsForm = ({
             </div>
           </RadioGroup>
           <RadioGroup
+            required
             errors={errors['pets_allowed']}
             label={t('services.pets_allowed')}
           >
@@ -187,7 +190,7 @@ export const OfferTransportPersonsForm = ({
               </Radio>
             </div>
           </RadioGroup>
-          <RadioGroup errors={errors['type']} label={t('services.transport')}>
+          <RadioGroup required errors={errors['type']} label={t('services.transport')}>
             <Radio
               value={typeOptions && typeOptions[0].value}
               {...register('type')}
@@ -203,6 +206,7 @@ export const OfferTransportPersonsForm = ({
             </Radio>
             {showCountyCoverageDropdown && (
               <DropdownMultiSelect
+                required
                 {...register('county_coverage')}
                 className={clsx('mb-4')}
                 disabled={!showCountyCoverageDropdown}
@@ -213,6 +217,7 @@ export const OfferTransportPersonsForm = ({
             )}
           </RadioGroup>
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_name}
@@ -220,6 +225,7 @@ export const OfferTransportPersonsForm = ({
             {...register('driver_name')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_id}
@@ -227,6 +233,7 @@ export const OfferTransportPersonsForm = ({
             {...register('driver_id')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.car_registration_number}
@@ -234,6 +241,7 @@ export const OfferTransportPersonsForm = ({
             {...register('car_registration_number')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_contact}

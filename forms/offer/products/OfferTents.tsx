@@ -75,7 +75,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
+      <RadioGroup required label={t('services.offerTransport')}>
         <div className={clsx('flex flex-row gap-6')}>
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -93,6 +93,7 @@ export const OfferTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         errors={errors && errors['quantity']}
       />
       <Input
+        required
         type="number"
         label={t('signup.products.capacity')}
         {...register('tent_capacity')}

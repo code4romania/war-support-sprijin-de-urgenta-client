@@ -74,6 +74,7 @@ export const OfferProductsOthers: FC<IProps> = ({ counties, onSubmit, category }
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
+        required
         label={t('services.offerTransport')}
         errors={errors['has_transportation']}
       >

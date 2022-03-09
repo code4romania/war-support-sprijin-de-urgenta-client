@@ -157,6 +157,7 @@ export const OfferTransportGoodsForm = ({
         <section className="w-full">
           <div className={clsx('flex flex-row items-center space-x-2')}>
             <Input
+              required
               type="number"
               label={t('services.capacity')}
               errors={errors['weight_capacity']}
@@ -164,12 +165,14 @@ export const OfferTransportGoodsForm = ({
               {...register('weight_capacity')}
             />
             <Input
+              required
               label={t('services.weight_unit')}
               errors={errors['weight_unit']}
               {...register('weight_unit')}
             />
           </div>
           <RadioGroup
+            required
             errors={errors['has_refrigeration']}
             label={t('services.cooling')}
           >
@@ -198,6 +201,7 @@ export const OfferTransportGoodsForm = ({
             </Radio>
             {showCountyCoverageDropdown && (
               <DropdownMultiSelect
+                required
                 {...register('county_coverage')}
                 className={clsx('mb-4')}
                 disabled={!showCountyCoverageDropdown}
@@ -208,6 +212,7 @@ export const OfferTransportGoodsForm = ({
             )}
           </RadioGroup>
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_name}
@@ -215,6 +220,7 @@ export const OfferTransportGoodsForm = ({
             {...register('driver_name')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_id}
@@ -222,6 +228,7 @@ export const OfferTransportGoodsForm = ({
             {...register('driver_id')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.car_registration_number}
@@ -229,6 +236,7 @@ export const OfferTransportGoodsForm = ({
             {...register('car_registration_number')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_contact}
@@ -236,6 +244,7 @@ export const OfferTransportGoodsForm = ({
             {...register('driver_contact')}
           />
           <Dropdown
+            required
             label={t('services.availability')}
             errors={errors.availability}
             {...register('availability')}

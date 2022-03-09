@@ -82,6 +82,7 @@ export const OfferTextileProduct: FC<IProps> = ({
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
+        required
         label={t('services.offerTransport')}
         errors={errors.has_transportation}
       >
