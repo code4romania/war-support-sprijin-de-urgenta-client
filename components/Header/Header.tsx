@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { deauthenticate } from '@/store/reducers/auth'
 import { envVars } from '@/utils/envVars'
+import { useRouter } from "next/router";
 
 const PARTNERSHIPS = [
   {
@@ -30,10 +31,12 @@ const smallBoldTextWithGrayAndMarginAside: string = clsx(
 
 const Header = () => {
   const { t } = useTranslation('common')
+  const router = useRouter();
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state: State) => state.auth.userPk)
   const isLoadingUser = useSelector((state: State) => state.auth.loading)
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await router.push('/')
     dispatch(deauthenticate())
   }
   const loginUrl = envVars.loginUrl || '';
