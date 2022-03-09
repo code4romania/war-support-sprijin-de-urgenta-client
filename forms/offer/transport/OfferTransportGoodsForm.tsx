@@ -8,6 +8,7 @@ import RadioGroup from '@/components/Form/RadioGroup'
 import Textarea from '@/components/Form/Textarea'
 import { FormPageProps } from '@/components/FormPage/FormPage'
 import { useServicesForm } from '@/hooks/useData'
+import { State } from '@/store/types/state.type'
 import {
   phoneNumberRegex,
   roCarRegistrationNumber,
@@ -22,6 +23,7 @@ import clsx from 'clsx'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 
@@ -50,7 +52,8 @@ export const OfferTransportGoodsForm = ({
   onSubmit,
 }: IOfferTransportGoodsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm(FormPageProps.Offer)
+  const token: string = useSelector((state: State) => state.auth.token)
+  const { data } = useServicesForm(FormPageProps.Offer, token)
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     availability: yup

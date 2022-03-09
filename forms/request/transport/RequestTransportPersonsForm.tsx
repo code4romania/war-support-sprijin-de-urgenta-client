@@ -17,6 +17,8 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { FormPageProps } from '@/components/FormPage/FormPage'
+import { useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
 
 type ServicesForm = {
   available_seats: number
@@ -39,7 +41,8 @@ export const RequestTransportPersonsForm = ({
   onSubmit,
 }: IRequestTransportPersonsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm(FormPageProps.Request)
+  const token: string = useSelector((state: State) => state.auth.token)
+  const { data } = useServicesForm(FormPageProps.Request, token)
   const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
     {}
   )
