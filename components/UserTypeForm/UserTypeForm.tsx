@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react'
 import Dropdown from '@/components/Form/Dropdown'
 import { UserType } from '@/store/reducers/signup'
 import { useUserTypeForm } from '@/hooks/useData'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 export interface IUserTypeFormProps {
   resourceType: string
@@ -14,8 +15,8 @@ const UserTypeForm = ({ updateUserType, resourceType }: IUserTypeFormProps) => {
 
   const { data } = useUserTypeForm()
   const userTypeOptions =
-    data?.type?.choices.filter(
-      (type: any) => resourceType === 'offer' && type.value !== 1
+    data?.type?.choices.filter((type: any) =>
+      resourceType === FormPageProps.Offer ? type.value !== 1 : true
     ) || []
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
