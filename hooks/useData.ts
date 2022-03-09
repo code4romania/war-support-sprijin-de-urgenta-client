@@ -6,8 +6,10 @@ import { FormPageProps } from '@/components/FormPage/FormPage'
 const baseUrl = process.env.NEXT_PUBLIC_PUBLIC_API
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
-const configFetcher = (url: string) =>
-  fetch(url, { method: 'OPTIONS' }).then((r) => r.json())
+const configFetcher = (url: string, token: string) => {
+  const headers: HeadersInit = token ? { Authorization: 'Bearer ' + token } : {};
+  return fetch(url, { method: 'OPTIONS', headers }).then((r) => r.json())
+}
 
 const authFetcher = (url: string, token: string) =>
   fetch(url, { headers: { Authorization: 'Bearer ' + token } }).then((r) =>
@@ -32,8 +34,8 @@ export const useFetchData = (
 
 export const useData = (path: string) => useFetchData(path, fetcher)
 
-export const useFormSchema = (path: string) => {
-  const { data, error } = useFetchData(path, configFetcher)
+export const useFormSchema = (path: string, token?: string) => {
+  const { data, error } = useFetchData(path, configFetcher, token)
   return { data: data?.actions?.POST, error }
 }
 
@@ -43,32 +45,35 @@ export const useDataWithToken = (path: string, token: string) => {
   return { data, error }
 }
 
-export const useUserTypeForm = () => useFormSchema(endpoints['registration'])
-export const useProductsForm = (userType: FormPageProps) =>
+export const useUserTypeForm = (token: string) => useFormSchema(endpoints['registration'], token)
+export const useProductsForm = (userType: FormPageProps,token: string) =>
   useFormSchema(
     endpoints[
       userType === FormPageProps.Request ? 'request/item' : 'donate/item'
-    ]
+    ],
+    token
   )
-export const useServicesForm = (userType: FormPageProps) =>
+export const useServicesForm = (userType: FormPageProps,token:string) =>
   useFormSchema(
     endpoints[
       userType === FormPageProps.Request
         ? 'request/transport_service'
         : 'donate/transport_service'
-    ]
+    ],
+    token
   )
 export const useVolunteeringForm = (userType: FormPageProps) =>
   useFormSchema(
     endpoints[
-      userType === FormPageProps.Request
-        ? 'request/volunteering'
-        : 'donate/volunteering'
+    userType === FormPageProps.Request
+      ? 'request/volunteering'
+      : 'donate/volunteering'
     ]
   )
-export const useOthersForm = (userType: FormPageProps) =>
+export const useOthersForm = (userType: FormPageProps, token: string) =>
   useFormSchema(
     endpoints[
-      userType === FormPageProps.Request ? 'request/other' : 'donate/other'
-    ]
+    userType === FormPageProps.Request ? 'request/other' : 'donate/other'
+    ],
+    token
   )

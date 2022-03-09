@@ -7,6 +7,8 @@ import { OfferOthersForm, RequestOthersForm } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
 import { FormPageProps } from '../FormPage/FormPage'
+import { useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
 
 export type OtherResourceForm = {
   county_coverage: string[]
@@ -31,8 +33,8 @@ const OtherResourcesForm = ({
   onRemoveItem,
 }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
-
-  const { data: formData } = useOthersForm(FormPageProps.Offer)
+  const token: string = useSelector((state: State) => state.auth.token)
+  const { data: formData } = useOthersForm(FormPageProps.Offer, token)
   const { data: otherCategoriesList } = useData(endpoints['categories/other'])
 
   const categoriesList = otherCategoriesList?.map((category: any) => ({ name: t(category.name), ...category }));
