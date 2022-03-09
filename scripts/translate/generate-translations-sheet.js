@@ -34,9 +34,22 @@ const identifier = 'Identifier'
 
 // folder path for the translations
 const localesFolderPath = './public/locales'
+const getLangJsonArray = async () => {
+
+  try {
+    if (fs.existsSync(csvFilePath)) {
+      const langJsonArray = await csv().fromFile(csvFilePath);
+      return langJsonArray;
+    }
+  } catch(err) {
+    console.warn('csv file not found');
+  }
+
+  return [];
+}
 
 const generateJsonTranslationsCsv = async () => {
-  const langJsonArray = await csv().fromFile(csvFilePath)
+  const langJsonArray = await getLangJsonArray();
   const resultAcc = {};
   const allKeys = []
 
