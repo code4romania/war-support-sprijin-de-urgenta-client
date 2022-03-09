@@ -14,6 +14,8 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { FormPageProps } from '@/components/FormPage/FormPage'
+import { useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
 
 type ServicesForm = {
   category?: string
@@ -35,7 +37,8 @@ export const RequestTransportGoodsForm = ({
   onSubmit,
 }: IRequestTransportGoodsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm(FormPageProps.Request)
+  const token: string = useSelector((state: State) => state.auth.token)
+  const { data } = useServicesForm(FormPageProps.Request, token)
 
   const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
     category: yup.string().typeError(t('error.must.be.string')),
@@ -59,7 +62,7 @@ export const RequestTransportGoodsForm = ({
     has_refrigeration: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_refrigeration.required')),
+      .required(t('validation.required')),
     weight_unit: yup.string().typeError(t('error.must.be.string')),
     weight_capacity: yup.number().typeError(t('error.must.be.number')),
   })

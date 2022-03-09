@@ -6,16 +6,21 @@ on:
   push:
     branches: [ develop ]
 
+env:
+  NODE_ENV: development
+  NEXT_PUBLIC_PUBLIC_API: https://sprijin-de-urgenta-api.heroesof.tech
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
       - run: npm ci
-      - run: npm run build
+      - run: npm run build:staging
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}

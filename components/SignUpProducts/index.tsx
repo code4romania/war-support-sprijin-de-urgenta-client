@@ -1,5 +1,6 @@
 import ResourcesForm from '@/components/ResourcesForm'
 import { useProductsForm } from '@/hooks/useData'
+import { State } from '@/store/types/state.type'
 import { DonateItemRequest, DonateItemRequestUnion, DonateItemRequestWithoutName } from 'api'
 import clsx from 'clsx'
 import {
@@ -11,6 +12,7 @@ import {
 } from 'forms'
 import { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { IResourcesCategoriesProps } from '../../forms/types'
 import { FormPageProps } from '../FormPage/FormPage'
 
@@ -33,7 +35,8 @@ const SignUpProducts = ({
   onRemoveItem,
 }: ISignUpProductsProps) => {
   const { t } = useTranslation()
-  const { data } = useProductsForm(FormPageProps.Offer)
+  const token: string = useSelector((state: State) => state.auth.token)
+  const { data } = useProductsForm(FormPageProps.Offer, token)
 
   const [showDialog, setShowDialog] = useState(false)
 

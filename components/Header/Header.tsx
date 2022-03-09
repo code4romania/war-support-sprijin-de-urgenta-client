@@ -6,11 +6,12 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { deauthenticate } from '@/store/reducers/auth'
+import { envVars } from '@/utils/envVars'
 
 const PARTNERSHIPS = [
   {
     id: 1,
-    src: '/gov_ro.svg',
+    src: '/gov_ro.png',
     alt: 'Romanian GOV Logo',
     url: 'https://gov.ro/',
   },
@@ -35,6 +36,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(deauthenticate())
   }
+  const loginUrl = envVars.loginUrl || '';
 
   return (
     <div className="w-full mx-auto">
@@ -83,7 +85,7 @@ const Header = () => {
                       Logout
                     </div>
                   ) : (
-                    <Link href="http://sprijin-de-urgenta-api.heroesof.tech:8070/ro/admin/login/?next=/ro/admin/">Login</Link>
+                    <Link href={loginUrl}>Login</Link>
                   )}
                 </div>
               )}

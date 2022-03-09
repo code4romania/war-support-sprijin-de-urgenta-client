@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux'
 
-export type LanguageCode = 'en' | 'ro' | 'ua' | 'ru'
+export type LanguageCode = 'en' | 'ro' | 'uk' | 'ru'
 
 // Reducer
 export const locale = (state = 'ro', action: AnyAction) => {
