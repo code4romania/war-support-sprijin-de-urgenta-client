@@ -8,6 +8,8 @@ import ResourcesForm from '@/components/ResourcesForm'
 import { DonateVolunteeringRequest } from '../../api'
 import { OfferVolunteeringForm, RequestVolunteeringForm } from 'forms'
 import { FormPageProps } from '../FormPage/FormPage'
+import { useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
 
 interface ISignupVolunteeringProps {
   items: DonateVolunteeringRequest[]
@@ -23,7 +25,9 @@ const SignupVolunteering = ({
   onRemoveItem,
 }: ISignupVolunteeringProps) => {
   const { t } = useTranslation()
-  const { data: formData } = useVolunteeringForm(FormPageProps.Offer)
+  const token: string = useSelector((state: State) => state.auth.token)
+
+  const { data: formData } = useVolunteeringForm(FormPageProps.Offer, token)
   const { data: volunteeringCategoriesList } = useData(endpoints['categories/volunteering'])
   
   const categoriesList = volunteeringCategoriesList?.map((category: any) => ({ name: t(category.name), ...category }));
@@ -41,7 +45,7 @@ const SignupVolunteering = ({
     handleDialogDismiss()
   }
 
-  const countyCovarage = useMemo(() => {
+  const countyCoverage = useMemo(() => {
     return formData?.county_coverage?.choices.map((c: any) => ({
       value: c.value,
       label: c.display_name,
@@ -55,13 +59,13 @@ const SignupVolunteering = ({
       children:
         type === FormPageProps.Offer ? (
           <OfferVolunteeringForm
-            counties={countyCovarage}
+            counties={countyCoverage}
             onSubmit={onSubmit}
             category={category.id}
           />
         ) : (
           <RequestVolunteeringForm
-            counties={countyCovarage}
+            counties={countyCoverage}
             onSubmit={onSubmit}
             category={category.id}
           />
