@@ -1,7 +1,7 @@
 {
   "en": "English",
   "ro": "Romanian",
-  "ua": "Ukraine",
+  "uk": "Ukraine",
   "ru": "Russian",
   "source.code": "Source code",
   "homepage.option_one": "I want to help",
@@ -240,5 +240,9 @@
   "signup.volunteering.name": "Name",
   "services.transport-persons": "Passenger transportation",
   "error.value.must.be.non.zero": "",
-  "validation.date.must.be.in.future": ""
+  "validation.date.must.be.in.future": "",
+  "Disponibil in weekend": "Disponibil in weekend",
+  "Disponibil in timpul saptamanii": "Disponibil in timpul saptamanii",
+  "Disponibil oricand": "Disponibil oricand",
+  "Intervale fixe": "Intervale fixe"
 }

@@ -23,7 +23,7 @@ const csvFilePath = './scripts/translate/JSON_Translations.csv'
 const localesMap = {
   ro: 'Romana',
   en: 'Engleza',
-  ua: 'Ucrainieana',
+  uk: 'Ucrainieana',
   ru: 'Rusa',
 }
 

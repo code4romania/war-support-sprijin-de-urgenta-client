@@ -25,7 +25,7 @@ const xlsxOutputFilePath = `./scripts/translate/JSON_Translations.xlsx`;
 const localesMap = {
   ro: 'Romana',
   en: 'Engleza',
-  ua: 'Ucrainieana',
+  uk: 'Ucrainieana',
   ru: 'Rusa',
 }
 

@@ -255,7 +255,7 @@ export const OfferTransportPersonsForm = ({
               }) => {
                 return (
                   <option key={value} value={value}>
-                    {display_name}
+                    {t(display_name)}
                   </option>
                 )
               }
