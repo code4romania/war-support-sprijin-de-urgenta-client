@@ -11,7 +11,7 @@ import { envVars } from '@/utils/envVars'
 const PARTNERSHIPS = [
   {
     id: 1,
-    src: '/gov_ro.svg',
+    src: '/gov_ro.png',
     alt: 'Romanian GOV Logo',
     url: 'https://gov.ro/',
   },
