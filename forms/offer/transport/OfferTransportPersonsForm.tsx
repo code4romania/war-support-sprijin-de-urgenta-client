@@ -1,34 +1,31 @@
 import Button from '@/components/Button'
+import Date from '@/components/Form/Date'
 import Dropdown from '@/components/Form/Dropdown'
 import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
-import Date from '@/components/Form/Date'
-import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
+import Textarea from '@/components/Form/Textarea'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 import { useServicesForm } from '@/hooks/useData'
 import {
   phoneNumberRegex,
-  roCarRegistrationNumber,
-  roIdentityCardRegex,
+  roCarRegistrationNumber, roIdentityCardRegex
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   AvailabilityType,
-  TransportServicesRequest,
-  TransportType,
-  TransportCategories,
+  OfferTransportServicesRequest, TransportCategories, TransportType
 } from 'api'
 import clsx from 'clsx'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import i18n from 'i18next'
-import endpoints from 'endpoints.json'
 
 type ServicesForm = {
+  available_seats: number
   driver_contact: string
   driver_id: string
   driver_name: string
@@ -39,25 +36,28 @@ type ServicesForm = {
   category?: string
   county_coverage?: string[]
   description?: string
-  has_refrigeration?: boolean
+  has_disabled_access?: boolean
+  pets_allowed: boolean
   type?: string
-  weight_capacity?: number
-  weight_unit?: string
 }
 
-interface ITransportGoodsFormProps {
-  onSubmit: (data: TransportServicesRequest) => void
+interface IOfferTransportPersonsFormProps {
+  onSubmit: (data: OfferTransportServicesRequest) => void
 }
 
-export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
+export const OfferTransportPersonsForm = ({
+  onSubmit,
+}: IOfferTransportPersonsFormProps) => {
   const { t } = useTranslation()
-  const { data } = useServicesForm()
-  const [serverErrors, setServerErrors] = useState<{ [key: string]: string[] }>(
-    {}
-  )
+  const { data } = useServicesForm(FormPageProps.Offer)
 
-  const transportGoodsSchema: SchemaOf<ServicesForm> = yup.object().shape({
-    availability: yup.string().required('error.availability.required').typeError(t('error.must.be.string')),
+  const transportPersonsSchema: SchemaOf<ServicesForm> = yup.object().shape({
+    available_seats: yup
+      .number()
+      .typeError(t('validation.required'))
+      .min(1, t('error.quantity.minOne'))
+      .required(t('validation.required')),
+    availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
     availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
     car_registration_number: yup
@@ -82,13 +82,18 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       .string()
       .required(t('error.driverContact.required'))
       .matches(phoneNumberRegex, t('error.driverContact.invalid')),
-    has_refrigeration: yup
+    has_disabled_access: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_refrigeration.required')),
-    type: yup.string(),
-    weight_unit: yup.string().typeError(t('error.must.be.string')),
-    weight_capacity: yup.number().typeError(t('error.must.be.number')),
+      .required(t('error.boolean.required')),
+    pets_allowed: yup
+      .boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.boolean.required')),
+    type: yup
+      .string()
+      .required(t('validation.required'))
+      .typeError(t('validation.required'))
   })
 
   const {
@@ -99,17 +104,15 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     control,
   } = useForm<ServicesForm>({
     defaultValues: {
-      weight_capacity: 0,
+      available_seats: 1,
       county_coverage: [],
     },
-    resolver: yupResolver(transportGoodsSchema),
+    resolver: yupResolver(transportPersonsSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
   })
 
   const showCountyCoverageDropdown = watch('type') === TransportType.County
-  const countyCoverage = watch('county_coverage')
-  console.log(countyCoverage)
   const showAvailabilityIntervals =
     watch('availability') === AvailabilityType.FixedIntervals
 
@@ -124,15 +127,14 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
     data?.type?.choices
 
   const onAdd = async (data: ServicesForm) => {
-    console.log('onAdd', data)
-    //Preparing object for mutation. The api seems incomplete
-    const goodsTransportRequest: TransportServicesRequest = {
+    const personsTransportRequest: OfferTransportServicesRequest = {
+      kind: FormPageProps.Offer,
+      available_seats: data.available_seats,
       availability: data.availability,
       availability_interval_from: data.availability_interval_from,
       availability_interval_to: data.availability_interval_to,
-      weight_capacity: data.weight_capacity,
-      weight_unit: data.weight_unit,
-      has_refrigeration: !!data.has_refrigeration,
+      has_disabled_access: !!data.has_disabled_access,
+      pets_allowed: !!data.pets_allowed,
       type: data.type,
       county_coverage: data.county_coverage,
       driver_name: data.driver_name,
@@ -140,36 +142,10 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
       car_registration_number: data.car_registration_number,
       driver_contact: data.driver_contact,
       description: data.description,
-      category: TransportCategories.Goods,
+      category: TransportCategories.People,
     }
 
-    onSubmit(goodsTransportRequest);
-    return false;
-
-    //TODO: below call is a working post to transport_service, need a hook to POST data
-    //TODO: we don't really need to send it upwards, we can POST here since it takes only one entry ATM.
-    //TODO: if the API will receive an array then it makes sense to send data upwards
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_PUBLIC_API}/${i18n.language}${endpoints['donate/transport_service']}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify([goodsTransportRequest]),
-      }
-    )
-    if (response.ok) {
-      setServerErrors({})
-      const data = await response.json()
-      console.log('data', data)
-      onSubmit(goodsTransportRequest)
-    } else {
-      const data = await response.json()
-      setServerErrors(data)
-      console.log('data', data)
-    }
+    onSubmit(personsTransportRequest)
   }
 
   return (
@@ -179,50 +155,39 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
           <div className={clsx('flex flex-row items-center space-x-2')}>
             <Input
               type="number"
-              label={t('services.capacity')}
-              errors={
-                serverErrors['weight_capacity']
-                  ? { message: serverErrors['weight_capacity'].join('\n') }
-                  : errors['weight_capacity']
-              }
+              label={t('services.available_seats')}
+              errors={errors['available_seats']}
               step="any"
-              {...register('weight_capacity')}
-            />
-            <Input
-              label={t('services.weight_unit')}
-              errors={
-                serverErrors['weight_unit']
-                  ? { message: serverErrors['weight_unit'].join('\n') }
-                  : errors['weight_unit']
-              }
-              {...register('weight_unit')}
+              {...register('available_seats')}
             />
           </div>
           <RadioGroup
-            errors={
-              serverErrors['has_refrigeration']
-                ? { message: serverErrors['has_refrigeration'].join('\n') }
-                : errors['has_refrigeration']
-            }
-            label={t('services.cooling')}
+            errors={errors['has_disabled_access']}
+            label={t('services.has_disabled_access')}
           >
             <div className={clsx('flex flex-row gap-6')}>
-              <Radio value="true" {...register('has_refrigeration')}>
+              <Radio value="true" {...register('has_disabled_access')}>
                 {t('yes')}
               </Radio>
-              <Radio value="false" {...register('has_refrigeration')}>
+              <Radio value="false" {...register('has_disabled_access')}>
                 {t('no')}
               </Radio>
             </div>
           </RadioGroup>
           <RadioGroup
-            errors={
-              serverErrors['type']
-                ? { message: serverErrors['type'].join('\n') }
-                : errors['type']
-            }
-            label={t('services.transport')}
+            errors={errors['pets_allowed']}
+            label={t('services.pets_allowed')}
           >
+            <div className={clsx('flex flex-row gap-6')}>
+              <Radio value="true" {...register('pets_allowed')}>
+                {t('yes')}
+              </Radio>
+              <Radio value="false" {...register('pets_allowed')}>
+                {t('no')}
+              </Radio>
+            </div>
+          </RadioGroup>
+          <RadioGroup errors={errors['type']} label={t('services.transport')}>
             <Radio
               value={typeOptions && typeOptions[0].value}
               {...register('type')}
@@ -251,7 +216,7 @@ export const TransportGoodsForm = ({ onSubmit }: ITransportGoodsFormProps) => {
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_name}
-            label={`${t('services.driver-name')}:`}
+            label={t('services.driver-name')}
             {...register('driver_name')}
           />
           <Input

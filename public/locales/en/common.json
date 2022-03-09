@@ -104,7 +104,6 @@
   "services.driver-name": "Driver Name",
   "services.driver-ci": "Series And ID No:",
   "services.car-plate": "Car Number:",
-  "services.transport-persons": "Passenger transportation",
   "services.available_seats": "No of seats in the car",
   "services.has_disabled_access": "Transport of people with disabilities",
   "services.pets_allowed": "Transportation with pets",
@@ -163,9 +162,11 @@
   "services.availability": "How much time can you spend on these activities?",
   "services.county.placeholder": "Select a county",
   "error.must.be.number": "The value must be a number",
+  "error.integer": "The value must be an integer",
   "error.must.be.boolean": "Choose an option",
   "services.driverContact": "Phone number",
   "error.county.minOne": "You must select at least one county",
+  "error.quantity.minOne": "Quantity must be greater than or equal to 1",
   "controls.counties.selected": "selected counties",
   "gdpr.consent": "By completing the Form I consent that my personal data may be processed by The Department for Emergency Situations. I acknowledge that the Department for Emergency Situations processes my personal data based on the provisions Of Regulation (EU) 2016/679",
   "signup.error.gdpr.required": "To proceed, you must agree to the processing of your personal data",
@@ -219,5 +220,6 @@
   "error.availability.required": "Select a value",
   "resources.product": "Product",
   "resources.quantity": "Quantity",
-  "resources.added.products": "Added products"
+  "resources.added.products": "Added products",
+  "services.offerTransport": "I have transportation"
 }

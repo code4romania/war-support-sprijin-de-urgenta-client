@@ -1,35 +1,47 @@
-import { useProductsForm } from '@/hooks/useData'
-import { DonateItemRequest } from 'api'
-import React, { ReactNode, useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import BuildingMaterials from './BuildingMaterials'
-import GenericProduct from './GenericProduct'
-import Others from './Others'
-import Tents from './Tents'
-import TextileProduct from './TextileProduct'
 import ResourcesForm from '@/components/ResourcesForm'
+import { useProductsForm } from '@/hooks/useData'
+import { DonateItemRequest, DonateItemRequestUnion, DonateItemRequestWithoutName } from 'api'
 import clsx from 'clsx'
+import {
+  OfferBuildingMaterials,
+  OfferGenericProduct,
+  OfferProductsOthers,
+  OfferTents,
+  OfferTextileProduct, RequestBuildingMaterials, RequestGenericProduct, RequestTents, RequestTextileProduct
+} from 'forms'
+import { ReactNode, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { IResourcesCategoriesProps } from '../../forms/types'
+import { FormPageProps } from '../FormPage/FormPage'
 
 export interface ISignUpProductsProps {
-  defaultProp?: string
+  items: DonateItemRequestUnion[]
+  onAddItem: (item: DonateItemRequestUnion) => void
+  type: FormPageProps
+  onRemoveItem: (index: number) => void
 }
-
 export interface IProductsProps {
   resourceType: string
   label: string
   children: ReactNode
 }
 
-const SignUpProducts = ({}: ISignUpProductsProps) => {
+const SignUpProducts = ({
+  type,
+  onAddItem,
+  items,
+  onRemoveItem,
+}: ISignUpProductsProps) => {
   const { t } = useTranslation()
-  const { data } = useProductsForm()
+  const { data } = useProductsForm(FormPageProps.Offer)
 
   const [showDialog, setShowDialog] = useState(false)
-  const [productsList, setProductsList] = useState<DonateItemRequest[]>([])
 
-  const onProductAdd = (data: DonateItemRequest) => {
-    setProductsList((state) => [...state, data])
+  const onProductAdd = (
+    data: DonateItemRequest | DonateItemRequestWithoutName
+  ) => {
     handleDialogDismiss()
+    onAddItem(data)
   }
 
   const countyChoices = useMemo(() => {
@@ -39,69 +51,132 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     }))
   }, [data?.county_coverage?.choices])
 
-  const PRODUCTS: IProductsProps[] = [
+  const categories: IResourcesCategoriesProps[] = [
     {
       resourceType: 'food',
       label: 'signup.products.food',
-      children: (
-        <GenericProduct
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={1}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={1}
+          />
+        ),
     },
     {
       resourceType: 'generalHygiene',
       label: 'signup.products.generalHygiene',
-      children: (
-        <GenericProduct
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={2}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={2}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={2}
+          />
+        ),
     },
     {
       resourceType: 'feminineHygiene',
       label: 'signup.products.feminineHygiene',
-      children: (
-        <GenericProduct
-          onSubmit={onProductAdd}
-          counties={countyChoices}
-          category={3}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={3}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={3}
+          />
+        ),
     },
     {
       resourceType: 'textile',
       label: 'signup.products.textile',
-      children: (
-        <TextileProduct
-          onSubmit={onProductAdd}
-          resourceType="textile"
-          counties={countyChoices}
-        />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTextileProduct
+            onSubmit={onProductAdd}
+            resourceType="textile"
+            counties={countyChoices}
+            category={4}
+          />
+        ) : (
+          <RequestTextileProduct
+            onSubmit={onProductAdd}
+            resourceType="textile"
+            counties={countyChoices}
+          />
+        ),
     },
     {
       resourceType: 'buildingMaterials',
       label: 'signup.products.buildingMaterials',
-      children: (
-        <BuildingMaterials onSubmit={onProductAdd} counties={countyChoices} />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferBuildingMaterials
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={5}
+          />
+        ) : (
+          <RequestBuildingMaterials
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+          />
+        ),
     },
     {
       resourceType: 'tents',
       label: 'signup.products.tents',
-      children: (
-        <Tents onSubmit={onProductAdd} counties={countyChoices} category={6} />
-      ),
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferTents
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={6}
+          />
+        ) : (
+          <RequestTents
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={6}
+          />
+        ),
     },
     {
       resourceType: 'others',
-      label: 'Others',
-      children: <Others onSubmit={onProductAdd} />,
+      label: 'signup.products.others',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferProductsOthers
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={7}
+          />
+        ) : (
+          <RequestGenericProduct
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={7}
+          />
+        ),
     },
   ]
 
@@ -124,11 +199,17 @@ const SignUpProducts = ({}: ISignUpProductsProps) => {
     >
       <h3 className="mb-8 text-xl font-semibold">{t('products')}</h3>
       <ResourcesForm
-        categories={PRODUCTS}
+        type={type}
+        categories={categories}
         tableTitle={t('resources.added.products')}
         tableColumns={resourcesTableColumns}
-        tableItems={productsList}
-        updateTableItems={setProductsList}
+        tableItems={items.map(item => {
+          if (item.kind === 'noName')
+            return { ...item, name: item.unit_type === 'tent' ? t('signup.products.tents') : t('signup.products.textile') }
+          else
+            return item;
+        })}
+        onRemoveItem={onRemoveItem}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />

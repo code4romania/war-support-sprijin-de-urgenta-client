@@ -15,11 +15,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import Consent from '../GdprConsent'
+import { phoneNumberRegex } from '@/utils/regexes'
 
 interface ICredentials {
   email: string
   password: string
   re_password: string
+  phone_number: string
   gdpr_consent: boolean
 }
 
@@ -35,12 +37,17 @@ const INPUTS = [
     label: 'signup.userType.email',
     type: 'email',
   },
+  {
+    name: 'phone_number',
+    label: 'signup.userType.phone_number',
+    type: 'text',
+  },
   { name: 'password', label: 'signup.userType.password', type: 'password' },
   {
     name: 're_password',
     label: 'signup.userType.re_password',
     type: 'password',
-  },
+  }
 ]
 
 interface UserCredentialsProps {
@@ -70,6 +77,10 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
         t('signup.userType.re_password.missmatch')
       )
       .required(t('signup.userType.re_password.required')),
+    phone_number: yup
+      .string()
+      .required(t('signup.userType.phone_number.required'))
+      .matches(phoneNumberRegex, t('signup.userType.phone_number.invalid')),
     gdpr_consent: yup
       .boolean().required().oneOf([true], t('signup.error.gdpr.required'))
   })
@@ -118,19 +129,20 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       }
     } catch (e) {
       setServerErrors({
-        general: ['Failed to create a new account. Try later'],
+        'non_field_errors': [t('register.genericError')],
       })
     }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="bg-blue-50 px-4 py-4 rounded-md">
+      <div className="px-4 py-4 rounded-md bg-blue-50">
         <div className="max-w-sm">
           {inputs.map((input: IInput) => (
             <Input
               key={input.name}
-              label={`${t(input.label)}: *`}
+              required
+              label={`${t(input.label)}:`}
               errors={
                 serverErrors[input.name]
                   ? { message: serverErrors[input.name].join('\n') }
@@ -140,6 +152,13 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
               {...register(input.name)}
             />
           ))}
+          {serverErrors['non_field_errors']?.map(
+            (error: string, index: number) => (
+              <div key={index} className={'bg-red-50 p-1 px-2 text-white'}>
+                {error}
+              </div>
+            )
+          )}
         </div>
       </div>
 
@@ -147,7 +166,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
         <div className="md:w-2/3 max-w-small">
           <Consent name={'gdpr_consent'}
             register={register}
-            text={`${t('gdpr.consent')} *`}
+            text={`${t('gdpr.consent')}`}
             errors={errors.gdpr_consent} />
         </div>
       </div>

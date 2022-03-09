@@ -24,7 +24,7 @@ const PARTNERSHIPS = [
 
 const flexItemsCenter: string = clsx('flex items-center')
 const smallBoldTextWithGrayAndMarginAside: string = clsx(
-  'text-sm font-bold text-gray-300  mx-4'
+  'text-sm font-bold text-gray-500  mx-4'
 )
 
 const Header = () => {
@@ -52,7 +52,7 @@ const Header = () => {
               href="https://www.code4.ro/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:underline whitespace-nowrap"
+              className="text-blue-900 hover:underline whitespace-nowrap"
             >
               {t('findout.more')}
             </a>
@@ -83,7 +83,7 @@ const Header = () => {
                       Logout
                     </div>
                   ) : (
-                    <Link href="/login">Login</Link>
+                    <Link href="http://sprijin-de-urgenta-api.heroesof.tech:8070/ro/admin/login/?next=/ro/admin/">Login</Link>
                   )}
                 </div>
               )}

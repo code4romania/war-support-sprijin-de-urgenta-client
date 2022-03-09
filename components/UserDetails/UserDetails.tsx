@@ -23,7 +23,7 @@ export interface IInputProps {
 const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  
+
   const userTypeForms: { [key: number]: any } = {
     [1]: {
       inputs: [
@@ -32,8 +32,12 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
         { name: 'phone_number', label: 'signup.userType.phone_number' },
       ],
       schema: yup.object().shape({
-        last_name: yup.string().required(t('signup.userType.last_name.required')),
-        first_name: yup.string().required(t('signup.userType.first_name.required')),
+        last_name: yup
+          .string()
+          .required(t('signup.userType.last_name.required')),
+        first_name: yup
+          .string()
+          .required(t('signup.userType.first_name.required')),
         phone_number: yup
           .string()
           .required(t('signup.userType.phone_number.required'))
@@ -43,25 +47,38 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
     [2]: {
       inputs: [
         { name: 'business_name', label: 'signup.userType.business_name' },
-        { name: 'identification_no', label: 'signup.userType.identification_no' },
+        {
+          name: 'identification_no',
+          label: 'signup.userType.identification_no',
+        },
       ],
       schema: yup.object().shape({
         business_name: yup
           .string()
           .required(t('signup.userType.business_name.required')),
-        identification_no: yup.string().required(t('signup.userType.identification_no.required')),
+        identification_no: yup
+          .string()
+          .required(t('signup.userType.identification_no.required')),
       }),
     },
     [3]: {
-      inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+      inputs: [
+        { name: 'business_name', label: 'signup.userType.business_name' },
+      ],
       schema: yup.object().shape({
-        business_name: yup.string().required(t('signup.userType.business_name.required')),
+        business_name: yup
+          .string()
+          .required(t('signup.userType.business_name.required')),
       }),
     },
     [4]: {
-      inputs: [{ name: 'business_name', label: 'signup.userType.business_name' }],
+      inputs: [
+        { name: 'business_name', label: 'signup.userType.business_name' },
+      ],
       schema: yup.object().shape({
-        business_name: yup.string().required(t('signup.userType.business_name.required')),
+        business_name: yup
+          .string()
+          .required(t('signup.userType.business_name.required')),
       }),
     },
   }
@@ -87,27 +104,30 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
           {form.inputs.map((item: IInputProps) => (
             <Input
               key={item.name}
-              label={`${t(item.label)}: *`}
+              required
+              label={`${t(item.label)}:`}
               errors={errors[item.name]}
               {...register(item.name)}
             />
           ))}
         </div>
       </div>
-      <StepperButtonGroup
-        steps={[
-          {
-            disabled: false,
-            direction: 'backward',
-            onClick: onClickBack,
-          },
-          {
-            disabled: !errors,
-            direction: 'forward',
-            onClick: handleSubmit(onSubmit),
-          },
-        ]}
-      />
+      <div className={'flex justify-end'}>
+        <StepperButtonGroup
+          steps={[
+            {
+              disabled: false,
+              direction: 'backward',
+              onClick: onClickBack,
+            },
+            {
+              disabled: !errors,
+              direction: 'forward',
+              onClick: handleSubmit(onSubmit),
+            },
+          ]}
+        />
+      </div>
     </>
   )
 }

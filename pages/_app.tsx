@@ -8,7 +8,9 @@ import common_ro from '../public/locales/ro/common.json'
 import common_ua from '../public/locales/ua/common.json'
 import common_ru from '../public/locales/ru/common.json'
 
+import '../styles/fonts.css'
 import '../styles/globals.css'
+
 import { withStore } from '../store'
 import {
   deauthenticate,

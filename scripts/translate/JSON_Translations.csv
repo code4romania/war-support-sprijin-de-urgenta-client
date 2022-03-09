@@ -102,7 +102,6 @@ services.description,Detalii,Details,Деталі,Подробности
 services.driver-name,Nume șofer:,Driver Name:,Имя водителя,Имя водителя
 services.driver-ci,Serie și nr. buletin:,Series And ID No:,Серія і номер документа,Серия и номер документа
 services.car-plate,Număr mașină:,Car Number:,Номер автомобіля,Номер автомобиля
-services.transport-persons,Transport persoane,Passenger transportation,Пасажирські перевезення,Пассажирские перевозки
 services.available_seats,Număr de locuri in mașină,No of seats in the car,Кількість місць у машині,Количество мест в машине
 services.has_disabled_access,Transport persoane cu dizabilități,Transport of people with disabilities,Перевезення людей з обмеженими можливостями,Перевозка людей с ограниченными возможностями
 services.pets_allowed,Transport cu animale de companie,Transportation with pets,Перевезення з домашніми тваринами,Перевозка с домашними животными

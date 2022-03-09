@@ -3,33 +3,34 @@ import { State } from '@/store/types/state.type'
 
 import Spacer from '@/components/Spacer'
 import Stepper from '@/components/Stepper'
-import UserTypeForm from '@/components/UserTypeForm'
 import UserCredentials from '@/components/UserCredentials'
+import { useState } from 'react'
+import SignupUserType from '@/components/SignupUserType'
+import { FormPageProps } from '@/components/FormPage/FormPage'
 
 export interface ISignupPageProps {
-  resourceType: string
+  resourceType: FormPageProps
 }
 
 const SignupPage = ({ resourceType }: ISignupPageProps) => {
+  const [userType, setUserType] = useState<number | null>()
+
   const steps = useSelector((state: State) => state.steps.steps)
   const activeStep = useSelector((state: State) => state.steps.activeStep)
 
-  const currentComponent =
-    activeStep === 0 ? (
-      <UserTypeForm />
-    ) : (
-      <UserCredentials resourceType={resourceType} />
-    )
-
   return (
-    <main className="container md:mx-auto">
+    <main className="container px-2 mx-auto">
       <Spacer size="3rem" />
       <Stepper
         activeStep={activeStep}
         steps={steps[resourceType].map((step) => step.label)}
       />
       <Spacer size="4rem" />
-      <div className="px-3 ">{currentComponent}</div>
+      {activeStep === 0 ? (
+        <SignupUserType resourceType={resourceType} userType={userType} setUserType={setUserType} />
+      ) : (
+        <UserCredentials resourceType={resourceType} />
+      )}
       <Spacer size="4rem" />
     </main>
   )

@@ -3,7 +3,6 @@ import { PartialRecord } from '@/components/Form/types';
 import { ErrorOption, Path, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-
 type RecordKey = 'quantity' | 'unit_type' | 'packaging_type';
 interface IProps<TFormValues> {
   register: UseFormRegister<TFormValues>
