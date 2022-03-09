@@ -45,30 +45,31 @@ export const useDataWithToken = (path: string, token: string) => {
   return { data, error }
 }
 
-export const useUserTypeForm = (token: string) => useFormSchema(endpoints['registration'], token)
-export const useProductsForm = (userType: FormPageProps,token: string) =>
+export const useUserTypeForm = () => useFormSchema(endpoints['registration'])
+export const useProductsForm = (userType: FormPageProps, token: string) =>
   useFormSchema(
     endpoints[
-      userType === FormPageProps.Request ? 'request/item' : 'donate/item'
+    userType === FormPageProps.Request ? 'request/item' : 'donate/item'
     ],
     token
   )
-export const useServicesForm = (userType: FormPageProps,token:string) =>
+export const useServicesForm = (userType: FormPageProps, token: string) =>
   useFormSchema(
     endpoints[
-      userType === FormPageProps.Request
-        ? 'request/transport_service'
-        : 'donate/transport_service'
+    userType === FormPageProps.Request
+      ? 'request/transport_service'
+      : 'donate/transport_service'
     ],
     token
   )
-export const useVolunteeringForm = (userType: FormPageProps) =>
+export const useVolunteeringForm = (userType: FormPageProps, token: string) =>
   useFormSchema(
     endpoints[
     userType === FormPageProps.Request
       ? 'request/volunteering'
       : 'donate/volunteering'
-    ]
+    ],
+    token
   )
 export const useOthersForm = (userType: FormPageProps, token: string) =>
   useFormSchema(
