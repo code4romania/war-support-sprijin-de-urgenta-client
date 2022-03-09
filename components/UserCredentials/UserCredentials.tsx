@@ -15,11 +15,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import Consent from '../GdprConsent'
+import { phoneNumberRegex } from '@/utils/regexes'
 
 interface ICredentials {
   email: string
   password: string
   re_password: string
+  phone_number: string
   gdpr_consent: boolean
 }
 
@@ -35,12 +37,17 @@ const INPUTS = [
     label: 'signup.userType.email',
     type: 'email',
   },
+  {
+    name: 'phone_number',
+    label: 'signup.userType.phone_number',
+    type: 'text',
+  },
   { name: 'password', label: 'signup.userType.password', type: 'password' },
   {
     name: 're_password',
     label: 'signup.userType.re_password',
     type: 'password',
-  },
+  }
 ]
 
 interface UserCredentialsProps {
@@ -70,6 +77,10 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
         t('signup.userType.re_password.missmatch')
       )
       .required(t('signup.userType.re_password.required')),
+    phone_number: yup
+      .string()
+      .required(t('signup.userType.phone_number.required'))
+      .matches(phoneNumberRegex, t('signup.userType.phone_number.invalid')),
     gdpr_consent: yup
       .boolean().required().oneOf([true], t('signup.error.gdpr.required'))
   })
