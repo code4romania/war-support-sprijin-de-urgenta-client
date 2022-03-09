@@ -6,12 +6,13 @@
 */
 const csv = require('csvtojson')
 const fs = require('fs')
-const { stringify } = require('csv-stringify');
+const Excel = require('exceljs');
+
+
 
 //file path from root of project
 const csvFilePath = './scripts/translate/JSON_Translations.csv'
-const csvOutputFilePath = `./scripts/translate/JSON_Translations_${Math.floor(new Date().getTime() / 1000)
-}.csv`;
+const xlsxOutputFilePath = `./scripts/translate/JSON_Translations.xlsx`;
 
 // if you're lazy and use file path with spaces
 // csvFilePath = csvFilePath.replace(/(\s+)/g, '\\$1');
@@ -56,29 +57,31 @@ const generateJsonTranslationsCsv = async () => {
   }
   const distinctKeys = new Set(allKeys)
 
-  var rowsAcc = [];
+  var rowsData = [];
   // add header row 
-  rowsAcc.push([identifier, ...Object.values(localesMap)]);
+  rowsData.push([identifier, ...Object.values(localesMap)]);
 
   distinctKeys.forEach(key => {
     const rowData = [key];
     for (const [_, value] of Object.entries(localesMap)) {
       rowData.push(resultAcc[value][key] ?? '')
     }
-    rowsAcc.push(rowData);
+    rowsData.push(rowData);
   });
 
-  stringify(rowsAcc, {
-    header: false
-  }, (err, output) => {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log('done')
-      fs.writeFileSync(csvOutputFilePath, output, { encoding: 'utf-8' });
-    }
-  })
+  const wb = new Excel.Workbook();
+  const ws = wb.addWorksheet('JSON_Translations');
 
+  ws.addRows(rowsData);
+  
+  wb.xlsx
+    .writeFile(xlsxOutputFilePath)
+    .then(() => {
+      console.log('file created! Enjoy; beer++');
+    })
+    .catch(err => {
+      console.error(err.message);
+    });
 }
 
 generateJsonTranslationsCsv()
