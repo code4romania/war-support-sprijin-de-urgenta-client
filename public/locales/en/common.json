@@ -118,6 +118,7 @@
   "services.county_coverage": "County",
   "error.must.be.string": "The value must contain characters",
   "error.must.be.time": "The value must be hour:minute",
+  "error.must.be.greater.than.from": "Until value must be greater than From",
   "error.must.be.date": "The value must be a date",
   "signup.products.header": "Products",
   "signup.products.food": "Food",

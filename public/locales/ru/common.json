@@ -119,6 +119,7 @@
   "services.county_coverage": "Округ",
   "error.must.be.string": "Значение должно содержать символы",
   "error.must.be.time": "Значение должно быть час:минута",
+  "error.must.be.greater.than.from": "Until value must be greater than From",
   "error.must.be.date": "Значение должно быть датой",
   "signup.products.header": "Продукты",
   "signup.products.food": "Еда",

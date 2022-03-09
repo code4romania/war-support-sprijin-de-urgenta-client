@@ -58,7 +58,11 @@ export const OfferTransportGoodsForm = ({
       .required(t('error.availability.required'))
       .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
+    availability_interval_to: yup.mixed().typeError(t('error.must.be.time'))
+    .test("is-greater",t('error.must.be.greater.than.from'), function(value){
+      const {availability_interval_from } = this.parent;
+      return availability_interval_from < value;
+    }),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
