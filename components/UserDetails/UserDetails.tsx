@@ -29,7 +29,6 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
       inputs: [
         { name: 'last_name', label: 'signup.userType.last_name' },
         { name: 'first_name', label: 'signup.userType.first_name' },
-        { name: 'phone_number', label: 'signup.userType.phone_number' },
       ],
       schema: yup.object().shape({
         last_name: yup
@@ -38,10 +37,6 @@ const UserDetails = ({ type, onClickBack }: IUserDetailsProps) => {
         first_name: yup
           .string()
           .required(t('signup.userType.first_name.required')),
-        phone_number: yup
-          .string()
-          .required(t('signup.userType.phone_number.required'))
-          .matches(phoneNumberRegex, t('signup.userType.phone_number.invalid')),
       }),
     },
     [2]: {
