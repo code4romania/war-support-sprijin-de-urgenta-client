@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { dateInTheFutureValidator, dateStringValidator } from 'forms/validators'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -29,12 +28,11 @@ type OfferBuildingMaterialsForm = {
   quantity?: number
   unit_type: string
   packaging_type: string
-  expiration_date?: string
 }
 
 export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, category }) => {
   const { t } = useTranslation()
-  
+
   const buildingMaterialsSchema: SchemaOf<OfferBuildingMaterialsForm> = yup
     .object()
     .shape({
@@ -51,11 +49,6 @@ export const OfferBuildingMaterials: FC<IProps> = ({ counties, onSubmit, categor
       quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
       unit_type: yup.string().required(t('error.unitType.required')),
       packaging_type: yup.string().required(t('error.packagkingType.required')),
-      expiration_date: yup
-        .string()
-        .required(t('validation.required'))
-        .test(dateStringValidator.name, t('validation.date.invalid'), dateStringValidator.test)
-        .test(dateInTheFutureValidator.name, t('validation.date.must.be.in.future'), dateInTheFutureValidator.test)
     })
 
   const {
