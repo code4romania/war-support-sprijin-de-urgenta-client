@@ -13,7 +13,6 @@ import '../styles/globals.css'
 
 import { withStore } from '../store'
 import {
-  deauthenticate,
   reauthenticate,
   verificationFailed,
 } from '@/store/reducers/auth'
