@@ -34,11 +34,11 @@ export const RequestOthersForm: FC<IProps> = ({
   const { t } = useTranslation()
 
   const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(),
+    name: yup.string().typeError(t('error.must.be.string')).required(t('error.must.be.string')),
     category: yup.number().typeError(t('error.must.be.number')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup.string().required(),
+    county_coverage: yup.string().required(t('error.county.required')),
     town: yup.string().typeError(t('error.must.be.string')),
   })
   const {
