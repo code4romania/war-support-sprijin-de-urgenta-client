@@ -12,7 +12,11 @@
     "translate": "node ./scripts/translate/populate-locales.js",
     "generate-translations-sheet": "node ./scripts/translate/generate-translations-sheet.js",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run",
+    "e2e": "env-cmd -f ./env/.env.development next build && start-server-and-test start http://localhost:3000 cypress",
+    "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
@@ -49,6 +53,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@faker-js/faker": "^6.0.0-beta.0",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-interactions": "^6.4.19",
@@ -59,6 +64,7 @@
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
     "@tailwindcss/forms": "^0.4.0",
+    "@testing-library/cypress": "^8.0.2",
     "@types/gtag.js": "^0.0.8",
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
@@ -66,6 +72,7 @@
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "csvtojson": "^2.0.10",
+    "cypress": "^9.5.1",
     "env-cmd": "^10.1.0",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
@@ -75,6 +82,7 @@
     "mkdirp": "^1.0.4",
     "postcss": "^8.4.7",
     "prettier": "^2.5.1",
+    "start-server-and-test": "^1.14.0",
     "storybook-addon-designs": "^6.2.1",
     "storybook-react-i18next": "^1.0.17",
     "tailwindcss": "^3.0.23",
