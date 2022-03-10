@@ -32,7 +32,7 @@ export const parameters = {
   locales: {
     ro: { title: 'RO', left: '🇷🇴' },
     en: { title: 'EN', left: '🇬🇧' },
-    ua: { title: 'UA', left: '🇺🇦' },
+    uk: { title: 'UK', left: '🇺k' },
     ru: { title: 'RU', left: 'RU' },
   },
 }

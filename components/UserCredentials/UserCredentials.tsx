@@ -123,7 +123,8 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       if (access_token) {
         setCookie('token', access_token)
         dispatch(reauthenticate({ token: access_token, userPk: user.pk }))
-        router.push(`/${resourceType}/resources`)
+        await router.push(`/${resourceType}/resources`)
+        dispatch({ type: ActionType.DECREASE })
       } else {
         setServerErrors(response)
       }

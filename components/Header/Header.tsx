@@ -6,16 +6,26 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { deauthenticate } from '@/store/reducers/auth'
+import { envVars } from '@/utils/envVars'
+import { useRouter } from 'next/router'
 
 const PARTNERSHIPS = [
   {
     id: 1,
-    src: '/gov_ro.svg',
+    src: '/gov_ro.png',
     alt: 'Romanian GOV Logo',
     url: 'https://gov.ro/',
+    className: 'hidden md:block',
   },
   {
     id: 2,
+    src: '/gov_ro_mobile.svg',
+    alt: 'Romanian GOV Logo',
+    url: 'https://gov.ro/',
+    className: 'md:hidden',
+  },
+  {
+    id: 3,
     src: '/dsu_logo.svg',
     alt: 'DSU Logo',
     url: 'http://www.dsu.mai.gov.ro/',
@@ -29,12 +39,15 @@ const smallBoldTextWithGrayAndMarginAside: string = clsx(
 
 const Header = () => {
   const { t } = useTranslation('common')
+  const router = useRouter()
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state: State) => state.auth.userPk)
   const isLoadingUser = useSelector((state: State) => state.auth.loading)
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await router.push('/')
     dispatch(deauthenticate())
   }
+  const loginUrl = envVars.loginUrl || ''
 
   return (
     <div className="w-full mx-auto">
@@ -83,7 +96,7 @@ const Header = () => {
                       Logout
                     </div>
                   ) : (
-                    <Link href="http://sprijin-de-urgenta-api.heroesof.tech:8070/ro/admin/login/?next=/ro/admin/">Login</Link>
+                    <Link href={loginUrl}>Login</Link>
                   )}
                 </div>
               )}
@@ -99,9 +112,13 @@ const Header = () => {
           {t('partenership.with')}
         </span>
         <div className="flex items-center gap-2">
-          {PARTNERSHIPS.map(({ id, src, alt, url }) => (
+          {PARTNERSHIPS.map(({ id, src, alt, url, className }) => (
             <a key={id} href={url} rel="noreferrer" target="_blank">
-              <Image src={src} alt={alt} className="h-[38px]" />
+              <Image
+                src={src}
+                alt={alt}
+                className={clsx([className, 'h-[38px]'])}
+              />
             </a>
           ))}
         </div>

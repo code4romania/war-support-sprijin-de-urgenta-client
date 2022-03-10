@@ -95,7 +95,7 @@ export type DonateItemRequestWithoutName = {
   quantity?: number
   packaging_type?: string
   unit_type?: string
-  kids_age?: string
+  textile_size?: string
   other_textiles?: string
   tent_capacity?: number
   category?: number

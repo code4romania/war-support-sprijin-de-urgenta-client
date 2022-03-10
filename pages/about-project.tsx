@@ -18,7 +18,7 @@ const ImageItem = ({ src, alt }: { src: string; alt: string }) => {
 
 const images = [
   { id: 1, src: '/code4romania.svg', alt: 'Code 4 Romania logo' },
-  { id: 2, src: '/gov_ro.svg', alt: 'Romanian GOV Logo' },
+  { id: 2, src: '/gov_ro.png', alt: 'Romanian GOV Logo' },
   { id: 3, src: '/dsu_logo.svg', alt: 'DSU Logo' },
   { id: 4, src: '/iom_logo.svg', alt: 'IOM Logo' },
   { id: 5, src: '/unhcr_logo.svg', alt: 'UNHCR Logo' },

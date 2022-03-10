@@ -5,7 +5,7 @@ import { FC } from 'react'
 import { initReactI18next } from 'react-i18next'
 import common_en from '../public/locales/en/common.json'
 import common_ro from '../public/locales/ro/common.json'
-import common_ua from '../public/locales/ua/common.json'
+import common_uk from '../public/locales/uk/common.json'
 import common_ru from '../public/locales/ru/common.json'
 
 import '../styles/fonts.css'
@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { useRouter } from 'next/router'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import GTagScript from '@/components/GTagScript'
 
 i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
@@ -31,7 +32,7 @@ i18n.use(initReactI18next).init({
   resources: {
     en: { common: common_en },
     ro: { common: common_ro },
-    ua: { common: common_ua },
+    uk: { common: common_uk },
     ru: { common: common_ru },
   },
 })
@@ -63,6 +64,7 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <Layout>
+      <GTagScript />
       <Component {...pageProps} />
     </Layout>
   )

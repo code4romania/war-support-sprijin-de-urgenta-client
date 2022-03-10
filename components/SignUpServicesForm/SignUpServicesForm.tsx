@@ -36,7 +36,7 @@ export const SignUpServicesForm = ({
   const categories: ICategoryProps[] = [
     {
       resourceType: 'goods',
-      label: t('services.transport-goods'),
+      label: 'services.transport-goods',
       children:
         type === FormPageProps.Offer ? (
           <OfferTransportGoodsForm onSubmit={onAddService} />
@@ -46,7 +46,7 @@ export const SignUpServicesForm = ({
     },
     {
       resourceType: 'people',
-      label: t('services.transport-people'),
+      label: 'services.transport-people',
       children:
         type === FormPageProps.Offer ? (
           <OfferTransportPersonsForm onSubmit={onAddService} />

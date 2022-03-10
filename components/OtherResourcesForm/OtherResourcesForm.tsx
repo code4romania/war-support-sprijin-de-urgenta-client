@@ -7,9 +7,11 @@ import { OfferOthersForm, RequestOthersForm } from 'forms'
 import ResourcesForm from '@/components/ResourcesForm'
 import { DonateOtherRequest } from 'api'
 import { FormPageProps } from '../FormPage/FormPage'
+import { useSelector } from 'react-redux'
+import { State } from '@/store/types/state.type'
 
 export type OtherResourceForm = {
-  county_coverage: string[]
+  county_coverage: string
   town?: string
   name: string
   category?: number
@@ -31,9 +33,11 @@ const OtherResourcesForm = ({
   onRemoveItem,
 }: IOtherResourceFormProps) => {
   const { t } = useTranslation()
+  const token: string = useSelector((state: State) => state.auth.token)
+  const { data: formData } = useOthersForm(FormPageProps.Offer, token)
+  const { data: otherCategoriesList } = useData(endpoints['categories/other'])
 
-  const { data: formData } = useOthersForm(FormPageProps.Offer)
-  const { data: categoriesList } = useData(endpoints['categories/other'])
+  const categoriesList = otherCategoriesList?.map((category: any) => ({ name: t(category.name), ...category }));
 
   const tableColumns = [t('resources.other')]
 
@@ -48,7 +52,7 @@ const OtherResourcesForm = ({
     handleDialogDismiss()
   }
 
-  const countyCovarage = useMemo(() => {
+  const countyCoverage = useMemo(() => {
     return formData?.county_coverage?.choices.map((c: any) => ({
       value: c.value,
       label: c.display_name,
@@ -62,13 +66,13 @@ const OtherResourcesForm = ({
       children:
         type === FormPageProps.Offer ? (
           <OfferOthersForm
-            counties={countyCovarage}
+            counties={countyCoverage}
             onSubmit={onSubmit}
             category={category.id}
           />
         ) : (
           <RequestOthersForm
-            counties={countyCovarage}
+            counties={countyCoverage}
             onSubmit={onSubmit}
             category={category.id}
           />
