@@ -190,14 +190,14 @@ export const OfferTransportGoodsForm = ({
               value={typeOptions && typeOptions[0].value}
               {...register('type')}
             >
-              {typeOptions && typeOptions[0].display_name}
+              {typeOptions && t(typeOptions[0].display_name)}
             </Radio>
             <Radio
               value={typeOptions && typeOptions[1]?.value}
               {...register('type')}
               className={clsx('!mb-0')}
             >
-              {typeOptions && typeOptions[1].display_name}
+              {typeOptions && t(typeOptions[1].display_name)}
             </Radio>
             {showCountyCoverageDropdown && (
               <DropdownMultiSelect
@@ -253,7 +253,7 @@ export const OfferTransportGoodsForm = ({
               }) => {
                 return (
                   <option key={value} value={value}>
-                    {display_name}
+                    {t(display_name)}
                   </option>
                 )
               }
