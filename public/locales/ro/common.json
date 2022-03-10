@@ -146,7 +146,7 @@
   "signup.products.female": "Femei",
   "signup.products.male": "Bărbați",
   "signup.products.children": "Copii",
-  "signup.products.children.age": "Vârsta:",
+  "signup.products.children.age": "vârsta",
   "signup.products.blankets": "Pături",
   "signup.products.sheets": "Cuverturi",
   "signup.products.sleepingBags": "Saci de dormit",
@@ -250,5 +250,10 @@
   "error.value.must.be.non.zero": "Valoarea trebuie să fie mai mare ca 0",
   "services.transport-persons": "Transport persoane",
   "validation.date.must.be.in.future": "Data trebuie să fie în viitor",
-  "validation.date.invalid": "Data introdusă este într-un format invalid"
+  "validation.date.invalid": "Data introdusă este într-un format invalid",
+  "signup.products.textiles": "Alte textile:",
+  "signup.products.name": "Nume produs",
+  "error.textile.category.required": "Alege o categorie de textile",
+  "signup.products.size": "Marime / Vârsta",
+  "register.genericError": "A parut o errore. Te rugam sa incerci mai tarziu"
 }
