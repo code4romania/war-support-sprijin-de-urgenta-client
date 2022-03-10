@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 
 export type OtherResourceForm = {
-  county_coverage: string[]
+  county_coverage: string
   town?: string
   name: string
   category?: number
