@@ -273,5 +273,7 @@
   "Individual": "Individual",
   "Corporate": "Corporate",
   "Non-Profit": "Non-Profit",
-  "Government": "Government"
+  "Government": "Government",
+  "National": "National",
+  "County": "County"
 }

@@ -273,5 +273,7 @@
   "Individual": "Persoană Fizică",
   "Corporate": "Companie",
   "Non-Profit": "ONG",
-  "Government": "Autoritate Publică"
+  "Government": "Autoritate Publică",
+  "National": "",
+  "County": ""
 }

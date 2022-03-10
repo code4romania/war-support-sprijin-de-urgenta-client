@@ -273,5 +273,7 @@
   "Individual": "Фізична особа",
   "Corporate": "Компанія",
   "Non-Profit": "Некомерційна організація",
-  "Government": "Уряд"
+  "Government": "Уряд",
+  "National": "Національний",
+  "County": "Округ"
 }
