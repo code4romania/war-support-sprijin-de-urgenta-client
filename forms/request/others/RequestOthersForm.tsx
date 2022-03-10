@@ -22,7 +22,7 @@ type Form = {
   name: string
   description?: string
   available_until?: Date
-  county_coverage: string[]
+  county_coverage: string
   town: string
 }
 
@@ -38,10 +38,7 @@ export const RequestOthersForm: FC<IProps> = ({
     category: yup.number().typeError(t('error.must.be.number')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup
-      .array()
-      .min(1, t('error.county.minOne'))
-      .of(yup.string().required()),
+    county_coverage: yup.string().required(),
     town: yup.string().typeError(t('error.must.be.string')),
   })
   const {
