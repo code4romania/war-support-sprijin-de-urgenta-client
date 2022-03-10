@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import mock from '../../utils/e2e'
 
-xdescribe('Request products', () => {
+describe('Request products', () => {
   beforeEach(() => {
     cy.login()
     cy.intercept('POST', '**/request/item/', mock()).as('request/item')
@@ -13,6 +13,7 @@ xdescribe('Request products', () => {
 
   afterEach(() => {
     cy.wait(2000)
+    cy.get('#has_transportation_true').check();
     cy.get('#name').type('test')
     cy.get('#description').type('test')
     cy.get('#quantity').type(100)
@@ -57,6 +58,8 @@ describe('Request products', () => {
   it('successfully requests Clothing and other textiles', () => {
     cy.findAllByText('Adaugă').eq(3).click()
     cy.wait(2000)
+    cy.get('#name').type('test')
+    cy.get('#has_transportation_true').check();
     cy.get('#textile_category_1').check()
     cy.get('#textile_size').type('xl')
     cy.get('#quantity').type(100)
@@ -81,6 +84,7 @@ describe('Request products', () => {
   it('successfully requests tents', () => {
     cy.findAllByText('Adaugă').eq(5).click()
     cy.wait(2000)
+    cy.get('#has_transportation_true').check()
     cy.get('#quantity').type(2)
     cy.get('#tent_capacity').type(2)
     cy.get('select[name="county_coverage"]').select(1)
@@ -90,6 +94,7 @@ describe('Request products', () => {
   it('successfully requests Other item', () => {
     cy.findAllByText('Adaugă').eq(6).click()
     cy.wait(2000)
+    cy.get('#has_transportation_true').check()
     cy.get('#name').type('test')
     cy.get('#description').type('test')
     cy.get('#quantity').type(100)
