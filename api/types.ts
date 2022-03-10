@@ -112,7 +112,7 @@ export type RequestItemRequest = {
   town?: string
   description?: string
   status?: string
-  name: string
+  name?: string
   quantity?: number
   packaging_type?: string
   unit_type?: string
@@ -129,7 +129,7 @@ export type RequestItemRequest = {
   kind: 'withName'
 }
 
-//New type for OfferTents and OfferTextileProduct
+//New type for OfferTents
 export type RequestItemRequestWithoutName = {
   kind: 'noName',
   county_coverage: string
@@ -143,7 +143,6 @@ export type RequestItemRequestWithoutName = {
   tent_capacity?: number
   category?: number
   textile_category?: number
-  donor?: string
   made_by?: number
   name?: string // name is required by api
 }

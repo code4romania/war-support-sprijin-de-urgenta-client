@@ -11,6 +11,9 @@ import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
 import RequestLocation from 'forms/request/products/RequestLocation'
+import * as yup from 'yup'
+import { SchemaOf } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -20,34 +23,62 @@ interface IProps {
 
 type RequestGenericProductForm = {
   county_coverage: string
-  town: string
+  town?: string
   name: string
-  description: string
-  quantity: number
+  description?: string
+  quantity?: number
   unit_type: string
   packaging_type: string
-  expiration_date: string
   has_transportation: boolean
 }
 
 export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category }) => {
+  const { t } = useTranslation()
+
+  const genericRequestSchema: SchemaOf<RequestGenericProductForm> = yup.object().shape({
+    county_coverage: yup
+      .string()
+      .typeError(t('error.must.be.string'))
+      .required(t('error.county.required')),
+    town: yup.string().notRequired(),
+    name: yup
+      .string()
+      .typeError(t('error.must.be.string'))
+      .required(t('error.county.required')),
+    description: yup.string().notRequired(),
+    quantity: yup
+      .number()
+      .min(1, t('error.quantity.minOne'))
+      .typeError(t('error.must.be.number')),
+    unit_type: yup.string().required(t('error.unitType.required')),
+    packaging_type: yup.string().required(t('error.packagkingType.required')),
+    has_transportation: yup
+      .boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.has_transportation.required'))
+  })
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<RequestGenericProductForm>()
+  } = useForm<RequestGenericProductForm>({
+    resolver: yupResolver(genericRequestSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {},
+  })
 
   const onFormSubmit = (values: RequestGenericProductForm) => {
     const donateItemRequest: RequestItemRequest = { ...values, category, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 
-  const { t } = useTranslation()
-
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+        errors={errors.has_transportation}>
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}

@@ -1,11 +1,10 @@
-import Checkbox from '@/components/Form/Checkbox'
 import Input from '@/components/Form/Input'
 import Textarea from '@/components/Form/Textarea'
 
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
 import { ResourceType, TextileCategory } from 'forms/types'
-import { RequestItemRequestWithoutName } from 'api'
+import { RequestItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -15,15 +14,13 @@ import Radio from '@/components/Form/Radio'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Dropdown from '@/components/Form/Dropdown'
 import RequestLocation from './RequestLocation'
-
 
 interface IProps {
   resourceType: ResourceType
   category: number
   counties: MultiSelectOption[]
-  onSubmit: (values: RequestItemRequestWithoutName) => void
+  onSubmit: (values: RequestItemRequest) => void
 }
 
 type RequestTextileProductForm = {
@@ -35,6 +32,8 @@ type RequestTextileProductForm = {
   textile_category: number
   textile_size?: string
   other_textiles?: string
+  has_transportation?: boolean
+  name?: string
 }
 
 export const RequestTextileProduct: FC<IProps> = ({
@@ -44,6 +43,28 @@ export const RequestTextileProduct: FC<IProps> = ({
 }) => {
   const { t } = useTranslation()
 
+  const textileRequestSchema: SchemaOf<RequestTextileProductForm> = yup.object().shape({
+    county_coverage: yup
+      .string()
+      .typeError(t('error.must.be.string'))
+      .required(t('error.county.required')),
+    town: yup.string(),
+    quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
+    unit_type: yup.string().required(t('error.unitType.required')),
+    packaging_type: yup.string().required(t('error.packagkingType.required')),
+    has_transportation: yup
+      .boolean()
+      .typeError(t('error.must.be.boolean'))
+      .required(t('error.has_transportation.required')),
+    textile_category: yup
+      .number()
+      .typeError(t('error.textile.category.required'))
+      .required(t('error.textile.category.required')),
+    textile_size: yup.string().notRequired(),
+    other_textiles: yup.string().notRequired(),
+    name: yup.string().required(t('validation.required'))
+  })
+
   const {
     handleSubmit,
     register,
@@ -51,11 +72,15 @@ export const RequestTextileProduct: FC<IProps> = ({
     control,
     watch
   } = useForm<RequestTextileProductForm>(
-
+    {
+      resolver: yupResolver(textileRequestSchema),
+      reValidateMode: 'onSubmit',
+      mode: 'all',
+    }
   )
 
   const onFormSubmit = (values: RequestTextileProductForm) => {
-    const requestItemRequest: RequestItemRequestWithoutName = { ...values, category, kind: 'noName', name: 'textile' }
+    const requestItemRequest: RequestItemRequest = { ...values, category, kind: 'withName'}
     const itemCategory = requestItemRequest.textile_category
 
     // clean size if textile category is other
@@ -85,6 +110,18 @@ export const RequestTextileProduct: FC<IProps> = ({
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup
+        label={t('services.offerTransport')}
+        errors={errors.has_transportation}>
+        <div className="flex flex-row gap-6">
+          <Radio value="true" {...register('has_transportation')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('has_transportation')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <RadioGroup
         label={t('signup.products.clothing')}
         errors={errors.textile_category}
@@ -125,10 +162,17 @@ export const RequestTextileProduct: FC<IProps> = ({
           </Radio>
 
           <div className="ml-5">
-            <Textarea {...register('other_textiles')} disabled={!(enableOtherTextileTextarea)}/>
+            <Textarea {...register('other_textiles')} disabled={!(enableOtherTextileTextarea)} />
           </div>
         </div>
       </RadioGroup>
+
+      <Input
+          label={t('signup.products.name')}
+          labelPosition="horizontal"
+          errors={errors.name}
+          {...register('name')}
+        />
 
       <Quantity
         register={register}
@@ -139,7 +183,6 @@ export const RequestTextileProduct: FC<IProps> = ({
           unit_type: 'unit_type',
         }}
       />
-
       <RequestLocation
         counties={counties}
         register={register}
@@ -150,8 +193,6 @@ export const RequestTextileProduct: FC<IProps> = ({
           town: 'town',
         }}
       />
-
-
     </ProductTypeWrapper>
   )
 }

@@ -11,6 +11,8 @@ import { SchemaOf } from 'yup'
 import * as yup from 'yup'
 import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
 import Dropdown from '@/components/Form/Dropdown'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
 
 interface IProps {
   counties: MultiSelectOption[]
@@ -47,6 +49,16 @@ export const RequestOthersForm: FC<IProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup label={t('services.offerTransport')}>
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('has_transportation')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('has_transportation')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Input
         label={t('signup.other.name')}
         {...register('name')}
