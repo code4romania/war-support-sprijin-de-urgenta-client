@@ -15,7 +15,7 @@ const StepsArrow = ({ direction, disabled = false, children }: Props) => {
     return (
       <div
         className={clsx(
-          'justify-items-start flex items-center md:mr-10 cursor-pointer',
+          'justify-items-start flex items-center cursor-pointer',
           disabled && 'cursor-default'
         )}
       >
@@ -43,7 +43,7 @@ const StepsArrow = ({ direction, disabled = false, children }: Props) => {
     )
 
   return (
-    <div className="flex items-center md:ml-10 cursor-pointer">
+    <div className="flex items-center cursor-pointer">
       <p className={clsx('font-bold', disabled && 'opacity-25')}>{children}</p>
       <svg
         className="ml-2"
