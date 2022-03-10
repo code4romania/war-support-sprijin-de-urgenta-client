@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
+import {dateRangeValidator} from 'forms/validators';
 
 type ServicesForm = {
   available_seats: number
@@ -30,8 +31,8 @@ type ServicesForm = {
   driver_id: string
   driver_name: string
   availability?: string
-  availability_interval_from?: Date
-  availability_interval_to?: Date
+  availability_interval_from?: string
+  availability_interval_to?: string
   car_registration_number: string
   category?: string
   county_coverage?: string[]
@@ -59,7 +60,8 @@ export const OfferTransportPersonsForm = ({
       .required(t('validation.required')),
     availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
+    availability_interval_to: yup.mixed().typeError(t('error.must.be.time'))
+    .test(dateRangeValidator.name,t('error.must.be.greater.than.from'), dateRangeValidator.test),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))

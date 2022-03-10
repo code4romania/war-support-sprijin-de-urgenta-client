@@ -26,3 +26,14 @@ export const dateStringValidator: IYupTest<string | undefined, AnyObject> = {
     return true;
   }
 };
+
+/**
+ * Validates if availability_interval_from is before availability_interval_to
+ */
+ export const dateRangeValidator: IYupTest<string | undefined, AnyObject> = {
+  name: 'ensure_range_valid',
+  test: function (value) {
+    const availability_interval_from: string = this.parent.availability_interval_from;
+    return availability_interval_from < value!; // todo check here
+  }
+};

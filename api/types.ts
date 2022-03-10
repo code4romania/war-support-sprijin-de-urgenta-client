@@ -7,8 +7,8 @@ export type OfferTransportServicesRequest = {
   type?: string
   county_coverage?: string[]
   availability?: string
-  availability_interval_from?: Date
-  availability_interval_to?: Date
+  availability_interval_from?: string
+  availability_interval_to?: string
   driver_name: string
   driver_id: string
   driver_contact: string

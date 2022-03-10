@@ -118,7 +118,6 @@
   "services.county_coverage": "Округ",
   "error.must.be.string": "Значення має містити символи",
   "error.must.be.time": "Значення має бути година: хвилина",
-  "error.must.be.greater.than.from": "Until value must be greater than From",
   "error.must.be.date": "Значення має бути датою",
   "signup.products.header": "Продукти",
   "signup.products.food": "Харчування",
