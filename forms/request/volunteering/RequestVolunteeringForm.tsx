@@ -33,7 +33,10 @@ export const RequestVolunteeringForm: FC<IProps> = ({
     yup.object().shape({
       type: yup.string().typeError(t('error.must.be.string')),
       town: yup.string().typeError(t('error.must.be.string')),
-      county_coverage: yup.string().typeError(t('error.must.be.string')).required(t('error.county.required')),
+      county_coverage: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
     })
   const {
     handleSubmit,
@@ -46,7 +49,7 @@ export const RequestVolunteeringForm: FC<IProps> = ({
   const onFormSubmit = (values: any) => {
     const donateOtherRequest: DonateVolunteeringRequest = {
       ...values,
-      category,
+      type: category,
     }
     onSubmit(donateOtherRequest)
   }
