@@ -8,7 +8,6 @@ import { MouseEventHandler } from 'react'
 import { useDispatch } from 'react-redux'
 import { ActionType } from '@/store/reducers/steps'
 import * as yup from 'yup'
-import { phoneNumberRegex } from '@/utils/regexes'
 
 export interface IUserDetailsProps {
   type: number

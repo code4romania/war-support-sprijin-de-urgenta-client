@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { AnyObject } from "yup/lib/types";
 import { TestFunction } from "yup/lib/util/createValidation";
 

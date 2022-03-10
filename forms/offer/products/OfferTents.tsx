@@ -1,7 +1,7 @@
 import Input from '@/components/Form/Input'
 import Location from 'forms/common/Location'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
-import { DonateItemRequest, DonateItemRequestWithoutName } from 'api'
+import { DonateItemRequestWithoutName } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+
 interface IProps {
   counties?: MultiSelectOption[]
   category: number

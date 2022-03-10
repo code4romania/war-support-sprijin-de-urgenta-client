@@ -5,6 +5,7 @@ import {
   DonateItemRequestUnion,
   DonateOtherRequest,
   DonateVolunteeringRequest,
+  ItemRequestUnion,
   ServerError,
   ServerErrorByEndpoint,
   TransportServicesRequest,
@@ -66,9 +67,11 @@ const SignUpResources = ({ type }: ISignUpResources) => {
     setServicesList(removeItem(servicesList, index))
   }
 
-  const [productsList, setProductsList] = useState<DonateItemRequestUnion[]>([])
+  const [productsList, setProductsList] = useState<
+    DonateItemRequestUnion[] | ItemRequestUnion[]
+  >([])
 
-  const onAddProduct = (data: DonateItemRequestUnion) => {
+  const onAddProduct = (data: DonateItemRequestUnion | ItemRequestUnion) => {
     if (type === FormPageProps.Offer) {
       setProductsList((state) => [...state, { ...data, donor }])
     } else {
@@ -176,7 +179,8 @@ const SignUpResources = ({ type }: ISignUpResources) => {
       | TransportServicesRequest[]
       | DonateItemRequestUnion[]
       | DonateVolunteeringRequest[]
-      | DonateOtherRequest[],
+      | DonateOtherRequest[]
+      | ItemRequestUnion[],
     endpoint: string
   ) => {
     return await fetch(
