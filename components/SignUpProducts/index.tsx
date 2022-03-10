@@ -1,7 +1,7 @@
 import ResourcesForm from '@/components/ResourcesForm'
 import { useProductsForm } from '@/hooks/useData'
 import { State } from '@/store/types/state.type'
-import { DonateItemRequest, DonateItemRequestUnion, DonateItemRequestWithoutName } from 'api'
+import { ItemRequestUnion } from 'api'
 import clsx from 'clsx'
 import {
   OfferBuildingMaterials,
@@ -17,8 +17,8 @@ import { IResourcesCategoriesProps } from '../../forms/types'
 import { FormPageProps } from '../FormPage/FormPage'
 
 export interface ISignUpProductsProps {
-  items: DonateItemRequestUnion[]
-  onAddItem: (item: DonateItemRequestUnion) => void
+  items: ItemRequestUnion[]
+  onAddItem: (item: ItemRequestUnion) => void
   type: FormPageProps
   onRemoveItem: (index: number) => void
 }
@@ -41,7 +41,7 @@ const SignUpProducts = ({
   const [showDialog, setShowDialog] = useState(false)
 
   const onProductAdd = (
-    data: DonateItemRequest | DonateItemRequestWithoutName
+    data: ItemRequestUnion 
   ) => {
     handleDialogDismiss()
     onAddItem(data)
@@ -123,6 +123,7 @@ const SignUpProducts = ({
         ) : (
           <RequestTextileProduct
             onSubmit={onProductAdd}
+            category={4}
             resourceType="textile"
             counties={countyChoices}
           />
@@ -142,6 +143,7 @@ const SignUpProducts = ({
           <RequestBuildingMaterials
             onSubmit={onProductAdd}
             counties={countyChoices}
+            category={5}
           />
         ),
     },

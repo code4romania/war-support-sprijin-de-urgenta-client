@@ -14,7 +14,6 @@ export type OtherResourceForm = {
   county_coverage: string
   town?: string
   name: string
-  category?: number
   description?: string
   available_until?: string
 }

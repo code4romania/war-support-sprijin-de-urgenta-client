@@ -21,3 +21,15 @@ export interface IResourcesCategoriesProps {
 }
 
 export type City = string
+
+
+export enum TextileCategory {
+  ClothingFemale = 1,
+  ClothingMale = 2,
+  ClothingChildren = 3,
+
+  Blankets = 4,
+  Sheets = 5,
+  SleepingBags = 6,
+  Other = 7
+}

@@ -2,21 +2,24 @@ import Location from 'forms/request/products/RequestLocation'
 import Product from 'forms/common/Product'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
-import { DonateItemRequest } from 'api'
+import { RequestItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { MultiSelectOption } from '../../../components/Form/types'
 import { useTranslation } from 'react-i18next'
 import Textarea from '@/components/Form/Textarea'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
+import RequestLocation from 'forms/request/products/RequestLocation'
 
 interface IProps {
   counties: MultiSelectOption[]
   category: number
-  onSubmit: (values: DonateItemRequest) => void
+  onSubmit: (values: RequestItemRequest) => void
 }
 
 type RequestGenericProductForm = {
-  county_coverage: string[]
+  county_coverage: string
   town: string
   name: string
   description: string
@@ -36,7 +39,7 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
   } = useForm<RequestGenericProductForm>()
 
   const onFormSubmit = (values: RequestGenericProductForm) => {
-    const donateItemRequest: DonateItemRequest = { ...values, category, kind: 'withName' }
+    const donateItemRequest: RequestItemRequest = { ...values, category, kind: 'withName' }
     onSubmit(donateItemRequest)
   }
 
@@ -44,6 +47,16 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup label={t('services.offerTransport')}>
+        <div className="flex flex-row gap-6">
+          <Radio value="true" {...register('has_transportation')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('has_transportation')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Product register={register} errors={errors} names={{ name: 'name' }} />
 
       <Textarea {...register('description')} label={t('signup.products.description')} />
@@ -58,11 +71,11 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
         }}
       />
 
-      <Location
+      <RequestLocation
         counties={counties}
-        control={control}
         register={register}
         errors={errors}
+        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',

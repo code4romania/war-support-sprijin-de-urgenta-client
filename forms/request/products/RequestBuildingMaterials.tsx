@@ -1,24 +1,26 @@
 import clsx from 'clsx'
 
-import Location from 'forms/common/Location'
+
 import Product from 'forms/common/Product'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
 import Quantity from 'forms/common/Quantity'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
-import { DonateItemRequest } from 'api'
+import { RequestItemRequest } from 'api'
 import { FC } from 'react'
 import { MultiSelectOption } from '../../../components/Form/types'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import RequestLocation from './RequestLocation'
 
 interface IProps {
   counties: MultiSelectOption[]
-  onSubmit: (values: DonateItemRequest) => void
+  category: number
+  onSubmit: (values: RequestItemRequest) => void
 }
 
 type RequestBuildingMaterialsForm = {
-  county_coverage: string[]
+  county_coverage: string
   town: string
   name: string
   quantity: number
@@ -30,6 +32,7 @@ type RequestBuildingMaterialsForm = {
 
 export const RequestBuildingMaterials: FC<IProps> = ({
   counties,
+  category,
   onSubmit,
 }) => {
   const {
@@ -40,7 +43,7 @@ export const RequestBuildingMaterials: FC<IProps> = ({
   } = useForm<RequestBuildingMaterialsForm>()
 
   const onFormSubmit = (values: RequestBuildingMaterialsForm) => {
-    const donateItemRequest: DonateItemRequest = { ...values, kind: 'withName' }
+    const donateItemRequest: RequestItemRequest = { ...values, kind: 'withName', category }
     onSubmit(donateItemRequest)
   }
 
@@ -58,11 +61,11 @@ export const RequestBuildingMaterials: FC<IProps> = ({
           </Radio>
         </div>
       </RadioGroup>
-      <Location
+      <RequestLocation
         counties={counties}
         register={register}
-        control={control}
         errors={errors}
+        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',

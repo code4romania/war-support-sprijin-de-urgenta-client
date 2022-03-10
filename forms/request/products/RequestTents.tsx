@@ -1,22 +1,23 @@
 import Input from '@/components/Form/Input'
 import Radio from '@/components/Form/Radio'
 import RadioGroup from '@/components/Form/RadioGroup'
-import { DonateItemRequestWithoutName } from 'api'
-import clsx from 'clsx'
-import Location from 'forms/common/Location'
+import { RequestItemRequestWithoutName } from 'api'
+
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
+
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { MultiSelectOption } from '../../../components/Form/types'
+import RequestLocation from './RequestLocation'
 
 interface IProps {
   counties?: MultiSelectOption[]
   category: number
-  onSubmit: (values: DonateItemRequestWithoutName) => void
+  onSubmit: (values: RequestItemRequestWithoutName) => void
 }
 type RequestTentsForm = {
-  county_coverage: string[]
+  county_coverage: string
   town: string
   quantity: number
   tent_capacity: number
@@ -34,10 +35,12 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
   } = useForm<RequestTentsForm>()
 
   const onFormSubmit = (values: RequestTentsForm) => {
-    const donateItemRequest: DonateItemRequestWithoutName = {
+    const donateItemRequest: RequestItemRequestWithoutName = {
       ...values,
+      category,
       unit_type: 'tent',
-      kind: 'noName'
+      kind: 'noName',
+      name: 'tent'
     }
     onSubmit(donateItemRequest)
   }
@@ -45,7 +48,7 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup label={t('services.offerTransport')}>
-        <div className={clsx('flex flex-row gap-6')}>
+        <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
           </Radio>
@@ -67,11 +70,12 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         placeholder={t('signup.products.persons')}
         {...register('tent_capacity')}
       />
-      <Location
+      
+      <RequestLocation
         counties={counties}
-        control={control}
-        errors={errors}
         register={register}
+        errors={errors}
+        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',

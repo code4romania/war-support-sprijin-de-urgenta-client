@@ -18,14 +18,6 @@ interface IProps {
   onSubmit: (values: any) => void
 }
 
-type Form = {
-  name: string
-  description?: string
-  available_until?: Date
-  county_coverage: string
-  town: string
-}
-
 export const RequestOthersForm: FC<IProps> = ({
   counties,
   category,
@@ -35,7 +27,6 @@ export const RequestOthersForm: FC<IProps> = ({
 
   const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
     name: yup.string().typeError(t('error.must.be.string')).required(t('error.must.be.string')),
-    category: yup.number().typeError(t('error.must.be.number')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.string().typeError(t('error.must.be.string')),
     county_coverage: yup.string().required(t('error.county.required')),
