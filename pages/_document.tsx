@@ -90,12 +90,16 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
           <link rel="icon" href="/favicon/favicon.ico" />
 
-          <meta property="og:image" content="TBD" />
+          <meta property="og:image" content="https://sprijindeurgenta.ro/sprijindeurgenta_banner.jpg" />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="TBD" />
-          <meta property="og:site_name" content="TBD" />
-          <meta property="og:title" content="TBD" />
-          <meta property="og:description" content="TBD" />
+          <meta property="og:url" content="https://sprijindeurgenta.ro" />
+          <meta property="og:site_name" content="Sprijin de Urgență" />
+          <meta property="og:title" content="Sprijin de Urgență" />
+          <meta
+            property="og:description"
+            content="Platformă națională de management de resurse."
+          />
+          
         </Head>
         <body>
           <Main />
