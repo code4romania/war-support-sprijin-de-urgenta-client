@@ -7,25 +7,32 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
+import Quantity from "../../common/Quantity";
+import RequestLocation from "./RequestLocation";
+import { MultiSelectOption } from "@/components/Form/types";
 
 interface IProps {
   category: number
+  counties?: MultiSelectOption[]
   onSubmit: (values: RequestItemRequest) => void
 }
 
 type RequestOthersForm = {
   county_coverage: string
-  unit_type: string
+  town: string
   name: string
   description: string
-  has_transportation: boolean
+  quantity: number
+  unit_type: string
+  packaging_type: string
 }
 
-export const RequestOthers: FC<IProps> = ({ onSubmit, category }) => {
+export const RequestOthers: FC<IProps> = ({ onSubmit, category, counties }) => {
   const { t } = useTranslation()
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
   } = useForm<RequestOthersForm>()
 
@@ -36,27 +43,29 @@ export const RequestOthers: FC<IProps> = ({ onSubmit, category }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
-        <div className="flex flex-row gap-6">
-          <Radio value="true" {...register('has_transportation')}>
-            {t('yes')}
-          </Radio>
-          <Radio value="false" {...register('has_transportation')}>
-            {t('no')}
-          </Radio>
-        </div>
-      </RadioGroup>
-      <Product
+      <Product register={register} errors={errors} names={{ name: 'name' }} />
+
+      <Textarea {...register('description')} label={t('signup.products.description')} />
+
+      <Quantity
         register={register}
         errors={errors}
         names={{
-          name: 'name',
+          quantity: 'quantity',
+          packaging_type: 'packaging_type',
+          unit_type: 'unit_type',
         }}
       />
-      <Textarea
-        {...register('description')}
-        label={t('signup.products.description')}
-        errors={errors['description']}
+
+      <RequestLocation
+        counties={counties}
+        register={register}
+        errors={errors}
+        control={control}
+        names={{
+          county_coverage: 'county_coverage',
+          town: 'town',
+        }}
       />
     </ProductTypeWrapper>
   )

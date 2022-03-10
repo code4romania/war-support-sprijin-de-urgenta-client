@@ -22,7 +22,6 @@ type RequestTentsForm = {
   quantity: number
   tent_capacity: number
   unit_type: string
-  has_transportation: boolean
 }
 
 export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
@@ -47,16 +46,6 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup label={t('services.offerTransport')}>
-        <div className="flex flex-row gap-6">
-          <Radio value="true" {...register('has_transportation')}>
-            {t('yes')}
-          </Radio>
-          <Radio value="false" {...register('has_transportation')}>
-            {t('no')}
-          </Radio>
-        </div>
-      </RadioGroup>
       <Input
         type="number"
         {...register('quantity')}
@@ -70,7 +59,7 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         placeholder={t('signup.products.persons')}
         {...register('tent_capacity')}
       />
-      
+
       <RequestLocation
         counties={counties}
         register={register}

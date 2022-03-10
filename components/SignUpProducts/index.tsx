@@ -8,8 +8,13 @@ import {
   OfferGenericProduct,
   OfferProductsOthers,
   OfferTents,
-  OfferTextileProduct, RequestBuildingMaterials, RequestGenericProduct, RequestTents, RequestTextileProduct
-} from 'forms'
+  OfferTextileProduct,
+  RequestBuildingMaterials,
+  RequestGenericProduct,
+  RequestOthers,
+  RequestTents,
+  RequestTextileProduct
+} from "forms";
 import { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
@@ -41,7 +46,7 @@ const SignUpProducts = ({
   const [showDialog, setShowDialog] = useState(false)
 
   const onProductAdd = (
-    data: ItemRequestUnion 
+    data: ItemRequestUnion
   ) => {
     handleDialogDismiss()
     onAddItem(data)
@@ -176,7 +181,7 @@ const SignUpProducts = ({
             category={7}
           />
         ) : (
-          <RequestGenericProduct
+          <RequestOthers
             onSubmit={onProductAdd}
             counties={countyChoices}
             category={7}

@@ -32,7 +32,6 @@ type RequestTextileProductForm = {
   quantity?: number
   unit_type: string
   packaging_type: string
-  has_transportation: boolean
   textile_category: number
   textile_size?: string
   other_textiles?: string
@@ -43,7 +42,7 @@ export const RequestTextileProduct: FC<IProps> = ({
   category,
   onSubmit,
 }) => {
-  const { t } = useTranslation()  
+  const { t } = useTranslation()
 
   const {
     handleSubmit,
@@ -58,7 +57,7 @@ export const RequestTextileProduct: FC<IProps> = ({
   const onFormSubmit = (values: RequestTextileProductForm) => {
     const requestItemRequest: RequestItemRequestWithoutName = { ...values, category, kind: 'noName', name: 'textile' }
     const itemCategory = requestItemRequest.textile_category
-    
+
     // clean size if textile category is other
     if (itemCategory === TextileCategory.Blankets
       || itemCategory === TextileCategory.Sheets
@@ -86,20 +85,6 @@ export const RequestTextileProduct: FC<IProps> = ({
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-       <RadioGroup
-        label={t('services.offerTransport')}
-        errors={errors.has_transportation}
-      >
-        <div className="flex flex-row gap-6">
-          <Radio value="true" {...register('has_transportation')}>
-            {t('yes')}
-          </Radio>
-          <Radio value="false" {...register('has_transportation')}>
-            {t('no')}
-          </Radio>
-        </div>
-      </RadioGroup>
-
       <RadioGroup
         label={t('signup.products.clothing')}
         errors={errors.textile_category}
