@@ -16,7 +16,7 @@ interface IProps<TFormValues> {
   names: Record<RecordKey, Path<TFormValues>>
 }
 
-const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
+const RequestLocation = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   counties = [],
   control,
   register,
@@ -56,4 +56,4 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   )
 }
 
-export default Location
+export default RequestLocation

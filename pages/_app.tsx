@@ -13,8 +13,8 @@ import '../styles/globals.css'
 
 import { withStore } from '../store'
 import {
-  deauthenticate,
   reauthenticate,
+  deauthenticate,
   verificationFailed,
 } from '@/store/reducers/auth'
 import { useDataWithToken } from '@/hooks/useData'
@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { State } from '@/store/types/state.type'
 import { useRouter } from 'next/router'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import GTagScript from '@/components/GTagScript'
 
 i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
@@ -54,6 +55,7 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
     if (clientOnly) {
       if (data) {
         dispatch(verificationFailed())
+        dispatch(deauthenticate())
       }
       if (pageProps.protected && pageProps.redirectTo) {
         router.push(pageProps.redirectTo)
@@ -63,6 +65,7 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   return (
     <Layout>
+      <GTagScript />
       <Component {...pageProps} />
     </Layout>
   )
