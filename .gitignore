@@ -44,3 +44,5 @@ yarn-error.log*
 debug.log
 
 /cypress/fixtures/user.json
+/cypress/cucumber-json
+/reports

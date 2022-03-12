@@ -81,6 +81,7 @@
     "eslint-plugin-storybook": "^0.5.7",
     "exceljs": "^4.3.0",
     "mkdirp": "^1.0.4",
+    "multiple-cucumber-html-reporter": "^1.19.0",
     "postcss": "^8.4.7",
     "prettier": "^2.5.1",
     "start-server-and-test": "^1.14.0",
@@ -94,6 +95,12 @@
     "webpack": "^5"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true
+    "nonGlobalStepDefinitions": true,
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
   }
 }
