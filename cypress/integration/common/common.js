@@ -1,5 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
 import mock from '../../utils/e2e'
+import { faker } from '@faker-js/faker'
 
 Given('I am a logged in user', () => {
   cy.login()
@@ -89,6 +90,19 @@ Then(/^I see the thank you for request message$/, () => {
     'Îți mulțumim pentru mesajul transmis. Vom procesa cererea ta cât de repede posibil.'
   )
 })
+
+Then(/^I see the donate resources page$/, function () {
+  cy.location().should((location) => {
+    expect(location.pathname).to.eq('/offer/resources/')
+  })
+})
+
+Then(/^I see the request resources page$/, function () {
+  cy.location().should((location) => {
+    expect(location.pathname).to.eq('/request/resources/')
+  })
+})
+
 Then(/^donate item is created$/, function () {
   cy.wait('@donate/item').then(({ response, request }) => {
     expect(response.statusCode).to.equal(
@@ -110,13 +124,13 @@ Then(/^donate other is created$/, function () {
     )
   })
 })
-Then(/^request other is created$/, function() {
+Then(/^request other is created$/, function () {
   cy.wait('@request/other').then(({ response, request }) => {
     expect(response.statusCode).to.equal(
       Cypress.env('e2e') === 'true' ? 201 : 200
     )
   })
-});
+})
 Then(/^donate transport service is created$/, function () {
   cy.wait('@donate/transport_service').then(({ response, request }) => {
     expect(response.statusCode).to.equal(
@@ -146,3 +160,17 @@ Then(/^request volunteering is created$/, function () {
   })
 })
 
+Given(/^I enter user credentials$/, function () {
+  const given = {
+    password: faker.internet.password(),
+    email: faker.internet.email(),
+    phone_number: faker.phone.phoneNumber('##########'),
+  }
+
+  cy.get('input[name="email"]').type(given.email)
+  cy.get('input[name="phone_number"]').type(given.phone_number)
+  cy.get('input[name="password"]').type(given.password)
+  cy.get('input[name="re_password"]').type(given.password)
+  cy.get('input[name="gdpr_consent"').check()
+  cy.findByText('Pasul urmator').click()
+})
