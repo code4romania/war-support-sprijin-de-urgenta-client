@@ -5,10 +5,6 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [ 1, 2, 3 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,6 +14,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Install dependencies
+        id: install
+        run: npm install
       - name: Build
         id: build
         run: npm run build:staging
