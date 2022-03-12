@@ -5,7 +5,7 @@ Cypress.Commands.add('login', (email, pw) => {
     'POST',
     `${Cypress.env('NEXT_PUBLIC_PUBLIC_API')}/ro/auth/login/`,
     {
-      username: 'platica.ciprian@gmail.com',
+      username: 'platica.ciprian+cypress@gmail.com',
       password: 'oparolanoua',
     }
   )
@@ -16,9 +16,8 @@ Cypress.Commands.add('login', (email, pw) => {
 })
 
 Cypress.Commands.add('selectMultiDropdown', (email, pw) => {
-  cy.wait(500)
-  cy.get('.dropdown-heading-value').click({force: true})
-  cy.wait(500)
+  cy.get('.dropdown-heading-value').click({ force: true, timeout: 2000 })
+  cy.wait(1000)
   cy.get('.dropdown-content input[type="checkbox"]')
     .eq(1)
     .check({ multiple: true })

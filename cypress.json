@@ -2,6 +2,9 @@
   "baseUrl": "http://127.0.0.1:3000",
   "env": {
     "e2e": "true",
+    "TAGS": "not @ignore",
     "NEXT_PUBLIC_PUBLIC_API": "https://sprijin-de-urgenta-api.heroesof.tech"
-  }
+  },
+  "projectId": "cfwbgs",
+  "testFiles": "**/*.feature"
 }

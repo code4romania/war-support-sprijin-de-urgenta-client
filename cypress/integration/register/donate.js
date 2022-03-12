@@ -14,6 +14,7 @@ describe('Register', () => {
       },
     }).as('registration')
     cy.visit('/')
+    cy.wait(1000)
     cy.findByText('Vreau să ofer ajutor').click()
     cy.findByText('Servicii').click()
   })
