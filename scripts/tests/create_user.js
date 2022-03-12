@@ -11,7 +11,7 @@ const data = {
   email: faker.internet.email(),
   password: faker.internet.password(20),
 }
-const userFile = `./user.json`
+const userFile = `./cypress/fixtures/user.json`
 
 const createUser = async () => {
   const res = await fetch(
@@ -34,10 +34,18 @@ const createUser = async () => {
     }
   )
   try {
-    const response = await res.text()
-    fs.writeFile('./user.json', response, (e) => {
-      console.log('Error creating the file', e)
-    })
+    const response = await res.json()
+    fs.writeFile(
+      userFile,
+      JSON.stringify({ ...response, user: { ...response.user, password: data.password } }),
+      (e) => {
+        if(e){
+          console.log('Error creating the file', e)
+        } else {
+          console.log('Successfully created user fixture. Happy testing!');
+        }
+      }
+    )
   } catch (e) {
     console.log('Error creating the user', e)
   }

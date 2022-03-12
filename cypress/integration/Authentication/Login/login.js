@@ -5,12 +5,15 @@ Given(/^I want to login$/, function () {
 })
 
 Given(/^I enter login credentials$/, function () {
-  cy.get('#username').type('platica.ciprian+cypress@gmail.com')
-  cy.get('#password').type('oparolanoua')
+  cy.fixture('user').then(({user})=> {
+      cy.get('#username').type(user.email)
+      cy.get('#password').type(user.password)
+    }
+  )
 })
 
 When(/^I click login button$/, function () {
-  cy.get('button[type="submit"]').click();
+  cy.get('button[type="submit"]').click()
 })
 
 Then(/^I see homepage$/, function () {

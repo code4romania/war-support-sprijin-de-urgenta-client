@@ -16,7 +16,7 @@
     "build-storybook": "build-storybook",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
-    "e2e": "env-cmd -f ./env/.env.development next build && start-server-and-test start http://localhost:3000 cypress",
+    "e2e": "npm run generate-user && env-cmd -f ./env/.env.development next build && start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {

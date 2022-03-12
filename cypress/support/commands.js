@@ -1,18 +1,20 @@
 import '@testing-library/cypress/add-commands'
 
 Cypress.Commands.add('login', (email, pw) => {
+  cy.fixture('user').then(({user})=>{
   cy.request(
     'POST',
     `${Cypress.env('NEXT_PUBLIC_PUBLIC_API')}/ro/auth/login/`,
     {
-      username: 'platica.ciprian+cypress@gmail.com',
-      password: 'oparolanoua',
+      username: user.email,
+      password: user.password,
     }
   )
     .its('body')
     .then((body) => {
       cy.setCookie('token', body.access_token)
     })
+  })
 })
 
 Cypress.Commands.add('selectMultiDropdown', (email, pw) => {

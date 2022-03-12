@@ -42,3 +42,5 @@ yarn-error.log*
 
 /storybook-static
 debug.log
+
+/cypress/fixtures/user.json
