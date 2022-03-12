@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "gc": "node ./scripts/generate_component/index.js",
+    "generate-user": "env-cmd -f ./env/.env.development node ./scripts/tests/create_user.js",
     "translate": "node ./scripts/translate/populate-locales.js",
     "generate-translations-sheet": "node ./scripts/translate/generate-translations-sheet.js",
     "storybook": "start-storybook -p 6006",
