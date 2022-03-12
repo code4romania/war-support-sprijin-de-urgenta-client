@@ -37,12 +37,15 @@ const createUser = async () => {
     const response = await res.json()
     fs.writeFile(
       userFile,
-      JSON.stringify({ ...response, user: { ...response.user, password: data.password } }),
+      JSON.stringify({
+        ...response,
+        user: { ...response.user, password: data.password },
+      }),
       (e) => {
-        if(e){
+        if (e) {
           console.log('Error creating the file', e)
         } else {
-          console.log('Successfully created user fixture. Happy testing!');
+          console.log('Successfully created user fixture. Happy testing!')
         }
       }
     )
@@ -51,6 +54,8 @@ const createUser = async () => {
   }
 }
 
-if (!fs.existsSync(userFile)) {
-  createUser()
+module.exports = () => {
+  if (!fs.existsSync(userFile)) {
+    createUser()
+  }
 }

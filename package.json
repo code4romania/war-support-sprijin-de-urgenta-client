@@ -9,14 +9,13 @@
     "start": "next start",
     "lint": "next lint",
     "gc": "node ./scripts/generate_component/index.js",
-    "generate-user": "env-cmd -f ./env/.env.development node ./scripts/tests/create_user.js",
     "translate": "node ./scripts/translate/populate-locales.js",
     "generate-translations-sheet": "node ./scripts/translate/generate-translations-sheet.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
-    "e2e": "npm run generate-user && env-cmd -f ./env/.env.development next build && start-server-and-test start http://localhost:3000 cypress",
+    "e2e": "env-cmd -f ./env/.env.development next build && env-cmd -f ./env/.env.development start-server-and-test start http://localhost:3000 cypress",
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {
