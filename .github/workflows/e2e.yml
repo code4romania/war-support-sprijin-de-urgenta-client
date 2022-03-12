@@ -5,13 +5,22 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [ 1, 2, 3 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
+      - name: Install dependencies
+        id: install
+        run: npm install
+      - name: Build
+        id: build
+        run: npm run build:staging
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: npm run build:staging
           e2e: npm run e2e:headless
