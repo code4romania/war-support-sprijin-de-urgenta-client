@@ -13,8 +13,10 @@ const data = {
   password: faker.internet.password(20),
 }
 const userFile = process.env.GITHUB_WORKSPACE
-  ? path.join('cypress', 'fixtures', 'user.json')
+  ? path.join(process.env.GITHUB_WORKSPACE, '../', 'cypress', 'fixtures', 'user.json')
   : `./cypress/fixtures/user.json`
+
+console.log('userFile', userFile);
 
 const createUser = async () => {
   const res = await fetch(
