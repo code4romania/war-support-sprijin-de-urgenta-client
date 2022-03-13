@@ -2,7 +2,7 @@
 const endpoints = require('../../endpoints.json')
 const fetch = require('node-fetch')
 const { faker } = require('@faker-js/faker')
-const fs = require('fs')
+const fs = require('fs-extra')
 const path = require('path')
 
 const data = {
@@ -13,12 +13,13 @@ const data = {
   password: faker.internet.password(20),
 }
 const userFile = process.env.GITHUB_WORKSPACE
-  ? path.join(process.env.GITHUB_WORKSPACE, '../', 'cypress', 'fixtures', 'user.json')
+  ? path.join(process.env.GITHUB_WORKSPACE, 'cypress', 'fixtures', 'user.json')
   : `./cypress/fixtures/user.json`
 
 console.log('userFile', userFile);
 
 const createUser = async () => {
+  console.log('-->');
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_PUBLIC_API}/en${endpoints.registration}`,
     {
@@ -40,7 +41,8 @@ const createUser = async () => {
   )
   try {
     const response = await res.json()
-    fs.writeFile(
+    console.log('response', response);
+    fs.outputFileSync(
       userFile,
       JSON.stringify({
         ...response,
@@ -59,6 +61,10 @@ const createUser = async () => {
   }
 }
 
-if (!fs.existsSync(userFile)) {
-  createUser()
+module.exports = () => {
+  console.log('file exists ?');
+  if (!fs.existsSync(userFile)) {
+    createUser()
+  }
+  return {}
 }

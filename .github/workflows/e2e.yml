@@ -32,10 +32,6 @@ jobs:
       - name: Build
         id: build
         run: npm run build:staging
-      - name: Create user
-        env:
-          NEXT_PUBLIC_PUBLIC_API: http://sprijin-de-urgenta-api.heroesof.tech:8070
-        run: node ./scripts/tests/create_user.js
       - name: Cypress run
         uses: cypress-io/github-action@v2
         env:
