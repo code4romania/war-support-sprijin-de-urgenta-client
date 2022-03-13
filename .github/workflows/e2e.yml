@@ -34,5 +34,7 @@ jobs:
         run: npm run build:staging
       - name: Cypress run
         uses: cypress-io/github-action@v2
+        env:
+          NEXT_PUBLIC_PUBLIC_API: http://sprijin-de-urgenta-api.heroesof.tech:8070
         with:
           e2e: npm run e2e:headless
