@@ -51,3 +51,8 @@ jobs:
             reports/cucumber
             cypress/videos
             cypress/screeenshots
+      - name: HTML Preview
+        id: html_preview
+        uses: pavi2410/html-preview-action@v2
+        with:
+          html_file: 'reports/cucumber/index.html'

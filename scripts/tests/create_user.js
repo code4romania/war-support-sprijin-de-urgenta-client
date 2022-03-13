@@ -9,6 +9,7 @@ const data = {
   type: 1,
   first_name: faker.name.firstName(),
   last_name: faker.name.lastName(),
+  phone_number: faker.phone.phoneNumber('##########'),
   email: faker.internet.email(),
   password: faker.internet.password(20),
 }
