@@ -54,8 +54,6 @@ const createUser = async () => {
   }
 }
 
-module.exports = () => {
-  if (!fs.existsSync(userFile)) {
-    createUser()
-  }
+if (!fs.existsSync(userFile)) {
+  createUser()
 }

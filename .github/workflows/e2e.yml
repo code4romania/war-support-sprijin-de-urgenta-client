@@ -32,9 +32,15 @@ jobs:
       - name: Build
         id: build
         run: npm run build:staging
+      - name: Create user
+        env:
+          NEXT_PUBLIC_PUBLIC_API: http://sprijin-de-urgenta-api.heroesof.tech:8070
+        run: node ./scripts/tests/create_user.js
       - name: Cypress run
         uses: cypress-io/github-action@v2
         env:
           NEXT_PUBLIC_PUBLIC_API: http://sprijin-de-urgenta-api.heroesof.tech:8070
         with:
-          e2e: npm run e2e:headless
+          wait-on: 'http://127.0.0.1:3000'
+          wait-on-timeout: 700
+          install: false
