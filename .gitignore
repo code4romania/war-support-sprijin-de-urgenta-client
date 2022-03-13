@@ -45,4 +45,6 @@ debug.log
 
 /cypress/fixtures/user.json
 /cypress/cucumber-json
+/cypress/videos
+/cypress/screenshots
 /reports

@@ -41,3 +41,13 @@ jobs:
           wait-on: 'http://127.0.0.1:3000'
           wait-on-timeout: 700
           install: false
+      - name: Generate report
+        run: node cypress/utils/cucumber-html-report
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Cucumber report
+          path: |
+            reports/cucumber
+            cypress/videos
+            cypress/screeenshots

@@ -16,10 +16,7 @@ const userFile = process.env.GITHUB_WORKSPACE
   ? path.join(process.env.GITHUB_WORKSPACE, 'cypress', 'fixtures', 'user.json')
   : `./cypress/fixtures/user.json`
 
-console.log('userFile', userFile);
-
 const createUser = async () => {
-  console.log('-->');
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_PUBLIC_API}/en${endpoints.registration}`,
     {
@@ -41,7 +38,6 @@ const createUser = async () => {
   )
   try {
     const response = await res.json()
-    console.log('response', response);
     fs.outputFileSync(
       userFile,
       JSON.stringify({
@@ -62,7 +58,6 @@ const createUser = async () => {
 }
 
 module.exports = () => {
-  console.log('file exists ?');
   if (!fs.existsSync(userFile)) {
     createUser()
   }
