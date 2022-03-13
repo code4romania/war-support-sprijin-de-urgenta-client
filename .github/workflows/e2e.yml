@@ -36,4 +36,3 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           e2e: npm run e2e:headless
-
