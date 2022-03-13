@@ -3,6 +3,7 @@ const endpoints = require('../../endpoints.json')
 const fetch = require('node-fetch')
 const { faker } = require('@faker-js/faker')
 const fs = require('fs')
+const path = require('path')
 
 const data = {
   type: 1,
@@ -11,7 +12,9 @@ const data = {
   email: faker.internet.email(),
   password: faker.internet.password(20),
 }
-const userFile = `./cypress/fixtures/user.json`
+const userFile = process.env.GITHUB_WORKSPACE
+  ? path.join(process.env.GITHUB_WORKSPACE, 'cypress', 'fixtures', 'user.json')
+  : `./cypress/fixtures/user.json`
 
 const createUser = async () => {
   const res = await fetch(
