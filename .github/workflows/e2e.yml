@@ -41,6 +41,7 @@ jobs:
         env:
           NEXT_PUBLIC_PUBLIC_API: http://sprijin-de-urgenta-api.heroesof.tech:8070
         with:
+          start: npm start
           wait-on: 'http://127.0.0.1:3000'
           wait-on-timeout: 700
           install: false
