@@ -58,7 +58,7 @@ const WrappedApp: FC<AppProps> = ({ Component, pageProps }) => {
         dispatch(deauthenticate())
       }
       if (pageProps.protected && pageProps.redirectTo) {
-        router.push(pageProps.redirectTo)
+        router.replace(pageProps.redirectTo)
       }
     }
   }
