@@ -26,7 +26,6 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(({
         id={name}
         value={value}
         ref={ref}
-        required={required}
         className={clsx(
           'block w-full h-10 mt-1',
           'px-3 py-2',

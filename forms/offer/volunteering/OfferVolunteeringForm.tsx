@@ -84,11 +84,12 @@ export const OfferVolunteeringForm: FC<IProps> = ({
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
       <Input
+        required
         label={t('signup.volunteering.name')}
         {...register('name')}
         errors={errors.name}
       />
-      <RadioGroup label={t('services.offerTransport')}>
+      <RadioGroup required label={t('services.offerTransport')}>
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -100,6 +101,7 @@ export const OfferVolunteeringForm: FC<IProps> = ({
       </RadioGroup>
       <div className="flex gap-4">
         <DropdownMultiSelect
+          required
           {...register('county_coverage')}
           className="w-1/2 mb-4"
           options={counties || []}

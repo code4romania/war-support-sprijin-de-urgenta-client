@@ -23,7 +23,6 @@ const Element = forwardRef<HTMLTextAreaElement, TextareaElementProps>(({
           name={name}
           id={name}
           rows={rows}
-          required={required}
           className={clsx(
             'block w-full mt-1',
             'px-3 py-2',
