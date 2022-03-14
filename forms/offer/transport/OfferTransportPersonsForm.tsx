@@ -63,8 +63,17 @@ export const OfferTransportPersonsForm = ({
       .required(t('validation.required')),
     availability: yup.string().typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time'))
-    .test(dateRangeValidator.name,t('error.must.be.greater.than.from'), dateRangeValidator.test),
+    availability_interval_to: yup.mixed().when('availability', {
+      is: AvailabilityType.FixedIntervals,
+      then: yup
+        .mixed()
+        .typeError(t('error.must.be.time'))
+        .test(
+          dateRangeValidator.name,
+          t('error.must.be.greater.than.from'),
+          dateRangeValidator.test
+        ),
+    }),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))

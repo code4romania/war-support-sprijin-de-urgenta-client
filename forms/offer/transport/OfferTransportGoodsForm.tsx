@@ -12,12 +12,14 @@ import { State } from '@/store/types/state.type'
 import {
   phoneNumberRegex,
   roCarRegistrationNumber,
-  roIdentityCardRegex
+  roIdentityCardRegex,
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   AvailabilityType,
-  OfferTransportServicesRequest, TransportCategories, TransportType
+  OfferTransportServicesRequest,
+  TransportCategories,
+  TransportType,
 } from 'api'
 import clsx from 'clsx'
 import { useMemo } from 'react'
@@ -26,8 +28,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
-import {dateRangeValidator} from 'forms/validators';
-
+import { dateRangeValidator } from 'forms/validators'
 
 type ServicesForm = {
   driver_contact: string
@@ -63,8 +64,17 @@ export const OfferTransportGoodsForm = ({
       .required(t('error.availability.required'))
       .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time'))
-      .test(dateRangeValidator.name,t('error.must.be.greater.than.from'), dateRangeValidator.test),
+    availability_interval_to: yup.mixed().when('availability', {
+      is: AvailabilityType.FixedIntervals,
+      then: yup
+        .mixed()
+        .typeError(t('error.must.be.time'))
+        .test(
+          dateRangeValidator.name,
+          t('error.must.be.greater.than.from'),
+          dateRangeValidator.test
+        ),
+    }),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
@@ -100,7 +110,7 @@ export const OfferTransportGoodsForm = ({
       .number()
       .moreThan(0, t('error.value.must.be.non.zero'))
       .required(t('validation.required'))
-      .typeError(t('error.must.be.number'))
+      .typeError(t('error.must.be.number')),
   })
 
   const {
