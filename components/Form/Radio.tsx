@@ -14,7 +14,6 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
           id={`${name}_${value}`}
           value={value}
           ref={ref}
-          required={required}
           className={clsx(
             'appearance-none mr-2',
             'cursor-pointer',

@@ -16,7 +16,6 @@ const Element = forwardRef<HTMLInputElement, InputElementProps>(
             value={value}
             ref={ref}
             checked={checked}
-            required={required}
             className={clsx(
               'appearance-none mr-2 bg-white',
               'before:content-[" "] before:block',

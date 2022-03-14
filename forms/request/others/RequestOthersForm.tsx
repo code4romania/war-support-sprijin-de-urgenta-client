@@ -11,19 +11,13 @@ import { SchemaOf } from 'yup'
 import * as yup from 'yup'
 import { OtherResourceForm } from '@/components/OtherResourcesForm/OtherResourcesForm'
 import Dropdown from '@/components/Form/Dropdown'
+import RadioGroup from '@/components/Form/RadioGroup'
+import Radio from '@/components/Form/Radio'
 
 interface IProps {
   counties: MultiSelectOption[]
   category: number
   onSubmit: (values: any) => void
-}
-
-type Form = {
-  name: string
-  description?: string
-  available_until?: Date
-  county_coverage: string[]
-  town: string
 }
 
 export const RequestOthersForm: FC<IProps> = ({
@@ -34,14 +28,10 @@ export const RequestOthersForm: FC<IProps> = ({
   const { t } = useTranslation()
 
   const otherResourcesSchema: SchemaOf<OtherResourceForm> = yup.object().shape({
-    name: yup.string().typeError(t('error.must.be.string')).required(),
-    category: yup.number().typeError(t('error.must.be.number')),
+    name: yup.string().typeError(t('error.must.be.string')).required(t('error.must.be.string')),
     description: yup.string().typeError(t('error.must.be.string')),
     available_until: yup.string().typeError(t('error.must.be.string')),
-    county_coverage: yup
-      .array()
-      .min(1, t('error.county.minOne'))
-      .of(yup.string().required()),
+    county_coverage: yup.string().required(t('error.county.required')),
     town: yup.string().typeError(t('error.must.be.string')),
   })
   const {
@@ -59,13 +49,25 @@ export const RequestOthersForm: FC<IProps> = ({
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)}>
+      <RadioGroup label={t('services.offerTransport')}>
+        <div className={clsx('flex flex-row gap-6')}>
+          <Radio value="true" {...register('has_transportation')}>
+            {t('yes')}
+          </Radio>
+          <Radio value="false" {...register('has_transportation')}>
+            {t('no')}
+          </Radio>
+        </div>
+      </RadioGroup>
       <Input
+        required
         label={t('signup.other.name')}
         {...register('name')}
         errors={errors['name']}
       />
       <div className={'flex flex-col space-x-4'}>
         <Dropdown
+          required
           {...register('county_coverage')}
           className={clsx('w-1/2 mb-4')}
           errors={errors['county_coverage']}
