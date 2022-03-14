@@ -126,6 +126,7 @@
   "services.county_coverage": "Județ",
   "error.must.be.string": "Valoarea introdusă trebuie să conțina caractere",
   "error.must.be.time": "Valoarea introdusă trebuie să fie tip oră:minute",
+  "error.must.be.greater.than.from": "Până la trebuie să fie mai mare decât De la",
   "error.must.be.date": "Valoarea introdusă trebuie să fie tip dată",
   "signup.products.header": "Produse",
   "signup.products.food": "Alimente",
