@@ -12,9 +12,7 @@ export default {
 const Template: ComponentStory<typeof MainPage> = (args) => <MainPage {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  defaultProps: 'MainPage default props'
-}
+
 Default.parameters = {
   design: {
     type: 'figma',
