@@ -12,12 +12,14 @@ import { State } from '@/store/types/state.type'
 import {
   phoneNumberRegex,
   roCarRegistrationNumber,
-  roIdentityCardRegex
+  roIdentityCardRegex,
 } from '@/utils/regexes'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
   AvailabilityType,
-  OfferTransportServicesRequest, TransportCategories, TransportType
+  OfferTransportServicesRequest,
+  TransportCategories,
+  TransportType,
 } from 'api'
 import clsx from 'clsx'
 import { useMemo } from 'react'
@@ -26,14 +28,15 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
+import { dateRangeValidator } from 'forms/validators'
 
 type ServicesForm = {
   driver_contact: string
   driver_id: string
   driver_name: string
   availability?: string
-  availability_interval_from?: Date
-  availability_interval_to?: Date
+  availability_interval_from?: string
+  availability_interval_to?: string
   car_registration_number: string
   category?: string
   county_coverage?: string[]
@@ -61,7 +64,17 @@ export const OfferTransportGoodsForm = ({
       .required(t('error.availability.required'))
       .typeError(t('error.must.be.string')),
     availability_interval_from: yup.mixed().typeError(t('error.must.be.time')),
-    availability_interval_to: yup.mixed().typeError(t('error.must.be.time')),
+    availability_interval_to: yup.mixed().when('availability', {
+      is: AvailabilityType.FixedIntervals,
+      then: yup
+        .mixed()
+        .typeError(t('error.must.be.time'))
+        .test(
+          dateRangeValidator.name,
+          t('error.must.be.greater.than.from'),
+          dateRangeValidator.test
+        ),
+    }),
     car_registration_number: yup
       .string()
       .required(t('error.carRegistration.required'))
@@ -97,7 +110,7 @@ export const OfferTransportGoodsForm = ({
       .number()
       .moreThan(0, t('error.value.must.be.non.zero'))
       .required(t('validation.required'))
-      .typeError(t('error.must.be.number'))
+      .typeError(t('error.must.be.number')),
   })
 
   const {
@@ -160,6 +173,7 @@ export const OfferTransportGoodsForm = ({
         <section className="w-full">
           <div className={clsx('flex flex-row items-center space-x-2')}>
             <Input
+              required
               type="number"
               label={t('services.capacity')}
               errors={errors['weight_capacity']}
@@ -167,12 +181,14 @@ export const OfferTransportGoodsForm = ({
               {...register('weight_capacity')}
             />
             <Input
+              required
               label={t('services.weight_unit')}
               errors={errors['weight_unit']}
               {...register('weight_unit')}
             />
           </div>
           <RadioGroup
+            required
             errors={errors['has_refrigeration']}
             label={t('services.cooling')}
           >
@@ -201,6 +217,7 @@ export const OfferTransportGoodsForm = ({
             </Radio>
             {showCountyCoverageDropdown && (
               <DropdownMultiSelect
+                required
                 {...register('county_coverage')}
                 className={clsx('mb-4')}
                 disabled={!showCountyCoverageDropdown}
@@ -211,6 +228,7 @@ export const OfferTransportGoodsForm = ({
             )}
           </RadioGroup>
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_name}
@@ -218,6 +236,7 @@ export const OfferTransportGoodsForm = ({
             {...register('driver_name')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_id}
@@ -225,6 +244,7 @@ export const OfferTransportGoodsForm = ({
             {...register('driver_id')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.car_registration_number}
@@ -232,6 +252,7 @@ export const OfferTransportGoodsForm = ({
             {...register('car_registration_number')}
           />
           <Input
+            required
             labelPosition="horizontal"
             type="text"
             errors={errors.driver_contact}
@@ -239,6 +260,7 @@ export const OfferTransportGoodsForm = ({
             {...register('driver_contact')}
           />
           <Dropdown
+            required
             label={t('services.availability')}
             errors={errors.availability}
             {...register('availability')}

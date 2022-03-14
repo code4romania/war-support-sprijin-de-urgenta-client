@@ -19,6 +19,7 @@ const ExpireDate = <TFormValues extends PartialRecord<RecordKey, unknown>>({
 
   return (
     <Input
+      required
       type="date"
       label={t('signup.products.expireDate')}
       labelPosition="horizontal"

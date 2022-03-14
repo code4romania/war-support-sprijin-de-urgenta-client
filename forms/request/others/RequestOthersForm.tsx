@@ -60,12 +60,14 @@ export const RequestOthersForm: FC<IProps> = ({
         </div>
       </RadioGroup>
       <Input
+        required
         label={t('signup.other.name')}
         {...register('name')}
         errors={errors['name']}
       />
       <div className={'flex flex-col space-x-4'}>
         <Dropdown
+          required
           {...register('county_coverage')}
           className={clsx('w-1/2 mb-4')}
           errors={errors['county_coverage']}

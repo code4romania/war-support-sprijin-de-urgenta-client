@@ -132,6 +132,7 @@ export const RequestTransportPersonsForm = ({
       <form aria-label="form" className="w-full" onSubmit={handleSubmit(onAdd)}>
         <section className="w-full">
           <Input
+            required
             label={t('services.available_seats')}
             type={'number'}
             {...register('available_seats')}
@@ -141,6 +142,7 @@ export const RequestTransportPersonsForm = ({
             {...register('description')}
           />
           <RadioGroup
+            required
             errors={
               serverErrors['has_disabled_access']
                 ? { message: serverErrors['has_disabled_access'].join('\n') }
@@ -158,6 +160,7 @@ export const RequestTransportPersonsForm = ({
             </div>
           </RadioGroup>
           <RadioGroup
+            required
             errors={
               serverErrors['pets_allowed']
                 ? { message: serverErrors['pets_allowed'].join('\n') }
@@ -175,6 +178,7 @@ export const RequestTransportPersonsForm = ({
             </div>
           </RadioGroup>
           <Dropdown
+            required
             {...register('from_county')}
             className={clsx('w-1/2 mb-4')}
             label={t('services.from_county')}
@@ -189,11 +193,13 @@ export const RequestTransportPersonsForm = ({
               )}
           </Dropdown>
           <Input
+            required
             className={'w-1/2'}
             label={t('signup.other.town')}
             {...register('from_city')}
           />
           <Dropdown
+            required
             {...register('to_county')}
             className={clsx('w-1/2 mb-4')}
             label={t('services.to_county')}
@@ -208,6 +214,7 @@ export const RequestTransportPersonsForm = ({
               )}
           </Dropdown>
           <Input
+            required
             className={'w-1/2'}
             label={t('signup.other.town')}
             {...register('to_city')}

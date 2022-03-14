@@ -57,7 +57,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="/confidentiality-policy" passHref>
+              <Link href="/terms-and-conditions" passHref>
                 <a>{t('terms.and.conditions')}</a>
               </Link>
             </li>
