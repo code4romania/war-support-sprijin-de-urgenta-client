@@ -318,6 +318,8 @@
   "Corporate": "Companie",
   "Non-Profit": "ONG",
   "Government": "Autoritate Publică",
-  "National": "",
-  "County": ""
+  "National": "Național",
+  "County": "Județ",
+  "Translator/Traducător": "Translator/Traducător",
+  "Veterinar": "Veterinarian"
 }
