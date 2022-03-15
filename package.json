@@ -12,7 +12,9 @@
     "translate": "node ./scripts/translate/populate-locales.js",
     "generate-translations-sheet": "node ./scripts/translate/generate-translations-sheet.js",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
@@ -59,6 +61,8 @@
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
     "@tailwindcss/forms": "^0.4.0",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "@types/gtag.js": "^0.0.8",
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
@@ -72,6 +76,7 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-storybook": "^0.5.7",
     "exceljs": "^4.3.0",
+    "jest": "^27.5.1",
     "mkdirp": "^1.0.4",
     "postcss": "^8.4.7",
     "prettier": "^2.5.1",
