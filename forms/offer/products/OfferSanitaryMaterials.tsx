@@ -88,6 +88,7 @@ export const OfferSanitaryMaterials: FC<IProps> = ({ counties, onSubmit, categor
         </div>
       </RadioGroup>
       <Location
+        required
         counties={counties}
         control={control}
         register={register}
@@ -98,6 +99,7 @@ export const OfferSanitaryMaterials: FC<IProps> = ({ counties, onSubmit, categor
         }}
       />
       <Product
+        required
         register={register}
         errors={errors}
         names={{
@@ -110,6 +112,7 @@ export const OfferSanitaryMaterials: FC<IProps> = ({ counties, onSubmit, categor
         errors={errors['description']}
       />
       <Quantity
+        required
         register={register}
         errors={errors}
         names={{
