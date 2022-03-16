@@ -9,7 +9,7 @@ interface IProps<TFormValues> {
   errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   register: UseFormRegister<TFormValues>
   names: Record<RecordKey, Path<TFormValues>>,
-  required: boolean
+  required?: boolean
 }
 
 const Product = <TFormValues extends PartialRecord<RecordKey, unknown>>({
