@@ -322,6 +322,6 @@
   "County": "Județ",
   "Translator/Traducător": "Translator/Traducător",
   "Veterinar": "Veterinarian",
-  "Materiale sanitare": "Materiale sanitare",
-  "Medicamente": "Medicamente"
+  "signup.products.sanitary.materials": "Materiale sanitare",
+  "signup.products.medicine": "Medicamente"
 }
