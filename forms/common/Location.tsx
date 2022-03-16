@@ -13,6 +13,7 @@ interface IProps<TFormValues> {
   register: UseFormRegister<TFormValues>
   errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   names: Record<RecordKey, Path<TFormValues>>
+  required?: boolean
 }
 
 const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
@@ -21,6 +22,7 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   register,
   errors,
   names,
+  required,
 }: IProps<TFormValues>) => {
   const { t } = useTranslation()
 
@@ -35,6 +37,7 @@ const Location = <TFormValues extends PartialRecord<RecordKey, unknown>>({
           options={counties || []}
           errors={errors && errors[names.county_coverage]}
           control={control}
+          required={required}
         />
       </div>
       <Input

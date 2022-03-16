@@ -92,12 +92,14 @@ export const OfferMedicine: FC<IProps> = ({ counties, onSubmit, category }) => {
         control={control}
         register={register}
         errors={errors}
+        required
         names={{
           county_coverage: 'county_coverage',
           town: 'town',
         }}
       />
       <Product
+        required
         register={register}
         errors={errors}
         names={{
@@ -112,6 +114,7 @@ export const OfferMedicine: FC<IProps> = ({ counties, onSubmit, category }) => {
       <Quantity
         register={register}
         errors={errors}
+        required
         names={{
           quantity: 'quantity',
           packaging_type: 'packaging_type',

@@ -106,7 +106,6 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
         counties={counties}
         register={register}
         errors={errors}
-        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',

@@ -108,7 +108,6 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         counties={counties}
         register={register}
         errors={errors}
-        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',

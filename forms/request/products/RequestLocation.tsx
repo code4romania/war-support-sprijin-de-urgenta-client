@@ -1,8 +1,7 @@
-import DropdownMultiSelect from '@/components/Form/DropdownMultiSelect'
 import Input from '@/components/Form/Input'
 import { MultiSelectOption, PartialRecord } from '@/components/Form/types'
 import clsx from 'clsx'
-import { Control, ErrorOption, Path, UseFormRegister } from 'react-hook-form'
+import { ErrorOption, Path, UseFormRegister } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import Dropdown from '@/components/Form/Dropdown'
 
@@ -10,18 +9,18 @@ type RecordKey = 'county_coverage' | 'town'
 
 interface IProps<TFormValues> {
   counties?: MultiSelectOption[]
-  control: Control<TFormValues, any>
   register: UseFormRegister<TFormValues>
   errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   names: Record<RecordKey, Path<TFormValues>>
+  required?: boolean
 }
 
 const RequestLocation = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   counties = [],
-  control,
   register,
   errors,
   names,
+  required
 }: IProps<TFormValues>) => {
   const { t } = useTranslation()
 
@@ -32,6 +31,7 @@ const RequestLocation = <TFormValues extends PartialRecord<RecordKey, unknown>>(
           label={t('signup.other.county_coverage')}
           className={'w-full'}
           errors={errors && errors[names.county_coverage]}
+          required={required}
           {...register(names.county_coverage)}
         >
           {counties?.map(

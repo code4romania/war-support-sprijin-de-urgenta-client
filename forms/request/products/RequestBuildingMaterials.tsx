@@ -81,7 +81,7 @@ export const RequestBuildingMaterials: FC<IProps> = ({
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
-      <RadioGroup 
+      <RadioGroup
       label={t('services.offerTransport')}
       errors={errors.has_transportation}>
         <div className="flex flex-row gap-6">
@@ -97,7 +97,6 @@ export const RequestBuildingMaterials: FC<IProps> = ({
         counties={counties}
         register={register}
         errors={errors}
-        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',

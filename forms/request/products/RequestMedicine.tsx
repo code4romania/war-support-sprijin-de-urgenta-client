@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
-import Quantity from "../../common/Quantity";
-import RequestLocation from "./RequestLocation";
-import { MultiSelectOption } from "@/components/Form/types";
+import Quantity from '../../common/Quantity'
+import RequestLocation from './RequestLocation'
+import { MultiSelectOption } from '@/components/Form/types'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -31,7 +31,11 @@ type RequestMedicineForm = {
   has_transportation?: boolean
 }
 
-export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) => {
+export const RequestMedicine: FC<IProps> = ({
+  onSubmit,
+  category,
+  counties,
+}) => {
   const { t } = useTranslation()
   const otherRequestSchema: SchemaOf<RequestMedicineForm> = yup.object().shape({
     county_coverage: yup
@@ -42,7 +46,7 @@ export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) =>
     name: yup
       .string()
       .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
+      .required(t('error.name.required')),
     description: yup.string().notRequired(),
     quantity: yup
       .number()
@@ -53,7 +57,7 @@ export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) =>
     has_transportation: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_transportation.required'))
+      .required(t('error.has_transportation.required')),
   })
   const {
     handleSubmit,
@@ -67,7 +71,11 @@ export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) =>
   })
 
   const onFormSubmit = (values: RequestMedicineForm) => {
-    const donateItemRequest: RequestItemRequest = { ...values, category, kind: 'withName' }
+    const donateItemRequest: RequestItemRequest = {
+      ...values,
+      category,
+      kind: 'withName',
+    }
     onSubmit(donateItemRequest)
   }
 
@@ -75,7 +83,9 @@ export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) =>
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
         label={t('services.offerTransport')}
-        errors={errors.has_transportation}>
+        errors={errors.has_transportation}
+        required
+      >
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -85,9 +95,17 @@ export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) =>
           </Radio>
         </div>
       </RadioGroup>
-      <Product register={register} errors={errors} names={{ name: 'name' }} />
+      <Product
+        register={register}
+        errors={errors}
+        names={{ name: 'name' }}
+        required
+      />
 
-      <Textarea {...register('description')} label={t('signup.products.description')} />
+      <Textarea
+        {...register('description')}
+        label={t('signup.products.description')}
+      />
 
       <Quantity
         register={register}
@@ -97,17 +115,18 @@ export const RequestMedicine: FC<IProps> = ({ onSubmit, category, counties }) =>
           packaging_type: 'packaging_type',
           unit_type: 'unit_type',
         }}
+        required
       />
 
       <RequestLocation
         counties={counties}
         register={register}
         errors={errors}
-        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',
         }}
+        required
       />
     </ProductTypeWrapper>
   )

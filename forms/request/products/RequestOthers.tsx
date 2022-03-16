@@ -103,7 +103,6 @@ export const RequestOthers: FC<IProps> = ({ onSubmit, category, counties }) => {
         counties={counties}
         register={register}
         errors={errors}
-        control={control}
         names={{
           county_coverage: 'county_coverage',
           town: 'town',
