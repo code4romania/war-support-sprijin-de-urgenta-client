@@ -278,6 +278,6 @@
   "County": "Округ",
   "Translator/Traducător": "Перекладач",
   "Veterinar": "Ветеринар",
-  "Materiale sanitare": "матеріали першої допомоги",
-  "Medicamente": "Ліки"
+  "signup.products.sanitary.materials": "Матеріали першої допомоги",
+  "signup.products.medicine": "Ліки"
 }

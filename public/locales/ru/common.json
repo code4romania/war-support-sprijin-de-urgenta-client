@@ -278,6 +278,6 @@
   "County": "Уезд",
   "Translator/Traducător": "Переводчик",
   "Veterinar": "Ветеринар",
-  "Materiale sanitare": "материалы первой помощи",
-  "Medicamente": "Медикаменты"
+  "signup.products.sanitary.materials": "Материалы первой помощи",
+  "signup.products.medicine": "Медикаменты"
 }

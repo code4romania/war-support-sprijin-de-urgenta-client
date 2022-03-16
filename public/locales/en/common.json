@@ -279,6 +279,6 @@
   "County": "County",
   "Translator/Traducător": "Translator",
   "Veterinar": "Veterinarian",
-  "Materiale sanitare": "Sanitary materials",
-  "Medicamente": "Medicine"
+  "signup.products.sanitary.materials": "Sanitary materials",
+  "signup.products.medicine": "Medicine"
 }
