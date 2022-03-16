@@ -171,6 +171,42 @@ const SignUpProducts = ({
         ),
     },
     {
+      resourceType: 'sanitaryProducts',
+      label: 'signup.products.sanitaryProducts',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferSanitaryProducts
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={8}
+          />
+        ) : (
+          <RequestSanitaryProducts
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={8}
+          />
+        ),
+    },
+    {
+      resourceType: 'medicine',
+      label: 'signup.products.medicine',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferMedicine
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={9}
+          />
+        ) : (
+          <RequestMedicine
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={9}
+          />
+        ),
+    },
+    {
       resourceType: 'others',
       label: 'signup.products.others',
       children:

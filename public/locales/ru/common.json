@@ -155,6 +155,8 @@
   "signup.products.persons": "человека",
   "signup.products.pleaseAddProduct": "Ни одного продукта не добавлено.",
   "signup.products.description": "Описание:",
+  "signup.products.sanitaryProducts": "материалы первой помощи",
+  "signup.products.medicine": "Медикаменты",
   "error.availability.minOne": "Пожалуйста, выберите хотя бы один вариант",
   "signup.products.unit_type": "Единица измерения:",
   "error.capacity.required": "Введите емкость",
@@ -277,7 +279,5 @@
   "National": "Национальный",
   "County": "Уезд",
   "Translator/Traducător": "Переводчик",
-  "Veterinar": "Ветеринар",
-  "Materiale sanitare": "материалы первой помощи",
-  "Medicamente": "Медикаменты"
+  "Veterinar": "Ветеринар"
 }

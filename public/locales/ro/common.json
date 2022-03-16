@@ -156,6 +156,8 @@
   "signup.products.persons": "persoane",
   "signup.products.pleaseAddProduct": "Nici un produs adăugat.",
   "signup.products.description": "Descriere:",
+  "signup.products.sanitaryProducts": "Materiale sanitare",
+  "signup.products.medicine": "Medicamente",
   "error.availability.minOne": "Trebuie să selectați minim o opțiune",
   "signup.products.unit_type": "Unitate de măsură:",
   "error.capacity.required": "Introduceți capacitatea",
@@ -321,7 +323,5 @@
   "National": "Național",
   "County": "Județ",
   "Translator/Traducător": "Translator/Traducător",
-  "Veterinar": "Veterinarian",
-  "Materiale sanitare": "Materiale sanitare",
-  "Medicamente": "Medicamente"
+  "Veterinar": "Veterinarian"
 }

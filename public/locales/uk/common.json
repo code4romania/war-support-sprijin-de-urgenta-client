@@ -155,6 +155,8 @@
   "signup.products.persons": "люди",
   "signup.products.pleaseAddProduct": "Жодного продукту не додано.",
   "signup.products.description": "Опис:",
+  "signup.products.sanitaryProducts": "матеріали першої допомоги",
+  "signup.products.medicine": "Ліки",
   "error.availability.minOne": "Виберіть принаймні один варіант",
   "signup.products.unit_type": "Одиниця:",
   "error.capacity.required": "Введіть ємність",
@@ -277,7 +279,5 @@
   "National": "Національний",
   "County": "Округ",
   "Translator/Traducător": "Перекладач",
-  "Veterinar": "Ветеринар",
-  "Materiale sanitare": "матеріали першої допомоги",
-  "Medicamente": "Ліки"
+  "Veterinar": "Ветеринар"
 }

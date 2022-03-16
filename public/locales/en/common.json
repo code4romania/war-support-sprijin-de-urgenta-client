@@ -156,6 +156,8 @@
   "signup.products.persons": "people",
   "signup.products.pleaseAddProduct": "No products added.",
   "signup.products.description": "Description:",
+  "signup.products.sanitaryProducts": "Sanitary materials",
+  "signup.products.medicine": "Medicine",
   "error.availability.minOne": "Please select at least one option",
   "signup.products.unit_type": "Unit of measure:",
   "error.capacity.required": "Enter the capacity",
@@ -278,7 +280,5 @@
   "National": "National",
   "County": "County",
   "Translator/Traducător": "Translator",
-  "Veterinar": "Veterinarian",
-  "Materiale sanitare": "Sanitary materials",
-  "Medicamente": "Medicine"
+  "Veterinar": "Veterinarian"
 }
