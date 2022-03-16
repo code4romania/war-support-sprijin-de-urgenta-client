@@ -23,7 +23,7 @@
   "request.subtitle": "мені потрібно:",
   "offer.subtitle": "Хочу допомогти з:",
   "housing": "Проживання",
-  "products": "Харчування",
+  "products": "Товари",
   "services": "Послуги",
   "others": "Інші",
   "volunteer": "Волонтерство",
@@ -277,5 +277,7 @@
   "National": "Національний",
   "County": "Округ",
   "Translator/Traducător": "Перекладач",
-  "Veterinar": "Ветеринар"
+  "Veterinar": "Ветеринар",
+  "signup.products.sanitary.materials": "Матеріали першої допомоги",
+  "signup.products.medicine": "Ліки"
 }

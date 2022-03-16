@@ -1,27 +1,26 @@
-import Location from 'forms/request/products/RequestLocation'
+import Textarea from '@/components/Form/Textarea'
 import Product from 'forms/common/Product'
 import ProductTypeWrapper from 'forms/common/ProductTypeWrapper'
-import Quantity from 'forms/common/Quantity'
 import { RequestItemRequest } from 'api'
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { MultiSelectOption } from '../../../components/Form/types'
 import { useTranslation } from 'react-i18next'
-import Textarea from '@/components/Form/Textarea'
 import RadioGroup from '@/components/Form/RadioGroup'
 import Radio from '@/components/Form/Radio'
-import RequestLocation from 'forms/request/products/RequestLocation'
+import Quantity from '../../common/Quantity'
+import RequestLocation from './RequestLocation'
+import { MultiSelectOption } from '@/components/Form/types'
 import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 interface IProps {
-  counties: MultiSelectOption[]
   category: number
+  counties?: MultiSelectOption[]
   onSubmit: (values: RequestItemRequest) => void
 }
 
-type RequestGenericProductForm = {
+type RequestMedicineForm = {
   county_coverage: string
   town?: string
   name: string
@@ -29,13 +28,16 @@ type RequestGenericProductForm = {
   quantity?: number
   unit_type: string
   packaging_type: string
-  has_transportation: boolean
+  has_transportation?: boolean
 }
 
-export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category }) => {
+export const RequestMedicine: FC<IProps> = ({
+  onSubmit,
+  category,
+  counties,
+}) => {
   const { t } = useTranslation()
-
-  const genericRequestSchema: SchemaOf<RequestGenericProductForm> = yup.object().shape({
+  const otherRequestSchema: SchemaOf<RequestMedicineForm> = yup.object().shape({
     county_coverage: yup
       .string()
       .typeError(t('error.must.be.string'))
@@ -44,7 +46,7 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
     name: yup
       .string()
       .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
+      .required(t('error.name.required')),
     description: yup.string().notRequired(),
     quantity: yup
       .number()
@@ -55,22 +57,25 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
     has_transportation: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_transportation.required'))
+      .required(t('error.has_transportation.required')),
   })
   const {
     handleSubmit,
     register,
-    formState: { errors },
     control,
-  } = useForm<RequestGenericProductForm>({
-    resolver: yupResolver(genericRequestSchema),
+    formState: { errors },
+  } = useForm<RequestMedicineForm>({
+    resolver: yupResolver(otherRequestSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
-    defaultValues: {},
   })
 
-  const onFormSubmit = (values: RequestGenericProductForm) => {
-    const donateItemRequest: RequestItemRequest = { ...values, category, kind: 'withName' }
+  const onFormSubmit = (values: RequestMedicineForm) => {
+    const donateItemRequest: RequestItemRequest = {
+      ...values,
+      category,
+      kind: 'withName',
+    }
     onSubmit(donateItemRequest)
   }
 
@@ -78,7 +83,9 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
         label={t('services.offerTransport')}
-        errors={errors.has_transportation}>
+        errors={errors.has_transportation}
+        required
+      >
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -88,9 +95,17 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
           </Radio>
         </div>
       </RadioGroup>
-      <Product register={register} errors={errors} names={{ name: 'name' }} />
+      <Product
+        register={register}
+        errors={errors}
+        names={{ name: 'name' }}
+        required
+      />
 
-      <Textarea {...register('description')} label={t('signup.products.description')} />
+      <Textarea
+        {...register('description')}
+        label={t('signup.products.description')}
+      />
 
       <Quantity
         register={register}
@@ -100,6 +115,7 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
           packaging_type: 'packaging_type',
           unit_type: 'unit_type',
         }}
+        required
       />
 
       <RequestLocation
@@ -110,6 +126,7 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
           county_coverage: 'county_coverage',
           town: 'town',
         }}
+        required
       />
     </ProductTypeWrapper>
   )

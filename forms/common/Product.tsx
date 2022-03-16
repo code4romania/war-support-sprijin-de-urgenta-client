@@ -8,13 +8,15 @@ type RecordKey = 'name';
 interface IProps<TFormValues> {
   errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   register: UseFormRegister<TFormValues>
-  names: Record<RecordKey, Path<TFormValues>>
+  names: Record<RecordKey, Path<TFormValues>>,
+  required?: boolean
 }
 
 const Product = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   errors,
   register,
-  names
+  names,
+  required
 }: IProps<TFormValues>) => {
   const { t } = useTranslation();
 
@@ -24,6 +26,7 @@ const Product = <TFormValues extends PartialRecord<RecordKey, unknown>>({
         label={t('signup.products.product')}
         labelPosition="horizontal"
         errors={errors && errors[names.name]}
+        required={required}
         {...register(names.name)}
       />
     </div>

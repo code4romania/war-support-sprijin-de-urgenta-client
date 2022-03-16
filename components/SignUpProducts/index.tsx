@@ -9,11 +9,15 @@ import {
   OfferProductsOthers,
   OfferTents,
   OfferTextileProduct,
+  OfferSanitaryMaterials,
+  OfferMedicine,
   RequestBuildingMaterials,
   RequestGenericProduct,
   RequestOthers,
   RequestTents,
-  RequestTextileProduct
+  RequestTextileProduct,
+  RequestSanitaryMaterials,
+  RequestMedicine
 } from "forms";
 import { ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -149,6 +153,42 @@ const SignUpProducts = ({
             onSubmit={onProductAdd}
             counties={countyChoices}
             category={5}
+          />
+        ),
+    },
+    {
+      resourceType: 'medicine',
+      label: 'signup.products.medicine',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferMedicine
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={9}
+          />
+        ) : (
+          <RequestMedicine
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={9}
+          />
+        ),
+    },
+    {
+      resourceType: 'sanitary.materials',
+      label: 'signup.products.sanitary.materials',
+      children:
+        type === FormPageProps.Offer ? (
+          <OfferSanitaryMaterials
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={8}
+          />
+        ) : (
+          <RequestSanitaryMaterials
+            onSubmit={onProductAdd}
+            counties={countyChoices}
+            category={8}
           />
         ),
     },

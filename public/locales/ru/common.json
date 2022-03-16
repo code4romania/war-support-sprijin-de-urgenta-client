@@ -23,7 +23,7 @@
   "request.subtitle": "Мне нужно:",
   "offer.subtitle": "Я хочу помочь с:",
   "housing": "Жилье",
-  "products": "Продукты",
+  "products": "Товары",
   "services": "Услуги",
   "others": "Другие",
   "volunteer": "Доброволец",
@@ -277,5 +277,7 @@
   "National": "Национальный",
   "County": "Уезд",
   "Translator/Traducător": "Переводчик",
-  "Veterinar": "Ветеринар"
+  "Veterinar": "Ветеринар",
+  "signup.products.sanitary.materials": "Материалы первой помощи",
+  "signup.products.medicine": "Медикаменты"
 }
