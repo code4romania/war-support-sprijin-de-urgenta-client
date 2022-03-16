@@ -8,12 +8,14 @@ interface IProps<TFormValues> {
   register: UseFormRegister<TFormValues>
   errors?: PartialRecord<Path<TFormValues>, ErrorOption | ErrorOption[]>
   names: Record<RecordKey, Path<TFormValues>>
+  required: boolean
 }
 
 const Quantity = <TFormValues extends PartialRecord<RecordKey, unknown>>({
   register,
   errors,
-  names
+  names,
+  required
 }: IProps<TFormValues>) => {
   const { t } = useTranslation()
 
@@ -25,6 +27,7 @@ const Quantity = <TFormValues extends PartialRecord<RecordKey, unknown>>({
         labelPosition="horizontal"
         {...register && register(names.quantity)}
         errors={errors && errors[names.quantity]}
+        required={required}
       />
 
       <Input
@@ -32,6 +35,7 @@ const Quantity = <TFormValues extends PartialRecord<RecordKey, unknown>>({
         labelPosition="horizontal"
         {...register && register(names.unit_type)}
         errors={errors && errors[names.unit_type]}
+        required={required}
       />
 
       <Input
@@ -39,6 +43,7 @@ const Quantity = <TFormValues extends PartialRecord<RecordKey, unknown>>({
         labelPosition="horizontal"
         {...register && register(names.packaging_type)}
         errors={errors && errors[names.packaging_type]}
+        required={required}
       />
     </div>
   )
