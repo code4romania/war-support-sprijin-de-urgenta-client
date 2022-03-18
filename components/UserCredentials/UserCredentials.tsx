@@ -16,6 +16,7 @@ import * as yup from 'yup'
 import { SchemaOf } from 'yup'
 import Consent from '../GdprConsent'
 import { phoneNumberRegex } from '@/utils/regexes'
+import TelInput from '@/components/Form/TelInput'
 
 interface ICredentials {
   email: string
@@ -40,14 +41,14 @@ const INPUTS = [
   {
     name: 'phone_number',
     label: 'signup.userType.phone_number',
-    type: 'text',
+    type: 'tel',
   },
   { name: 'password', label: 'signup.userType.password', type: 'password' },
   {
     name: 're_password',
     label: 'signup.userType.re_password',
     type: 'password',
-  }
+  },
 ]
 
 interface UserCredentialsProps {
@@ -82,18 +83,21 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       .required(t('signup.userType.phone_number.required'))
       .matches(phoneNumberRegex, t('signup.userType.phone_number.invalid')),
     gdpr_consent: yup
-      .boolean().required().oneOf([true], t('signup.error.gdpr.required'))
+      .boolean()
+      .required()
+      .oneOf([true], t('signup.error.gdpr.required')),
   })
 
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
   } = useForm<{ [key: string | 'gdpr_consent']: any }>({
     resolver: yupResolver(schema),
     defaultValues: {
-      gdpr_consent: false
-    }
+      gdpr_consent: false,
+    },
   })
 
   const handleBack = () => {
@@ -130,7 +134,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       }
     } catch (e) {
       setServerErrors({
-        'non_field_errors': [t('register.genericError')],
+        non_field_errors: [t('register.genericError')],
       })
     }
   }
@@ -140,7 +144,22 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       <div className="px-4 py-4 rounded-md bg-blue-50">
         <div className="max-w-sm">
           {inputs.map((input: IInput) => (
-            <Input
+            input.type === 'tel' ?
+              <TelInput
+                key={input.name}
+                control={control}
+                required
+                label={`${t(input.label)}:`}
+                errors={
+                  serverErrors[input.name]
+                    ? { message: serverErrors[input.name].join('\n') }
+                    : errors[input.name]
+                }
+                type={input.type}
+                {...(register && register('phone_number'))}
+              />
+              :
+              <Input
               key={input.name}
               required
               label={`${t(input.label)}:`}
@@ -153,6 +172,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
               {...register(input.name)}
             />
           ))}
+
           {serverErrors['non_field_errors']?.map(
             (error: string, index: number) => (
               <div key={index} className={'bg-red-50 p-1 px-2 text-white'}>
@@ -165,10 +185,13 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
 
       <div className={`bg-blue-50 px-4 py-4 rounded-md mt-4`}>
         <div className="md:w-2/3 max-w-small">
-          <Consent required name={'gdpr_consent'}
+          <Consent
+            required
+            name={'gdpr_consent'}
             register={register}
             text={`${t('gdpr.consent')}`}
-            errors={errors.gdpr_consent} />
+            errors={errors.gdpr_consent}
+          />
         </div>
       </div>
       <StepperButtonGroup
