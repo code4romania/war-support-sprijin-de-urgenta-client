@@ -43,76 +43,94 @@ export const RequestTextileProduct: FC<IProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const textileRequestSchema: SchemaOf<RequestTextileProductForm> = yup.object().shape({
-    county_coverage: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-    town: yup.string(),
-    quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
-    unit_type: yup.string().required(t('error.unitType.required')),
-    packaging_type: yup.string().required(t('error.packagkingType.required')),
-    has_transportation: yup
-      .boolean()
-      .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_transportation.required')),
-    textile_category: yup
-      .number()
-      .typeError(t('error.textile.category.required'))
-      .required(t('error.textile.category.required')),
-    textile_size: yup.string().notRequired(),
-    other_textiles: yup.string().notRequired(),
-    name: yup.string().required(t('validation.required'))
-  })
+  const textileRequestSchema: SchemaOf<RequestTextileProductForm> = yup
+    .object()
+    .shape({
+      county_coverage: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+      town: yup.string(),
+      quantity: yup
+        .number()
+        .transform((currentValue, originalValue) => {
+          return originalValue === '' ? undefined : currentValue
+        })
+        .notRequired()
+        .min(1, t('error.quantity.minOne'))
+        .typeError(t('error.must.be.number')),
+      unit_type: yup.string().required(t('error.unitType.required')),
+      packaging_type: yup.string().required(t('error.packagkingType.required')),
+      has_transportation: yup
+        .boolean()
+        .typeError(t('error.must.be.boolean'))
+        .required(t('error.has_transportation.required')),
+      textile_category: yup
+        .number()
+        .typeError(t('error.textile.category.required'))
+        .required(t('error.textile.category.required')),
+      textile_size: yup.string().notRequired(),
+      other_textiles: yup.string().notRequired(),
+      name: yup.string().required(t('validation.required')),
+    })
 
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-    watch
-  } = useForm<RequestTextileProductForm>(
-    {
-      resolver: yupResolver(textileRequestSchema),
-      reValidateMode: 'onSubmit',
-      mode: 'all',
-    }
-  )
+    watch,
+  } = useForm<RequestTextileProductForm>({
+    resolver: yupResolver(textileRequestSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+  })
 
   const onFormSubmit = (values: RequestTextileProductForm) => {
-    const requestItemRequest: RequestItemRequest = { ...values, category, kind: 'withName'}
+    const requestItemRequest: RequestItemRequest = {
+      ...values,
+      category,
+      kind: 'withName',
+    }
     const itemCategory = requestItemRequest.textile_category
 
     // clean size if textile category is other
-    if (itemCategory === TextileCategory.Blankets
-      || itemCategory === TextileCategory.Sheets
-      || itemCategory === TextileCategory.SleepingBags
-      || itemCategory === TextileCategory.Other) {
-      requestItemRequest.textile_size = '';
+    if (
+      itemCategory === TextileCategory.Blankets ||
+      itemCategory === TextileCategory.Sheets ||
+      itemCategory === TextileCategory.SleepingBags ||
+      itemCategory === TextileCategory.Other
+    ) {
+      requestItemRequest.textile_size = ''
     }
 
     // clean other if textile category is clothing
-    if (itemCategory === TextileCategory.ClothingChildren
-      || itemCategory === TextileCategory.ClothingFemale
-      || itemCategory === TextileCategory.ClothingMale) {
-      requestItemRequest.other_textiles = '';
+    if (
+      itemCategory === TextileCategory.ClothingChildren ||
+      itemCategory === TextileCategory.ClothingFemale ||
+      itemCategory === TextileCategory.ClothingMale
+    ) {
+      requestItemRequest.other_textiles = ''
     }
 
     onSubmit(requestItemRequest)
   }
 
-  const textileCategory = watch("textile_category")?.toString()
+  const textileCategory = watch('textile_category')?.toString()
 
-  const enableOtherTextileTextarea = textileCategory === TextileCategory.Other.toString()
-  const enableClothingSizeInput = textileCategory === TextileCategory.ClothingChildren.toString()
-    || textileCategory === TextileCategory.ClothingFemale.toString()
-    || textileCategory === TextileCategory.ClothingMale.toString();
+  const enableOtherTextileTextarea =
+    textileCategory === TextileCategory.Other.toString()
+  const enableClothingSizeInput =
+    textileCategory === TextileCategory.ClothingChildren.toString() ||
+    textileCategory === TextileCategory.ClothingFemale.toString() ||
+    textileCategory === TextileCategory.ClothingMale.toString()
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
         label={t('services.offerTransport')}
-        errors={errors.has_transportation}>
+        errors={errors.has_transportation}
+      >
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -126,13 +144,22 @@ export const RequestTextileProduct: FC<IProps> = ({
         label={t('signup.products.clothing')}
         errors={errors.textile_category}
       >
-        <Radio value={TextileCategory.ClothingFemale} {...register('textile_category')}>
+        <Radio
+          value={TextileCategory.ClothingFemale}
+          {...register('textile_category')}
+        >
           {t('signup.products.female')}
         </Radio>
-        <Radio value={TextileCategory.ClothingMale} {...register('textile_category')}>
+        <Radio
+          value={TextileCategory.ClothingMale}
+          {...register('textile_category')}
+        >
           {t('signup.products.male')}
         </Radio>
-        <Radio value={TextileCategory.ClothingChildren} {...register('textile_category')}>
+        <Radio
+          value={TextileCategory.ClothingChildren}
+          {...register('textile_category')}
+        >
           {t('signup.products.children')}
         </Radio>
         <Input
@@ -140,39 +167,51 @@ export const RequestTextileProduct: FC<IProps> = ({
           labelPosition="horizontal"
           errors={errors.textile_size}
           {...register('textile_size')}
-          disabled={!(enableClothingSizeInput)}
+          disabled={!enableClothingSizeInput}
         />
 
         <h3 className="block mb-4 text-base font-semibold text-gray-700">
           {t('signup.products.textiles')}
         </h3>
 
-        <Radio value={TextileCategory.Blankets} {...register('textile_category')}>
+        <Radio
+          value={TextileCategory.Blankets}
+          {...register('textile_category')}
+        >
           {t('signup.products.blankets')}
         </Radio>
         <Radio value={TextileCategory.Sheets} {...register('textile_category')}>
           {t('signup.products.sheets')}
         </Radio>
-        <Radio value={TextileCategory.SleepingBags} {...register('textile_category')}>
+        <Radio
+          value={TextileCategory.SleepingBags}
+          {...register('textile_category')}
+        >
           {t('signup.products.sleepingBags')}
         </Radio>
         <div>
-          <Radio value={TextileCategory.Other} {...register('textile_category')}>
+          <Radio
+            value={TextileCategory.Other}
+            {...register('textile_category')}
+          >
             {t('signup.products.others')}
           </Radio>
 
           <div className="ml-5">
-            <Textarea {...register('other_textiles')} disabled={!(enableOtherTextileTextarea)} />
+            <Textarea
+              {...register('other_textiles')}
+              disabled={!enableOtherTextileTextarea}
+            />
           </div>
         </div>
       </RadioGroup>
 
       <Input
-          label={t('signup.products.name')}
-          labelPosition="horizontal"
-          errors={errors.name}
-          {...register('name')}
-        />
+        label={t('signup.products.name')}
+        labelPosition="horizontal"
+        errors={errors.name}
+        {...register('name')}
+      />
 
       <Quantity
         register={register}

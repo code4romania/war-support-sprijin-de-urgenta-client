@@ -27,7 +27,6 @@ const Quantity = <TFormValues extends PartialRecord<RecordKey, unknown>>({
         labelPosition="horizontal"
         {...register && register(names.quantity)}
         errors={errors && errors[names.quantity]}
-        required={required}
       />
 
       <Input
