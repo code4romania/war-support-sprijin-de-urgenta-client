@@ -1,0 +1,56 @@
+name: Cypress Tests
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.1.0'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        id: install
+        run: npm install
+      - name: Build
+        id: build
+        run: npm run build:staging
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        env:
+          NEXT_PUBLIC_PUBLIC_API: http://sprijin-de-urgenta-api.heroesof.tech:8070
+        with:
+          config: video=false
+          start: npm start
+          wait-on: 'http://127.0.0.1:3000'
+          wait-on-timeout: 700
+          install: false
+      - name: Generate report
+        if: always()
+        run: npm run e2e:report
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Cucumber report
+          path: |
+            reports/cucumber
+            cypress/videos
+            cypress/screeenshots
