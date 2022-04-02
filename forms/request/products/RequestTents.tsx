@@ -31,18 +31,22 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
   const { t } = useTranslation()
   const tentsRequestSchema: SchemaOf<RequestTentsForm> = yup.object().shape({
     county_coverage: yup
-    .string()
-    .typeError(t('error.must.be.string'))
-    .required(t('error.county.required')),
+      .string()
+      .typeError(t('error.must.be.string'))
+      .required(t('error.county.required')),
     has_transportation: yup
       .boolean()
       .typeError(t('error.must.be.boolean'))
       .required(t('error.has_transportation.required')),
     town: yup.string(),
     quantity: yup
-    .number()
-    .typeError(t('error.must.be.number'))
-    .min(1, t('error.quantity.minOne')),
+      .number()
+      .transform((currentValue, originalValue) => {
+        return originalValue === '' ? undefined : currentValue
+      })
+      .notRequired()
+      .typeError(t('error.must.be.number'))
+      .min(1, t('error.quantity.minOne')),
     tent_capacity: yup
       .number()
       .integer(t('error.integer'))
@@ -60,7 +64,7 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     resolver: yupResolver(tentsRequestSchema),
     reValidateMode: 'onSubmit',
     mode: 'all',
-    defaultValues: {}
+    defaultValues: {},
   })
 
   const onFormSubmit = (values: RequestTentsForm) => {
@@ -69,7 +73,7 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       category,
       unit_type: 'tent',
       kind: 'noName',
-      name: 'tent'
+      name: 'tent',
     }
     onSubmit(donateItemRequest)
   }
@@ -78,7 +82,8 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
         label={t('services.offerTransport')}
-        errors={errors.has_transportation}>
+        errors={errors.has_transportation}
+      >
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -91,7 +96,7 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
       <Input
         type="number"
         {...register('quantity')}
-        errors = {errors.quantity}
+        errors={errors.quantity}
         label={t('signup.products.qty')}
         labelPosition="horizontal"
       />
@@ -100,7 +105,7 @@ export const RequestTents: FC<IProps> = ({ counties, category, onSubmit }) => {
         label={t('signup.products.capacity')}
         labelPosition="horizontal"
         placeholder={t('signup.products.persons')}
-        errors = {errors.tent_capacity}
+        errors={errors.tent_capacity}
         {...register('tent_capacity')}
       />
 

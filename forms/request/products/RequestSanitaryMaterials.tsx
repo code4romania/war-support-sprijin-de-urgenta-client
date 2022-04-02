@@ -52,6 +52,10 @@ export const RequestSanitaryMaterials: FC<IProps> = ({
       description: yup.string().notRequired(),
       quantity: yup
         .number()
+        .transform((currentValue, originalValue) => {
+          return originalValue === '' ? undefined : currentValue
+        })
+        .notRequired()
         .min(1, t('error.quantity.minOne'))
         .typeError(t('error.must.be.number')),
       unit_type: yup.string().required(t('error.unitType.required')),

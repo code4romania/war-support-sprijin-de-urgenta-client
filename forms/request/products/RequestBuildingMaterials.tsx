@@ -35,55 +35,66 @@ export const RequestBuildingMaterials: FC<IProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const buildingMaterialsRequestSchema: SchemaOf<RequestBuildingMaterialsForm> = yup.object().shape({
-    county_coverage: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-    town: yup.string().notRequired(),
-    has_transportation: yup
-      .boolean()
-      .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_transportation.required')),
-    quantity: yup.number().min(1, t('error.quantity.minOne')).typeError(t('error.must.be.number')),
-    unit_type: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-    packaging_type: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-    name: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-  })
+  const buildingMaterialsRequestSchema: SchemaOf<RequestBuildingMaterialsForm> =
+    yup.object().shape({
+      county_coverage: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+      town: yup.string().notRequired(),
+      has_transportation: yup
+        .boolean()
+        .typeError(t('error.must.be.boolean'))
+        .required(t('error.has_transportation.required')),
+      quantity: yup
+        .number()
+        .transform((currentValue, originalValue) => {
+          return originalValue === '' ? undefined : currentValue
+        })
+        .notRequired()
+        .min(1, t('error.quantity.minOne'))
+        .typeError(t('error.must.be.number')),
+      unit_type: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+      packaging_type: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+      name: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+    })
 
   const {
     handleSubmit,
     register,
     formState: { errors },
     control,
-  } = useForm<RequestBuildingMaterialsForm>(
-    {
-      resolver: yupResolver(buildingMaterialsRequestSchema),
-      reValidateMode: 'onSubmit',
-      mode: 'all',
-      defaultValues: { },
-    }
-  )
+  } = useForm<RequestBuildingMaterialsForm>({
+    resolver: yupResolver(buildingMaterialsRequestSchema),
+    reValidateMode: 'onSubmit',
+    mode: 'all',
+    defaultValues: {},
+  })
 
   const onFormSubmit = (values: RequestBuildingMaterialsForm) => {
-    const donateItemRequest: RequestItemRequest = { ...values, kind: 'withName', category }
+    const donateItemRequest: RequestItemRequest = {
+      ...values,
+      kind: 'withName',
+      category,
+    }
     onSubmit(donateItemRequest)
   }
 
   return (
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
-      label={t('services.offerTransport')}
-      errors={errors.has_transportation}>
+        label={t('services.offerTransport')}
+        errors={errors.has_transportation}
+      >
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
