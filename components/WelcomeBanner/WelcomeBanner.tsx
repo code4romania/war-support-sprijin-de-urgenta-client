@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import Image from '@/components/Image'
 import clsx from 'clsx'
 import Spacer from '../Spacer'
+import Hero from '../../public/hero.png'
 
 const WelcomeBanner = ({}) => {
   const { t } = useTranslation('common')
@@ -23,7 +24,7 @@ const WelcomeBanner = ({}) => {
       </div>
 
       <Image
-        src="/hero.png"
+        src={Hero}
         alt="Code 4 Romania logo"
         className="md:max-w-[426px]"
       />

@@ -8,27 +8,39 @@ import { State } from '@/store/types/state.type'
 import { deauthenticate } from '@/store/reducers/auth'
 import { envVars } from '@/utils/envVars'
 import { useRouter } from 'next/router'
+import GovRo from '../../public/gov_ro.png'
+import GovRoMobile from '../../public/gov_ro_mobile.svg'
+import DsuLogo from '../../public/DSU_logo.png'
+import code4romania from '../../public/code4romania.svg'
+import CodeLogo from '../../public/code_logo.svg'
+import Logo from '../../public/logo.svg'
 
 const PARTNERSHIPS = [
   {
     id: 1,
-    src: '/gov_ro.png',
+    src: GovRo,
     alt: 'Romanian GOV Logo',
     url: 'https://gov.ro/',
     className: 'hidden md:block',
+    width: 119,
+    height: 38,
   },
   {
     id: 2,
-    src: '/gov_ro_mobile.svg',
+    src: GovRoMobile,
     alt: 'Romanian GOV Logo',
     url: 'https://gov.ro/',
     className: 'md:hidden',
+    width: 38,
+    height: 38,
   },
   {
     id: 3,
-    src: '/dsu_logo.svg',
+    src: DsuLogo,
     alt: 'DSU Logo',
     url: 'http://www.dsu.mai.gov.ro/',
+    width: 87,
+    height: 38,
   },
 ]
 
@@ -56,9 +68,12 @@ const Header = () => {
           className={`${flexItemsCenter} 
           ${clsx('py-3 px-2', 'container mx-auto')}`}
         >
-          <div className="max-w-[90px]">
-            <Image src="/code_logo.svg" alt="Code 4 Romania logo" />
-          </div>
+          <Image
+            src={CodeLogo}
+            alt="Code 4 Romania logo"
+            width={90}
+            height={27}
+          />
           <div className="flex flex-col ml-6 text-sm font-medium text-gray-700 md:flex-row md:gap-1">
             <span>{`${t('solution.by')} `}</span>
             <a
@@ -81,9 +96,10 @@ const Header = () => {
               <Link href="/" passHref>
                 <a>
                   <Image
-                    src="/logo.svg"
+                    src={Logo}
                     alt="Sprijin de urgență"
-                    className="h-[42px]"
+                    width={173}
+                    height={42}
                   />
                 </a>
               </Link>
@@ -112,24 +128,29 @@ const Header = () => {
           {t('partenership.with')}
         </span>
         <div className="flex items-center gap-2">
-          {PARTNERSHIPS.map(({ id, src, alt, url, className }) => (
-            <a key={id} href={url} rel="noreferrer" target="_blank">
-              <Image
-                src={src}
-                alt={alt}
-                className={clsx([className, 'h-[38px]'])}
-              />
-            </a>
-          ))}
+          {PARTNERSHIPS.map(
+            ({ id, src, alt, url, className, width, height }) => (
+              <a key={id} href={url} rel="noreferrer" target="_blank">
+                <Image
+                  src={src}
+                  alt={alt}
+                  className={clsx(className)}
+                  width={width}
+                  height={height}
+                />
+              </a>
+            )
+          )}
         </div>
         <span className={`${smallBoldTextWithGrayAndMarginAside} lowercase`}>
           {t('created.by')}
         </span>
         <a href="https://www.code4.ro/" rel="noreferrer" target="_blank">
           <Image
-            src="/code4romania.svg"
+            src={code4romania}
             alt="Code 4 Romania logo"
-            className="h-[34px]"
+            width={120}
+            height={38}
           />
         </a>
       </div>

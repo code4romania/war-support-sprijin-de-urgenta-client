@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
-
 import Image from '@/components/Image'
+import CodeLogoColored from '../../public/code_logo_colored.svg'
 
 const Footer = () => {
   const { t } = useTranslation('common')
@@ -11,12 +11,13 @@ const Footer = () => {
       <div className="mt-auto bg-gray-50">
         <div className="flex items-center justify-end py-3 layout">
           <span className="mx-4 text-gray-700">{t('incubated.by')}</span>
-
           <a href="https://code4.ro/ro/code-for-romania-war-task-force">
             <Image
-              src="/code_logo_colored.svg"
+              src={CodeLogoColored}
               alt="Code 4 Romania logo"
               className="h-[42px]"
+              width={114}
+              height={42}
             />
           </a>
         </div>
