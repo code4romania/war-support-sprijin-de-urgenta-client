@@ -2,7 +2,7 @@
 
 This project is built by amazing volunteers and you can be one of them! Here's a list of ways in [which you can contribute to this project][https://tfsg.code4.ro/en]. If you want to make any change to this repository, please **make a fork first**.
 
-If you new to opensource development, you can check out this [guide][https://opensource.guide/how-to-contribute/] to learn all about contributing to open source projects.
+If you new to opensource development, you can check out this [guide][https://opensource.guide/how-to-contribute/] to learn all about contributing to open source projects. 
 
 If you would like to suggest new functionality, open an Issue and mark it as a __[Feature request]__. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements.
 
