@@ -21,7 +21,7 @@ Help us out by testing this project in the [staging environment][link-staging]. 
 If you would like to suggest new functionality, open an Issue and mark it as a __[Feature request]__. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements.
 
 ## Built With
-
+This project is built with [Next.js](https://nextjs.org/) and [TypeScript](https://www.typescriptlang.org/).
 ### Programming languages
 
 ### Platforms
@@ -36,16 +36,78 @@ If you would like to suggest new functionality, open an Issue and mark it as a _
 
 Mention all related repos and projects.
 
-## Deployment
+## Local Development
 
-Guide users through getting your code up and running on their own system. In this section you can talk about:
-1. Installation process
-2. Software dependencies
-3. Latest releases
-4. API references
+*Note for Windows users:* If you are using Windows, please use [WSL](https://www.microsoft.com/en-us/windows/wsl/) to follow the instructions below. The instructions below consider that you are on a *nix type environment.
 
-Describe and show how to build your code and run the tests.
+### Clone the repo
 
+To get started , you will first have to clone the repo.
+
+```bash
+git clone https://github.com/code4romania/war-support-sprijin-de-urgenta-client
+cd war-support-sprijin-de-urgenta-client
+```
+### Install dependencies
+
+You can use any node package manager you prefer to install the dependencies (npm, yarn, pnpm, etc.)
+
+- If you use npm please paste the command below in your terminal:
+
+```bash
+npm install
+```
+- If you use yarn please paste the command below in your terminal:
+
+```bash
+yarn install
+```
+
+- If you use pnpm please paste the command below in your terminal:
+
+```bash
+pnpm install
+```
+### Build the Project
+
+- If you use npm please paste the command below in your terminal:
+
+```bash
+npm run build
+```
+- If you use yarn please paste the command below in your terminal:
+
+```bash
+yarn build
+```
+
+- If you use pnpm please paste the command below in your terminal:
+
+```bash
+pnpm run build
+```
+
+### Utility Scripts
+
+#### i18n (Internationalization)
+To generate the translation files you will need to run the following command:
+
+```bash
+npm run generate-translations-sheet
+npm run translate
+```
+#### Visualize frontend components
+We use [storybook](https://storybook.js.org/) to visualize the components.
+
+```bash
+npm run storybook
+```
+#### Testing
+To run the E2E tests you will need to run the following command:
+
+```bash
+npm run e2e
+```
 ## Feedback
 
 * Request a new feature on GitHub.
