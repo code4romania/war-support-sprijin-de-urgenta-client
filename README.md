@@ -22,19 +22,6 @@ If you would like to suggest new functionality, open an Issue and mark it as a _
 
 ## Built With
 This project is built with [Next.js](https://nextjs.org/) and [TypeScript](https://www.typescriptlang.org/).
-### Programming languages
-
-### Platforms
-
-### Frontend framework
-
-### Package managers
-
-### Database technology & provider
-
-## Repos and projects
-
-Mention all related repos and projects.
 
 ## Local Development
 
