@@ -21,6 +21,7 @@
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "@reach/dialog": "^0.16.2",
+    "@types/react-redux": "^7.1.24",
     "@types/yup": "^0.29.13",
     "clsx": "^1.1.1",
     "extracted-loader": "^1.0.7",
@@ -37,7 +38,7 @@
     "react-i18next": "^11.15.5",
     "react-intersection-observer": "^8.33.1",
     "react-multi-select-component": "^4.2.3",
-    "react-redux": "^7.2.6",
+    "react-redux": "^7.2.8",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
