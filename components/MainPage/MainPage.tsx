@@ -41,12 +41,13 @@ const MainPage = ({ type }: IMainPageProps) => {
         <Spacer size="3.5rem" />
         <section>
           <h2 className="mb-4 text-xl leading-8">{t(`${type}.subtitle`)}</h2>
-          <div className="grid grid-cols-2 gap-4 md:gap-8">
+          <div className="flex flex-wrap">
             {categories.map((item: ICategory) => (
               <Button
                 key={item.slug}
                 text={t(item.slug)}
                 onClick={() => handleClick(item.slug)}
+                className="flex-[1_1_35%] m-4 md:m-8"
               />
             ))}
           </div>
