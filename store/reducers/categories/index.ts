@@ -12,7 +12,7 @@ export const initialState = [
   },
   {
     slug: 'others',
-  }
+  },
 ]
 
 export const categories = (state = initialState, action: AnyAction) => {

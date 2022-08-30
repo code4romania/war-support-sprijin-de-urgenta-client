@@ -23,7 +23,7 @@
   "request.subtitle": "мені потрібно:",
   "offer.subtitle": "Хочу допомогти з:",
   "housing": "Проживання",
-  "products": "Товари",
+  "products": "Харчування",
   "services": "Послуги",
   "others": "Інші",
   "volunteer": "Волонтерство",
@@ -279,5 +279,6 @@
   "Translator/Traducător": "Перекладач",
   "Veterinar": "Ветеринар",
   "signup.products.sanitary.materials": "Матеріали першої допомоги",
-  "signup.products.medicine": "Ліки"
+  "signup.products.medicine": "Ліки",
+  "foodform": "Для організацій та органів влади, які керують центрами для біженців: Щоб запитати щоденні харчові пайки, які вам потрібні в центрі, натисніть тут."
 }

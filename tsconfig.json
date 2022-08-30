@@ -20,9 +20,9 @@
       "@/store/*": ["store/*"],
       "@/hooks/*": ["hooks/*"],
       "@/utils/*": ["utils/*"]
-    }
+    },
+    "types": ["cypress", "@testing-library/cypress", "@types/gtag.js"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"],
-  "types": ["@types/gtag.js"]
+  "exclude": ["node_modules"]
 }

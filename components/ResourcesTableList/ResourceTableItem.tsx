@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import Image from '../Image'
+import IconDelete from '../../public/icons/delete.svg'
 
 export type ResourceTableItemProps = {
   id: string
@@ -10,7 +11,13 @@ export type ResourceTableItemProps = {
   onDelete?: (itemName: string) => void
 }
 
-const ResourceTableItem = ({ id, name, quantity, um, onDelete }: ResourceTableItemProps) => {
+const ResourceTableItem = ({
+  id,
+  name,
+  quantity,
+  um,
+  onDelete,
+}: ResourceTableItemProps) => {
   return (
     <div
       className={clsx(
@@ -23,11 +30,11 @@ const ResourceTableItem = ({ id, name, quantity, um, onDelete }: ResourceTableIt
       <div className="w-50%">{name}</div>
       <div className="w-50% flex items-center">
         {quantity && um && <span className="mr-3">{`${quantity} ${um}`}</span>}
-        {onDelete &&
+        {onDelete && (
           <button onClick={() => onDelete(id)}>
-            <Image alt="delete_icon" src="/icons/delete.svg" />
+            <Image alt="delete_icon" src={IconDelete} />
           </button>
-        }
+        )}
       </div>
     </div>
   )

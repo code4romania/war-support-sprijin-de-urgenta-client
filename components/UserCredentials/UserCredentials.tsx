@@ -47,7 +47,7 @@ const INPUTS = [
     name: 're_password',
     label: 'signup.userType.re_password',
     type: 'password',
-  }
+  },
 ]
 
 interface UserCredentialsProps {
@@ -82,18 +82,21 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
       .required(t('signup.userType.phone_number.required'))
       .matches(phoneNumberRegex, t('signup.userType.phone_number.invalid')),
     gdpr_consent: yup
-      .boolean().required().oneOf([true], t('signup.error.gdpr.required'))
+      .boolean()
+      .required()
+      .oneOf([true], t('signup.error.gdpr.required')),
   })
 
   const {
     handleSubmit,
     register,
     formState: { errors },
+    setError,
   } = useForm<{ [key: string | 'gdpr_consent']: any }>({
     resolver: yupResolver(schema),
     defaultValues: {
-      gdpr_consent: false
-    }
+      gdpr_consent: false,
+    },
   })
 
   const handleBack = () => {
@@ -126,11 +129,13 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
         await router.push(`/${resourceType}/resources`)
         dispatch({ type: ActionType.DECREASE })
       } else {
-        setServerErrors(response)
+        Object.keys(response).forEach((key) => {
+          setError(key, { message: response[key].join('\n') })
+        })
       }
     } catch (e) {
       setServerErrors({
-        'non_field_errors': [t('register.genericError')],
+        non_field_errors: [t('register.genericError')],
       })
     }
   }
@@ -144,11 +149,7 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
               key={input.name}
               required
               label={`${t(input.label)}:`}
-              errors={
-                serverErrors[input.name]
-                  ? { message: serverErrors[input.name].join('\n') }
-                  : errors[input.name]
-              }
+              errors={errors[input.name]}
               type={input.type}
               {...register(input.name)}
             />
@@ -165,10 +166,13 @@ const UserCredentials = ({ resourceType }: UserCredentialsProps) => {
 
       <div className={`bg-blue-50 px-4 py-4 rounded-md mt-4`}>
         <div className="md:w-2/3 max-w-small">
-          <Consent required name={'gdpr_consent'}
+          <Consent
+            required
+            name={'gdpr_consent'}
             register={register}
             text={`${t('gdpr.consent')}`}
-            errors={errors.gdpr_consent} />
+            errors={errors.gdpr_consent}
+          />
         </div>
       </div>
       <StepperButtonGroup

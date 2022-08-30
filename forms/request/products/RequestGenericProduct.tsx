@@ -32,31 +32,41 @@ type RequestGenericProductForm = {
   has_transportation: boolean
 }
 
-export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category }) => {
+export const RequestGenericProduct: FC<IProps> = ({
+  counties,
+  onSubmit,
+  category,
+}) => {
   const { t } = useTranslation()
 
-  const genericRequestSchema: SchemaOf<RequestGenericProductForm> = yup.object().shape({
-    county_coverage: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-    town: yup.string().notRequired(),
-    name: yup
-      .string()
-      .typeError(t('error.must.be.string'))
-      .required(t('error.county.required')),
-    description: yup.string().notRequired(),
-    quantity: yup
-      .number()
-      .min(1, t('error.quantity.minOne'))
-      .typeError(t('error.must.be.number')),
-    unit_type: yup.string().required(t('error.unitType.required')),
-    packaging_type: yup.string().required(t('error.packagkingType.required')),
-    has_transportation: yup
-      .boolean()
-      .typeError(t('error.must.be.boolean'))
-      .required(t('error.has_transportation.required'))
-  })
+  const genericRequestSchema: SchemaOf<RequestGenericProductForm> = yup
+    .object()
+    .shape({
+      county_coverage: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+      town: yup.string().notRequired(),
+      name: yup
+        .string()
+        .typeError(t('error.must.be.string'))
+        .required(t('error.county.required')),
+      description: yup.string().notRequired(),
+      quantity: yup
+        .number()
+        .transform((currentValue, originalValue) => {
+          return originalValue === '' ? undefined : currentValue
+        })
+        .notRequired()
+        .min(1, t('error.quantity.minOne'))
+        .typeError(t('error.must.be.number')),
+      unit_type: yup.string().required(t('error.unitType.required')),
+      packaging_type: yup.string().required(t('error.packagkingType.required')),
+      has_transportation: yup
+        .boolean()
+        .typeError(t('error.must.be.boolean'))
+        .required(t('error.has_transportation.required')),
+    })
   const {
     handleSubmit,
     register,
@@ -70,7 +80,11 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
   })
 
   const onFormSubmit = (values: RequestGenericProductForm) => {
-    const donateItemRequest: RequestItemRequest = { ...values, category, kind: 'withName' }
+    const donateItemRequest: RequestItemRequest = {
+      ...values,
+      category,
+      kind: 'withName',
+    }
     onSubmit(donateItemRequest)
   }
 
@@ -78,7 +92,8 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
     <ProductTypeWrapper onSubmit={handleSubmit(onFormSubmit)}>
       <RadioGroup
         label={t('services.offerTransport')}
-        errors={errors.has_transportation}>
+        errors={errors.has_transportation}
+      >
         <div className="flex flex-row gap-6">
           <Radio value="true" {...register('has_transportation')}>
             {t('yes')}
@@ -90,7 +105,10 @@ export const RequestGenericProduct: FC<IProps> = ({ counties, onSubmit, category
       </RadioGroup>
       <Product register={register} errors={errors} names={{ name: 'name' }} />
 
-      <Textarea {...register('description')} label={t('signup.products.description')} />
+      <Textarea
+        {...register('description')}
+        label={t('signup.products.description')}
+      />
 
       <Quantity
         register={register}
