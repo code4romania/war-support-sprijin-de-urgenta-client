@@ -57,6 +57,7 @@ const MainPage = ({ type }: IMainPageProps) => {
           <div className="flex flex-wrap">
             {categoriesList.map((item: ICategory) => (
               <Button
+                route={item?.href}
                 key={item.slug}
                 text={t(item.slug)}
                 onClick={() => handleClick(item.slug)}
