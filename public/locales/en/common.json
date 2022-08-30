@@ -21,7 +21,7 @@
   "cta.request_stay.description": "If you find yourself in the position where you need accommodation, please do it through the module dedicated to accommodation, Un Acoperiș. We will ask you to fill in a simple form to find out what your accommodation needs are and we will guide you to the most suitable place for you.",
   "cta.request_stay.button_label": "I need accommodation",
   "request.subtitle": "I need:",
-  "offer.subtitle": "I Want To Help With:",
+  "offer.subtitle": "I want to help with:",
   "housing": "Accommodation",
   "products": "Products",
   "services": "Services",
@@ -280,5 +280,6 @@
   "Translator/Traducător": "Translator",
   "Veterinar": "Veterinarian",
   "signup.products.sanitary.materials": "Sanitary materials",
-  "signup.products.medicine": "Medicine"
+  "signup.products.medicine": "Medicine",
+  "foodform": "If you are an organization or authority that manages refugee centers and want to request the daily food rations you need, click here."
 }

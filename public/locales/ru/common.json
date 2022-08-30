@@ -23,7 +23,7 @@
   "request.subtitle": "Мне нужно:",
   "offer.subtitle": "Я хочу помочь с:",
   "housing": "Жилье",
-  "products": "Товары",
+  "products": "Продукты",
   "services": "Услуги",
   "others": "Другие",
   "volunteer": "Доброволец",
@@ -279,5 +279,6 @@
   "Translator/Traducător": "Переводчик",
   "Veterinar": "Ветеринар",
   "signup.products.sanitary.materials": "Материалы первой помощи",
-  "signup.products.medicine": "Медикаменты"
+  "signup.products.medicine": "Медикаменты",
+  "foodform": "Для организаций и органов, управляющих центрами для беженцев: Чтобы запросить дневной рацион питания, который вам нужен в центре, нажмите здесь."
 }
