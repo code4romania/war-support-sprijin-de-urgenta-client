@@ -7,15 +7,15 @@ export const initialState = [
   },
   {
     locale: 'en',
-    href: '/en/solicitari-mancare/',
+    href: '/en/food-requests/',
   },
   {
     locale: 'uk',
-    href: '/uk/solicitari-mancare/',
+    href: '/en/food-requests/',
   },
   {
     locale: 'ru',
-    href: '/ru/solicitari-mancare/',
+    href: '/en/food-requests/',
   },
 ]
 
