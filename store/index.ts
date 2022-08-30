@@ -17,6 +17,10 @@ import {
   categories,
   initialState as defaultCategoriesState,
 } from './reducers/categories'
+import {
+  foodform,
+  initialState as defaultFoodFormState,
+} from './reducers/foodform'
 
 const withMiddlewares = (middleware: Middleware[]) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -32,6 +36,7 @@ const reducers = combineReducers({
   locale,
   steps,
   categories,
+  foodform,
   signup,
 })
 
@@ -46,6 +51,7 @@ const { withRedux: withStore } = createWrapper<Store<State>>(
       locale: 'ro',
       steps: defaultStepsState,
       categories: defaultCategoriesState,
+      foodform: defaultFoodFormState,
       signup: null,
     }),
   { debug: true }
