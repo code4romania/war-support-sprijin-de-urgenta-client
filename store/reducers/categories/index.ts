@@ -13,9 +13,6 @@ export const initialState = [
   {
     slug: 'others',
   },
-  {
-    slug: 'foodform',
-  },
 ]
 
 export const categories = (state = initialState, action: AnyAction) => {

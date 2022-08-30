@@ -1,10 +1,13 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import i18n from 'i18next'
 
 import { State } from '@/store/types/state.type'
 import { ICategory } from '@/store/reducers/categories/types'
+import { IFoodForm } from '@/store/reducers/foodform/types'
 import { setDefaultOffer } from '@/store/reducers/signup'
+
 
 import Button from '@/components/Button'
 import SubHeader from '@/components/SubHeader'
@@ -20,18 +23,17 @@ const MainPage = ({ type }: IMainPageProps) => {
   const router = useRouter()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { categories } = useSelector((state: State) => state)
-
+  const { categories, foodform } = useSelector((state: State) => state)
 
   // Ugly hack to make sure the food form button only shows on the request pages
-  
+
   //Request Categories List should contain all categories
   const requestCategoriesList = categories
   //Offer Categories List should all categories except 'foodform'
   const offerCategoriesList = categories.filter(
     (category: ICategory) => category.slug !== 'foodform'
   )
-  
+
   //Depending on the type of the page, we will use the appropriate categories list
   const categoriesList = type === 'request' ? requestCategoriesList : offerCategoriesList
 
@@ -63,6 +65,18 @@ const MainPage = ({ type }: IMainPageProps) => {
                 className="flex-[1_1_35%] m-4 md:m-8"
               />
             ))}
+          </div>
+          <div className="flex flex-wrap">
+            {foodform
+              .filter((item: IFoodForm) => item.locale === i18n.language)
+              .map((item: IFoodForm) => (
+                <Button
+                  route={`${process.env.NEXT_PUBLIC_PUBLIC_API}/${item.href}`}
+                  key={item.locale}
+                  text={t('foodform')}
+                  className="flex-[1_1_35%] m-4 md:m-8"
+                />
+              ))}
           </div>
         </section>
       </main>
