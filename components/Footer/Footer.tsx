@@ -66,7 +66,7 @@ const Footer = () => {
         </div>
 
         <div className="space-y-4 tracking-wide lg:text-right">
-          <p>&copy; {new Date().getFullYear()} Code for Romania.</p>
+          <p>&copy; {new Date().getFullYear()} Commit Global.</p>
           <p className="max-w-[45ch] lg:ml-auto md">
             {t('code4ro.description')}
           </p>

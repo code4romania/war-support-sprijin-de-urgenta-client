@@ -12,7 +12,7 @@ import GovRo from '../../public/gov_ro.png'
 import GovRoMobile from '../../public/gov_ro_mobile.svg'
 import DsuLogo from '../../public/DSU_logo.png'
 import code4romania from '../../public/code4romania.svg'
-import CodeLogo from '../../public/code_logo.svg'
+import CommitLogo from '../../public/commitglobal.svg'
 import Logo from '../../public/logo.svg'
 
 const PARTNERSHIPS = [
@@ -65,19 +65,19 @@ const Header = () => {
     <div className="w-full mx-auto">
       <div className="bg-gray-50">
         <div
-          className={`${flexItemsCenter} 
+          className={`${flexItemsCenter}
           ${clsx('py-3 px-2', 'container mx-auto')}`}
         >
           <Image
-            src={CodeLogo}
-            alt="Code 4 Romania logo"
+            src={CommitLogo}
+            alt="Commit Global logo"
             width={90}
-            height={27}
+            height={25}
           />
           <div className="flex flex-col ml-6 text-sm font-medium text-gray-700 md:flex-row md:gap-1">
-            <span>{`${t('solution.by')} `}</span>
+            <span>{t('solution.by')}.</span>
             <a
-              href="https://www.code4.ro/"
+              href="https://www.commitglobal.org/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-900 hover:underline whitespace-nowrap"
